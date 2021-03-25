@@ -3,14 +3,13 @@ import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { UserResolver } from "./UserResolver";
-import { createConnection, getConnectionOptions } from "typeorm";
+import { typeormConnection } from "./utils/typeormConnection";
 
 (async () => {
   const app = express();
   app.get("/ping", (_, res) => res.send("pong"));
 
-  const connection = await getConnectionOptions("default");
-  await createConnection(connection);
+  await typeormConnection.create();
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
@@ -19,7 +18,9 @@ import { createConnection, getConnectionOptions } from "typeorm";
   });
 
   apolloServer.applyMiddleware({ app });
-  app.listen(4000, () => {
+  
+  const port = process.env.PORT || 4000;
+  app.listen(port, () => {
     console.log("express server started...");
   });
 })();

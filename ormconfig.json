@@ -1,5 +1,5 @@
 [{
-   "name": "default",
+   "name": "development",
    "type": "postgres",
    "host": "api_db",
    "port": 5432,
@@ -33,8 +33,9 @@
    "database": "api_test",
    "synchronize": true,
    "logging": false,
+   "dropSchema": true,
    "entities": [
-      "src/entity/**/*.ts"
+      "src/entity/**/!(*test.ts)"
    ],
    "migrations": [
       "src/migration/**/*.ts"

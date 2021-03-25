@@ -11,9 +11,6 @@ services:
       - '.:/usr/src/app'
     ports:
       - 4004:4000
-    environment:
-      - DATABASE_URL=postgres://postgres:postgres@api-db:5432/api_dev
-      - DATABASE_TEST_URL=postgres://postgres:postgres@api-db:5432/api_test
     depends_on:
       - api-db
   

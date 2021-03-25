@@ -26,13 +26,19 @@ export class UserResolver {
   @Mutation(() => Boolean)
   async register(
     @Arg("email") email: string,
-    @Arg("password") password: string
+    @Arg("password") password: string,
+    @Arg("firstName") firstName: string,
+    @Arg("lastName") lastName: string,
+    @Arg("username") username: string,
   ) {
     try {
       const hashedPassword = await argon2.hash(password);
       await User.insert({
         email,
         password: hashedPassword,
+        firstName,
+        lastName,
+        username
       });
     } catch (err) {
       console.error(err);
