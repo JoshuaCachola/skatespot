@@ -37,9 +37,59 @@ it('registers a user', async () => {
   expect(user.password).not.toEqual(variables.password);
 });
 
-// it('logs in a user and returns an access token', async () => {
+it('logs in a user and returns an access token', async () => {
+  const variables = {
+    email: "test@user.com",
+    password: "testpassword",
+  }
 
-// });
+  const mutation = gql`
+    mutation LoginUser($email: String!, $password: String!) {
+      login(email: $email, password: $password) {
+        accessToken
+      }
+    }
+  `;
+
+  const {login} = await client.request(mutation, variables); 
+  expect(login.accessToken).not.toEqual('');
+});
+
+it('does not log in user with invalid email', async () => {
+  const variables = {
+    email: "test@other-user.com",
+    password: "testpassword"
+  }
+
+  const mutation = gql`
+    mutation LoginUser($email: String!, $password: String!) {
+      login(email: $email, password: $password) {
+        accessToken
+      }
+    }
+  `;
+
+  const {login} = await client.request(mutation, variables); 
+  expect(login.accessToken).toEqual('');
+});
+
+it('does not log in user with invalid password', async () => {
+  const variables = {
+    email: "test@user.com",
+    password: "othertestpassword"
+  }
+
+  const mutation = gql`
+    mutation LoginUser($email: String!, $password: String!) {
+      login(email: $email, password: $password) {
+        accessToken
+      }
+    }
+  `;
+
+  const {login} = await client.request(mutation, variables); 
+  expect(login.accessToken).toEqual('');
+});
 
 it('returns hi', async () => {
   const query = gql`{

@@ -12,10 +12,8 @@ RUN apt-get update \
 
 COPY package.json .
 COPY package-lock.json .
-COPY tsconfig.json .
-COPY ormconfig.json .
 
-RUN npm i
+RUN npm ci
 
 COPY . .
 COPY entrypoint.sh .
