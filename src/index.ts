@@ -9,6 +9,7 @@ import { verify } from 'jsonwebtoken';
 import { createToken } from './utils/createToken';
 import { User } from './entity/User';
 import { sendRefreshTokenInCookie } from './utils/sendRefreshTokenInCookie';
+import cors from 'cors';
 
 interface RefreshTokenPayload {
   userId: number;
@@ -20,11 +21,17 @@ interface RefreshTokenPayload {
 (async () => {
   const app = express();
   app.use(cookieParser());
-  app.get('/ping', (_, res) => res.send('pong'));
+  app.use(cors({
+    origin: 'http://localhost:3007',
+    credentials: true,
+  }));
+  app.get('/ping', (_, res) => {
+    res.cookie('ping', 'pong').send('pong');
+  });
 
   app.post('/refresh_token', async (req, res) => {
     const token = req.cookies.jrt;
-
+    console.log(req.headers);
     if (!token) {
       return res.json({ accessToken: '' });
     }
@@ -55,7 +62,7 @@ interface RefreshTokenPayload {
     context: ({ req, res }) => ({ req, res }),
   });
 
-  apolloServer.applyMiddleware({ app });
+  apolloServer.applyMiddleware({ app, cors: false });
 
   const port = process.env.PORT || 4000;
   app.listen(port, () => {

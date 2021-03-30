@@ -52,7 +52,7 @@ export class UserResolver {
   async login(
     @Arg('email') email: string,
     @Arg('password') password: string,
-    @Ctx() { res }: TokenCookieCtx,
+    @Ctx() { req, res }: TokenCookieCtx,
   ): Promise<LoginResponse> {
     const user = await User.findOne({ where: { email } });
     if (!user) {
@@ -64,6 +64,7 @@ export class UserResolver {
     if (await argon2.verify(user.password, password)) {
       const accessToken = createToken.access(user);
       sendRefreshTokenInCookie(res, createToken.refresh(user));
+      console.log(req.cookies);
       return {
         accessToken,
       };
