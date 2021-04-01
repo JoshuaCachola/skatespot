@@ -27,6 +27,7 @@ export type Mutation = {
   register: Scalars['Boolean'];
   login: LoginResponse;
   revokeRefreshTokenForUser: Scalars['Boolean'];
+  createSkateSpot: Scalars['Boolean'];
 };
 
 
@@ -49,6 +50,14 @@ export type MutationRevokeRefreshTokenForUserArgs = {
   userId: Scalars['Int'];
 };
 
+
+export type MutationCreateSkateSpotArgs = {
+  state: Scalars['String'];
+  city: Scalars['String'];
+  address: Scalars['String'];
+  name: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
@@ -64,6 +73,19 @@ export type User = {
   lastName: Scalars['String'];
   createdAt: Scalars['DateTime'];
 };
+
+export type CreateSkateSpotMutationVariables = Exact<{
+  name: Scalars['String'];
+  address: Scalars['String'];
+  city: Scalars['String'];
+  state: Scalars['String'];
+}>;
+
+
+export type CreateSkateSpotMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'createSkateSpot'>
+);
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -113,6 +135,40 @@ export type HelloQuery = (
 );
 
 
+export const CreateSkateSpotDocument = gql`
+    mutation CreateSkateSpot($name: String!, $address: String!, $city: String!, $state: String!) {
+  createSkateSpot(name: $name, address: $address, city: $city, state: $state)
+}
+    `;
+export type CreateSkateSpotMutationFn = Apollo.MutationFunction<CreateSkateSpotMutation, CreateSkateSpotMutationVariables>;
+
+/**
+ * __useCreateSkateSpotMutation__
+ *
+ * To run a mutation, you first call `useCreateSkateSpotMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSkateSpotMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSkateSpotMutation, { data, loading, error }] = useCreateSkateSpotMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      address: // value for 'address'
+ *      city: // value for 'city'
+ *      state: // value for 'state'
+ *   },
+ * });
+ */
+export function useCreateSkateSpotMutation(baseOptions?: Apollo.MutationHookOptions<CreateSkateSpotMutation, CreateSkateSpotMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateSkateSpotMutation, CreateSkateSpotMutationVariables>(CreateSkateSpotDocument, options);
+      }
+export type CreateSkateSpotMutationHookResult = ReturnType<typeof useCreateSkateSpotMutation>;
+export type CreateSkateSpotMutationResult = Apollo.MutationResult<CreateSkateSpotMutation>;
+export type CreateSkateSpotMutationOptions = Apollo.BaseMutationOptions<CreateSkateSpotMutation, CreateSkateSpotMutationVariables>;
 export const GetUsersDocument = gql`
     query GetUsers {
   users {

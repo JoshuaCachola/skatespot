@@ -28,10 +28,12 @@ export class UserResolver {
     @Arg('lastName') lastName: string,
     @Arg('username') username: string,
   ): Promise<boolean> {
-    const user = User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email } });
+
     if (!user) {
       return false;
     }
+
     try {
       const hashedPassword = await argon2.hash(password);
       await User.insert({
@@ -91,4 +93,4 @@ export class UserResolver {
   users(): Promise<Array<User>> {
     return User.find();
   }
-}
+};

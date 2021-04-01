@@ -1,0 +1,3 @@
+mutation CreateSkateSpot($name: String!, $address: String!, $city: String!, $state: String!) {
+  createSkateSpot(name: $name, address: $address, city: $city, state: $state)
+}

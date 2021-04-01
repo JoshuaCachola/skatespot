@@ -23,10 +23,11 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "npm run tailwind:css && react-scripts start",
+    "build": "npm run tailwind:css && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "tailwind:css": "tailwind build src/styles/tailwind.css -c tailwind.config.js -o src/index.css",
     "gen": "graphql-codegen --config codegen.yml"
   },
   "eslintConfig": {
@@ -53,6 +54,9 @@
     "@graphql-codegen/typescript-operations": "1.17.15",
     "@graphql-codegen/typescript-react-apollo": "2.2.3",
     "@types/graphql": "^14.5.0",
-    "@types/react-router-dom": "^5.1.7"
+    "@types/react-router-dom": "^5.1.7",
+    "autoprefixer": "^10.2.5",
+    "postcss": "^8.2.9",
+    "tailwindcss": "^2.0.4"
   }
 }

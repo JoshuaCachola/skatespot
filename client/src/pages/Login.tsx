@@ -51,13 +51,13 @@ export const Login: React.FC<RouteComponentProps> = ({history}) => {
               <Form>
                 <div>
                   <div>
-                    <label htmlFor='email'>Email </label>
                     <input
                       name='email'
                       id='email'
                       value={values.email}
                       type='email'
                       placeholder='Email Address'
+                      className='pl-8 border-b-2 font-display focus:outline-none focus:border-primarycolor transition-all duration-500 capitalize text-lg'
                       onBlur={handleBlur}
                       onChange={handleChange}
                     />
@@ -66,11 +66,12 @@ export const Login: React.FC<RouteComponentProps> = ({history}) => {
                     )}
                   </div>
                   <div>
-                    <label htmlFor='password'>Password </label>
                     <input
                       name='password'
                       id='password'
                       type='text'
+                      placeholder='Password'
+                      className='pl-8 border-b-2 font-display focus:outline-none focus:border-primarycolor transition-all duration-500 capitalize text-lg'
                       onBlur={handleBlur}
                       onChange={handleChange}
                     />

@@ -21,7 +21,7 @@ export class User extends BaseEntity {
   @Field()
   @Column({
     type: 'varchar',
-    length: '32',
+    length: 32,
     nullable: false,
   })
   username: string;
@@ -58,4 +58,4 @@ export class User extends BaseEntity {
     default: 0,
   })
   tokenVersion: number;
-}
+};

@@ -12,7 +12,7 @@ export const Home: React.FC<Props> = () => {
 
   return (
     <>
-      <h1>Hello</h1>
+      <h1>Home</h1>
       {!loading && data && data.users.map((user: any) => {
         return (
           <li key={user.id}>{user.email}</li>

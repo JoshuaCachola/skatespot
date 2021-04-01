@@ -3,6 +3,7 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { UserResolver } from './UserResolver';
+import { SkateSpotResolver } from './SkateSpotResolver';
 import { typeormConnection } from './utils/typeormConnection';
 import cookieParser from 'cookie-parser';
 import { verify } from 'jsonwebtoken';
@@ -10,6 +11,7 @@ import { createToken } from './utils/createToken';
 import { User } from './entity/User';
 import { sendRefreshTokenInCookie } from './utils/sendRefreshTokenInCookie';
 import cors from 'cors';
+
 
 interface RefreshTokenPayload {
   userId: number;
@@ -57,7 +59,7 @@ interface RefreshTokenPayload {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [UserResolver],
+      resolvers: [UserResolver, SkateSpotResolver],
     }),
     context: ({ req, res }) => ({ req, res }),
   });
