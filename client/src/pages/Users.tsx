@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const Users: React.FC<Props> = () => {
-  const {data, loading} = useGetUsersQuery();
+  const {data, loading} = useGetUsersQuery({fetchPolicy: 'network-only'});
 
   if (loading) return <h1>loading...</h1>
 

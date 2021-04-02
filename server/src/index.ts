@@ -28,7 +28,7 @@ interface RefreshTokenPayload {
     credentials: true,
   }));
   app.get('/ping', (_, res) => {
-    res.cookie('ping', 'pong').send('pong');
+    res.send('pong');
   });
 
   app.post('/refresh_token', async (req, res) => {

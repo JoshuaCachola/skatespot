@@ -11,9 +11,8 @@ RUN apt-get update \
   && apt-get clean
 
 COPY package.json .
-COPY package-lock.json .
 
-RUN npm ci
+RUN npm install
 
 COPY . .
 COPY entrypoint.sh .

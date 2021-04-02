@@ -30,7 +30,7 @@ export class UserResolver {
   ): Promise<boolean> {
     const user = await User.findOne({ where: { email } });
 
-    if (!user) {
+    if (user) {
       return false;
     }
 
@@ -47,6 +47,7 @@ export class UserResolver {
       console.error(err);
       return false;
     }
+
     return true;
   }
 
@@ -57,6 +58,7 @@ export class UserResolver {
     @Ctx() { req, res }: TokenCookieCtx,
   ): Promise<LoginResponse> {
     const user = await User.findOne({ where: { email } });
+
     if (!user) {
       return {
         accessToken: '',
@@ -86,6 +88,12 @@ export class UserResolver {
       console.error(err);
       return false;
     }
+  }
+
+  @Mutation(() => Boolean)
+  async logout(@Ctx() {res}: TokenCookieCtx) {
+    sendRefreshTokenInCookie(res, '');
+    return true;
   }
 
   @Query(() => [User])
