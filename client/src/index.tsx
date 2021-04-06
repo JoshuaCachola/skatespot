@@ -1,33 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {ApolloClient, ApolloLink, ApolloProvider, /*createHttpLink,*/ HttpLink, InMemoryCache, Observable} from '@apollo/client';
+import {ApolloClient, ApolloLink, ApolloProvider, /*createHttpLink,*/ HttpLink, Observable, /*useQuery*/} from '@apollo/client';
 import { App } from './App';
 import { getAccessToken, setAccessToken } from './accessToken';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwtDecode from 'jwt-decode';
 import { JwtPayload } from 'jwt-decode';
+import { cache, GET_ACCESS_TOKEN } from './cache';
+import './index.css';
 
-// const httpLink = createHttpLink({ 
-//   uri: `${process.env.REACT_APP_API_SERVICE_URL}/graphql`,
-//   credentials: 'include'
-// });
-
-// const authLink = setContext((_, { headers }) => {
-//   const accessToken = getAccessToken();
-//   return {
-//     headers: {
-//       ...headers,
-//       authorization: accessToken ? `Bearer ${accessToken}` : '',
-//     }
-//   }
-// });
 
 const requestLink = new ApolloLink((operation, forward) =>
   new Observable(observer => {
     let handle: any;
     Promise.resolve(operation)
-      .then(oper => {
-        const accessToken = getAccessToken();
+      .then(async (oper) => {
+        // const accessToken = getAccessToken();
+        const results = await client.query({
+          query: GET_ACCESS_TOKEN,
+          fetchPolicy: 'cache-only'
+        });
+        console.log(results.data.accessToken);
+        // const {data} = useQuery(GET_ACCESS_TOKEN);
+        const accessToken = results.data.accessToken;
+        console.log(accessToken);
         if (accessToken) {
           oper.setContext({
             headers: {
@@ -50,8 +46,6 @@ const requestLink = new ApolloLink((operation, forward) =>
     };
   })
 );
-
-const cache = new InMemoryCache();
 
 const client = new ApolloClient({
   link: ApolloLink.from([

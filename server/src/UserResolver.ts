@@ -6,6 +6,11 @@ import { TokenCookieCtx } from './utils/TokenCookieCtx';
 import { isAuth } from './isAuth';
 import { sendRefreshTokenInCookie } from './utils/sendRefreshTokenInCookie';
 import { getConnection } from 'typeorm';
+import { verify } from 'jsonwebtoken';
+
+interface Payload {
+  userId: string;
+};
 
 @ObjectType()
 class LoginResponse {
@@ -15,11 +20,6 @@ class LoginResponse {
 
 @Resolver()
 export class UserResolver {
-  @Query(() => String)
-  hello(): string {
-    return 'hi';
-  }
-
   @Mutation(() => Boolean)
   async register(
     @Arg('email') email: string,
@@ -96,9 +96,28 @@ export class UserResolver {
     return true;
   }
 
+  @Query(() => String)
+  hello(): string {
+    return 'hi';
+  }
+
   @Query(() => [User])
   @UseMiddleware(isAuth)
-  users(): Promise<Array<User>> {
-    return User.find();
+  async users(): Promise<Array<User>> {
+    return await User.find();
+  }
+
+  @Query(() => User)
+  me(@Ctx() {req}: TokenCookieCtx) {
+    const authorization = req.headers['authorization'];
+
+    if (!authorization) {
+      return null;
+    }
+
+    const accessToken = authorization.split(' ')[1];
+    const payload = verify(accessToken, process.env.ACCESS_TOKEN_SECRET!) as Payload;
+
+    return User.findOne(payload.userId)
   }
 };

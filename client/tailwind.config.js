@@ -5,7 +5,10 @@ module.exports = {
     extend: {
       colors: {
         primaryColor: '',
-      }
+      },
+    },
+    height: {
+      '50': '50vh'
     },
     fontFamily: {
       display: ['Raleway', 'sans-serif'],

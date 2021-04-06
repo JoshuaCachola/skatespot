@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { setAccessToken } from 'src/accessToken';
+import { accessToken } from 'src/cache';
+// import { setAccessToken } from 'src/accessToken';
 import { useLogoutUserMutation } from 'src/generated/graphql';
 
 interface Props {
@@ -30,7 +31,7 @@ export const Header: React.FC<Props> = () => {
         <button
           onClick={async () => {
             await logout();
-            setAccessToken('');
+            await accessToken('');
             await client.resetStore();
           }}
         >Logout</button>

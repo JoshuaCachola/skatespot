@@ -3,7 +3,8 @@ import { Formik, FormikProps, Form } from 'formik';
 import { useLoginUserMutation } from 'src/generated/graphql';
 import * as Yup from 'yup';
 
-import {setAccessToken} from '../accessToken';
+// import {setAccessToken} from '../accessToken';
+import { accessToken } from '../cache';
 import { RouteComponentProps } from 'react-router';
 
 interface LoginForm {
@@ -14,8 +15,9 @@ password: string,
 export const Login: React.FC<RouteComponentProps> = ({history}) => {
   const [login] = useLoginUserMutation({ 
     onCompleted({login}) {
-      setAccessToken(login.accessToken);
-      console.log(login.accessToken);
+      // setAccessToken(login.accessToken);
+      // console.log(login.accessToken);
+      accessToken(login.accessToken);
     }});
   
   return (

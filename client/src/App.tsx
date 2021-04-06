@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { setAccessToken } from './accessToken';
+// import { setAccessToken } from './accessToken';
+import { accessToken } from './cache';
 import { Routes } from './Routes';
 
 export const App: React.FC = () => {
@@ -18,7 +19,8 @@ export const App: React.FC = () => {
         }
 
         const data = await response.json();
-        setAccessToken(data.accessToken);
+        // setAccessToken(data.accessToken);
+        accessToken(data.accessToken);
         setLoading(false);
       } catch (err) {
         console.error(err);
