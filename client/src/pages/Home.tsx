@@ -13,7 +13,7 @@ export const Home: React.FC<Props> = () => {
         <img src={HomepageHero} alt='homepage hero' className='w-screen max-h-full bg-contain object-cover'/>
       </div>
       <div>
-        <h1 className='text-blue-200'>Home</h1>
+        {/* <h1 className='text-blue-200'>Home</h1> */}
         <Header />
       </div>
     </div>

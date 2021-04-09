@@ -11,6 +11,8 @@ import { createToken } from './utils/createToken';
 import { User } from './entity/User';
 import { sendRefreshTokenInCookie } from './utils/sendRefreshTokenInCookie';
 import cors from 'cors';
+import { UploadResolver } from './UploadResolver';
+import { graphqlUploadExpress } from 'graphql-upload';
 
 
 interface RefreshTokenPayload {
@@ -27,6 +29,7 @@ interface RefreshTokenPayload {
     origin: 'http://localhost:3007',
     credentials: true,
   }));
+  app.use(graphqlUploadExpress());
   app.get('/ping', (_, res) => {
     res.send('pong');
   });
@@ -59,9 +62,10 @@ interface RefreshTokenPayload {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [UserResolver, SkateSpotResolver],
+      resolvers: [UserResolver, SkateSpotResolver, UploadResolver],
     }),
     context: ({ req, res }) => ({ req, res }),
+    uploads: false,
   });
 
   apolloServer.applyMiddleware({ app, cors: false });

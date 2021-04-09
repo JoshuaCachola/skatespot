@@ -6,7 +6,8 @@ import { getAccessToken, setAccessToken } from './accessToken';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwtDecode from 'jwt-decode';
 import { JwtPayload } from 'jwt-decode';
-import { cache, GET_ACCESS_TOKEN } from './cache';
+import { cache } from './graphql/client/cache';
+import { GET_ACCESS_TOKEN } from '../src/graphql/GetAccessToken';
 import './index.css';
 
 

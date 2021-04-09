@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { accessToken } from 'src/cache';
+import { accessToken } from '../graphql/reactive-variables/accessToken';
 // import { setAccessToken } from 'src/accessToken';
 import { useLogoutUserMutation } from 'src/generated/graphql';
 

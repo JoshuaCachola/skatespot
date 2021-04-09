@@ -4,7 +4,7 @@ import { useLoginUserMutation } from 'src/generated/graphql';
 import * as Yup from 'yup';
 
 // import {setAccessToken} from '../accessToken';
-import { accessToken } from '../cache';
+import { accessToken } from '../graphql/reactive-variables/accessToken';
 import { RouteComponentProps } from 'react-router';
 
 interface LoginForm {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // import { setAccessToken } from './accessToken';
-import { accessToken } from './cache';
+import { accessToken } from './graphql/reactive-variables/accessToken';
 import { Routes } from './Routes';
 
 export const App: React.FC = () => {
