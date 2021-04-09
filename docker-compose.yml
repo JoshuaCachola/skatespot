@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   api:
@@ -6,11 +6,16 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    entrypoint: ['/usr/src/app/entrypoint.sh']
+    entrypoint: ["/usr/src/app/entrypoint.sh"]
     volumes:
-      - './server:/usr/src/app'
+      - "./server:/usr/src/app"
     ports:
       - 4004:4000
+    environment:
+      - ACCESS_KEY_ID=${ACCESS_KEY_ID}
+      - SECRET_ACCESS_KEY=${SECRET_ACCESS_KEY}
+      - REGION=${REGION}
+      - AWS_BUCKET=${AWS_BUCKET}
     depends_on:
       - api-db
 
@@ -31,8 +36,8 @@ services:
       context: ./client
       dockerfile: Dockerfile
     volumes:
-      - './client:/usr/src/app'
-      - '/usr/src/app/node_modules'
+      - "./client:/usr/src/app"
+      - "/usr/src/app/node_modules"
     ports:
       - 3007:3000
     environment:

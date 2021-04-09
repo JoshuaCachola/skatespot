@@ -14,7 +14,6 @@ import cors from 'cors';
 import { UploadResolver } from './UploadResolver';
 import { graphqlUploadExpress } from 'graphql-upload';
 
-
 interface RefreshTokenPayload {
   userId: number;
   iat: number;
@@ -33,7 +32,7 @@ interface RefreshTokenPayload {
   app.get('/ping', (_, res) => {
     res.send('pong');
   });
-
+  
   app.post('/refresh_token', async (req, res) => {
     const token = req.cookies.jrt;
     console.log(req.headers);
