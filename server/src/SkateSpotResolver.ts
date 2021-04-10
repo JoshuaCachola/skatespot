@@ -1,6 +1,6 @@
 import { Arg, Mutation, Resolver, UseMiddleware } from "type-graphql";
 import { SkateSpot } from "./entity/SkateSpot";
-import { isAuth } from "./isAuth";
+import { isAuth } from "./utils/isAuth";
 
 @Resolver()
 export class SkateSpotResolver {

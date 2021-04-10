@@ -1,7 +1,12 @@
-import { Arg, Field, ObjectType, Mutation, Resolver } from "type-graphql";
+import { Arg, /*Field, ObjectType,*/ Mutation, Ctx, Resolver } from "type-graphql";
 import { GraphQLUpload } from 'graphql-upload';
 import { Stream } from "stream";
 import { createWriteStream } from "fs";
+import { TokenCookieCtx } from "./types/TokenCookieCtx";
+import { User } from './entity/User';
+import { verify } from 'jsonwebtoken';
+import { getConnection } from 'typeorm';
+import { Payload } from './types/JwtPayload';
 const s3 = require('./config/s3');
 
 interface Upload {
@@ -11,14 +16,15 @@ interface Upload {
   createReadStream: () => Stream;
 }
 
-@ObjectType()
-class UploadResponse {
-  @Field()
-  ok: boolean;
 
-  @Field()
-  location: string;
-}
+// @ObjectType()
+// class UploadResponse {
+//   @Field()
+//   ok: boolean;
+
+//   @Field()
+//   location: string;
+// }
 
 @Resolver()
 export class UploadResolver {
@@ -35,12 +41,15 @@ export class UploadResolver {
     })
   }
 
-  @Mutation(() => UploadResponse)
-  async singleUploadS3(@Arg('file', () => GraphQLUpload) {
-    createReadStream,
-    filename,
-    mimetype,
-  }: Upload): Promise<UploadResponse> {
+  @Mutation(() => Boolean)
+  async uploadProfilePicture(
+    @Arg('picture', () => GraphQLUpload) {
+      createReadStream,
+      filename,
+      mimetype,
+    }: Upload,
+    @Ctx() {req}: TokenCookieCtx
+  ): Promise<boolean> {
     const { Location } = await s3.upload({
       Body: createReadStream(),
       Key: `${filename}`,
@@ -50,14 +59,36 @@ export class UploadResolver {
       if (Location) {
         resolve({
           ok: true,
-          location: Location
+          url: Location
         })
       } else {
         reject({
           ok: false,
-          location: ''
+          url: ''
         })
       }
+    }).then(async () => {
+      const authorization = req.headers['authorization'];
+
+    if (!authorization) {
+      return false;
+    }
+
+    const accessToken = authorization.split(' ')[1];
+    const payload = verify(accessToken, process.env.ACCESS_TOKEN_SECRET!) as Payload;
+
+    try {
+      await getConnection()
+        .createQueryBuilder()
+        .update(User)
+        .set({ profilePicture: Location })
+        .where('id = :id', { id: payload.userId })
+        .execute();
+      return true;
+    } catch(err) {
+      console.error(err)
+      return false;
+    }
     })
   }
 };

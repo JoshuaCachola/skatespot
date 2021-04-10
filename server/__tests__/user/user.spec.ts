@@ -91,12 +91,3 @@ it('does not log in user with invalid password', async () => {
   expect(login.accessToken).toEqual('');
 });
 
-it('returns hi', async () => {
-  const query = gql`{
-    hello
-  }
-  `
-
-  const { data } = await client.rawRequest(query);
-  expect(data).toEqual({"hello": "hi"});
-});

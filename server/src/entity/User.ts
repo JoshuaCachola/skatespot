@@ -58,4 +58,11 @@ export class User extends BaseEntity {
     default: 0,
   })
   tokenVersion: number;
+
+  @Column({
+    type: 'varchar',
+    length: 255,
+    nullable: true
+  })
+  profilePicture: string;
 };

@@ -1,6 +1,6 @@
 import { verify } from 'jsonwebtoken';
 import { MiddlewareFn } from 'type-graphql';
-import { TokenCookieCtx } from './utils/TokenCookieCtx';
+import { TokenCookieCtx } from '../types/TokenCookieCtx';
 
 interface Payload {
   userId: string;

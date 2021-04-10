@@ -28,6 +28,9 @@ export const Header: React.FC<Props> = () => {
         <Link to='/create-skate-spot'>Create Spot</Link>
       </div>
       <div>
+        <Link to='user-profile'>User Profile</Link>
+      </div>
+      <div>
         <button
           onClick={async () => {
             await logout();

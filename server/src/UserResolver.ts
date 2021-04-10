@@ -2,8 +2,8 @@ import { Arg, Field, Mutation, ObjectType, Query, Resolver, Ctx, UseMiddleware, 
 import argon2 from 'argon2';
 import { User } from './entity/User';
 import { createToken } from './utils/createToken';
-import { TokenCookieCtx } from './utils/TokenCookieCtx';
-import { isAuth } from './isAuth';
+import { TokenCookieCtx } from './types/TokenCookieCtx';
+import { isAuth } from './utils/isAuth';
 import { sendRefreshTokenInCookie } from './utils/sendRefreshTokenInCookie';
 import { getConnection } from 'typeorm';
 import { verify } from 'jsonwebtoken';
@@ -108,7 +108,7 @@ export class UserResolver {
   }
 
   @Query(() => User)
-  me(@Ctx() {req}: TokenCookieCtx) {
+  async me(@Ctx() {req}: TokenCookieCtx) {
     const authorization = req.headers['authorization'];
 
     if (!authorization) {
@@ -118,6 +118,6 @@ export class UserResolver {
     const accessToken = authorization.split(' ')[1];
     const payload = verify(accessToken, process.env.ACCESS_TOKEN_SECRET!) as Payload;
 
-    return User.findOne(payload.userId)
+    return await User.findOne(payload.userId)
   }
 };

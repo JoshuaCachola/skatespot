@@ -59,6 +59,7 @@
    "database": "abd_db",
    "synchronize": true,
    "logging": false,
+   "dropSchema": true,
    "entities": [
       "src/entity/**/*.ts"
    ],
