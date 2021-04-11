@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Formik, FormikProps } from 'formik';
 import { useRegisterUserMutation } from 'src/generated/graphql';
+import { RouteComponentProps } from 'react-router';
 import * as Yup from 'yup';
 
 
@@ -13,7 +14,7 @@ interface RegisterForm {
   passwordConfirmation: string,
 };
 
-export const Register: React.FC = () => {
+export const Register: React.FC<RouteComponentProps> = ({ history }) => {
   const [register] = useRegisterUserMutation();
   return (
     <>
@@ -30,6 +31,7 @@ export const Register: React.FC = () => {
           register({variables: values});
           resetForm();
           setSubmitting(false);
+          history.push('/');
         }}
         validationSchema={Yup.object().shape({
           firstName: Yup.string().required('First name is required.'),

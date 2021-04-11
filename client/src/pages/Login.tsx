@@ -71,7 +71,7 @@ export const Login: React.FC<RouteComponentProps> = ({history}) => {
                     <input
                       name='password'
                       id='password'
-                      type='text'
+                      type='password'
                       placeholder='Password'
                       className='pl-8 border-b-2 font-display focus:outline-none focus:border-primarycolor transition-all duration-500 capitalize text-lg'
                       onBlur={handleBlur}
