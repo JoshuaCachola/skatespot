@@ -1,6 +1,6 @@
 import React from 'react';
 // import { Form, Formik, FormikProps } from 'formik';
-import { Header } from './Header';
+import { Header } from './Homepage/Header';
 import { UserInfo } from './UserInfo';
 
 interface Props {

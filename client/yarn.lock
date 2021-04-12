@@ -12341,6 +12341,11 @@ table@^6.0.4:
     slice-ansi "^4.0.0"
     string-width "^4.2.0"
 
+tailwind-pseudo-elements@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/tailwind-pseudo-elements/-/tailwind-pseudo-elements-0.4.0.tgz#241638c21e52a088be151ea78b59f3e23dd15a36"
+  integrity sha512-EWvwNXQZTC/P2cNzQ3YCqBF6aRA9dTwmXBmqemIAoTeXBWeouP2UC3v0Qk3kmIwRLFruIaqNJumwRNmu0TYnVA==
+
 tailwindcss@^2.0.4:
   version "2.0.4"
   resolved "https://registry.npmjs.org/tailwindcss/-/tailwindcss-2.0.4.tgz"
