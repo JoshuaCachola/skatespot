@@ -46,7 +46,7 @@ module.exports = {
     plugin(({ addUtilities }) => {
       const contentUtilities = {
         '.content': {
-          content: 'attr(data-content)',
+          content: 'attr(search-divider)',
           position: 'absolute',
           top: '8px',
           right: '0',

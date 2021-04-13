@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {ApolloClient, ApolloLink, ApolloProvider, /*createHttpLink,*/ HttpLink, Observable, /*useQuery*/} from '@apollo/client';
 import { App } from './App';
-import { getAccessToken, setAccessToken } from './accessToken';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwtDecode from 'jwt-decode';
 import { JwtPayload } from 'jwt-decode';
 import { cache } from './graphql/client/cache';
 import { GET_ACCESS_TOKEN } from '../src/graphql/GetAccessToken';
 import './index.css';
+import { accessToken } from './graphql/reactive-variables/accessToken';
 
 
 const requestLink = new ApolloLink((operation, forward) =>
@@ -16,13 +16,10 @@ const requestLink = new ApolloLink((operation, forward) =>
     let handle: any;
     Promise.resolve(operation)
       .then(async (oper) => {
-        // const accessToken = getAccessToken();
         const results = await client.query({
           query: GET_ACCESS_TOKEN,
           fetchPolicy: 'cache-only'
         });
-        console.log(results.data.accessToken);
-        // const {data} = useQuery(GET_ACCESS_TOKEN);
         const accessToken = results.data.accessToken;
         console.log(accessToken);
         if (accessToken) {
@@ -53,8 +50,7 @@ const client = new ApolloClient({
     new TokenRefreshLink({
       accessTokenField: 'accessToken', 
       isTokenValidOrUndefined: () => {
-        const token = getAccessToken();
-
+        const token = accessToken();
         if (!token) {
           return true;
         }
@@ -77,7 +73,7 @@ const client = new ApolloClient({
           credentials: 'include'
         });
       },
-      handleFetch: (accessToken: string) => setAccessToken(accessToken),
+      handleFetch: (token: string) => accessToken(token),
       handleError: (err: Error) => {
         console.warn('Your refresh token is invalid. Try to relogin.');
         console.error(err);

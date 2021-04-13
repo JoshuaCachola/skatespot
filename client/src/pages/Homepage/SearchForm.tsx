@@ -25,7 +25,7 @@ export const SearchForm: React.FC<Props> = () => {
               <div className='min-w-full box-border align-top block'>
                 <div>
                   <label
-                    data-content=''
+                    search-divider=''
                     className='after:content relative rounded-l rounded-r-none px-3 py-3 text-lg font-bold bg-white box-border block w-full mt-0 mb-5 mx-0'
                   >
                     <div className='flex'>
@@ -59,7 +59,7 @@ export const SearchForm: React.FC<Props> = () => {
                           type='text'
                           autoComplete='off'
                           maxLength={64}
-                          className='cursor-text w-full box-border focus:outline-none'
+                          className='cursor-text inline-block w-full box-border focus:outline-none'
                         />
                       </span>
                     </div>
