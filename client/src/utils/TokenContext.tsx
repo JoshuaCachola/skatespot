@@ -1,3 +1,9 @@
 import { createContext } from 'react';
+import { TokenContextType } from 'src/types/TokenContext';
 
-export const TokenContext = createContext(false);
+const contextDefaultValues: TokenContextType = {
+  isLoggedIn: false,
+  setIsLoggedIn: () => {}
+};
+
+export const TokenContext = createContext<TokenContextType>(contextDefaultValues);

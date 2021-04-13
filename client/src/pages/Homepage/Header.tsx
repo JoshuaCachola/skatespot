@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+// import { TokenContextType } from 'src/types/TokenContext';
+import { TokenContext } from 'src/utils/TokenContext';
 import { accessToken } from '../../graphql/reactive-variables/accessToken';
 import { Account } from './Account';
+
 
 interface Props {
 
 }
 
 export const Header: React.FC<Props> = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const value = useMemo(() => ({isLoggedIn, setIsLoggedIn}), [isLoggedIn, setIsLoggedIn])
+
   useEffect(() => {
     const token = !!accessToken();
     if (token) {
@@ -17,8 +21,8 @@ export const Header: React.FC<Props> = () => {
     } else {
       setIsLoggedIn(false);
     }
-  }, [isLoggedIn]);
-  
+  }, [isLoggedIn, setIsLoggedIn]);
+
   return (
     <header className=''>
       {isLoggedIn ?
@@ -32,7 +36,9 @@ export const Header: React.FC<Props> = () => {
           </ul>
           <ul className='inline-block float-right'>
             <li>
-              <Account />
+              <TokenContext.Provider value={value}>
+                <Account />
+              </TokenContext.Provider>
             </li>
           </ul>
         </div>
