@@ -9,7 +9,8 @@ interface Props {
 
 export const Home: React.FC<Props> = () => {
   return (
-    <>
+    <div>
+    {/* Add credit for the image */}
     <div className='w-screen h-50 bg-cover pt-7.5 bg-center h-hero bp-50' style={{ backgroundImage: `url(${HomepageHero})` }}>
       {/* header */}
       <div className='max-w-5xl my-0 mx-auto py-0 px-0.5'>
@@ -24,6 +25,6 @@ export const Home: React.FC<Props> = () => {
         <SearchForm />
       </div>
     </div>
-    </>
+    </div>
   );
 };

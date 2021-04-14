@@ -50,6 +50,6 @@ export class SkateSpot extends BaseEntity {
   following: number;
 
   @Field()
-  @Column({array: true})
+  @Column({ type: 'varchar', array: true, nullable: true })
   imgs: string;
 };

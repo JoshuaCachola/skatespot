@@ -21,7 +21,7 @@ export const AccountDropDown: React.FC<Props> = () => {
           await client.resetStore();
         }}
       >
-        Logout
+        
       </button>
     </div>
   );

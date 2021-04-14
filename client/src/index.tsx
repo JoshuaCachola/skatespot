@@ -7,8 +7,10 @@ import jwtDecode from 'jwt-decode';
 import { JwtPayload } from 'jwt-decode';
 import { cache } from './graphql/client/cache';
 import { GET_ACCESS_TOKEN } from '../src/graphql/GetAccessToken';
-import './index.css';
 import { accessToken } from './graphql/reactive-variables/accessToken';
+import './index.css';
+import './fontawesome';
+
 
 
 const requestLink = new ApolloLink((operation, forward) =>

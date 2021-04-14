@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// import { TokenContextType } from 'src/types/TokenContext';
 import { TokenContext } from 'src/utils/TokenContext';
 import { accessToken } from '../../graphql/reactive-variables/accessToken';
 import { Account } from './Account';
@@ -15,12 +14,7 @@ export const Header: React.FC<Props> = () => {
   const value = useMemo(() => ({isLoggedIn, setIsLoggedIn}), [isLoggedIn, setIsLoggedIn])
 
   useEffect(() => {
-    const token = !!accessToken();
-    if (token) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
+    setIsLoggedIn(!!accessToken());
   }, [isLoggedIn, setIsLoggedIn]);
 
   return (

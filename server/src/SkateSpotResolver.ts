@@ -1,4 +1,4 @@
-import { Arg, Mutation, Resolver, UseMiddleware } from "type-graphql";
+import { Arg, Mutation, Query, Resolver, UseMiddleware } from "type-graphql";
 import { SkateSpot } from "./entity/SkateSpot";
 import { isAuth } from "./utils/isAuth";
 
@@ -11,6 +11,7 @@ export class SkateSpotResolver {
     @Arg('address') address: string,
     @Arg('city') city: string,
     @Arg('state') state: string,
+    @Arg('imgs', () => [String]) imgs: string,
   ) {
     const skateSpot = await SkateSpot.findOne({ where: { address, city, state }});
     if (skateSpot) {
@@ -22,12 +23,19 @@ export class SkateSpotResolver {
         name,
         address,
         city,
-        state
+        state,
+        imgs
       });
     } catch (err) {
       console.error(err);
       return false;
     }
     return true;
+  }
+  
+  @Query(() => [SkateSpot])
+  @UseMiddleware(isAuth)
+  async getSkateSpots() {
+    return await SkateSpot.find();
   }
 };

@@ -8,7 +8,6 @@ import { Home } from './pages/Homepage/Home';
 import { Register } from './pages/Register';
 import { Login } from './pages/Login';
 import { UserProfile } from './pages/UserProfile';
-// import { getAccessToken } from './accessToken';
 import { PrivateRoute } from './utils/privateRoute';
 import { Users } from './pages/Users';
 import { CreateSkateSpot } from './pages/CreateSkateSpot';
