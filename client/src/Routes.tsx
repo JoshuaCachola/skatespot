@@ -8,7 +8,7 @@ import { Home } from './pages/homepage/Home';
 import { Register } from './pages/Register';
 import { Login } from './pages/Login';
 import { UserProfile } from './pages/UserProfile';
-import { PrivateRoute } from './utils/privateRoute';
+import { PrivateRoute } from './utils/PrivateRoute';
 import { Users } from './pages/Users';
 import { CreateSkateSpot } from './pages/CreateSkateSpot';
 import { accessToken } from './graphql/reactive-variables/accessToken';

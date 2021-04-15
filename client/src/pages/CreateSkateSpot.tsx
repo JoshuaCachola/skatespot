@@ -1,21 +1,22 @@
 import React from 'react';
 import { Formik, FormikProps, Form } from 'formik'; 
 import { Upload } from '../utils/Upload';
-// import { useCreateSkateSpotMutation } from 'src/generated/graphql';
+import { useCreateSkateSpotMutation } from 'src/generated/graphql';
 import * as Yup from 'yup';
 import { Thumbnail } from 'src/utils/Thumbnail';
+import { RouteComponentProps } from 'react-router';
 
 interface SkateSpotForm {
   name: string,
   address: string,
   state: string,
   city: string,
-  files: Array<File>
+  imgs: Array<File>
 };
 
 
-export const CreateSkateSpot: React.FC = () => {
-  // const [skateSpot] = useCreateSkateSpotMutation();
+export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
+  const [skateSpot] = useCreateSkateSpotMutation();
 
   return (
     <>
@@ -25,13 +26,13 @@ export const CreateSkateSpot: React.FC = () => {
           address: '',
           city: '',
           state: '',
-          files: []
+          imgs: []
         }}
-        onSubmit={(values, {setSubmitting, resetForm}) => {
-          // skateSpot({variables: values});
-          console.log(values.files)
+        onSubmit={async (values, {setSubmitting, resetForm}) => {
+          await skateSpot({variables: values});
           resetForm();
           setSubmitting(false);
+          history.push('/')
         }}
         validationSchema={Yup.object().shape({
           name: Yup.string().required('Name is required.'),
@@ -99,19 +100,21 @@ export const CreateSkateSpot: React.FC = () => {
                 {/* Drag and drop */}
                 <div className='flex flex-1 flex-col p-5 rounded border-2 border-dashed aira'>
                   <Upload values={values} setFieldValue={setFieldValue}/>
-                  {values.files && values.files.map((file: File) => {
+                  {values.imgs && values.imgs.map((img: File) => {
                     return (
-                      <div key={file.name}>
-                        <Thumbnail file={file} />
+                      <div key={img.name}>
+                        <Thumbnail img={img} />
                       </div>
                     )
                   })}
                 </div>
+                <div>
                   <input
                     type='submit'
                     value='submit'
                     disabled={isSubmitting}
                   />
+                </div>
               </div>
             </Form>
           )

@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 export const Upload = ({setFieldValue, values}) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: acceptedValues => {
-      setFieldValue('files', values.files.concat(acceptedValues))
+      setFieldValue('imgs', values.imgs.concat(acceptedValues))
     }
   });
   return (

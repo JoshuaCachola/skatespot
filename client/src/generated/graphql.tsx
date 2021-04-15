@@ -14,6 +14,8 @@ export type Scalars = {
   Float: number;
   /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
   DateTime: any;
+  /** The `Upload` scalar type represents a file upload. */
+  Upload: any;
 };
 
 
@@ -29,6 +31,8 @@ export type Mutation = {
   revokeRefreshTokenForUser: Scalars['Boolean'];
   logout: Scalars['Boolean'];
   createSkateSpot: Scalars['Boolean'];
+  singleUpload: Scalars['Boolean'];
+  uploadProfilePicture: Scalars['Boolean'];
 };
 
 
@@ -53,17 +57,50 @@ export type MutationRevokeRefreshTokenForUserArgs = {
 
 
 export type MutationCreateSkateSpotArgs = {
+  imgs: Array<Scalars['String']>;
   state: Scalars['String'];
   city: Scalars['String'];
   address: Scalars['String'];
   name: Scalars['String'];
 };
 
+
+export type MutationSingleUploadArgs = {
+  file: Scalars['Upload'];
+};
+
+
+export type MutationUploadProfilePictureArgs = {
+  picture: Scalars['Upload'];
+};
+
 export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
   users: Array<User>;
+  me: User;
+  getSkateSpots: Array<SkateSpot>;
 };
+
+
+export type QueryGetSkateSpotsArgs = {
+  state: Scalars['String'];
+  city: Scalars['String'];
+  address: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type SkateSpot = {
+  __typename?: 'SkateSpot';
+  id: Scalars['Float'];
+  name: Scalars['String'];
+  city: Scalars['String'];
+  state: Scalars['String'];
+  address: Scalars['String'];
+  following: Scalars['Float'];
+  imgs: Scalars['String'];
+};
+
 
 export type User = {
   __typename?: 'User';
@@ -80,6 +117,7 @@ export type CreateSkateSpotMutationVariables = Exact<{
   address: Scalars['String'];
   city: Scalars['String'];
   state: Scalars['String'];
+  imgs: Array<Scalars['String']> | Scalars['String'];
 }>;
 
 
@@ -145,8 +183,14 @@ export type HelloQuery = (
 
 
 export const CreateSkateSpotDocument = gql`
-    mutation CreateSkateSpot($name: String!, $address: String!, $city: String!, $state: String!) {
-  createSkateSpot(name: $name, address: $address, city: $city, state: $state)
+    mutation CreateSkateSpot($name: String!, $address: String!, $city: String!, $state: String!, $imgs: [String!]!) {
+  createSkateSpot(
+    name: $name
+    address: $address
+    city: $city
+    state: $state
+    imgs: $imgs
+  )
 }
     `;
 export type CreateSkateSpotMutationFn = Apollo.MutationFunction<CreateSkateSpotMutation, CreateSkateSpotMutationVariables>;
@@ -168,6 +212,7 @@ export type CreateSkateSpotMutationFn = Apollo.MutationFunction<CreateSkateSpotM
  *      address: // value for 'address'
  *      city: // value for 'city'
  *      state: // value for 'state'
+ *      imgs: // value for 'imgs'
  *   },
  * });
  */
