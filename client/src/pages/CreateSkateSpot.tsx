@@ -3,6 +3,7 @@ import { Formik, FormikProps, Form } from 'formik';
 import { Upload } from '../utils/Upload';
 // import { useCreateSkateSpotMutation } from 'src/generated/graphql';
 import * as Yup from 'yup';
+import { Thumbnail } from 'src/utils/Thumbnail';
 
 interface SkateSpotForm {
   name: string,
@@ -98,6 +99,13 @@ export const CreateSkateSpot: React.FC = () => {
                 {/* Drag and drop */}
                 <div className='flex flex-1 flex-col p-5 rounded border-2 border-dashed aira'>
                   <Upload values={values} setFieldValue={setFieldValue}/>
+                  {values.files && values.files.map((file: File) => {
+                    return (
+                      <div key={file.name}>
+                        <Thumbnail file={file} />
+                      </div>
+                    )
+                  })}
                 </div>
                   <input
                     type='submit'
