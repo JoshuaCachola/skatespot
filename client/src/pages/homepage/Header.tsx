@@ -16,16 +16,15 @@ export const Header: React.FC<Props> = () => {
   useEffect(() => {
     setIsLoggedIn(!!accessToken());
   }, [isLoggedIn, setIsLoggedIn]);
-
   return (
     <header className=''>
       {isLoggedIn ?
         <div className='block'>
           <ul className='inline-block float-left'>
             <li>
-              <button>
-                Skate Crew
-              </button>
+              <Link to='create-skate-spot'>
+                Create Skate Spot
+              </Link>
             </li>
           </ul>
           <ul className='inline-block float-right'>

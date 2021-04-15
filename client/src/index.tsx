@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import ReactDOM from 'react-dom';
 import {ApolloClient, ApolloLink, ApolloProvider, /*createHttpLink,*/ HttpLink, Observable, /*useQuery*/} from '@apollo/client';
 import { App } from './App';
@@ -23,7 +23,6 @@ const requestLink = new ApolloLink((operation, forward) =>
           fetchPolicy: 'cache-only'
         });
         const accessToken = results.data.accessToken;
-        console.log(accessToken);
         if (accessToken) {
           oper.setContext({
             headers: {
@@ -92,11 +91,11 @@ const client = new ApolloClient({
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <ApolloProvider client={client}>
       <App />
-    </ApolloProvider>
-  </React.StrictMode>,
+    </ApolloProvider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

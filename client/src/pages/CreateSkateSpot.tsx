@@ -1,6 +1,7 @@
 import React from 'react';
-import { Formik, Form, FormikProps } from 'formik'; 
-import { useCreateSkateSpotMutation } from 'src/generated/graphql';
+import { Formik, FormikProps, Form } from 'formik'; 
+import { Upload } from '../utils/Upload';
+// import { useCreateSkateSpotMutation } from 'src/generated/graphql';
 import * as Yup from 'yup';
 
 interface SkateSpotForm {
@@ -8,10 +9,12 @@ interface SkateSpotForm {
   address: string,
   state: string,
   city: string,
-}
+  files: Array<File>
+};
+
 
 export const CreateSkateSpot: React.FC = () => {
-  const [skateSpot] = useCreateSkateSpotMutation();
+  // const [skateSpot] = useCreateSkateSpotMutation();
 
   return (
     <>
@@ -21,9 +24,11 @@ export const CreateSkateSpot: React.FC = () => {
           address: '',
           city: '',
           state: '',
+          files: []
         }}
         onSubmit={(values, {setSubmitting, resetForm}) => {
-          skateSpot({variables: values});
+          // skateSpot({variables: values});
+          console.log(values.files)
           resetForm();
           setSubmitting(false);
         }}
@@ -32,6 +37,7 @@ export const CreateSkateSpot: React.FC = () => {
           address: Yup.string().required('Address is required.'),
           city: Yup.string().email().required('City is required.'),
           state: Yup.string().required('State is required'),
+          files: Yup.mixed()
         })}
       >
         {(props: FormikProps<SkateSpotForm>) => {
@@ -39,7 +45,8 @@ export const CreateSkateSpot: React.FC = () => {
             values,
             isSubmitting,
             handleChange,
-            handleBlur
+            handleBlur,
+            setFieldValue
           } = props;
           return (
             <Form>
@@ -88,7 +95,9 @@ export const CreateSkateSpot: React.FC = () => {
                     onChange={handleChange}
                   />
                 </div>
-                <div>
+                {/* Drag and drop */}
+                <div className='flex flex-1 flex-col p-5 rounded border-2 border-dashed aira'>
+                  <Upload values={values} setFieldValue={setFieldValue}/>
                 </div>
                   <input
                     type='submit'
@@ -101,5 +110,5 @@ export const CreateSkateSpot: React.FC = () => {
         }}
       </Formik>
     </>
-  );;
-}
+  );
+};

@@ -31,11 +31,16 @@ export class SkateSpotResolver {
       return false;
     }
     return true;
-  }
+  };
   
   @Query(() => [SkateSpot])
   @UseMiddleware(isAuth)
-  async getSkateSpots() {
-    return await SkateSpot.find();
-  }
+  async getSkateSpots(
+    @Arg('name') name: string,
+    @Arg('address') address: string,
+    @Arg('city') city: string,
+    @Arg('state') state: string,
+  ) {
+    return await SkateSpot.find({ where: { name, address, city, state }});
+  };
 };

@@ -4,7 +4,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import { Home } from './pages/Homepage/Home';
+import { Home } from './pages/homepage/Home';
 import { Register } from './pages/Register';
 import { Login } from './pages/Login';
 import { UserProfile } from './pages/UserProfile';
