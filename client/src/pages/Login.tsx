@@ -28,6 +28,7 @@ export const Login: React.FC<RouteComponentProps> = ({history}) => {
             password: ''
           }}
           onSubmit={async (values, {setSubmitting, resetForm}) => {
+            console.log('login');
             await login({ variables: values });
             resetForm();
             setSubmitting(false);

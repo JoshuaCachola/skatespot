@@ -57,7 +57,8 @@ export type MutationRevokeRefreshTokenForUserArgs = {
 
 
 export type MutationCreateSkateSpotArgs = {
-  imgs: Array<Scalars['String']>;
+  imgFiles?: Maybe<Array<Scalars['Upload']>>;
+  test?: Maybe<Array<Scalars['String']>>;
   state: Scalars['String'];
   city: Scalars['String'];
   address: Scalars['String'];
@@ -117,7 +118,7 @@ export type CreateSkateSpotMutationVariables = Exact<{
   address: Scalars['String'];
   city: Scalars['String'];
   state: Scalars['String'];
-  imgs: Array<Scalars['String']> | Scalars['String'];
+  imgFiles?: Maybe<Array<Scalars['Upload']> | Scalars['Upload']>;
 }>;
 
 
@@ -183,13 +184,13 @@ export type HelloQuery = (
 
 
 export const CreateSkateSpotDocument = gql`
-    mutation CreateSkateSpot($name: String!, $address: String!, $city: String!, $state: String!, $imgs: [String!]!) {
+    mutation CreateSkateSpot($name: String!, $address: String!, $city: String!, $state: String!, $imgFiles: [Upload!]) {
   createSkateSpot(
     name: $name
     address: $address
     city: $city
     state: $state
-    imgs: $imgs
+    imgFiles: $imgFiles
   )
 }
     `;
@@ -212,7 +213,7 @@ export type CreateSkateSpotMutationFn = Apollo.MutationFunction<CreateSkateSpotM
  *      address: // value for 'address'
  *      city: // value for 'city'
  *      state: // value for 'state'
- *      imgs: // value for 'imgs'
+ *      imgFiles: // value for 'imgFiles'
  *   },
  * });
  */

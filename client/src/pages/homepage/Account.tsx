@@ -17,7 +17,7 @@ export const Account: React.FC<Props> = () => {
       </div>
       <div className='rounded-r-sm roudner-l-none border'>
         <div>
-          <FontAwesomeIcon icon={['fas', 'angle-down']} />
+          {/* <FontAwesomeIcon icon={['fas', 'angle-down']} /> */}
           <AccountDropDown />
         </div>
       </div>

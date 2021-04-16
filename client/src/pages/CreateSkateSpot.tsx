@@ -11,12 +11,28 @@ interface SkateSpotForm {
   address: string,
   state: string,
   city: string,
-  imgs: Array<File>
+  imgs?: Array<File>
 };
 
-
 export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
-  const [skateSpot] = useCreateSkateSpotMutation();
+  const [createSkateSpotMutation, {loading, error}] = useCreateSkateSpotMutation();
+
+  if (loading) {
+    return <h1>loading</h1>;
+  }
+
+  if (error) {
+    return <h1>error</h1>;
+  }
+
+  const create = () => {
+    createSkateSpotMutation({variables: {
+      name: "abc",
+      address: "abcdef",
+      city: "abdasklfj",
+      state: "algjhasd",
+    }});
+  };
 
   return (
     <>
@@ -29,7 +45,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
           imgs: []
         }}
         onSubmit={async (values, {setSubmitting, resetForm}) => {
-          await skateSpot({variables: values});
+          createSkateSpotMutation({variables: values});
           resetForm();
           setSubmitting(false);
           history.push('/')
@@ -39,13 +55,13 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
           address: Yup.string().required('Address is required.'),
           city: Yup.string().email().required('City is required.'),
           state: Yup.string().required('State is required'),
-          files: Yup.mixed()
+          files: Yup.array()
         })}
       >
         {(props: FormikProps<SkateSpotForm>) => {
           const {
             values,
-            isSubmitting,
+            // isSubmitting,
             handleChange,
             handleBlur,
             setFieldValue
@@ -112,7 +128,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
                   <input
                     type='submit'
                     value='submit'
-                    disabled={isSubmitting}
+                    onClick={create}
                   />
                 </div>
               </div>

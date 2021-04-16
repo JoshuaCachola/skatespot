@@ -21,23 +21,34 @@ export class SkateSpotResolver {
     @Arg('address') address: string,
     @Arg('city') city: string,
     @Arg('state') state: string,
-    @Arg('imgFiles', () => [GraphQLUpload]) imgFiles?: [Upload]
+    @Arg('test', () => [String], { nullable: true }) test: string,
+    @Arg('imgFiles', () => [GraphQLUpload], { nullable: true }) imgFiles?: [Upload]
   ): Promise<boolean> {
     const skateSpot = await SkateSpot.findOne({ where: { address, city, state }});
     if (skateSpot) {
       return false;
     }
 
-    let imgLinks: Array<string> = [];
-    imgFiles && imgFiles.forEach(async (img) => {
-      const { Location } = await s3.upload({
-      Body: img.createReadStream(),
-      Key: `${img.filename}`,
-      ContentType: img.mimetype
-    })
+    console.log(test.length);
+    let imgLinks: Array<Promise<string>> = [];
+    console.log(imgLinks);
+    if (imgFiles) {
+      imgLinks = imgFiles?.map(async (img) => {
+        const { Location } = await s3.upload({
+          Body: img.createReadStream(),
+          Key: `${img.filename}`,
+          ContentType: img.mimetype
+        }).promise();
 
-    imgLinks.push(Location)
-    });
+          return new Promise((resolve, reject) => {
+            if (Location) {
+              resolve(Location);
+            } else {
+              reject(undefined);
+            }
+          });
+      });
+    }
 
     try {
       await SkateSpot.insert({
@@ -45,13 +56,14 @@ export class SkateSpotResolver {
         address,
         city,
         state,
-        imgs: JSON.stringify(imgLinks)
+        imgs: imgLinks.length ? JSON.stringify(imgLinks.filter(link => link)) : undefined
       });
+      
+      return true;
     } catch (err) {
       console.error(err);
       return false;
     }
-    return true;
   };
   
   @Query(() => [SkateSpot])

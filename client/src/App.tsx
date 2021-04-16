@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 // import { setAccessToken } from './accessToken';
 import { accessToken } from './graphql/reactive-variables/accessToken';
+// import { TokenContext } from 'src/utils/TokenContext';
 import { Routes } from './Routes';
 
 export const App: React.FC = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
+  // const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  // const value = useMemo(() => ({isLoggedIn, setIsLoggedIn}), [isLoggedIn, setIsLoggedIn]);
 
   useEffect(() => {
     (async () => {
@@ -22,6 +25,7 @@ export const App: React.FC = () => {
         // setAccessToken(data.accessToken);
         accessToken(data.accessToken);
         setLoading(false);
+        // setIsLoggedIn(true);
       } catch (err) {
         console.error(err);
         return;
@@ -33,6 +37,10 @@ export const App: React.FC = () => {
   if (loading) {
     return <h1>Loading...</h1>
   }
-
-  return <Routes />;
+  
+  return (
+    // <TokenContext.Provider value={value}>
+      <Routes />
+  // </TokenContext.Provider>
+  );
 }

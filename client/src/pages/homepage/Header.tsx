@@ -4,26 +4,27 @@ import { TokenContext } from 'src/utils/TokenContext';
 import { accessToken } from '../../graphql/reactive-variables/accessToken';
 import { Account } from './Account';
 
-
-interface Props {
-
-}
-
-export const Header: React.FC<Props> = () => {
+export const Header: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const value = useMemo(() => ({isLoggedIn, setIsLoggedIn}), [isLoggedIn, setIsLoggedIn])
+  const value = useMemo(() => ({isLoggedIn, setIsLoggedIn}), [isLoggedIn, setIsLoggedIn]);
 
   useEffect(() => {
     setIsLoggedIn(!!accessToken());
   }, [isLoggedIn, setIsLoggedIn]);
+
   return (
     <header className=''>
       {isLoggedIn ?
         <div className='block'>
           <ul className='inline-block float-left'>
             <li>
-              <Link to='create-skate-spot'>
+              <Link to='/create-skate-spot'>
                 Create Skate Spot
+              </Link>
+            </li>
+            <li>
+              <Link to='/private'>
+                Users
               </Link>
             </li>
           </ul>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   BrowserRouter,
   Route,
@@ -14,7 +14,11 @@ import { CreateSkateSpot } from './pages/CreateSkateSpot';
 import { accessToken } from './graphql/reactive-variables/accessToken';
 
 export const Routes: React.FC = () => {
-  const isLoggedIn = !!accessToken();
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  useEffect(() => {
+    setIsLoggedIn(!!accessToken());
+  }, []);
+
   return (
     <BrowserRouter>
       <Switch>

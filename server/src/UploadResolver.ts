@@ -50,25 +50,7 @@ export class UploadResolver {
     }: Upload,
     @Ctx() {req}: TokenCookieCtx
   ): Promise<boolean> {
-    const { Location } = await s3.upload({
-      Body: createReadStream(),
-      Key: `${filename}`,
-      ContentType: mimetype
-    }).promise()
-    return new Promise((resolve, reject) => {
-      if (Location) {
-        resolve({
-          ok: true,
-          url: Location
-        })
-      } else {
-        reject({
-          ok: false,
-          url: ''
-        })
-      }
-    }).then(async () => {
-      const authorization = req.headers['authorization'];
+    const authorization = req.headers['authorization'];
 
     if (!authorization) {
       return false;
@@ -77,18 +59,35 @@ export class UploadResolver {
     const accessToken = authorization.split(' ')[1];
     const payload = verify(accessToken, process.env.ACCESS_TOKEN_SECRET!) as Payload;
 
-    try {
-      await getConnection()
-        .createQueryBuilder()
-        .update(User)
-        .set({ profilePicture: Location })
-        .where('id = :id', { id: payload.userId })
-        .execute();
-      return true;
-    } catch(err) {
-      console.error(err)
+    if (!payload.userId) {
       return false;
     }
+
+    const { Location } = await s3.upload({
+      Body: createReadStream(),
+      Key: `${filename}`,
+      ContentType: mimetype
+    }).promise()
+    return new Promise((resolve, reject) => {
+      if (Location) {
+        resolve(true);
+      } else {
+        reject(false);
+      }
+    }).then(async () => {
+
+      try {
+        await getConnection()
+          .createQueryBuilder()
+          .update(User)
+          .set({ profilePicture: Location })
+          .where('id = :id', { id: payload.userId })
+          .execute();
+        return true;
+      } catch(err) {
+        console.error(err)
+        return false;
+      }
     })
   }
 };
