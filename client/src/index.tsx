@@ -1,12 +1,11 @@
 // import React from 'react';
 import ReactDOM from 'react-dom';
-import {ApolloClient, ApolloLink, ApolloProvider, /*createHttpLink,*/ HttpLink, Observable, /*useQuery*/} from '@apollo/client';
+import {ApolloClient, ApolloLink, ApolloProvider, HttpLink, Observable} from '@apollo/client';
 import { App } from './App';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwtDecode from 'jwt-decode';
 import { JwtPayload } from 'jwt-decode';
 import { cache } from './graphql/client/cache';
-import { GET_ACCESS_TOKEN } from '../src/graphql/GetAccessToken';
 import { accessToken } from './graphql/reactive-variables/accessToken';
 import './index.css';
 import './fontawesome';
@@ -18,15 +17,10 @@ const requestLink = new ApolloLink((operation, forward) =>
     let handle: any;
     Promise.resolve(operation)
       .then(async (oper) => {
-        const results = await client.query({
-          query: GET_ACCESS_TOKEN,
-          fetchPolicy: 'cache-only'
-        });
-        const accessToken = results.data.accessToken;
-        if (accessToken) {
+        if (!!accessToken()) {
           oper.setContext({
             headers: {
-              authorization: `Bearer ${accessToken}`
+              authorization: `Bearer ${accessToken()}`
             }
           });
         }

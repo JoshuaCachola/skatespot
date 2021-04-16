@@ -32,7 +32,7 @@ export const Login: React.FC<RouteComponentProps> = ({history}) => {
             await login({ variables: values });
             resetForm();
             setSubmitting(false);
-            history.push('/');
+            await history.push('/');
           }}
           validationSchema={Yup.object().shape({
                               email: Yup.string()

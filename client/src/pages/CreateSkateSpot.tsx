@@ -25,14 +25,14 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
     return <h1>error</h1>;
   }
 
-  const create = () => {
-    createSkateSpotMutation({variables: {
-      name: "abc",
-      address: "abcdef",
-      city: "abdasklfj",
-      state: "algjhasd",
-    }});
-  };
+  // const create = () => {
+  //   createSkateSpotMutation({variables: {
+  //     name: "abc",
+  //     address: "abcdef",
+  //     city: "abdasklfj",
+  //     state: "algjhasd",
+  //   }});
+  // };
 
   return (
     <>
@@ -61,7 +61,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
         {(props: FormikProps<SkateSpotForm>) => {
           const {
             values,
-            // isSubmitting,
+            isSubmitting,
             handleChange,
             handleBlur,
             setFieldValue
@@ -128,7 +128,8 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
                   <input
                     type='submit'
                     value='submit'
-                    onClick={create}
+                    disabled={isSubmitting}
+                    // onClick={create}
                   />
                 </div>
               </div>
