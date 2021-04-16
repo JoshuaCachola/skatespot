@@ -21,49 +21,63 @@ export class SkateSpotResolver {
     @Arg('address') address: string,
     @Arg('city') city: string,
     @Arg('state') state: string,
-    @Arg('test', () => [String], { nullable: true }) test: string,
     @Arg('imgFiles', () => [GraphQLUpload], { nullable: true }) imgFiles?: [Upload]
   ): Promise<boolean> {
-    const skateSpot = await SkateSpot.findOne({ where: { address, city, state }});
+    const skateSpot = await SkateSpot.findOne({ where: { name, address, city, state }});
     if (skateSpot) {
       return false;
     }
 
-    console.log(test.length);
-    let imgLinks: Array<Promise<string>> = [];
-    console.log(imgLinks);
-    if (imgFiles) {
-      imgLinks = imgFiles?.map(async (img) => {
+    let imgLinks: Array<string> = [];
+    imgFiles && Promise.all(imgFiles).then((files) => {
+      files.forEach(async (file) => {
         const { Location } = await s3.upload({
-          Body: img.createReadStream(),
-          Key: `${img.filename}`,
-          ContentType: img.mimetype
+          Body: file.createReadStream(),
+          Key: `${file.filename}`,
+          ContentType: file.mimetype
         }).promise();
 
-          return new Promise((resolve, reject) => {
-            if (Location) {
-              resolve(Location);
-            } else {
-              reject(undefined);
-            }
-          });
+        return new Promise((resolve, reject) => {
+          if (Location) {
+            resolve(Location);
+          } else {
+            reject(undefined);
+          }
+        }).then((url) => {
+          imgLinks.push(url as string);
+          console.log(imgLinks)
+        }).then(async () => {
+          try {
+            await SkateSpot.insert({
+              name,
+              address,
+              city,
+              state,
+              imgs: imgLinks ? JSON.stringify(imgLinks.filter(img => img !== undefined)) : undefined
+            });
+            
+            return true;
+          } catch (err) {
+            console.error(err);
+            return false;
+          }
+        })
       });
-    }
-
+    })
     try {
       await SkateSpot.insert({
         name,
         address,
         city,
         state,
-        imgs: imgLinks.length ? JSON.stringify(imgLinks.filter(link => link)) : undefined
       });
-      
+            
       return true;
     } catch (err) {
       console.error(err);
       return false;
     }
+    
   };
   
   @Query(() => [SkateSpot])

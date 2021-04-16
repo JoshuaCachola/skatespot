@@ -6,14 +6,12 @@ interface Props {
   exact: boolean,
   path: string,
   component: any,
-  // isLoggedIn: boolean,
   componentProps?: object
 }
 
 export const PrivateRoute: React.FC<Props> = ({
   exact,
   path,
-  // isLoggedIn,
   component: Component,
   componentProps,
 }) => {

@@ -58,7 +58,6 @@ export type MutationRevokeRefreshTokenForUserArgs = {
 
 export type MutationCreateSkateSpotArgs = {
   imgFiles?: Maybe<Array<Scalars['Upload']>>;
-  test?: Maybe<Array<Scalars['String']>>;
   state: Scalars['String'];
   city: Scalars['String'];
   address: Scalars['String'];

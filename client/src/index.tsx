@@ -1,6 +1,7 @@
 // import React from 'react';
 import ReactDOM from 'react-dom';
-import {ApolloClient, ApolloLink, ApolloProvider, HttpLink, Observable} from '@apollo/client';
+import {ApolloClient, ApolloLink, ApolloProvider, Observable} from '@apollo/client';
+import { createUploadLink } from 'apollo-upload-client';
 import { App } from './App';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwtDecode from 'jwt-decode';
@@ -75,7 +76,11 @@ const client = new ApolloClient({
       }
     }),
     requestLink,
-    new HttpLink({
+    // new HttpLink({
+    //   uri: `${process.env.REACT_APP_API_SERVICE_URL}/graphql`,
+    //   credentials: 'include'
+    // })
+    createUploadLink({
       uri: `${process.env.REACT_APP_API_SERVICE_URL}/graphql`,
       credentials: 'include'
     })

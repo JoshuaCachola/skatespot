@@ -1,7 +1,7 @@
 import React from 'react';
-import { Formik, FormikProps, Form } from 'formik'; 
+import { Field, Form, Formik, FormikProps} from 'formik'; 
 import { Upload } from '../utils/Upload';
-import { useCreateSkateSpotMutation } from 'src/generated/graphql';
+import { useCreateSkateSpotMutation } from '../../src/generated/graphql';
 import * as Yup from 'yup';
 import { Thumbnail } from 'src/utils/Thumbnail';
 import { RouteComponentProps } from 'react-router';
@@ -11,41 +11,34 @@ interface SkateSpotForm {
   address: string,
   state: string,
   city: string,
-  imgs?: Array<File>
+  imgFiles?: Array<File>
 };
 
 export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
   const [createSkateSpotMutation, {loading, error}] = useCreateSkateSpotMutation();
+  const initialValues: SkateSpotForm = {
+    name: '',
+    address: '',
+    city: '',
+    state: '',
+    imgFiles: []
+  };
 
   if (loading) {
     return <h1>loading</h1>;
-  }
+  };
 
   if (error) {
     return <h1>error</h1>;
   }
 
-  // const create = () => {
-  //   createSkateSpotMutation({variables: {
-  //     name: "abc",
-  //     address: "abcdef",
-  //     city: "abdasklfj",
-  //     state: "algjhasd",
-  //   }});
-  // };
-
   return (
     <>
       <Formik
-        initialValues={{
-          name: '',
-          address: '',
-          city: '',
-          state: '',
-          imgs: []
-        }}
-        onSubmit={async (values, {setSubmitting, resetForm}) => {
-          createSkateSpotMutation({variables: values});
+        initialValues={initialValues}
+        onSubmit={async (values, {resetForm, setSubmitting}) => {
+          await createSkateSpotMutation({variables: values});
+          setSubmitting(false);
           resetForm();
           setSubmitting(false);
           history.push('/')
@@ -53,15 +46,14 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
         validationSchema={Yup.object().shape({
           name: Yup.string().required('Name is required.'),
           address: Yup.string().required('Address is required.'),
-          city: Yup.string().email().required('City is required.'),
+          city: Yup.string().required('City is required.'),
           state: Yup.string().required('State is required'),
-          files: Yup.array()
+          imgFiles: Yup.array()
         })}
       >
         {(props: FormikProps<SkateSpotForm>) => {
           const {
             values,
-            isSubmitting,
             handleChange,
             handleBlur,
             setFieldValue
@@ -70,7 +62,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
             <Form>
               <div>
                 <div>
-                  <input 
+                  <Field 
                     name='name'
                     id='name'
                     type='text'
@@ -81,7 +73,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
                   />
                 </div>
                 <div>
-                  <input 
+                  <Field 
                     name='address'
                     id='address'
                     type='text'
@@ -92,7 +84,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
                   />
                 </div>
                 <div>
-                  <input 
+                  <Field 
                     name='city'
                     id='city'
                     type='text'
@@ -103,7 +95,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
                   />
                 </div>
                 <div>
-                  <input 
+                  <Field 
                     name='state'
                     id='state'
                     type='text'
@@ -116,7 +108,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
                 {/* Drag and drop */}
                 <div className='flex flex-1 flex-col p-5 rounded border-2 border-dashed aira'>
                   <Upload values={values} setFieldValue={setFieldValue}/>
-                  {values.imgs && values.imgs.map((img: File) => {
+                  {values.imgFiles && values.imgFiles.map((img: File) => {
                     return (
                       <div key={img.name}>
                         <Thumbnail img={img} />
@@ -125,12 +117,11 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
                   })}
                 </div>
                 <div>
-                  <input
+                  <button
                     type='submit'
-                    value='submit'
-                    disabled={isSubmitting}
-                    // onClick={create}
-                  />
+                  >
+                    Submit
+                  </button>
                 </div>
               </div>
             </Form>

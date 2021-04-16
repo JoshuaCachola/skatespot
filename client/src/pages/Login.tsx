@@ -2,8 +2,6 @@ import React from 'react';
 import { Formik, FormikProps, Form } from 'formik';
 import { useLoginUserMutation } from 'src/generated/graphql';
 import * as Yup from 'yup';
-
-// import {setAccessToken} from '../accessToken';
 import { accessToken } from '../graphql/reactive-variables/accessToken';
 import { RouteComponentProps } from 'react-router';
 
@@ -15,8 +13,6 @@ password: string,
 export const Login: React.FC<RouteComponentProps> = ({history}) => {
   const [login] = useLoginUserMutation({ 
     onCompleted({login}) {
-      // setAccessToken(login.accessToken);
-      // console.log(login.accessToken);
       accessToken(login.accessToken);
     }});
   
@@ -28,17 +24,16 @@ export const Login: React.FC<RouteComponentProps> = ({history}) => {
             password: ''
           }}
           onSubmit={async (values, {setSubmitting, resetForm}) => {
-            console.log('login');
             await login({ variables: values });
             resetForm();
             setSubmitting(false);
-            await history.push('/');
+            history.push('/');
           }}
           validationSchema={Yup.object().shape({
-                              email: Yup.string()
-                                .email()
-                                .required('Email is required'),
-                              password: Yup.string().required('Password is required')
+            email: Yup.string()
+              .email()
+              .required('Email is required'),
+            password: Yup.string().required('Password is required')
           })}
         >
           {(props: FormikProps<LoginForm>) => {
