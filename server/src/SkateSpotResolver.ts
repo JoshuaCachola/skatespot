@@ -63,7 +63,8 @@ export class SkateSpotResolver {
           }
         })
       });
-    })
+    });
+    
     try {
       await SkateSpot.insert({
         name,

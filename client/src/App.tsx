@@ -6,7 +6,7 @@ import { TokenContext } from './utils/TokenContext';
 
 export const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const value = useMemo(() => ({isLoggedIn, setIsLoggedIn}), [isLoggedIn, setIsLoggedIn]);
   useEffect(() => {
@@ -22,12 +22,12 @@ export const App: React.FC = () => {
         }
 
         const data = await response.json();
-        // setAccessToken(data.accessToken);
+        
         accessToken(data.accessToken);
         setLoading(false);
+        setIsLoggedIn(true);
       } catch (err) {
         console.error(err);
-        setIsLoggedIn(false);
         return;
       }
       
