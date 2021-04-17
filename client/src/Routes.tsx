@@ -11,6 +11,7 @@ import { UserProfile } from './pages/UserProfile';
 import { PrivateRoute } from './utils/PrivateRoute';
 import { Users } from './pages/Users';
 import { CreateSkateSpot } from './pages/CreateSkateSpot';
+import { SkateSpotResults } from './pages/SkateSpotResults';
 
 
 export const Routes: React.FC = () => {
@@ -35,6 +36,11 @@ export const Routes: React.FC = () => {
           path='/user-profile'
           component={UserProfile}
         />
+        <PrivateRoute
+          exact={true}
+          path='/search'
+          component={SkateSpotResults}
+        />e
       </Switch>
     </BrowserRouter>
   );

@@ -44,9 +44,10 @@ export class SkateSpotResolver {
             reject(undefined);
           }
         }).then((url) => {
-          imgLinks.push(url as string);
+          url && imgLinks.push(url as string);
           console.log(imgLinks)
         }).then(async () => {
+          // fix repetitive code
           try {
             await SkateSpot.insert({
               name,

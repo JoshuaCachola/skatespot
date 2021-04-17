@@ -9,7 +9,7 @@ export const SkaterResults: React.FC<Props> = () => {
     <div>
       <h1>Skater Results</h1>
       <header>
-
+      
       </header>
       {/* Search Results for skaters */}
       <div>

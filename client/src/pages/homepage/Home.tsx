@@ -1,7 +1,7 @@
 import React from 'react';
-import { Header } from './Header';
+import { HomepageHeader } from './HomepageHeader';
 import HomepageHero from '../../assets/homepage-hero.jpg';
-import { SearchForm } from './SearchForm';
+import { SearchForm } from '../components/SearchForm';
 
 interface Props {
 
@@ -14,7 +14,7 @@ export const Home: React.FC<Props> = () => {
     <div className='w-screen h-50 bg-cover pt-7.5 bg-center h-hero bp-50' style={{ backgroundImage: `url(${HomepageHero})` }}>
       {/* header */}
       <div className='max-w-5xl my-0 mx-auto py-0 px-0.5'>
-        <Header />
+        <HomepageHeader />
       </div>
       { /* inner hero homepage */ }
       <div className='pt-20 max-w-5xl my-0 mx-auto'>

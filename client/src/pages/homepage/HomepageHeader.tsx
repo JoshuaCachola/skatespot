@@ -4,7 +4,7 @@ import { TokenContext } from 'src/utils/TokenContext';
 import { accessToken } from '../../graphql/reactive-variables/accessToken';
 import { Account } from './Account';
 
-export const Header: React.FC = () => {
+export const HomepageHeader: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const value = useMemo(() => ({isLoggedIn, setIsLoggedIn}), [isLoggedIn, setIsLoggedIn]);
 
