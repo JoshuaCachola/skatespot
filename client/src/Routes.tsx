@@ -12,6 +12,7 @@ import { PrivateRoute } from './utils/PrivateRoute';
 import { Users } from './pages/Users';
 import { CreateSkateSpot } from './pages/CreateSkateSpot';
 
+
 export const Routes: React.FC = () => {
   return (
     <BrowserRouter>

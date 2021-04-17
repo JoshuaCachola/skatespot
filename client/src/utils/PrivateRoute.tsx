@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Route, Redirect } from "react-router-dom"
-import { TokenContext } from './TokenContext';
+import { accessToken } from 'src/graphql/reactive-variables/accessToken';
 
 interface Props {
   exact: boolean,
@@ -16,14 +16,12 @@ export const PrivateRoute: React.FC<Props> = ({
   componentProps,
 }) => {
 
-  const { isLoggedIn } = useContext(TokenContext);
-
   return (
     <Route
       exact={exact}
       path={path}
       render={(props) =>
-        isLoggedIn ? (
+        !!accessToken() ? (
           <Component {...props} {...componentProps} />
         ) : (
           <Redirect to="/login" />

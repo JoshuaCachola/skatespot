@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, FormikProps, Form } from 'formik';
+import { Formik, FormikProps, Form, Field } from 'formik';
 import { useLoginUserMutation } from 'src/generated/graphql';
 import * as Yup from 'yup';
 import { accessToken } from '../graphql/reactive-variables/accessToken';
@@ -25,9 +25,11 @@ export const Login: React.FC<RouteComponentProps> = ({history}) => {
           }}
           onSubmit={async (values, {setSubmitting, resetForm}) => {
             await login({ variables: values });
-            resetForm();
             setSubmitting(false);
-            history.push('/');
+            resetForm();
+            if (!!accessToken()) {
+              history.push('/'); 
+            }
           }}
           validationSchema={Yup.object().shape({
             email: Yup.string()
@@ -49,7 +51,7 @@ export const Login: React.FC<RouteComponentProps> = ({history}) => {
               <Form>
                 <div>
                   <div>
-                    <input
+                    <Field
                       name='email'
                       id='email'
                       value={values.email}
@@ -64,7 +66,7 @@ export const Login: React.FC<RouteComponentProps> = ({history}) => {
                     )}
                   </div>
                   <div>
-                    <input
+                    <Field
                       name='password'
                       id='password'
                       type='password'
@@ -78,7 +80,7 @@ export const Login: React.FC<RouteComponentProps> = ({history}) => {
                     )}
                   </div>
                   <div>
-                    <input
+                    <Field
                       type='submit'
                       value='submit'
                       disabled={isSubmitting}
