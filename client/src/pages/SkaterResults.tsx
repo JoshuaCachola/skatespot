@@ -4,10 +4,10 @@ interface Props {
 
 }
 
-export const SearchResults: React.FC<Props> = () => {
+export const SkaterResults: React.FC<Props> = () => {
   return(
     <div>
-      <h1>Search Results</h1>
+      <h1>Skater Results</h1>
       <header>
 
       </header>
