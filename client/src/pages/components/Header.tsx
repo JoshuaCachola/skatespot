@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { SearchForm } from './SearchForm';
 
 interface Props {
@@ -13,9 +14,9 @@ export const Header: React.FC<Props> = () => {
     <header>
       {/* Logo */}
       <div className='flex'>
-        <div className=''>
+        <Link to='/'>
           <h1>Skate Spot</h1>
-        </div>
+        </Link>
         {/* Search Form */}
         <div>
           <SearchForm />
