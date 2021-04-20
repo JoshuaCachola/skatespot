@@ -13,7 +13,7 @@ export const HomepageHeader: React.FC = () => {
   }, [isLoggedIn, setIsLoggedIn]);
 
   return (
-    <header className=''>
+    <header>
       {isLoggedIn ?
         <div className='block'>
           <nav>

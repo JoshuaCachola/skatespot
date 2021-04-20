@@ -75,66 +75,67 @@ export const SkateSpotResults: React.FC<Props> = () => {
   return (
     <div>
       <Header />
-      <ul className='mt-4'>
-        {results && results.map((result) => {
-          return (
-            <li 
-              key={result.id}
-              className='flex rounded border-2 mb-7 border-gray-100'
-            >
-              {/* skate spot img carousel */}
-              <div className='m-8 w-52 h-full'>
-                <Carousel 
-                  showThumbs={false}
-                  infiniteLoop={true} 
-                  dynamicHeight={true}
-                  emulateTouch={true}
-                  showIndicators={false}
-                >
-                  {result.imgs && result.imgs.map((img, idx) => {
-                    return (
-                      <div>
-                        <img
-                          key={idx}
-                          src={img}
-                          alt={`img-${idx}`}
-                        />
-                      </div>
-                    )
-                  })}
-                </Carousel>
-              </div>
-              {/* skatespot information */}
-              <div className='w-full my-8'>
-                {/* skatespot name/rating and address*/}
-                <div className='flex justify-between'>
-                  {/* name and rating */}
-                  <div className=''>
-                    <h1 className='text-xl font-bold'>{result.name}</h1>
+      <div className='flex border-t-2 border-gray-100'>
+        <ul className='mt-4 mx-4 w-1/2'>
+          {results && results.map((result) => {
+            return (
+              <li 
+                key={result.id}
+                className='flex rounded border-2 mb-7 border-gray-100'
+              >
+                {/* skate spot img carousel */}
+                <div className='m-8 w-52 h-full'>
+                  <Carousel 
+                    showThumbs={false}
+                    infiniteLoop={true} 
+                    dynamicHeight={true}
+                    emulateTouch={true}
+                    showIndicators={false}
+                  >
+                    {result.imgs && result.imgs.map((img, idx) => {
+                      return (
+                        <div key={idx}>
+                          <img
+                            src={img}
+                            alt={`img-${idx}`}
+                          />
+                        </div>
+                      )
+                    })}
+                  </Carousel>
+                </div>
+                {/* skatespot information */}
+                <div className='w-full my-8'>
+                  {/* skatespot name/rating and address*/}
+                  <div className='flex justify-between'>
+                    {/* name and rating */}
+                    <div className=''>
+                      <h1 className='text-xl font-bold'>{result.name}</h1>
+                    </div>
+                    <div className=''>
+                      <address>
+                        <p>
+                          <span className='text-s'>
+                            {result.address}
+                          </span>
+                        </p>
+                      </address>
+                    </div>
                   </div>
-                  <div className=''>
-                    <address>
-                      <p>
-                        <span>
-                          {result.address}
-                        </span>
-                      </p>
-                    </address>
+                  {/* what is there to skate, skating conditions etc... */}
+                  <div>
+
                   </div>
                 </div>
-                {/* what is there to skate, skating conditions etc... */}
-                <div>
-
-                </div>
-              </div>
-            </li>
-          )
-        })
-        }
-      </ul>
-      {/* map of locations */}
-      <div>
-
+              </li>
+            )
+          })
+          }
+        </ul>
+        {/* map of locations */}
+        <div className='w-1/2 mt-4'>
+          <h1>map</h1>
+        </div>
       </div>
     </div>
   );

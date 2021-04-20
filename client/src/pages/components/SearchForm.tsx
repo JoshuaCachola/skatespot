@@ -23,7 +23,7 @@ export const SearchForm: React.FC<Props> = () => {
           <div className='table min-h-0 min-w-full table-auto'>
             <div className='table-cell box-border align-top'>
               <div className='min-w-full box-border align-top block'>
-                <div>
+                <div className='shadow-lg mt-4'>
                   <label
                     search-divider=''
                     className='after:content relative rounded-l rounded-r-none px-3 py-3 text-lg font-bold bg-white box-border block w-full mt-0 mb-5 mx-0'
@@ -50,7 +50,7 @@ export const SearchForm: React.FC<Props> = () => {
           <div className='table min-w-full table-auto'>
             <div className='table-cell box-border align-top'>
               <div className='block min-w-full box-border align-top'>
-                <div>
+                <div className='shadow-lg mt-4'>
                   <label className='rounded-l-none rounded-r-none px-3 py-3 text-lg font-bold bg-white box-border block w-full mt-0 mb-5 mx-0'>
                     <div className='flex'>
                       <span className='mr-3 text-gray-600'>Near</span>
@@ -70,7 +70,7 @@ export const SearchForm: React.FC<Props> = () => {
             {/* search button */}
             <div className='box-border table-cell align-top'>
               <button
-                className='rounded-l-none rounded-r bg-red-500 px-5 py-3.75 leading-normal'
+                className='shadow-lg mt-4 rounded-l-none rounded-r bg-red-500 px-5 py-3.75 leading-normal'
               >
               <span>
                 <span className='w-6 h-6'>Search</span>
