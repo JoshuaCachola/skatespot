@@ -3,6 +3,7 @@ import { Header } from './components/Header';
 import SearchResults1 from '../assets/SearchResults1.jpg';
 import SearchResults2 from '../assets/SearchResults2.jpg';
 import { Carousel } from 'react-responsive-carousel';
+import Map from './components/Map';
 
 interface Props {
 
@@ -133,8 +134,8 @@ export const SkateSpotResults: React.FC<Props> = () => {
           }
         </ul>
         {/* map of locations */}
-        <div className='w-1/2 mt-4'>
-          <h1>map</h1>
+        <div className='w-1/2 my-4'>
+          <Map />
         </div>
       </div>
     </div>
