@@ -12,7 +12,7 @@ const containerStyle = {
 
 const Map: React.FC<Props> = () => {
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: `${process.env.GOOGLE_MAPS_API_KEY}`
+    googleMapsApiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
   });
   // const [center, setCenter] = useState({ lat: 44.076613, lng: -98.362239833 });
   // const [mapRef, setMapRef] = useState<any>(null);
