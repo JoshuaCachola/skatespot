@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ReactCrop from 'react-image-crop';
+import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
   image: File,
@@ -25,15 +26,15 @@ export const ImageCrop: React.FC<Props> = ({image, open, addFile}) => {
     }
 
     canvas.toBlob((blob) => {
-      let file = new File([blob], 'example.png', {type: 'image/png'})
+      let file = new File([blob], `${uuidv4().toString()}.png`, {type: 'image/png'})
       addFile([file]);
-    }, 'image/jpeg', 1)
+    }, 'image/png', 1)
   }
 
   useEffect(() => {
     const reader = new FileReader();
     reader.addEventListener('load', () => setImg(reader.result));
-    reader.readAsDataURL(image[0]);
+    reader.readAsDataURL(image);
   }, [image]);
 
   useEffect(() => {
@@ -74,31 +75,39 @@ export const ImageCrop: React.FC<Props> = ({image, open, addFile}) => {
   }
 
   return(
-    <div
-      className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-yellow-400 p-12'
-    >
-      <ReactCrop
-        src={img}
-        crop={crop}
-        onImageLoaded={onLoad}
-        onChange={(c) => setCrop(c)}
-        onComplete={(c) => setCompleteCrop(c)}
-      />
-      <div>
-        <canvas
-          ref={previewCanvasRef}
-          style={{
-            width: Math.round(completedCrop?.width ?? 0),
-            height: Math.round(completedCrop?.height ?? 0)
-          }}
-        />
+    <>
+      <div className='fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-70'>
+        <div
+          className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-gray-50 p-12'
+        >
+          <ReactCrop
+            src={img}
+            crop={crop}
+            onImageLoaded={onLoad}
+            onChange={(c) => setCrop(c)}
+            onComplete={(c) => setCompleteCrop(c)}
+          />
+          <div>
+            <h2 className='text-center font-semibold my-5'>Preview</h2>
+            <canvas
+              className='block mx-auto'
+              ref={previewCanvasRef}
+              style={{
+                width: Math.round(completedCrop?.width ?? 0),
+                height: Math.round(completedCrop?.height ?? 0)
+              }}
+            />
+          </div>
+          <div className='flex justify-center align-middle mt-5'>
+            <button
+              type='button'
+              onClick={() => generateBlob(previewCanvasRef.current, completedCrop)}
+            >
+              Add File
+          </button>
+          </div>
+        </div>
       </div>
-      <button
-        type='button'
-        onClick={() => generateBlob(previewCanvasRef.current, completedCrop)}
-      >
-        Add File
-      </button>
-    </div>
+    </>
   );
 }

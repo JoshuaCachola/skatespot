@@ -3,7 +3,6 @@ import { Field, Form, Formik, FormikProps} from 'formik';
 import { Upload } from '../utils/Upload';
 import { useCreateSkateSpotMutation } from '../../src/generated/graphql';
 import * as Yup from 'yup';
-import { Thumbnail } from 'src/utils/Thumbnail';
 import { RouteComponentProps } from 'react-router';
 
 interface SkateSpotForm {
@@ -106,16 +105,9 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
                   />
                 </div>
                 {/* Drag and drop */}
-                <div className='flex flex-1 flex-col p-5 rounded border-2 border-dashed aira'>
+                <section>
                   <Upload values={values} setFieldValue={setFieldValue}/>
-                  {values.imgFiles && values.imgFiles.map((img: File, idx) => {
-                    return (
-                      <div key={idx}>
-                        <Thumbnail img={img} />
-                      </div>
-                    )
-                  })}
-                </div>
+                </section>
                 <div>
                   <button
                     type='submit'
