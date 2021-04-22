@@ -11,6 +11,7 @@ import { accessToken } from './graphql/reactive-variables/accessToken';
 import './index.css';
 import './fontawesome';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import 'react-image-crop/dist/ReactCrop.css';
 
 
 

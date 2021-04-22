@@ -4,6 +4,7 @@ import SearchResults1 from '../assets/SearchResults1.jpg';
 import SearchResults2 from '../assets/SearchResults2.jpg';
 import { Carousel } from 'react-responsive-carousel';
 import Map from './components/Map';
+// import { GoogleMap } from '@react-google-maps/api';
 
 interface Props {
 
@@ -77,7 +78,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
     <div>
       <Header />
       <div className='flex border-t-2 border-gray-100'>
-        <ul className='mt-4 mx-4 w-1/2'>
+        <ul className='my-4 mx-4 pr-1 w-1/2 h-screen overflow-y-scroll'>
           {results && results.map((result) => {
             return (
               <li 

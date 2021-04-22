@@ -108,9 +108,9 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
                 {/* Drag and drop */}
                 <div className='flex flex-1 flex-col p-5 rounded border-2 border-dashed aira'>
                   <Upload values={values} setFieldValue={setFieldValue}/>
-                  {values.imgFiles && values.imgFiles.map((img: File) => {
+                  {values.imgFiles && values.imgFiles.map((img: File, idx) => {
                     return (
-                      <div key={img.name}>
+                      <div key={idx}>
                         <Thumbnail img={img} />
                       </div>
                     )
