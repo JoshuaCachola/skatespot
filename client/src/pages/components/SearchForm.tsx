@@ -34,6 +34,7 @@ export const SearchForm: React.FC<Props> = () => {
                         <input
                           type='text'
                           autoComplete='off'
+                          placeholder='skaters, skate spots, skate crews'
                           maxLength={64}
                           className='cursor-text inline-block w-full box-border focus:outline-none'
                         />
@@ -58,6 +59,7 @@ export const SearchForm: React.FC<Props> = () => {
                         <input
                           type='text'
                           autoComplete='off'
+                          placeholder='San Jose, CA'
                           maxLength={64}
                           className='cursor-text inline-block w-full box-border focus:outline-none'
                         />
@@ -73,7 +75,7 @@ export const SearchForm: React.FC<Props> = () => {
                 className='shadow-lg mt-4 rounded-l-none rounded-r bg-red-500 px-5 py-3.75 leading-normal'
               >
               <span>
-                <span className='w-6 h-6'>Search</span>
+                <span className='w-6 h-6 text-white font-semibold'>Search</span>
               </span>
               </button>
             </div>

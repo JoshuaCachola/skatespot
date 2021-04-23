@@ -15,12 +15,12 @@ const user = {
 
 export const UserProfile: React.FC<Props> = () => {
   return(
-    <div className='max-w-5xl my-0 mx-auto'>
+    <div>
       <Header />
       {/* User information and photo */}
-      <div className='flex mt-4 border-t-2 border-grey-100'>
+      <div className='flex max-w-4xl my-5 mx-auto'>
         {/* Account profile picture */}
-        <div className='rounded m-5'>
+        <div className='rounded mt-5 mb-8 ml-20'>
           <img
             alt='profile'
             src={SearchResultsFull1}
@@ -30,14 +30,14 @@ export const UserProfile: React.FC<Props> = () => {
           />
         </div>
         {/* Account information */}
-        <div className='my-5'>
-          <h1>{user.username}</h1>
-          <h2>{user.firstName} {user.lastName}</h2>
-          <p>{user.stance}</p>
+        <div className='my-4 ml-28 leading-normal'>
+          <h1 className='font-light text-3xl mb-4'>{user.username}</h1>
+          <p className='mb-4'><span className='font-semibold'>stance</span> <span className='uppercase'>{user.stance}</span></p>
+          <h2 className='font-semibold'>{user.firstName} {user.lastName}</h2>
         </div>
       </div>
       {/* User photos/videos */}
-      <div className='border-t-2 border-grey-200'>
+      <div className='max-w-4xl border-t-2 border-grey-200 my-0 mx-auto'>
         <h1>photos</h1>
       </div>
     </div>

@@ -4,6 +4,7 @@ import SearchResults1 from '../assets/SearchResults1.jpg';
 import SearchResults2 from '../assets/SearchResults2.jpg';
 import { Carousel } from 'react-responsive-carousel';
 import Map from './components/Map';
+import { Link } from 'react-router-dom';
 // import { GoogleMap } from '@react-google-maps/api';
 
 interface Props {
@@ -81,55 +82,66 @@ export const SkateSpotResults: React.FC<Props> = () => {
         <ul className='my-4 mx-4 pr-1 w-1/2 h-screen overflow-y-scroll'>
           {results && results.map((result) => {
             return (
-              <li 
+              <Link
+                className='z-0'
                 key={result.id}
-                className='flex rounded border-2 mb-7 border-gray-100'
+                to='/skate-spot'
               >
-                {/* skate spot img carousel */}
-                <div className='m-8 w-52 h-full'>
-                  <Carousel 
-                    showThumbs={false}
-                    infiniteLoop={true} 
-                    dynamicHeight={true}
-                    emulateTouch={true}
-                    showIndicators={false}
+                <li 
+                  className='flex rounded border-2 mb-7 border-gray-100'
+                >
+                  {/* skate spot img carousel */}
+                  <div className='m-8 w-52 h-full z-50'
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }}
                   >
-                    {result.imgs && result.imgs.map((img, idx) => {
-                      return (
-                        <div key={idx}>
-                          <img
-                            src={img}
-                            alt={`img-${idx}`}
-                          />
-                        </div>
-                      )
-                    })}
-                  </Carousel>
-                </div>
-                {/* skatespot information */}
-                <div className='w-full my-8'>
-                  {/* skatespot name/rating and address*/}
-                  <div className='flex justify-between'>
-                    {/* name and rating */}
-                    <div className=''>
-                      <h1 className='text-xl font-bold'>{result.name}</h1>
-                    </div>
-                    <div className=''>
-                      <address>
-                        <p>
-                          <span className='text-s'>
-                            {result.address}
-                          </span>
-                        </p>
-                      </address>
-                    </div>
+                    <Carousel 
+                      showThumbs={false}
+                      infiniteLoop={true} 
+                      dynamicHeight={true}
+                      emulateTouch={true}
+                      showIndicators={false}
+                      showStatus={false}
+                    >
+                      {result.imgs && result.imgs.map((img, idx) => {
+                        return (
+                          <div key={idx}>
+                            <img
+                              src={img}
+                              alt={`img-${idx}`}
+                            />
+                          </div>
+                        )
+                      })}
+                    </Carousel>
                   </div>
-                  {/* what is there to skate, skating conditions etc... */}
-                  <div>
+                  {/* skatespot information */}
+                  <div className='w-full my-8'>
+                    {/* skatespot name/rating and address*/}
+                    <div className='flex justify-between'>
+                      {/* name and rating */}
+                      <div className=''>
+                        <h1 className='text-xl font-bold'>{result.name}</h1>
+                      </div>
+                      <div className=''>
+                        <address>
+                          <p>
+                            <span className='text-s'>
+                              {result.address}
+                            </span>
+                          </p>
+                        </address>
+                      </div>
+                    </div>
+                    {/* what is there to skate, skating conditions etc... */}
+                    <div>
 
+                    </div>
                   </div>
-                </div>
-              </li>
+                </li>
+              </Link>
             )
           })
           }

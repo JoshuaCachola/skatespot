@@ -1,14 +1,17 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import ReactDom from 'react-dom';
 import ReactCrop from 'react-image-crop';
 import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
   image: File,
   open: boolean,
-  addFile: (file) => void
+  addFile: (file: Array<File>) => void
 }
 
-export const ImageCrop: React.FC<Props> = ({image, open, addFile}) => {
+const modal = document.getElementById('modal') as HTMLElement;
+
+export const ImageCropModal: React.FC<Props> = ({image, open, addFile}) => {
   const [img, setImg] = useState<any>(null);
   const [crop, setCrop] = useState<any>({ unit: '%', width: 1080, aspect: 1 / 1});
   const [completedCrop, setCompleteCrop] = useState<any>(null);
@@ -74,7 +77,7 @@ export const ImageCrop: React.FC<Props> = ({image, open, addFile}) => {
     return null;
   }
 
-  return(
+  return ReactDom.createPortal(
     <>
       <div className='fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-70'>
         <div
@@ -98,16 +101,25 @@ export const ImageCrop: React.FC<Props> = ({image, open, addFile}) => {
               }}
             />
           </div>
-          <div className='flex justify-center align-middle mt-5'>
+          <div className='flex justify-around align-middle mt-5'>
             <button
               type='button'
+              className='focus:outline-none'
               onClick={() => generateBlob(previewCanvasRef.current, completedCrop)}
             >
               Add File
-          </button>
+            </button>
+            <button
+              type='button'
+              className='focus:outline-none'
+              onClick={() => addFile([])}
+            >
+              Cancel
+            </button>
           </div>
         </div>
       </div>
-    </>
+    </>,  
+    modal
   );
 }

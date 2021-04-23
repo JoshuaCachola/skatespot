@@ -17,13 +17,13 @@ export const HomepageHeader: React.FC = () => {
       {isLoggedIn ?
         <div className='block'>
           <nav>
-            <ul className='inline-block float-left'>
-              <li>
+            <ul className='flex float-left'>
+              <li className='mr-5 text-white'>
                 <Link to='/create-skate-spot'>
                   Create Skate Spot
                 </Link>
               </li>
-              <li>
+              <li className='text-white'>
                 <Link to='/private'>
                   Users
                 </Link>

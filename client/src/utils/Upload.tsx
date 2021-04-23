@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { ImageCrop } from './ImageCrop';
+import { ImageCropModal } from './ImageCropModal';
 import { Thumbnail } from './Thumbnail';
 
 export const Upload = ({setFieldValue, values}) => {
@@ -24,10 +24,10 @@ export const Upload = ({setFieldValue, values}) => {
   return (
     <div>
       <div {...getRootProps({ className: 'dropzone' })}
-        className='flex flex-1 flex-col p-5 rounded border-2 border-dashed'
+        className='flex flex-1 flex-col p-5 rounded border-2 border-dashed focus:outline-none hover:border-yellow-600 cursor-pointer'
       >
         {!isImgCropped &&
-          <ImageCrop image={image} open={!isImgCropped} addFile={addFile} />
+          <ImageCropModal image={image} open={!isImgCropped} addFile={addFile} />
         }
         <input {...getInputProps()} disabled={!isImgCropped} />
         {isDragActive ? (

@@ -12,7 +12,7 @@ import { PrivateRoute } from './utils/PrivateRoute';
 import { Users } from './pages/Users';
 import { CreateSkateSpot } from './pages/CreateSkateSpot';
 import { SkateSpotResults } from './pages/SkateSpotResults';
-import { ImageCrop } from './utils/ImageCrop';
+import { SkateSpot } from './pages/SkateSpot';
 
 export const Routes: React.FC = () => {
   return (
@@ -43,8 +43,8 @@ export const Routes: React.FC = () => {
         />
         <PrivateRoute
           exact={true}
-          path='/crop'
-          component={ImageCrop}
+          path='/skate-spot'
+          component={SkateSpot}
         />
       </Switch>
     </BrowserRouter>
