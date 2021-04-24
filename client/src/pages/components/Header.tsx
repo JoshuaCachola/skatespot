@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Account } from '../homepage/Account';
-import { SearchForm } from './SearchForm';
+import SearchForm from './search/SearchForm';
 
 interface Props {
 

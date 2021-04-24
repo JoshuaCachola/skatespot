@@ -9,7 +9,14 @@ module.exports = {
         primaryColor: '',
       },
       height: {
-        hero: '35.625rem'
+        hero: '35.625rem',
+        110: '426px',
+        200: '745px',
+      },
+      width: {
+        200: '745px',
+        110: '426px',
+        carousel: '1922px'
       },
       backgroundPosition: {
         50: '50%'
