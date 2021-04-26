@@ -15,6 +15,8 @@ module.exports = {
       },
       width: {
         200: '745px',
+        300: '1224px',
+        295: '1144ox',
         110: '426px',
         carousel: '1922px'
       },

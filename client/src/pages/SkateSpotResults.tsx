@@ -78,7 +78,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
   return (
     <div>
       <Header />
-      <div className='flex border-t-2 border-gray-100'>
+      <div className='flex border-t border-gray-100'>
         <ul className='my-4 mx-4 pr-1 w-1/2 h-screen overflow-y-scroll'>
           {results && results.map((result) => {
             return (
@@ -147,7 +147,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
           }
         </ul>
         {/* map of locations */}
-        <div className='w-1/2 my-4'>
+        <div className='w-1/2 h-screen border-t'>
           <Map />
         </div>
       </div>

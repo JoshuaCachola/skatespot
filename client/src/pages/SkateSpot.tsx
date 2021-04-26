@@ -1,7 +1,6 @@
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import SkateSpot2 from '../assets/SkateSpot2.jpg';
-import SkateSpot1 from '../assets/SkateSpot1.jpg';
 import { Header } from './components/Header';
 
 interface Props {
@@ -10,7 +9,7 @@ interface Props {
 
 const spot = {
   name: 'Milpitas Skate Park',
-  imgs: [SkateSpot2, SkateSpot1]
+  imgs: [SkateSpot2, SkateSpot2]
 };
 
 export const SkateSpot: React.FC<Props> = () => {
@@ -18,11 +17,11 @@ export const SkateSpot: React.FC<Props> = () => {
     <div>
       <Header />
       {/* image carousel, skate spot information */}
-      <div className='w-5/6 z-0 my-0 mx-auto'>
+      <div className='w-4/6 z-0 my-0 mx-auto'>
         <div className='absolute flex m-auto items-end box-border py-10 px-16'>
           <div className='flex'>
             <div className='z-30'>
-              <h1 className='font-bold text-red-600 text-5xl'>{spot.name}</h1>
+              <h1 className='font-bold text-red-600 text-4xl'>{spot.name}</h1>
             </div>
             <div className='z-30'>
               <button
@@ -33,7 +32,7 @@ export const SkateSpot: React.FC<Props> = () => {
             </div>
           </div>
         </div>
-        <div className='z-20 max-h-110 min-w-carousel bg-black'>
+        <div className='z-20 max-h-110 w-full bg-black'>
           <Carousel
             showThumbs={false}
             emulateTouch={true}
@@ -62,30 +61,36 @@ export const SkateSpot: React.FC<Props> = () => {
         </div>
       </div>
       {/* Container for skate spot information */}
-      <div className='flex'>
-        {/* buttons for writing reviews, adding photos, follow skate spot */}
-        <div className='leading-loose my-5 flex'>
-          <button
-            className='text-black'
-          >
-            Write Review
-          </button>
-          <button
-            className='text-black'
-          >
-            Add photo
-          </button>
-        </div>
-        {/* Top 5 tricks landed */}
-        <div>
-
-        </div>
-      </div>
-      {/* fixed side panel for directions and photos */}
-      <div>
-        <div>
-
-        </div>
+      <div className='mt-6'>
+        <div className='min-w-300'>
+          <div className='max-w-295'>
+            <div className='leading-loose mx-auto my-0 w-2/3'>
+              <div className='w-2/3 mx-auto my-0'>
+                <div className='flex w-full'>
+                  {/* buttons for writing reviews, adding photos, follow skate spot */}
+                  <div className='w-2/3 border-b border-gray-400'>
+                    <button
+                      className='text-black rounded border-red-600 border mb-6 mr-6'
+                    >
+                      Write Review
+                    </button>
+                    <button
+                      className='text-black rounded border-red-600 border'
+                    >
+                      Add photo
+                    </button>
+                  </div>
+                  {/* fixed side panel for directions and photos */}
+                  <div className='w-1/3 sticky ml-12'>
+                    <div>
+                      <div> sticky </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
       </div>
     </div>
   );

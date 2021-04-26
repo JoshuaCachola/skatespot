@@ -13,6 +13,8 @@ const modal = document.getElementById('modal') as HTMLElement;
 
 export const ImageCropModal: React.FC<Props> = ({image, open, addFile}) => {
   const [img, setImg] = useState<any>(null);
+
+  // change crop to use reducer to change aspect ratio
   const [crop, setCrop] = useState<any>({ unit: '%', width: 1080, aspect: 1 / 1});
   const [completedCrop, setCompleteCrop] = useState<any>(null);
 

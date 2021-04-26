@@ -27,7 +27,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({history}) => {
                 <div className='shadow-lg mt-4'>
                   <label
                     search-divider=''
-                    className={`after:content relative rounded-l rounded-r-none px-3 py-3 text-lg font-bold bg-white box-border block w-full mt-0 mb-5 mx-0 ${isFindSearchOpen && 'rounded-b'}`}
+                    className={`after:content relative rounded-l rounded-r-none px-3 py-3 text-lg font-bold bg-white box-border block w-full mt-0 mb-5 mx-0 ${isFindSearchOpen ? 'rounded-bl-none' : 'rounded-br-none after:content'}`}
                   >
                     <div className='flex'>
                       <span className='mr-3 text-gray-600'>Find</span>
@@ -43,8 +43,8 @@ const SearchForm: React.FC<RouteComponentProps> = ({history}) => {
                       </span>
                     </div>
                     {isFindSearchOpen &&
-                      <div className='rounded-b bg-white mt-4'>
-                        <ul>
+                      <div className='absolute w-full inline-block rounded-b box-border shadow-lg mt-3 right-px bg-white border-t z-50'>
+                        <ul className='m-4'>
                           <li>
                             skaters
                           </li>
@@ -69,7 +69,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({history}) => {
             <div className='table-cell box-border align-top'>
               <div className='block min-w-full box-border align-top'>
                 <div className='shadow-lg mt-4'>
-                  <label className={`rounded-l-none rounded-r-none px-3 py-3 text-lg font-bold bg-white box-border block w-full mt-0 mb-5 mx-0 ${isNearSearchOpen && 'rounded-b'}`}>
+                  <label className={`rounded-l-none relative rounded-r-none px-3 py-3 text-lg font-bold bg-white box-border block w-full mt-0 mb-5 mx-0 ${isNearSearchOpen ? 'rounded-b-none' : 'rounded-b-none'}`}>
                     <div className='flex'>
                       <span className='mr-3 text-gray-600'>Near</span>
                       <span className='block flex-grow'>
@@ -79,13 +79,15 @@ const SearchForm: React.FC<RouteComponentProps> = ({history}) => {
                           placeholder='San Jose, CA'
                           maxLength={64}
                           className='cursor-text inline-block w-full box-border focus:outline-none'
-                          onClick={() => setIsNearSearchOpen(!isNearSearchOpen)}
+                          onClick={() => {
+                            setIsNearSearchOpen(!isNearSearchOpen);
+                          }}
                         />
                       </span>
                     </div>
                     {isNearSearchOpen &&
-                      <div className='rounded-b bg-white mt-4'>
-                        <ul>
+                      <div className='absolute rounded-b rounded-t-none w-full left-px bg-white mt-3 shadow-lg border-t z-50'>
+                        <ul className='m-4'>
                           <li>
                             Current Location
                           </li>

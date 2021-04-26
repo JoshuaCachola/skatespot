@@ -16,6 +16,7 @@ services:
       - SECRET_ACCESS_KEY=${SECRET_ACCESS_KEY}
       - REGION=${REGION}
       - AWS_BUCKET=${AWS_BUCKET}
+      - GOOGLE_GEOCODING_API_KEY=${GOOGLE_GEOCODING_API_KEY}
     depends_on:
       - api-db
 
