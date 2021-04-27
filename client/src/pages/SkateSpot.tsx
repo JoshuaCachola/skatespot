@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Carousel } from 'react-responsive-carousel';
+import { ImageModal } from 'src/utils/ImageModal';
 import SkateSpot1 from '../assets/SkateSpot1.jpg';
 import SkateSpot2 from '../assets/SkateSpot2.jpg';
 import { Header } from './components/Header';
@@ -11,13 +12,23 @@ interface Props {
 
 const spot = {
   name: 'Milpitas Skate Park',
-  imgs: [SkateSpot1, SkateSpot2]
+  imgs: [SkateSpot1, SkateSpot2, SkateSpot1, SkateSpot2]
 };
 
 export const SkateSpot: React.FC<Props> = () => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)'});
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1223px)'});
-  const [isFocusImage, setIsFocusImage] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [imagesIdx, setImagesIdx] = useState<number>(0);
+
+  const handleImageClick = (e) => {
+    if (isOpen) {
+      return;
+    }
+    setIsOpen(true);
+    setImagesIdx(parseInt(e.target.id));
+  };
+
   return(
     <div>
       <Header />
@@ -37,7 +48,12 @@ export const SkateSpot: React.FC<Props> = () => {
         >
           {spot.imgs && spot.imgs.map((img, idx) => {
             return (
-              <div key={idx} className='flex justify-center h-110 max-w-200 bg-black'>
+              <div 
+                key={idx}
+                id={idx.toString()}
+                className='flex justify-center h-110 max-w-200 bg-black cursor-pointer'
+                onClick={(e) => handleImageClick(e)}
+              >
                 <img
                   src={img}
                   alt={`img-${idx}`}
@@ -112,6 +128,10 @@ export const SkateSpot: React.FC<Props> = () => {
             </div>
           </div>
       </div>
+      {isOpen && 
+        <ImageModal idx={imagesIdx} setIdx={setImagesIdx} images={spot.imgs} setIsOpen={setIsOpen}/>
+      }
     </div>
+    
   );
 }
