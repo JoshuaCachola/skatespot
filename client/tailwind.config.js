@@ -18,6 +18,7 @@ module.exports = {
         300: '1224px',
         295: '1144ox',
         110: '426px',
+        500: '1922px',
         carousel: '1922px'
       },
       backgroundPosition: {

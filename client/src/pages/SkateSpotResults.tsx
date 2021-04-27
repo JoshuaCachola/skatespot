@@ -5,8 +5,7 @@ import SearchResults2 from '../assets/SearchResults2.jpg';
 import { Carousel } from 'react-responsive-carousel';
 import Map from './components/Map';
 import { Link } from 'react-router-dom';
-// import { GoogleMap } from '@react-google-maps/api';
-
+import { useMediaQuery } from 'react-responsive';
 interface Props {
 
 }
@@ -75,11 +74,12 @@ const results = [
 ];
 
 export const SkateSpotResults: React.FC<Props> = () => {
+  const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)'});
   return (
     <div>
       <Header />
       <div className='flex border-t border-gray-100'>
-        <ul className='my-4 mx-4 pr-1 w-1/2 h-screen overflow-y-scroll'>
+        <ul className={`my-4 mx-4 pr-1 h-screen overflow-y-scroll ${isDesktopOrLaptop ? 'w-1/2' : 'w-full'}`}>
           {results && results.map((result) => {
             return (
               <Link
@@ -91,7 +91,8 @@ export const SkateSpotResults: React.FC<Props> = () => {
                   className='flex rounded border-2 mb-7 border-gray-100'
                 >
                   {/* skate spot img carousel */}
-                  <div className='m-8 w-52 h-full z-50'
+                  <div 
+                    className='m-8 w-52 h-full z-50'
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
@@ -147,9 +148,13 @@ export const SkateSpotResults: React.FC<Props> = () => {
           }
         </ul>
         {/* map of locations */}
-        <div className='w-1/2 h-screen border-t'>
-          <Map />
-        </div>
+        {isDesktopOrLaptop ?
+          <div className='w-1/2 h-screen border-t'>
+            <Map />
+          </div>
+          :
+          null
+        }
       </div>
     </div>
   );
