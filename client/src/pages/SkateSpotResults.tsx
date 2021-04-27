@@ -6,6 +6,7 @@ import { Carousel } from 'react-responsive-carousel';
 import Map from './components/Map';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import { Footer } from './components/search/Footer';
 interface Props {
 
 }
@@ -79,7 +80,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
     <div>
       <Header />
       <div className='flex border-t border-gray-100'>
-        <ul className={`my-4 mx-4 pr-1 h-screen overflow-y-scroll ${isDesktopOrLaptop ? 'w-1/2' : 'w-full'}`}>
+        <ul className={`mt-4 mx-4 pr-1 h-screen ${isDesktopOrLaptop ? 'w-1/2 overflow-y-scroll' : 'w-2/3 mx-auto my-0'}`}>
           {results && results.map((result) => {
             return (
               <Link
@@ -156,6 +157,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
           null
         }
       </div>
+      <Footer />
     </div>
   );
 }

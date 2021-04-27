@@ -12,7 +12,7 @@ interface Props {
 
 export const Header: React.FC<Props> = () => {
   return(
-    <header className='border-b-2 border-gray-100'>
+    <header className='border-b border-gray-100'>
       {/* Logo */}
       <div className='flex items-center justify-between'>
         <div>
