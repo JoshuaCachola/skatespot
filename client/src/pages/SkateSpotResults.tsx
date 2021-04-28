@@ -8,7 +8,8 @@ import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 // import { Footer } from './components/search/Footer';
 import { useGetSkateSpotsQuery } from '../generated/graphql';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { skateSpot } from '../graphql/reactive-variables/skateSpot';
 interface Props {
 
 }
@@ -37,14 +38,17 @@ export const SkateSpotResults: React.FC<Props> = () => {
               <Link
                 className='z-0'
                 key={result.id}
-                to='/skate-spot'
+                to={{
+                  pathname: `/skate-spot/${result.name}`,
+                  state: { skateSpot: data.getSkateSpots[resultIdx]}
+                }}
               >
                 <li 
                   className='flex rounded border-2 mb-7 border-gray-100 hover:shadow-xl'
                 >
                   {/* skate spot img carousel */}
                   <div 
-                    className='my-6 ml-6 -mr-6 w-52 z-50'
+                    className='m-6 w-40 z-50'
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
@@ -101,12 +105,12 @@ export const SkateSpotResults: React.FC<Props> = () => {
                           </div>
                         </div>
                         <div>
-                          <div>
+                          <div className='text-gray-500'>
                             <span>{result.categoryName}</span>
                           </div>
                         </div>
                       </div>
-                      <div className=''>
+                      <div className='mr-2'>
                         <address>
                           <p>
                             <span className='text-xs'>

@@ -18,9 +18,6 @@ export const Routes: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path='/' component={Home} />
-        <Route exact path='/register' component={Register} />
-        <Route exact path='/login' component={Login} />
         <PrivateRoute
           exact={true}
           path='/private'
@@ -43,9 +40,13 @@ export const Routes: React.FC = () => {
         />
         <PrivateRoute
           exact={true}
-          path='/skate-spot'
+          path='/skate-spot/:name'
           component={SkateSpot}
         />
+        <Route exact path='/' component={Home} />
+        <Route exact path='/register' component={Register} />
+        <Route exact path='/login' component={Login} />
+        <Route render={() => <h1>404: Page not found</h1>} />
       </Switch>
     </BrowserRouter>
   );

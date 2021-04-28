@@ -1,26 +1,29 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Carousel } from 'react-responsive-carousel';
+// import { skateSpot } from 'src/graphql/reactive-variables/skateSpot';
 import { ImageModal } from 'src/utils/ImageModal';
 import SkateSpot1 from '../assets/SkateSpot1.jpg';
-import SkateSpot2 from '../assets/SkateSpot2.jpg';
+// import SkateSpot2 from '../assets/SkateSpot2.jpg';
 import { Header } from './components/Header';
 
 interface Props {
-
+  location: any
 }
 
-const spot = {
-  name: 'Milpitas Skate Park',
-  imgs: [SkateSpot1, SkateSpot2, SkateSpot1, SkateSpot2]
-};
+// const spot = {
+//   name: 'Milpitas Skate Park',
+//   imgs: [SkateSpot1, SkateSpot2, SkateSpot1, SkateSpot2]
+// };
 
-export const SkateSpot: React.FC<Props> = () => {
+export const SkateSpot: React.FC<Props> = ({location}) => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)'});
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1223px)'});
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [imagesIdx, setImagesIdx] = useState<number>(0);
 
+  const spot = location.state.skateSpot;
   const handleImageClick = (e) => {
     if (isOpen) {
       return;
@@ -29,11 +32,12 @@ export const SkateSpot: React.FC<Props> = () => {
     setImagesIdx(parseInt(e.target.id));
   };
 
+  
   return(
     <div>
       <Header />
       {/* image carousel, skate spot information */}
-      <div className={`z-50 bg-black mx-auto ${isDesktopOrLaptop ? 'w-300' : 'w-full'}`}>
+      <div className={`z-50 bg-black mx-auto ${isDesktopOrLaptop ? 'w-full' : 'w-full'}`}>
         <Carousel
           showThumbs={false}
           emulateTouch={true}
@@ -46,7 +50,7 @@ export const SkateSpot: React.FC<Props> = () => {
           autoPlay={true}
           interval={5000}
         >
-          {spot.imgs && spot.imgs.map((img, idx) => {
+          {spot.imageUrls && JSON.parse(spot.imageUrls).map((img, idx) => {
             return (
               <div 
                 key={idx}
@@ -69,17 +73,40 @@ export const SkateSpot: React.FC<Props> = () => {
           <div className='border-separate table table-auto min-w-full'>
             <div className='border-collapse box-border align-top table-cell'>
               <div className={`mb-2 ${isTabletOrMobile && 'w-72'}`}>
-                <h1 className={`text-red-600 font-extrabold inline leading-10 ${isDesktopOrLaptop ? 'text-5xl' : 'text-3xl'}`}>{spot.name}</h1>
-                <p>335 reviews</p>
-                <p>other info</p>
-                <p>Open</p>
+                {/* name of skate spot */}
+                <div>
+                  <h1 className={`text-white font-extrabold inline leading-10 ${isDesktopOrLaptop ? 'text-5xl' : 'text-4xl'}`}>{spot.name}</h1>
+                </div>
+                {/* reviews */}
+                <div className='flex text-2xl text-white font-bold'>
+                  <div>
+                    <span>
+                      <FontAwesomeIcon icon={['fas', 'star']} />
+                      <FontAwesomeIcon icon={['fas', 'star']} />
+                      <FontAwesomeIcon icon={['fas', 'star']} />
+                      <FontAwesomeIcon icon={['fas', 'star']} />
+                      <FontAwesomeIcon icon={['fas', 'star']} />
+                    </span>
+                  </div>
+                  <div>
+                    <span>&nbsp;{spot.reviewsCount}</span>
+                  </div>
+                </div>
+                <div className='text-white font-semibold'>
+                  <div>
+                    <h4>{spot.categoryName}&nbsp;•&nbsp;{spot.permanentlyClosed ? 'Closed' : 'Open'}</h4>
+                  </div>
+                  <div>
+
+                  </div>
+                </div>
               </div>
             </div>
             <div className='flex-initial'>
               <button
-                className='font-bold text-red-600 focus:outline-none border rounded border-white py-3 px-8 w-44'
+                className='font-bold text-white focus:outline-none border rounded border-white py-3 px-8 w-44'
               >
-                See All Photos
+                See {JSON.parse(spot.imageUrls).length} Photos
               </button>
             </div>
           </div>
@@ -91,12 +118,12 @@ export const SkateSpot: React.FC<Props> = () => {
         <div className='min-w-300'>
           <div className='max-w-295 mx-auto my-0'>
             <div className='leading-loose mx-auto my-0 w-2/3'>
-                <div className='flex w-full'>
-                  {/* buttons for writing reviews, adding photos, follow skate spot */}
-                  <div className='w-2/3 max-w-295'>
-                    <div className='border-b border-gray-200'>
-                      <button
-                      className='text-black rounded border-red-600 border mb-6 mr-6 py-1 px-6 font-bold'
+              <div className='flex w-full'>
+                {/* buttons for writing reviews, adding photos, follow skate spot */}
+                <div className='w-2/3 max-w-295'>
+                  <div className='border-b border-black'>
+                    <button
+                    className='text-black rounded border-red-600 border mb-6 mr-6 py-1 px-6 font-bold'
                     >
                       Write Review
                     </button>
@@ -105,24 +132,96 @@ export const SkateSpot: React.FC<Props> = () => {
                     >
                       Add photo
                     </button>
-                    </div>
-                    
-                    <div>hello</div>
-                    <div>hello</div>
-                    <div>hello</div>
-                    <div>hello</div>
-                    <div>hello</div>
-                    <div>hello</div>
-                    <div>hello</div>
-                    <div>hello</div>
-                    <div>hello</div>
                   </div>
-                  {/* fixed side panel for directions and photos */}
-                  <div className='w-1/3 max-h-48 sticky ml-12 border rounded border-gray-200'>
+                  <div className='border-b border-black my-4'>
+                    {/* Header */}
+                    <div className='text-black font-bold text-xl mb-4'>
+                      <span>Location & Hours</span>
+                    </div>
+                    <div className='flex'>
+                      <div className='mb-5'>
+                        {/* static map */}
+                        <div>
+
+                        </div>
+                        <div>
+                          <p className='font-semibold text-base'><span>{spot.street}</span></p>
+                          <p className='font-normal text-base'><span>{spot.city},&nbsp;{spot.state}&nbsp;{spot.postalCode}</span></p>
+                        </div>
+                      </div>
+                      {/* Popular times histogram */}
+                      <div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                  {/* Reviews */}
+                  <div>
+                    {/* User information */}
+                    <div className='flex'>
+                      {/* Profile image */}
+                      <div className='rounded h-24 w-24'>
+                        <img 
+                          src={SkateSpot1}
+                          alt='profile-avatar'
+                        />
+                      </div>
+                      {/* User information */}
+                      <div className='ml-2'>
+                        {/* username */}
+                        <div className='font-bold text-base'>
+                          <span>Crookiemonster</span>
+                        </div>
+                        <div className='text-sm'>
+                          <span>San Jose, CA</span>
+                        </div>
+                        {/* Add reviews images */}
+                        <div>
+
+                        </div>
+                      </div>
+                    </div>
+                    {/* User rating */}
+                  <div className='flex items-center mb-5'>
+                    <div className='text-base text-black font-bold'>
+                      <span>
+                        <FontAwesomeIcon icon={['fas', 'star']} />
+                        <FontAwesomeIcon icon={['fas', 'star']} />
+                        <FontAwesomeIcon icon={['fas', 'star']} />
+                        <FontAwesomeIcon icon={['fas', 'star']} />
+                        <FontAwesomeIcon icon={['fas', 'star']} />
+                      </span>
+                    </div>
+                    {/* Review date */}
+                    <div className='text-sm'>
+                      <span>&nbsp;04/28/2021</span>
+                    </div>
+                  </div>
+                  {/* review */}
+                  <div className='break-words font-light'>
                     <div>
-                      <div> sticky </div>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin gravida lorem ac ligula fermentum convallis.
+                      Etiam non ipsum eget quam elementum vestibulum. Aenean finibus purus et eros consequat egestas.
+                      Donec efficitur rutrum nisl at consequat. 
+                      <br />
+                      <br />
+                      Cras id orci quis ligula rhoncus aliquam sed tristique mauris. Sed et sagittis odio. Donec mollis venenatis nisi id vulputate.
+                      Duis sit amet dui at arcu posuere suscipit. Nulla ullamcorper tincidunt sagittis.Maecenas ultrices posuere lacus, id finibus
+                      leo interdum at. Cras tincidunt, orci vitae pellentesque euismod, lectus nunc sagittis ligula, sed vehicula nunc nisi
+                      iaculis velit. Ut in suscipit nisi, quis ultrices tellus. Donec pulvinar elementum lacus, non interdum massa varius sit amet.
+                      Fusce ut commodo tortor. Mauris ornare eget est vitae semper. Maecenas vestibulum semper pretium. Duis sed orci sem.
+                      Nunc ornare porttitor ipsum. Nunc pharetra vehicula fermentum. Nullam non justo accumsan, tincidunt nisi nec, viverra mi.
+                      Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
                     </div>
                   </div>
+                  </div>
+                </div>
+                {/* fixed side panel for directions and photos */}
+                {spot.website &&
+                  <div className='w-1/3 max-h-48 sticky ml-12 border rounded border-gray-200 mb-4'>
+                    <div><span>{spot.website}</span></div>
+                  </div>
+                }
               </div>
             </div>
             </div>
