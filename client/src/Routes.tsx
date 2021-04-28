@@ -13,6 +13,7 @@ import { Users } from './pages/Users';
 import { CreateSkateSpot } from './pages/CreateSkateSpot';
 import { SkateSpotResults } from './pages/SkateSpotResults';
 import { SkateSpot } from './pages/SkateSpot';
+import { WriteReview } from './pages/WriteReview';
 
 export const Routes: React.FC = () => {
   return (
@@ -42,6 +43,11 @@ export const Routes: React.FC = () => {
           exact={true}
           path='/skate-spot/:name'
           component={SkateSpot}
+        />
+        <PrivateRoute
+          exact={true}
+          path='/write-review'
+          component={WriteReview}
         />
         <Route exact path='/' component={Home} />
         <Route exact path='/register' component={Register} />

@@ -7,6 +7,7 @@ import { ImageModal } from 'src/utils/ImageModal';
 import SkateSpot1 from '../assets/SkateSpot1.jpg';
 // import SkateSpot2 from '../assets/SkateSpot2.jpg';
 import { Header } from './components/Header';
+import { Footer } from './components/search/Footer';
 
 interface Props {
   location: any
@@ -230,6 +231,7 @@ export const SkateSpot: React.FC<Props> = ({location}) => {
       {isOpen && 
         <ImageModal idx={imagesIdx} setIdx={setImagesIdx} images={spot.imgs} setIsOpen={setIsOpen}/>
       }
+      <Footer />
     </div>
     
   );

@@ -18,16 +18,17 @@ export const HomepageHeader: React.FC = () => {
         <div className='block'>
           <nav>
             <ul className='flex float-left'>
-              <li className='mr-5 text-white'>
+              <li className='text-white mr-5'>
+                <Link to='/write-review'>
+                  Write a Review
+                </Link>
+              </li>
+              <li className='text-white'>
                 <Link to='/create-skate-spot'>
                   Create Skate Spot
                 </Link>
               </li>
-              <li className='text-white'>
-                <Link to='/private'>
-                  Users
-                </Link>
-              </li>
+              
             </ul>
             <ul className='inline-block float-right'>
               <li>
