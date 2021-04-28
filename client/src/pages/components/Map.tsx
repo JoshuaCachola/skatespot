@@ -18,8 +18,8 @@ const containerStyle = {
 
 const Map: React.FC<Props> = ({locations}) => {
   const [map, setMap] = useState<any>(null);
-  // const [center, setCenter] = useState<any>(null);
-  console.log(locations);
+  // const [isInfoOpen, setIsInfoOpen] = useState<boolean>(false);
+
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
   });
@@ -66,6 +66,10 @@ const Map: React.FC<Props> = ({locations}) => {
           />
         )
       })}
+
+      {/* {isInfoOpen && selectedLocation
+
+      } */}
     </GoogleMap>
   ): <></>;
 };
