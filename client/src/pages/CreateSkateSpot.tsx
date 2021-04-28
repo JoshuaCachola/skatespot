@@ -7,7 +7,7 @@ import { RouteComponentProps } from 'react-router';
 
 interface SkateSpotForm {
   name: string,
-  address: string,
+  street: string,
   state: string,
   city: string,
   imgFiles?: Array<File>
@@ -17,7 +17,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
   const [createSkateSpotMutation, {loading, error}] = useCreateSkateSpotMutation();
   const initialValues: SkateSpotForm = {
     name: '',
-    address: '',
+    street: '',
     city: '',
     state: '',
     imgFiles: []
@@ -73,11 +73,11 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({history}) => {
                 </div>
                 <div>
                   <Field 
-                    name='address'
-                    id='address'
+                    name='street'
+                    id='street'
                     type='text'
-                    placeholder='Address'
-                    value={values.address}
+                    placeholder='Street'
+                    value={values.street}
                     onBlur={handleBlur}
                     onChange={handleChange}
                   />

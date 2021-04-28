@@ -1,87 +1,37 @@
 import React from 'react';
 import { Header } from './components/Header';
-import SearchResults1 from '../assets/SearchResults1.jpg';
-import SearchResults2 from '../assets/SearchResults2.jpg';
+// import SearchResults1 from '../assets/SearchResults1.jpg';
+// import SearchResults2 from '../assets/SearchResults2.jpg';
 import { Carousel } from 'react-responsive-carousel';
 import Map from './components/Map';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import { Footer } from './components/search/Footer';
+// import { Footer } from './components/search/Footer';
+import { useGetSkateSpotsQuery } from '../generated/graphql';
 interface Props {
 
 }
 
-const results = [
-  {
-    id: 1,
-    name: 'Wallenberg High School',
-    address: '40 Vega St, San Francisco, CA 94115',
-    imgs: [SearchResults1, SearchResults2]
-  },
-  {
-    id: 2,
-    name: 'Milpitas Skate Park',
-    address: '111 Milpitas Ave, Milpitas, CA 95132',
-    imgs: [SearchResults1, SearchResults2]
-  },
-  {
-    id: 3,
-    name: 'Milpitas Skate Park',
-    address: '111 Milpitas Ave, Milpitas, CA 95132',
-    imgs: [SearchResults1, SearchResults2]
-  },
-  {
-    id: 4,
-    name: 'Milpitas Skate Park',
-    address: '111 Milpitas Ave, Milpitas, CA 95132',
-    imgs: [SearchResults1, SearchResults2]
-  },
-  {
-    id: 5,
-    name: 'Milpitas Skate Park',
-    address: '111 Milpitas Ave, Milpitas, CA 95132',
-    imgs: [SearchResults1, SearchResults2]
-  },
-  {
-    id: 6,
-    name: 'Milpitas Skate Park',
-    address: '111 Milpitas Ave, Milpitas, CA 95132',
-    imgs: [SearchResults1, SearchResults2]
-  },
-  {
-    id: 7,
-    name: 'Milpitas Skate Park',
-    address: '111 Milpitas Ave, Milpitas, CA 95132',
-    imgs: [SearchResults1, SearchResults2]
-  },
-  {
-    id: 8,
-    name: 'Milpitas Skate Park',
-    address: '111 Milpitas Ave, Milpitas, CA 95132',
-    imgs: [SearchResults1, SearchResults2]
-  },
-  {
-    id: 9,
-    name: 'Milpitas Skate Park',
-    address: '111 Milpitas Ave, Milpitas, CA 95132',
-    imgs: [SearchResults1, SearchResults2]
-  },
-  {
-    id: 10,
-    name: 'Milpitas Skate Park',
-    address: '111 Milpitas Ave, Milpitas, CA 95132',
-    imgs: [SearchResults1, SearchResults2]
-  }
-];
-
 export const SkateSpotResults: React.FC<Props> = () => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)'});
+  const {data, loading, error} = useGetSkateSpotsQuery({fetchPolicy: 'network-only'});
+
+  if (loading) {
+    return <h1>loading...</h1>
+  }
+
+  if (error) {
+    console.log(error);
+    return <h1>errors...</h1>
+  }
+
+  
   return (
     <div>
       <Header />
       <div className='flex border-t border-gray-100'>
         <ul className={`mt-4 mx-4 pr-1 h-screen ${isDesktopOrLaptop ? 'w-1/2 overflow-y-scroll' : 'w-2/3 mx-auto my-0'}`}>
-          {results && results.map((result) => {
+          {!loading && data?.getSkateSpots && data.getSkateSpots.map((result) => {
             return (
               <Link
                 className='z-0'
@@ -93,7 +43,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
                 >
                   {/* skate spot img carousel */}
                   <div 
-                    className='m-8 w-52 h-full z-50'
+                    className='m-8 w-52 z-50'
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
@@ -102,17 +52,21 @@ export const SkateSpotResults: React.FC<Props> = () => {
                     <Carousel 
                       showThumbs={false}
                       infiniteLoop={true} 
-                      dynamicHeight={true}
+                      // dynamicHeight={true}
                       emulateTouch={true}
                       showIndicators={false}
                       showStatus={false}
                     >
-                      {result.imgs && result.imgs.map((img, idx) => {
+                      {result.imageUrls && JSON.parse(result.imageUrls).map((img, idx) => {
                         return (
-                          <div key={idx}>
+                          <div 
+                            key={idx}
+                            className='rounded w-52 h-52 bg-black flex items-center justify-center overflow-hidden'
+                          >
                             <img
                               src={img}
                               alt={`img-${idx}`}
+                              className='min-w-full min-h-full flex-shrink-0'
                             />
                           </div>
                         )
@@ -131,7 +85,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
                         <address>
                           <p>
                             <span className='text-s'>
-                              {result.address}
+                              {result.street}
                             </span>
                           </p>
                         </address>
@@ -151,13 +105,12 @@ export const SkateSpotResults: React.FC<Props> = () => {
         {/* map of locations */}
         {isDesktopOrLaptop ?
           <div className='w-1/2 h-screen border-t'>
-            <Map />
+            <Map locations={data?.getSkateSpots} />
           </div>
           :
           null
         }
       </div>
-      <Footer />
     </div>
   );
 }

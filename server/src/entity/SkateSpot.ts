@@ -5,9 +5,7 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity('skatespots')
 export class SkateSpot extends BaseEntity {
   @Field()
-  @PrimaryGeneratedColumn({
-    type: 'int',
-  })
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Field()
@@ -31,7 +29,19 @@ export class SkateSpot extends BaseEntity {
   street: string;
 
   @Field()
-  @Column('text', { nullable: true, default: '' })
+  @Column('text', { nullable: false }) // remember to change
+  postalCode: string;
+
+  @Field()
+  @Column('text', { default: 'US' })
+  countryCode: string;
+
+  @Field()
+  @Column('text', {nullable: true})
+  phone: string;
+
+  @Field()
+  @Column('text', { nullable: true })
   website: string;
 
   @Field()

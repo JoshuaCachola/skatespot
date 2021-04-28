@@ -1,0 +1,17 @@
+query GetSkateSpots {
+  getSkateSpots {
+    id
+    name
+    categoryName
+    street
+    city
+    postalCode
+    state
+    temporarilyClosed
+    permanentlyClosed
+    location
+    reviewsCount
+    reviewsDistribution
+    imageUrls
+  }
+}

@@ -19,7 +19,7 @@ export const ImageModal: React.FC<Props> = ({images, setIsOpen, idx, setIdx}) =>
     },
     [setIsOpen],
   );
-  const [currentImage, setCurrentImage] = useState<any>(images[idx]);
+  const [currentImage, setCurrentImage] = useState<string>(images[idx]);
 
   const handleChangeImage = (buttonType) => {
     if (buttonType === 'LEFT' && idx > 0) {
@@ -35,7 +35,7 @@ export const ImageModal: React.FC<Props> = ({images, setIsOpen, idx, setIdx}) =>
     <div className='fixed top-0 left-0 bottom-0 right-0 bg-black bg-opacity-70'>
       <ClickAwayListener onClickAway={handleClickAway}>
         <div className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-12 bg-gray-50'>
-          <div className='flex h-3/4'>
+          <div className='flex'>
             {/* Image */}
             <div>
               <img 
@@ -45,29 +45,29 @@ export const ImageModal: React.FC<Props> = ({images, setIsOpen, idx, setIdx}) =>
             </div>
             {/* Comments */}
             <div>
-
-            </div>
-            <div>
-              <button
-                onClick={() => handleChangeImage('LEFT')}
-                // disabled={idx >= 0}
-              >
-                Left
-              </button>
-              <button
-                onClick={() => handleChangeImage('RIGHT')}
-                // disabled={idx < images.length}
-              >
-                Right
-              </button>
-              <button
-                onClick={() => setIsOpen(false)}
-                // disabled={idx < images.length}
-              >
-                Close
-              </button>
+              <h1>comments</h1>
             </div>
           </div>
+          <div>
+            <button
+              onClick={() => handleChangeImage('LEFT')}
+              // disabled={}
+            >
+              Left
+            </button>
+            <button
+              onClick={() => handleChangeImage('RIGHT')}
+              // disabled={}?
+            >
+              Right
+            </button>
+            <button
+              onClick={() => setIsOpen(false)}
+              // disabled={idx < images.length}
+            >
+              Close
+            </button>
+            </div>
         </div>
       </ClickAwayListener>
     </div>,

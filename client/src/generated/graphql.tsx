@@ -60,7 +60,7 @@ export type MutationCreateSkateSpotArgs = {
   imgFiles?: Maybe<Array<Scalars['Upload']>>;
   state: Scalars['String'];
   city: Scalars['String'];
-  address: Scalars['String'];
+  street: Scalars['String'];
   name: Scalars['String'];
 };
 
@@ -82,23 +82,25 @@ export type Query = {
   getSkateSpots: Array<SkateSpot>;
 };
 
-
-export type QueryGetSkateSpotsArgs = {
-  state: Scalars['String'];
-  city: Scalars['String'];
-  address: Scalars['String'];
-  name: Scalars['String'];
-};
-
 export type SkateSpot = {
   __typename?: 'SkateSpot';
   id: Scalars['Float'];
   name: Scalars['String'];
+  categoryName: Scalars['String'];
   city: Scalars['String'];
   state: Scalars['String'];
-  address: Scalars['String'];
-  following: Scalars['Float'];
-  imgs: Scalars['String'];
+  street: Scalars['String'];
+  postalCode: Scalars['String'];
+  countryCode: Scalars['String'];
+  phone: Scalars['String'];
+  website: Scalars['String'];
+  temporarilyClosed: Scalars['Boolean'];
+  permanentlyClosed: Scalars['Boolean'];
+  imageUrls: Scalars['String'];
+  location: Scalars['String'];
+  popularTimesHistogram: Scalars['String'];
+  reviewsCount: Scalars['Float'];
+  reviewsDistribution: Scalars['String'];
 };
 
 
@@ -114,7 +116,7 @@ export type User = {
 
 export type CreateSkateSpotMutationVariables = Exact<{
   name: Scalars['String'];
-  address: Scalars['String'];
+  street: Scalars['String'];
   city: Scalars['String'];
   state: Scalars['String'];
   imgFiles?: Maybe<Array<Scalars['Upload']> | Scalars['Upload']>;
@@ -124,6 +126,17 @@ export type CreateSkateSpotMutationVariables = Exact<{
 export type CreateSkateSpotMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'createSkateSpot'>
+);
+
+export type GetSkateSpotsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSkateSpotsQuery = (
+  { __typename?: 'Query' }
+  & { getSkateSpots: Array<(
+    { __typename?: 'SkateSpot' }
+    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'street' | 'city' | 'postalCode' | 'state' | 'temporarilyClosed' | 'permanentlyClosed' | 'location' | 'reviewsCount' | 'reviewsDistribution' | 'imageUrls'>
+  )> }
 );
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
@@ -183,10 +196,10 @@ export type HelloQuery = (
 
 
 export const CreateSkateSpotDocument = gql`
-    mutation CreateSkateSpot($name: String!, $address: String!, $city: String!, $state: String!, $imgFiles: [Upload!]) {
+    mutation CreateSkateSpot($name: String!, $street: String!, $city: String!, $state: String!, $imgFiles: [Upload!]) {
   createSkateSpot(
     name: $name
-    address: $address
+    street: $street
     city: $city
     state: $state
     imgFiles: $imgFiles
@@ -209,7 +222,7 @@ export type CreateSkateSpotMutationFn = Apollo.MutationFunction<CreateSkateSpotM
  * const [createSkateSpotMutation, { data, loading, error }] = useCreateSkateSpotMutation({
  *   variables: {
  *      name: // value for 'name'
- *      address: // value for 'address'
+ *      street: // value for 'street'
  *      city: // value for 'city'
  *      state: // value for 'state'
  *      imgFiles: // value for 'imgFiles'
@@ -223,6 +236,52 @@ export function useCreateSkateSpotMutation(baseOptions?: Apollo.MutationHookOpti
 export type CreateSkateSpotMutationHookResult = ReturnType<typeof useCreateSkateSpotMutation>;
 export type CreateSkateSpotMutationResult = Apollo.MutationResult<CreateSkateSpotMutation>;
 export type CreateSkateSpotMutationOptions = Apollo.BaseMutationOptions<CreateSkateSpotMutation, CreateSkateSpotMutationVariables>;
+export const GetSkateSpotsDocument = gql`
+    query GetSkateSpots {
+  getSkateSpots {
+    id
+    name
+    categoryName
+    street
+    city
+    postalCode
+    state
+    temporarilyClosed
+    permanentlyClosed
+    location
+    reviewsCount
+    reviewsDistribution
+    imageUrls
+  }
+}
+    `;
+
+/**
+ * __useGetSkateSpotsQuery__
+ *
+ * To run a query within a React component, call `useGetSkateSpotsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSkateSpotsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSkateSpotsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetSkateSpotsQuery(baseOptions?: Apollo.QueryHookOptions<GetSkateSpotsQuery, GetSkateSpotsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSkateSpotsQuery, GetSkateSpotsQueryVariables>(GetSkateSpotsDocument, options);
+      }
+export function useGetSkateSpotsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSkateSpotsQuery, GetSkateSpotsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSkateSpotsQuery, GetSkateSpotsQueryVariables>(GetSkateSpotsDocument, options);
+        }
+export type GetSkateSpotsQueryHookResult = ReturnType<typeof useGetSkateSpotsQuery>;
+export type GetSkateSpotsLazyQueryHookResult = ReturnType<typeof useGetSkateSpotsLazyQuery>;
+export type GetSkateSpotsQueryResult = Apollo.QueryResult<GetSkateSpotsQuery, GetSkateSpotsQueryVariables>;
 export const GetUsersDocument = gql`
     query GetUsers {
   users {
