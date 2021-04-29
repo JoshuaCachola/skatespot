@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { ImageCropModal } from './ImageCropModal';
@@ -13,7 +14,7 @@ export const Upload = ({setFieldValue, values}) => {
     setIsImgCropped(true);
   }, [setFieldValue, values]);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFile) => {
       setImage(acceptedFile[0]);
       setIsImgCropped(false);
@@ -24,17 +25,17 @@ export const Upload = ({setFieldValue, values}) => {
   return (
     <div>
       <div {...getRootProps({ className: 'dropzone' })}
-        className='flex flex-1 flex-col p-5 rounded border-2 border-dashed focus:outline-none hover:border-yellow-600 cursor-pointer'
+        className='flex flex-1 flex-col p-5 rounded border-2 focus:outline-none hover:border-red-500 cursor-pointer'
       >
         {!isImgCropped &&
           <ImageCropModal image={image} open={!isImgCropped} addFile={addFile} />
         }
         <input {...getInputProps()} disabled={!isImgCropped} />
-        {isDragActive ? (
-          <p>Drop the files here ...</p>
-        ) : (
-          <p>Drag 'n' drop some files here, or click to select files</p>
-        )}
+        <div className='text-gray-400 text-3xl mx-auto my-5'>
+          <span>
+            <FontAwesomeIcon icon={['fas', 'images']}/>
+          </span>
+        </div>
         <div className='flex flex-wrap'>
           {values.imgFiles && values.imgFiles.map((img: File, idx) => {
             return (
