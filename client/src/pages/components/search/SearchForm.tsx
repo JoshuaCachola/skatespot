@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const SearchForm: React.FC<RouteComponentProps> = ({history}) => {
@@ -108,7 +109,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({history}) => {
                 className='shadow-lg mt-4 rounded-l-none rounded-r bg-red-500 px-5 py-3.75 leading-normal focus:outline-none'
               >
               <span>
-                <span className='w-6 h-6 text-white font-semibold'>Search</span>
+                <span className='w-6 h-6 text-white text-base'><FontAwesomeIcon icon={['fas', 'search']} /></span>
               </span>
               </button>
             </div>

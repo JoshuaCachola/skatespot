@@ -23,11 +23,11 @@ export const Login: React.FC<RouteComponentProps> = ({history}) => {
   return (
     <div>
       {/* Logo */}
-      <div className='flex font-bold text-4xl justify-around my-10 border-b border-black items-'>
+      <div className='flex font-bold text-4xl justify-around border-b border-black h-full bg-red-500 py-5 m-0'>
         <Link
           to='/'
         >
-          <h1>Skate Spot</h1>
+          <h1 className='m-0 p-0'>Skate Spot</h1>
         </Link>
       </div>
       <div className='flex w-200 mx-auto my-10 h-screen justify-between'>
@@ -108,9 +108,9 @@ export const Login: React.FC<RouteComponentProps> = ({history}) => {
                     <div className='m-5'>
                       <Field
                         type='submit'
-                        value='submit'
+                        value='Log In'
                         disabled={isSubmitting}
-                        className='font-bold bg-red-500 px-6 py-2 border rounded border-red-500 text-white'
+                        className='cursor-pointer font-bold bg-red-500 px-6 py-2 border rounded border-red-500 text-white'
                       />
                     </div>
                   </div>

@@ -18,12 +18,12 @@ export const HomepageHeader: React.FC = () => {
         <div className='block'>
           <nav>
             <ul className='flex float-left'>
-              <li className='text-white mr-5'>
+              <li className='cursor-pointer text-white block font-bold leading-tight pt-2 px-3.5 pb-2 border-b-2 border-transparent mr-4 hover:border-white'>
                 <Link to='/write-review'>
                   Write a Review
                 </Link>
               </li>
-              <li className='text-white'>
+              <li className='cursor-pointer text-white block font-bold leading-tight pt-2 px-3.5 pb-2 border-b-2 border-transparent hover:border-white'>
                 <Link to='/create-skate-spot'>
                   Create Skate Spot
                 </Link>
