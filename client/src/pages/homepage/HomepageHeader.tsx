@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { TokenContext } from 'src/utils/TokenContext';
 import { accessToken } from '../../graphql/reactive-variables/accessToken';
-import { Account } from './Account';
+import { Account } from '../components/Account';
 
 export const HomepageHeader: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -21,7 +21,7 @@ export const HomepageHeader: React.FC = () => {
               <li className="cursor-pointer text-white block font-bold leading-tight pt-2 px-3.5 pb-2 border-b-2 border-transparent mr-4 hover:border-white">
                 <Link to="/write-review">Write a Review</Link>
               </li>
-              <li className="cursor-pointer text-white block font-bold leading-tight pt-2 px-3.5 pb-2 border-b-2 border-transparent hover:border-white">
+              <li className="cursor-pointer text-white block font-bold leading-tight pt-2 px-3.5 pb-2 border-b-2 border-transparent mr-4 hover:border-white">
                 <Link to="/create-skate-spot">Create Skate Spot</Link>
               </li>
             </ul>

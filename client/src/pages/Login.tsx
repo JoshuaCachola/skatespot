@@ -4,7 +4,7 @@ import { useLoginUserMutation } from 'src/generated/graphql';
 import * as Yup from 'yup';
 import { accessToken } from '../graphql/reactive-variables/accessToken';
 import { RouteComponentProps } from 'react-router';
-import { Footer } from './components/search/Footer';
+import { Footer } from './components/Footer';
 import LoginHero from '../assets/LoginHero.png';
 import { Link } from 'react-router-dom';
 

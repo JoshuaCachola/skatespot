@@ -19,9 +19,10 @@ export const Home: React.FC<Props> = () => {
         </div>
         {/* inner hero homepage */}
         <div className="pt-20 max-w-5xl my-0 mx-auto">
-          <div className="text-center font-bold text-4xl text-white">
+          <div className="text-center text-5xl text-white">
             <h1 className="text-center w-72 h-20 mt-0 mx-auto mb-12 align-baseline">
-              <span>Skate Spot</span>
+              <span className="font-bold">Skate</span>
+              <span className="font-light">Spot</span>
             </h1>
           </div>
           {/* Search Form */}

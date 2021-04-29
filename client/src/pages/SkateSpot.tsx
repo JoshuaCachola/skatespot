@@ -5,7 +5,7 @@ import { Carousel } from 'react-responsive-carousel';
 import { ImageModal } from 'src/utils/ImageModal';
 import SkateSpot1 from '../assets/SkateSpot1.jpg';
 import { Header } from './components/Header';
-import { Footer } from './components/search/Footer';
+import { Footer } from './components/Footer';
 
 interface Props {
   location: any;

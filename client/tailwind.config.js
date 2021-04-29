@@ -22,6 +22,9 @@ module.exports = {
         500: '1922px',
         carousel: '1922px'
       },
+      margin: {
+        18: '66px'
+      },
       backgroundPosition: {
         50: '50%'
       },
