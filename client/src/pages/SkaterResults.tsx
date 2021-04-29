@@ -1,24 +1,16 @@
 import React from 'react';
 
-interface Props {
-
-}
+interface Props {}
 
 export const SkaterResults: React.FC<Props> = () => {
-  return(
+  return (
     <div>
       <h1>Skater Results</h1>
-      <header>
-      
-      </header>
+      <header></header>
       {/* Search Results for skaters */}
-      <div>
-
-      </div>
+      <div></div>
       {/* Search Results for skate spots*/}
-      <div>
-
-      </div>
+      <div></div>
     </div>
   );
-}
+};

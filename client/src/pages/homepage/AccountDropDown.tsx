@@ -1,17 +1,15 @@
 import React, { useContext } from 'react';
 import { useLogoutUserMutation } from 'src/generated/graphql';
 import { TokenContext } from 'src/utils/TokenContext';
-import { accessToken } from '../../graphql/reactive-variables/accessToken'
+import { accessToken } from '../../graphql/reactive-variables/accessToken';
 
-interface Props {
-
-}
+interface Props {}
 
 export const AccountDropDown: React.FC<Props> = () => {
-  const [logout, {client}] = useLogoutUserMutation();
+  const [logout, { client }] = useLogoutUserMutation();
   const { setIsLoggedIn } = useContext(TokenContext);
 
-  return(
+  return (
     <div>
       <button
         onClick={async () => {
@@ -25,4 +23,4 @@ export const AccountDropDown: React.FC<Props> = () => {
       </button>
     </div>
   );
-}
+};

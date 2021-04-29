@@ -4,15 +4,14 @@ import { useRegisterUserMutation } from 'src/generated/graphql';
 import { RouteComponentProps } from 'react-router';
 import * as Yup from 'yup';
 
-
 interface RegisterForm {
-  firstName: string,
-  lastName: string,
-  username: string,
-  email: string,
-  password: string,
-  passwordConfirmation: string,
-};
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+}
 
 export const Register: React.FC<RouteComponentProps> = ({ history }) => {
   const [register] = useRegisterUserMutation();
@@ -27,8 +26,8 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
           password: '',
           passwordConfirmation: '',
         }}
-        onSubmit={(values, {setSubmitting, resetForm}) => {
-          register({variables: values});
+        onSubmit={(values, { setSubmitting, resetForm }) => {
+          register({ variables: values });
           resetForm();
           setSubmitting(false);
           history.push('/');
@@ -45,81 +44,72 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
         })}
       >
         {(props: FormikProps<RegisterForm>) => {
-          const {
-            values,
-            touched,
-            errors,
-            isSubmitting,
-            handleChange,
-            handleBlur
-          } = props;
+          const { values, touched, errors, isSubmitting, handleChange, handleBlur } = props;
           return (
             <Form>
               <div>
                 <div>
-                  <label htmlFor='firstName'>First Name </label>
-                  <input 
-                    name='firstName'
-                    id='firstName'
-                    type='text'
+                  <label htmlFor="firstName">First Name </label>
+                  <input
+                    name="firstName"
+                    id="firstName"
+                    type="text"
                     value={values.firstName}
                     onBlur={handleBlur}
                     onChange={handleChange}
                   />
                 </div>
                 <div>
-                  <label htmlFor='lastName'>Last Name </label>
-                  <input 
-                    name='lastName'
-                    id='lastName'
-                    type='text'
+                  <label htmlFor="lastName">Last Name </label>
+                  <input
+                    name="lastName"
+                    id="lastName"
+                    type="text"
                     value={values.lastName}
                     onBlur={handleBlur}
                     onChange={handleChange}
                   />
                 </div>
                 <div>
-                  <label htmlFor='username'>Username </label>
-                  <input 
-                    name='username'
-                    id='username'
-                    type='text'
+                  <label htmlFor="username">Username </label>
+                  <input
+                    name="username"
+                    id="username"
+                    type="text"
                     value={values.username}
                     onBlur={handleBlur}
                     onChange={handleChange}
                   />
                 </div>
                 <div>
-                  <label htmlFor='email'>Email </label>
-                  <input 
-                    name='email'
-                    id='email'
-                    type='email'
+                  <label htmlFor="email">Email </label>
+                  <input
+                    name="email"
+                    id="email"
+                    type="email"
                     value={values.email}
                     onBlur={handleBlur}
                     onChange={handleChange}
                   />
                 </div>
                 <div>
-                  <label htmlFor='password'>Password </label>
-                  <input 
-                    name='password'
-                    id='password'
-                    type='password'
+                  <label htmlFor="password">Password </label>
+                  <input
+                    name="password"
+                    id="password"
+                    type="password"
                     value={values.password}
                     onBlur={handleBlur}
                     onChange={handleChange}
                   />
-                  {errors.password && touched.password && (
-                    <div>{errors.password}</div>
-                  )}
+                  {errors.password && touched.password && <div>{errors.password}</div>}
                 </div>
                 <div>
-                  <label htmlFor='passwordConfirmation'>Verify Password </label>
-                  <input 
-                    name='passwordConfirmation'
-                    id='passwordConfirmation'
-                    type='password'
+                  <label htmlFor="passwordConfirmation">Verify Password </label>
+                  <input
+                    name="passwordConfirmation"
+                    id="passwordConfirmation"
+                    type="password"
                     value={values.passwordConfirmation}
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -128,16 +118,11 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
                     <div>{errors.passwordConfirmation}</div>
                   )}
                 </div>
-                <div>
-                </div>
-                  <input
-                    type='submit'
-                    value='submit'
-                    disabled={isSubmitting}
-                  />
+                <div></div>
+                <input type="submit" value="submit" disabled={isSubmitting} />
               </div>
             </Form>
-          )
+          );
         }}
       </Formik>
     </>

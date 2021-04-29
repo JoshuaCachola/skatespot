@@ -11,14 +11,11 @@ interface Props {
 
 const modal = document.getElementById('modal') as HTMLElement;
 
-export const ImageModal: React.FC<Props> = ({images, setIsOpen, idx, setIdx}) => {
-  const handleClickAway = useCallback(
-    () => {
-      console.log('clicked');
-      setIsOpen(false);
-    },
-    [setIsOpen],
-  );
+export const ImageModal: React.FC<Props> = ({ images, setIsOpen, idx, setIdx }) => {
+  const handleClickAway = useCallback(() => {
+    console.log('clicked');
+    setIsOpen(false);
+  }, [setIsOpen]);
   const [currentImage, setCurrentImage] = useState<string>(images[idx]);
 
   const handleChangeImage = (buttonType) => {
@@ -32,16 +29,13 @@ export const ImageModal: React.FC<Props> = ({images, setIsOpen, idx, setIdx}) =>
   };
 
   return ReactDom.createPortal(
-    <div className='fixed top-0 left-0 bottom-0 right-0 bg-black bg-opacity-70'>
+    <div className="fixed top-0 left-0 bottom-0 right-0 bg-black bg-opacity-70">
       <ClickAwayListener onClickAway={handleClickAway}>
-        <div className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-12 bg-gray-50'>
-          <div className='flex'>
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-12 bg-gray-50">
+          <div className="flex">
             {/* Image */}
             <div>
-              <img 
-                src={currentImage}
-                alt='img-modal'
-              />
+              <img src={currentImage} alt="img-modal" />
             </div>
             {/* Comments */}
             <div>
@@ -67,10 +61,10 @@ export const ImageModal: React.FC<Props> = ({images, setIsOpen, idx, setIdx}) =>
             >
               Close
             </button>
-            </div>
+          </div>
         </div>
       </ClickAwayListener>
     </div>,
-    modal
+    modal,
   );
-}
+};

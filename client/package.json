@@ -44,7 +44,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "tailwind:css": "tailwind build src/styles/tailwind.css -c tailwind.config.js -o src/index.css",
-    "gen": "graphql-codegen --config codegen.yml"
+    "gen": "graphql-codegen --config codegen.yml",
+    "prettier:check": "prettier --check 'src/**/*.{js,json,ts,tsx}'",
+    "prettier:write": "prettier --write 'src/**/*.{js,json,ts,tsx}'"
   },
   "eslintConfig": {
     "extends": [
@@ -77,8 +79,13 @@
     "@types/react-responsive": "^8.0.2",
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.9",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
     "autoprefixer": "^10.2.5",
+    "eslint": "^7.25.0",
+    "eslint-config-prettier": "^8.3.0",
     "postcss": "^8.2.9",
+    "prettier": "^2.2.1",
     "tailwindcss": "^2.0.4"
   }
 }

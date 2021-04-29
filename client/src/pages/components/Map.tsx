@@ -1,13 +1,13 @@
-import React, { memo, useCallback, useState} from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 
 interface Props {
-  locations: Array<any> | undefined
+  locations: Array<any> | undefined;
 }
 
 const containerStyle = {
   width: '100%',
-  height: '100vh'
+  height: '100vh',
 };
 
 // const locations = [
@@ -16,33 +16,36 @@ const containerStyle = {
 //     { id: "place3", pos: { lat: 39.07602397235644, lng: -94.5184089401211 } }
 //   ];
 
-const Map: React.FC<Props> = ({locations}) => {
+const Map: React.FC<Props> = ({ locations }) => {
   const [map, setMap] = useState<any>(null);
   // const [isInfoOpen, setIsInfoOpen] = useState<boolean>(false);
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
+    googleMapsApiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
   });
 
-  const onLoad = useCallback((mapInstance) => {
-    if (!locations) {
-      return;
-    }
-    let lat: number = 0;
-    let lng: number = 0;
+  const onLoad = useCallback(
+    (mapInstance) => {
+      if (!locations) {
+        return;
+      }
+      let lat: number = 0;
+      let lng: number = 0;
 
-    locations.forEach(({location}) => {
-      location = JSON.parse(location);
-      lat += location.lat;
-      lng += location.lng
-    });
+      locations.forEach(({ location }) => {
+        location = JSON.parse(location);
+        lat += location.lat;
+        lng += location.lng;
+      });
 
-    lat /= locations.length;
-    lng /= locations.length;
-    mapInstance.setCenter({lat, lng});
-    
-    setMap(mapInstance);
-  }, [locations]);
+      lat /= locations.length;
+      lng /= locations.length;
+      mapInstance.setCenter({ lat, lng });
+
+      setMap(mapInstance);
+    },
+    [locations],
+  );
 
   const onUnmount = useCallback(() => {
     if (!map) {
@@ -51,27 +54,19 @@ const Map: React.FC<Props> = ({locations}) => {
   }, [map]);
 
   return isLoaded ? (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      zoom={9}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
-    >
-      {locations && locations.map(({location}, idx) => {
-        return (
-          <Marker
-            key={idx}
-            position={JSON.parse(location)}
-
-          />
-        )
-      })}
+    <GoogleMap mapContainerStyle={containerStyle} zoom={9} onLoad={onLoad} onUnmount={onUnmount}>
+      {locations &&
+        locations.map(({ location }, idx) => {
+          return <Marker key={idx} position={JSON.parse(location)} />;
+        })}
 
       {/* {isInfoOpen && selectedLocation
 
       } */}
     </GoogleMap>
-  ): <></>;
+  ) : (
+    <></>
+  );
 };
 
 export default memo(Map);
