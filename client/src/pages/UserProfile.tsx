@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import SearchResultsFull1 from '../assets/SearchResultsFull1.jpg';
 import SkateSpot1 from '../assets/SkateSpot1.jpg';
+import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 
 interface Props {}
@@ -18,7 +19,8 @@ export const UserProfile: React.FC<Props> = () => {
     <div>
       <Header />
       {/* User information and photo */}
-      <div className="flex max-w-4xl my-5 mx-auto">
+      <div className="bg-gray-100 absolute h-32 w-screen z-0 top-28" />
+      <div className="relative flex max-w-4xl my-5 mx-auto z-50">
         {/* Account profile picture */}
         <div className="rounded mt-5 mb-8 ml-20">
           <img alt="profile" src={SearchResultsFull1} width={200} height={200} className="rounded" />
@@ -38,7 +40,7 @@ export const UserProfile: React.FC<Props> = () => {
         </div>
       </div>
       {/* Reviews */}
-      <div className="max-w-4xl border-t-2 border-grey-200 my-0 mx-auto">
+      <div className="max-w-4xl border-t-2 border-grey-200 my-10 mx-auto">
         <div className="text-lg font-bold text-red-600 mt-6 ml-2">
           <h1>Reviews</h1>
         </div>
@@ -155,6 +157,7 @@ export const UserProfile: React.FC<Props> = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
