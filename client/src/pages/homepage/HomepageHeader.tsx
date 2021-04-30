@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { TokenContext } from 'src/utils/TokenContext';
 import { accessToken } from '../../graphql/reactive-variables/accessToken';
 import { Account } from '../components/Account';
+// import { useMediaQuery } from 'react-responsive';
 
 export const HomepageHeader: React.FC = () => {
+  // const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const value = useMemo(() => ({ isLoggedIn, setIsLoggedIn }), [isLoggedIn, setIsLoggedIn]);
 
@@ -18,11 +20,17 @@ export const HomepageHeader: React.FC = () => {
         <div className="block">
           <nav>
             <ul className="flex float-left">
-              <li className="cursor-pointer text-white block font-bold leading-tight pt-2 px-3.5 pb-2 border-b-2 border-transparent mr-4 hover:border-white">
-                <Link to="/write-review">Write a Review</Link>
+              <li
+                className={`cursor-pointer text-white block font-bold leading-tight pt-2 px-3.5 pb-2 border-b-2 border-transparent mr-4 hover:border-white`}
+              >
+                <Link to="/write-review">
+                  <span>Write a Review</span>
+                </Link>
               </li>
               <li className="cursor-pointer text-white block font-bold leading-tight pt-2 px-3.5 pb-2 border-b-2 border-transparent mr-4 hover:border-white">
-                <Link to="/create-skate-spot">Create Skate Spot</Link>
+                <Link to="/create-skate-spot">
+                  <span>Create Skate Spot</span>
+                </Link>
               </li>
             </ul>
             <ul className="inline-block float-right">

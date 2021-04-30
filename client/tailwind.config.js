@@ -18,24 +18,25 @@ module.exports = {
         300: '1224px',
         295: '1144ox',
         110: '426px',
+        115: '468px',
         140: '630px',
         500: '1922px',
-        carousel: '1922px'
+        carousel: '1922px',
       },
       margin: {
-        18: '66px'
+        18: '66px',
       },
       backgroundPosition: {
-        50: '50%'
+        50: '50%',
       },
       padding: {
         7.5: '1.875rem',
         3.25: '0.813rem',
-        3.75: '0.875rem'
+        3.75: '0.875rem',
       },
       margin: {
-        0.5: '0.125rem'
-      }
+        0.5: '0.125rem',
+      },
     },
     fontFamily: {
       display: ['Raleway', 'sans-serif'],
@@ -66,7 +67,7 @@ module.exports = {
           right: '0',
           bottom: '8px',
           width: '1px',
-          backgroundColor: 'rgb(204, 204, 204)'
+          backgroundColor: 'rgb(204, 204, 204)',
         },
         '.content-before': {
           content: 'attr(data-before)',
@@ -79,4 +80,4 @@ module.exports = {
       addUtilities(contentUtilities, ['before', 'after']);
     }),
   ],
-}
+};

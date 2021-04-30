@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { Header } from './components/Header';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ReviewStars } from 'src/utils/ReviewStars';
 
 interface Props {}
 
@@ -24,25 +24,7 @@ export const WriteReview: React.FC<Props> = () => {
       </div>
       <div className="border rounded border-gray-400 w-140 mx-auto my-0 h-110">
         <form onSubmit={formik.handleSubmit}>
-          <div className="flex text-2xl text-gray-500 font-bold m-4">
-            <div className='flex'>
-              <div className='cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1 hover:bg-red-600 hover:border-red-600'>
-                <span><FontAwesomeIcon icon={['fas', 'star']} /></span>
-              </div>
-              <div className='cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1'>
-                <span><FontAwesomeIcon icon={['fas', 'star']} /></span>
-              </div>
-              <div className='cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1'>
-                <span><FontAwesomeIcon icon={['fas', 'star']} /></span>
-              </div>
-              <div className='cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1'>
-                <span><FontAwesomeIcon icon={['fas', 'star']} /></span>
-              </div>
-              <div className='cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1'>
-                <span><FontAwesomeIcon icon={['fas', 'star']} /></span>
-              </div>
-            </div>
-          </div>
+          <ReviewStars />
           <div className="replative overflow-hidden w-full h-full p-4">
             <textarea
               name="review"

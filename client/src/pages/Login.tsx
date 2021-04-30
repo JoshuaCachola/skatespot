@@ -23,12 +23,15 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
   return (
     <div>
       {/* Logo */}
-      <div className="flex font-bold text-4xl justify-around border-b border-black h-full bg-red-500 py-5 m-0">
+      <div className="flex text-3xl justify-around border-b border-red-500 h-full bg-red-500 py-5 m-0 text-white">
         <Link to="/">
-          <h1 className="m-0 p-0">Skate Spot</h1>
+          <h1 className="m-0 p-0">
+            <span className="font-bold">Skate</span>
+            <span className="font-thin">Spot</span>
+          </h1>
         </Link>
       </div>
-      <div className="flex w-200 mx-auto my-10 h-screen justify-between">
+      <div className="flex w-200 mx-auto my-0 h-screen justify-between">
         <div className="my-auto mx-0">
           {/* Link to register for new users*/}
           <div className="flex justify-center my-2">
