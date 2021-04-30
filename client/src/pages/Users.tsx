@@ -51,37 +51,13 @@ export const Users: React.FC<Props> = () => {
           </div>
         </div>
       </Parallax>
-      <section className="h-screen z-10 bg-white">
+      <section className="my-10 h-full z-10 bg-white">
         <div className={`max-w-5xl my-10 mx-auto flex ${isTabletOrMobile ? 'justify-center' : 'justify-around'}`}>
           {/* Section Header */}
           <div className="relative">
-            <div className="mx-auto my-0 font-bold text-xl border-b border-dashed pb-2 border-black">
+            <div className="mx-auto my-0 font-bold text-xl border-b border-dashed pb-2 border-gray-400">
               <h2 className="text-center">Find New Skate Spots</h2>
             </div>
-            {/* <div className="w-110 h-36 border border-gray-300 rounded my-5 flex overflow-hidden">
-              <div className="w-1/2">
-                <img src={SkateSpot} alt="" className="" />
-              </div>
-              <div>
-                <h1>hello</h1>
-              </div>
-            </div>
-            <div className="w-110 h-36 border border-gray-300 rounded my-5 flex overflow-hidden">
-              <div className="w-1/2">
-                <img src={SkateSpot} alt="" className="" />
-              </div>
-              <div>
-                <h1>hello</h1>
-              </div>
-            </div>
-            <div className="w-110 h-36 border border-gray-300 rounded my-5 flex overflow-hidden">
-              <div className="w-1/2">
-                <img src={SkateSpot} alt="" className="" />
-              </div>
-              <div>
-                <h1>hello</h1>
-              </div>
-            </div> */}
             <div className="w-115 h-36 border-t border-b border-gray-300 rounded my-5 flex overflow-hidden">
               <div className="w-48 m-2">
                 <img src={SkateSpot} alt="" className="" />
@@ -117,48 +93,31 @@ export const Users: React.FC<Props> = () => {
               </div>
             )}
             <div className="relative">
-              <div className="mx-auto my-0 font-bold text-xl border-b border-dashed pb-2 border-black">
+              <div className="mx-auto my-0 font-bold text-xl border-b border-dashed pb-2 border-gray-400">
                 <h2 className="text-center">Find New Skaters</h2>
               </div>
               <div className="w-110 h-36 border-t border-b border-gray-300 rounded my-5 flex overflow-hidden bg-white">
                 <div className="w-28 m-4">
                   <img src={LoginHero} alt="" className="" />
                 </div>
-                <div>
-                  <h1>hello</h1>
+                <div className="ml-5 my-auto">
+                  <div className="font-semibold text-lg">
+                    <h3>
+                      <span>crookiemonster</span>
+                    </h3>
+                  </div>
+                  <div className="font-light text-base">
+                    <h3>
+                      <span>Demo User</span>
+                    </h3>
+                  </div>
                 </div>
               </div>
-              {/* <div className="w-110 h-36 border border-gray-300 rounded my-5 flex overflow-hidden bg-white">
-                <div className="w-28 m-4">
-                  <img src={LoginHero} alt="" className="" />
-                </div>
-                <div>
-                  <h1>hello</h1>
-                </div>
-              </div>
-              <div className="w-110 h-36 border border-gray-300 rounded my-5 flex overflow-hidden bg-white">
-                <div className="w-28 m-4">
-                  <img src={LoginHero} alt="" className="" />
-                </div>
-                <div>
-                  <h1>hello</h1>
-                </div>
-              </div>
-              <div className="w-110 h-36 border border-gray-300 rounded my-5 flex overflow-hidden bg-white">
-                <div className="w-28 m-4">
-                  <img src={LoginHero} alt="" className="" />
-                </div>
-                <div>
-                  <h1>hello</h1>
-                </div>
-              </div> */}
             </div>
           </div>
         </div>
       </section>
-      {/* <div className="absolute bottom-0"> */}
       <Footer />
-      {/* </div> */}
     </div>
   );
 };
