@@ -22,6 +22,7 @@ export type Scalars = {
 export type LoginResponse = {
   __typename?: 'LoginResponse';
   accessToken: Scalars['String'];
+  id: Scalars['Float'];
 };
 
 export type Mutation = {
@@ -78,6 +79,7 @@ export type MutationUploadProfilePictureArgs = {
 
 export type MutationCreateReviewArgs = {
   imgFiles?: Maybe<Array<Scalars['Upload']>>;
+  rating: Scalars['String'];
   userId: Scalars['Float'];
   skateSpotId: Scalars['Float'];
   review: Scalars['String'];
@@ -127,6 +129,7 @@ export type CreateReviewMutationVariables = Exact<{
   review: Scalars['String'];
   userId: Scalars['Float'];
   skateSpotId: Scalars['Float'];
+  rating: Scalars['String'];
 }>;
 
 
@@ -181,7 +184,7 @@ export type LoginUserMutation = (
   { __typename?: 'Mutation' }
   & { login: (
     { __typename?: 'LoginResponse' }
-    & Pick<LoginResponse, 'accessToken'>
+    & Pick<LoginResponse, 'accessToken' | 'id'>
   ) }
 );
 
@@ -217,8 +220,13 @@ export type HelloQuery = (
 
 
 export const CreateReviewDocument = gql`
-    mutation CreateReview($review: String!, $userId: Float!, $skateSpotId: Float!) {
-  createReview(review: $review, userId: $userId, skateSpotId: $skateSpotId)
+    mutation CreateReview($review: String!, $userId: Float!, $skateSpotId: Float!, $rating: String!) {
+  createReview(
+    review: $review
+    userId: $userId
+    skateSpotId: $skateSpotId
+    rating: $rating
+  )
 }
     `;
 export type CreateReviewMutationFn = Apollo.MutationFunction<CreateReviewMutation, CreateReviewMutationVariables>;
@@ -239,6 +247,7 @@ export type CreateReviewMutationFn = Apollo.MutationFunction<CreateReviewMutatio
  *      review: // value for 'review'
  *      userId: // value for 'userId'
  *      skateSpotId: // value for 'skateSpotId'
+ *      rating: // value for 'rating'
  *   },
  * });
  */
@@ -375,6 +384,7 @@ export const LoginUserDocument = gql`
     mutation LoginUser($email: String!, $password: String!) {
   login(email: $email, password: $password) {
     accessToken
+    id
   }
 }
     `;

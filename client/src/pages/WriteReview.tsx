@@ -2,16 +2,38 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { Header } from './components/Header';
 import { ReviewStars } from 'src/utils/ReviewStars';
+import { RouteComponentProps } from 'react-router';
+import * as Yup from 'yup';
+import { me } from 'src/graphql/reactive-variables/me';
+// import { useCreateReviewMutation } from 'src/generated/graphql';
 
-interface Props {}
+interface Props {
+  skateSpotId: number;
+}
 
-export const WriteReview: React.FC<Props> = () => {
+// type ratingTypes = 'oneStar' | 'twoStar' | 'threeStar' | 'fourStar' | 'fiveStar' | null;
+
+const validationSchema = Yup.object({
+  rating: Yup.string().required('Rating required.'),
+});
+
+export const WriteReview: React.FC<RouteComponentProps & Props> = ({ skateSpotId, history }) => {
+  // const [rating, setRating] = useState<ratingTypes>(null);
+  // const [createReview] = useCreateReviewMutation();
+
   const formik = useFormik({
     initialValues: {
-      rating: 0,
+      rating: 'fiveStar',
+      skateSpotId,
+      userId: me(),
+      review: '',
     },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    validationSchema,
+    onSubmit: async (values, { resetForm, setSubmitting }) => {
+      alert('hello');
+      resetForm();
+      setSubmitting(false);
+      history.push('/');
     },
   });
   return (

@@ -7,6 +7,7 @@ import { RouteComponentProps } from 'react-router';
 import { Footer } from './components/Footer';
 import LoginHero from '../assets/LoginHero.png';
 import { Link } from 'react-router-dom';
+import { me } from 'src/graphql/reactive-variables/me';
 
 interface LoginForm {
   email: string;
@@ -17,6 +18,7 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const [login] = useLoginUserMutation({
     onCompleted({ login }) {
       accessToken(login.accessToken);
+      me(login.id);
     },
   });
 

@@ -43,7 +43,10 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundColor: ['hovered-sibling'],
+      borderColor: ['hovered-sibling'],
+    },
   },
   plugins: [
     plugin(({ addVariant, e }) => {
@@ -78,6 +81,13 @@ module.exports = {
       };
 
       addUtilities(contentUtilities, ['before', 'after']);
+    }),
+    plugin(({ addVariant, e }) => {
+      addVariant('hovered-sibling', ({ container }) => {
+        container.walkRules((rule) => {
+          rule.selector = `:hover + .hovered-sibling\\:${rule.selector.slice(1)}`;
+        });
+      });
     }),
   ],
 };
