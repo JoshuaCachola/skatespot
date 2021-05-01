@@ -58,7 +58,7 @@ export const ReviewStars: React.FC<Props> = () => {
       }
     }
   };
-  console.log(rating);
+
   return (
     <div className="flex text-2xl text-gray-500 font-bold m-4">
       <div className="flex">

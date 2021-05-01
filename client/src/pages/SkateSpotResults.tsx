@@ -88,14 +88,34 @@ export const SkateSpotResults: React.FC<Props> = () => {
                           </div>
                           <div className="flex">
                             {/* stars */}
-                            <div>
-                              <span>
-                                <FontAwesomeIcon icon={['fas', 'star']} />
-                                <FontAwesomeIcon icon={['fas', 'star']} />
-                                <FontAwesomeIcon icon={['fas', 'star']} />
-                                <FontAwesomeIcon icon={['fas', 'star']} />
-                                <FontAwesomeIcon icon={['fas', 'star']} />
-                              </span>
+                            <div className="flex text-xs text-gray-500 font-bold m-4">
+                              <div className="flex">
+                                <div className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1">
+                                  <span>
+                                    <FontAwesomeIcon icon={['fas', 'star']} />
+                                  </span>
+                                </div>
+                                <div className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1">
+                                  <span>
+                                    <FontAwesomeIcon icon={['fas', 'star']} />
+                                  </span>
+                                </div>
+                                <div className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1">
+                                  <span>
+                                    <FontAwesomeIcon icon={['fas', 'star']} />
+                                  </span>
+                                </div>
+                                <div className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1">
+                                  <span>
+                                    <FontAwesomeIcon icon={['fas', 'star']} />
+                                  </span>
+                                </div>
+                                <div className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1">
+                                  <span>
+                                    <FontAwesomeIcon icon={['fas', 'star']} />
+                                  </span>
+                                </div>
+                              </div>
                             </div>
                             {/* number of reviews */}
                             <div>
