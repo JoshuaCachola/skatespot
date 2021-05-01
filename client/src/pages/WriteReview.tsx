@@ -25,7 +25,7 @@ export const WriteReview: React.FC<Props> = () => {
       <div className="border rounded border-gray-400 w-140 mx-auto my-0 h-110">
         <form onSubmit={formik.handleSubmit}>
           <ReviewStars />
-          <div className="replative overflow-hidden w-full h-full p-4">
+          <div className="relative overflow-hidden w-full h-full p-4">
             <textarea
               name="review"
               rows={13}

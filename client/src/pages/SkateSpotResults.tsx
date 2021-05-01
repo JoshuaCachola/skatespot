@@ -9,6 +9,7 @@ import { useMediaQuery } from 'react-responsive';
 // import { Footer } from './components/search/Footer';
 import { useGetSkateSpotsQuery } from '../generated/graphql';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Footer } from './components/Footer';
 // import { skateSpot } from '../graphql/reactive-variables/skateSpot';
 interface Props {}
 
@@ -28,7 +29,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
   return (
     <div>
       <Header />
-      <div className="flex border-t border-gray-100">
+      <div className="flex border-t border-gray-100 mb-16 overflow-hidden">
         <ul
           className={`mt-4 mx-4 pr-1 h-screen ${isDesktopOrLaptop ? 'w-1/2 overflow-y-scroll' : 'w-2/3 mx-auto my-0'}`}
         >
@@ -44,7 +45,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
                     state: { skateSpot: data.getSkateSpots[resultIdx] },
                   }}
                 >
-                  <li className="flex rounded border-2 mb-7 border-gray-100 hover:shadow-xl">
+                  <li className="flex rounded border-2 mb-7 border-gray-100 hover:shadow-xl hover:bg-gray-50">
                     {/* skate spot img carousel */}
                     <div
                       className="m-6 w-40 z-50"
@@ -130,6 +131,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
           </div>
         ) : null}
       </div>
+      <Footer />
     </div>
   );
 };

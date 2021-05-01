@@ -111,7 +111,7 @@ export const SkateSpot: React.FC<Props> = ({ location }) => {
         </div>
       </div>
       {/* Container for skate spot information */}
-      <div className="mt-6">
+      <div className="mt-6 mb-28">
         <div className="min-w-300">
           <div className="max-w-295 mx-auto my-0">
             <div className="leading-loose mx-auto my-0 w-2/3">
