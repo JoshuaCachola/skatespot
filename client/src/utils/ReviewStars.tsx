@@ -34,14 +34,17 @@ export const ReviewStars: React.FC<Props> = () => {
   const handleMouseLeaveStar = (starHovered) => {
     // const starHovered = parseInt(e.target.id);
     // console.log(starHovered);
-    if (rating === 0) {
-      for (let i = 0; i < stars.length; i++) {
-        stars[i].current!.style.backgroundColor = 'gray';
-      }
-    } else if (starHovered > rating) {
-      for (let i = rating; i < stars.length; i++) {
-        stars[i].current!.style.backgroundColor = 'gray';
-      }
+    if (rating >= starHovered) {
+      return;
+    }
+
+    let i: number = 0;
+
+    if (starHovered > rating) {
+      i = rating;
+    }
+    for (i; i < stars.length; i++) {
+      stars[i].current!.style.backgroundColor = 'gray';
     }
   };
 
