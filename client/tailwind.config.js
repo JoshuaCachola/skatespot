@@ -44,8 +44,7 @@ module.exports = {
   },
   variants: {
     extend: {
-      backgroundColor: ['hovered-sibling'],
-      borderColor: ['hovered-sibling'],
+      textColor: ['hovered-difference'],
     },
   },
   plugins: [
@@ -83,9 +82,9 @@ module.exports = {
       addUtilities(contentUtilities, ['before', 'after']);
     }),
     plugin(({ addVariant, e }) => {
-      addVariant('hovered-sibling', ({ container }) => {
+      addVariant('hovered-difference', ({ container }) => {
         container.walkRules((rule) => {
-          rule.selector = `:hover + .hovered-sibling\\:${rule.selector.slice(1)}`;
+          rule.selector = `:hover > .hovered-difference\\:${rule.selector.slice(1)}`;
         });
       });
     }),

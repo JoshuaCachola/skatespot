@@ -1,16 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useRef } from 'react';
 
-const ratingKeys = {
-  1: 'oneStar',
-  2: 'twoStar',
-  3: 'threeStar',
-  4: 'fourStar',
-  5: 'fiveStar',
-};
+// const ratingKeys = {
+//   1: 'oneStar',
+//   2: 'twoStar',
+//   3: 'threeStar',
+//   4: 'fourStar',
+//   5: 'fiveStar',
+// };
 
-export const ReviewStars = ({ setFieldValue }) => {
-  const [rating, setRating] = React.useState<number>(0);
+export const ReviewStars = ({ rating, setFieldValue }) => {
   const oneStar = useRef<HTMLDivElement>(null);
   const twoStar = useRef<HTMLDivElement>(null);
   const threeStar = useRef<HTMLDivElement>(null);
@@ -53,9 +52,7 @@ export const ReviewStars = ({ setFieldValue }) => {
   };
 
   const handleStarClick = (numberOfStars) => {
-    setRating(numberOfStars);
-    console.log(ratingKeys[numberOfStars]);
-    setFieldValue('rating', ratingKeys[numberOfStars]);
+    setFieldValue('rating', numberOfStars);
     for (let i = 0; i < stars.length; i++) {
       if (i < numberOfStars) {
         stars[i].current!.style.backgroundColor = 'red';

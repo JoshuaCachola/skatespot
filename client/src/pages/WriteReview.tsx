@@ -15,7 +15,7 @@ interface Props {
 }
 
 const validationSchema = Yup.object({
-  rating: Yup.string().required('Add a star rating.'),
+  rating: Yup.number().required('Add a star rating.'),
   review: Yup.string(),
   skateSpotId: Yup.number().required('No skate spot chosen.'),
   userId: Yup.number().required('Please log in.'),
@@ -53,9 +53,9 @@ export const WriteReview: React.FC<RouteComponentProps & Props> = ({ history, lo
           <span>{location.state.skateSpot.name}</span>
         </div>
       </div>
-      <div className="border rounded border-gray-400 w-140 mx-auto my-0 h-110">
+      <div className="border rounded border-gray-300 w-140 mx-auto my-0 h-110">
         <form onSubmit={formik.handleSubmit}>
-          <ReviewStars setFieldValue={formik.setFieldValue} />
+          <ReviewStars rating={formik.values.rating} setFieldValue={formik.setFieldValue} />
           <div className="relative overflow-hidden w-full h-full p-4">
             <textarea
               name="review"

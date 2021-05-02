@@ -8,7 +8,7 @@ import { PrivateRoute } from './utils/PrivateRoute';
 import { Users } from './pages/Users';
 import { CreateSkateSpot } from './pages/CreateSkateSpot';
 import { SkateSpotResults } from './pages/SkateSpotResults';
-import { SkateSpot } from './pages/SkateSpot';
+import { SkateSpot } from './pages/skatespot/SkateSpot';
 import { WriteReview } from './pages/WriteReview';
 import { NotFound } from './pages/NotFound';
 
