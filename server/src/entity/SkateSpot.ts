@@ -1,5 +1,6 @@
-import { Field, ObjectType } from "type-graphql";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Field, ObjectType } from 'type-graphql';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Review } from './Review';
 
 @ObjectType()
 @Entity('skatespots')
@@ -37,7 +38,7 @@ export class SkateSpot extends BaseEntity {
   countryCode: string;
 
   @Field()
-  @Column('text', {nullable: true})
+  @Column('text', { nullable: true })
   phone: string;
 
   @Field()
@@ -55,7 +56,7 @@ export class SkateSpot extends BaseEntity {
   @Field()
   @Column('text', { nullable: true })
   imageUrls: string;
-  
+
   @Field()
   @Column('text', { nullable: false })
   location: string;
@@ -71,4 +72,7 @@ export class SkateSpot extends BaseEntity {
   @Field()
   @Column('text', { nullable: true })
   reviewsDistribution: string;
-};
+
+  @OneToMany(() => Review, (review) => review.skateSpot)
+  reviews: Review[];
+}

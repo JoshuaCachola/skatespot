@@ -1,5 +1,6 @@
 import { Field, ObjectType } from 'type-graphql';
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, OneToMany } from 'typeorm';
+import { Review } from './Review';
 
 @ObjectType()
 @Entity('users')
@@ -62,7 +63,10 @@ export class User extends BaseEntity {
   @Column({
     type: 'varchar',
     length: 255,
-    nullable: true
+    nullable: true,
   })
   profilePicture: string;
-};
+
+  @OneToMany(() => Review, (review) => review.user)
+  reviews: Review[];
+}

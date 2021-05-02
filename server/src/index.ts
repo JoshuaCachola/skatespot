@@ -13,6 +13,7 @@ import { sendRefreshTokenInCookie } from './utils/sendRefreshTokenInCookie';
 import cors from 'cors';
 import { UploadResolver } from './UploadResolver';
 import { graphqlUploadExpress } from 'graphql-upload';
+import { ReviewResolver } from './ReviewResolver';
 
 interface RefreshTokenPayload {
   userId: number;
@@ -24,15 +25,17 @@ interface RefreshTokenPayload {
 (async () => {
   const app = express();
   app.use(cookieParser());
-  app.use(cors({
-    origin: 'http://localhost:3007',
-    credentials: true,
-  }));
+  app.use(
+    cors({
+      origin: 'http://localhost:3007',
+      credentials: true,
+    }),
+  );
   app.use(graphqlUploadExpress());
   app.get('/ping', (_, res) => {
     res.send('pong');
   });
-  
+
   app.post('/refresh_token', async (req, res) => {
     const token = req.cookies.jrt;
     console.log(req.headers);
@@ -61,7 +64,7 @@ interface RefreshTokenPayload {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [UserResolver, SkateSpotResolver, UploadResolver],
+      resolvers: [UserResolver, SkateSpotResolver, UploadResolver, ReviewResolver],
     }),
     context: ({ req, res }) => ({ req, res }),
     uploads: false,

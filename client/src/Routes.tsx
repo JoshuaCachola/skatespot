@@ -21,7 +21,7 @@ export const Routes: React.FC = () => {
         <PrivateRoute exact={true} path="/user-profile" component={UserProfile} />
         <PrivateRoute exact={true} path="/search" component={SkateSpotResults} />
         <PrivateRoute exact={true} path="/skate-spot/:name" component={SkateSpot} />
-        <PrivateRoute exact={true} path="/write-review" component={WriteReview} />
+        <PrivateRoute exact={true} path="/write-review/:name" component={WriteReview} />
         <Route exact path="/" component={Home} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />

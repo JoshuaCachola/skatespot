@@ -1,10 +1,16 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 
-interface Props {}
+const ratingKeys = {
+  1: 'oneStar',
+  2: 'twoStar',
+  3: 'threeStar',
+  4: 'fourStar',
+  5: 'fiveStar',
+};
 
-export const ReviewStars: React.FC<Props> = () => {
-  const [rating, setRating] = useState<number>(0);
+export const ReviewStars = ({ setFieldValue }) => {
+  const [rating, setRating] = React.useState<number>(0);
   const oneStar = useRef<HTMLDivElement>(null);
   const twoStar = useRef<HTMLDivElement>(null);
   const threeStar = useRef<HTMLDivElement>(null);
@@ -32,24 +38,24 @@ export const ReviewStars: React.FC<Props> = () => {
   };
 
   const handleMouseLeaveStar = (starHovered) => {
-    // const starHovered = parseInt(e.target.id);
-    // console.log(starHovered);
     if (rating >= starHovered) {
       return;
     }
 
-    let i: number = 0;
+    let grayStars: number = 0;
 
     if (starHovered > rating) {
-      i = rating;
+      grayStars = rating;
     }
-    for (i; i < stars.length; i++) {
-      stars[i].current!.style.backgroundColor = 'gray';
+    for (grayStars; grayStars < stars.length; grayStars++) {
+      stars[grayStars].current!.style.backgroundColor = 'gray';
     }
   };
 
   const handleStarClick = (numberOfStars) => {
     setRating(numberOfStars);
+    console.log(ratingKeys[numberOfStars]);
+    setFieldValue('rating', ratingKeys[numberOfStars]);
     for (let i = 0; i < stars.length; i++) {
       if (i < numberOfStars) {
         stars[i].current!.style.backgroundColor = 'red';
@@ -62,61 +68,22 @@ export const ReviewStars: React.FC<Props> = () => {
   return (
     <div className="flex text-2xl text-gray-500 font-bold m-4">
       <div className="flex">
-        <div
-          className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1"
-          onMouseOver={() => handleMouseOverStar(1)}
-          onMouseLeave={() => handleMouseLeaveStar(1)}
-          onClick={() => handleStarClick(1)}
-          ref={oneStar}
-        >
-          <span>
-            <FontAwesomeIcon icon={['fas', 'star']} />
-          </span>
-        </div>
-        <div
-          className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1"
-          onMouseOver={() => handleMouseOverStar(2)}
-          onMouseLeave={() => handleMouseLeaveStar(2)}
-          onClick={() => handleStarClick(2)}
-          ref={twoStar}
-        >
-          <span>
-            <FontAwesomeIcon icon={['fas', 'star']} />
-          </span>
-        </div>
-        <div
-          className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1"
-          onMouseOver={() => handleMouseOverStar(3)}
-          onMouseLeave={() => handleMouseLeaveStar(3)}
-          onClick={() => handleStarClick(3)}
-          ref={threeStar}
-        >
-          <span>
-            <FontAwesomeIcon icon={['fas', 'star']} />
-          </span>
-        </div>
-        <div
-          className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1"
-          onMouseOver={() => handleMouseOverStar(4)}
-          onMouseLeave={() => handleMouseLeaveStar(4)}
-          onClick={() => handleStarClick(4)}
-          ref={fourStar}
-        >
-          <span>
-            <FontAwesomeIcon icon={['fas', 'star']} />
-          </span>
-        </div>
-        <div
-          className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1"
-          onMouseOver={() => handleMouseOverStar(5)}
-          onMouseLeave={() => handleMouseLeaveStar(5)}
-          onClick={() => handleStarClick(5)}
-          ref={fiveStar}
-        >
-          <span>
-            <FontAwesomeIcon icon={['fas', 'star']} />
-          </span>
-        </div>
+        {stars.map((star, idx) => {
+          return (
+            <div
+              className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1"
+              onMouseOver={() => handleMouseOverStar(idx + 1)}
+              onMouseLeave={() => handleMouseLeaveStar(idx + 1)}
+              onClick={() => handleStarClick(idx + 1)}
+              ref={star}
+              key={idx + 1}
+            >
+              <span>
+                <FontAwesomeIcon icon={['fas', 'star']} />
+              </span>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

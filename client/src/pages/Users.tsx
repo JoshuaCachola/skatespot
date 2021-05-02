@@ -8,7 +8,7 @@ import { HomepageHeader } from './homepage/HomepageHeader';
 import SearchForm from './components/search/SearchForm';
 import { useMediaQuery } from 'react-responsive';
 import { Footer } from './components/Footer';
-import { ReviewStars } from 'src/utils/ReviewStars';
+// import { ReviewStars } from 'src/utils/ReviewStars';
 
 interface Props {}
 
@@ -71,9 +71,7 @@ export const Users: React.FC<Props> = () => {
                 <div className="ml-5">
                   <p>Review this skate spot</p>
                 </div>
-                <div>
-                  <ReviewStars />
-                </div>
+                <div>{/* <ReviewStars /> */}</div>
               </div>
             </div>
           </div>

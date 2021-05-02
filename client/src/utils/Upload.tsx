@@ -10,7 +10,6 @@ export const Upload = ({ setFieldValue, values }) => {
 
   const addFile = useCallback(
     (file) => {
-      console.log(file);
       setFieldValue('imgFiles', values.imgFiles.concat(file));
       setIsImgCropped(true);
     },

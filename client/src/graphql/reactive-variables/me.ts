@@ -1,3 +1,3 @@
 import { makeVar } from '@apollo/client';
 
-export const me = makeVar({});
+export const me = makeVar<number>(0);

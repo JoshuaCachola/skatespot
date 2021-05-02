@@ -6,12 +6,13 @@ import { ImageModal } from 'src/utils/ImageModal';
 import SkateSpot1 from '../assets/SkateSpot1.jpg';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
-interface Props {
+interface LocationProps {
   location: any;
 }
 
-export const SkateSpot: React.FC<Props> = ({ location }) => {
+export const SkateSpot: React.FC<RouteComponentProps> = ({ location }: LocationProps) => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)' });
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1223px)' });
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -119,9 +120,15 @@ export const SkateSpot: React.FC<Props> = ({ location }) => {
                 {/* buttons for writing reviews, adding photos, follow skate spot */}
                 <div className="w-2/3 max-w-295">
                   <div className="border-b border-black">
-                    <button className="text-black rounded border-red-600 border mb-6 mr-6 py-1 px-6 font-bold">
+                    <Link
+                      to={{
+                        pathname: `/write-review/${spot.name}`,
+                        state: { skateSpot: { id: spot.id, name: spot.name } },
+                      }}
+                      className="text-black rounded border-red-600 border mb-6 mr-6 py-2 px-6 font-bold"
+                    >
                       Write Review
-                    </button>
+                    </Link>
                     <button className="text-black rounded border-red-600 border py-1 px-6 font-bold">Add photo</button>
                   </div>
                   <div className="border-b border-black my-4">

@@ -10,12 +10,15 @@ import { verify } from 'jsonwebtoken';
 
 interface Payload {
   userId: string;
-};
+}
 
 @ObjectType()
 class LoginResponse {
   @Field()
   accessToken: string;
+
+  @Field()
+  id: number;
 }
 
 @Resolver()
@@ -55,26 +58,28 @@ export class UserResolver {
   async login(
     @Arg('email') email: string,
     @Arg('password') password: string,
-    @Ctx() { req, res }: TokenCookieCtx,
+    @Ctx() { res }: TokenCookieCtx,
   ): Promise<LoginResponse> {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
       return {
         accessToken: '',
+        id: -1,
       };
     }
 
     if (await argon2.verify(user.password, password)) {
       const accessToken = createToken.access(user);
       sendRefreshTokenInCookie(res, createToken.refresh(user));
-      console.log(req.cookies);
       return {
         accessToken,
+        id: user.id,
       };
     } else {
       return {
         accessToken: '',
+        id: -1,
       };
     }
   }
@@ -91,7 +96,7 @@ export class UserResolver {
   }
 
   @Mutation(() => Boolean)
-  async logout(@Ctx() {res}: TokenCookieCtx) {
+  async logout(@Ctx() { res }: TokenCookieCtx) {
     sendRefreshTokenInCookie(res, '');
     return true;
   }
@@ -108,7 +113,7 @@ export class UserResolver {
   }
 
   @Query(() => User)
-  async me(@Ctx() {req}: TokenCookieCtx) {
+  async me(@Ctx() { req }: TokenCookieCtx) {
     const authorization = req.headers['authorization'];
 
     if (!authorization) {
@@ -118,6 +123,6 @@ export class UserResolver {
     const accessToken = authorization.split(' ')[1];
     const payload = verify(accessToken, process.env.ACCESS_TOKEN_SECRET!) as Payload;
 
-    return await User.findOne(payload.userId)
+    return await User.findOne(payload.userId);
   }
-};
+}
