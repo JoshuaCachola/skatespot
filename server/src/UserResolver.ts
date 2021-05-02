@@ -17,7 +17,7 @@ class LoginResponse {
   @Field()
   accessToken: string;
 
-  @Field()
+  @Field(() => Int)
   id: number;
 }
 

@@ -1,11 +1,11 @@
-import { Field, ObjectType } from 'type-graphql';
+import { Field, Int, ObjectType } from 'type-graphql';
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, OneToMany } from 'typeorm';
 import { Review } from './Review';
 
 @ObjectType()
 @Entity('users')
 export class User extends BaseEntity {
-  @Field()
+  @Field(() => Int)
   @PrimaryGeneratedColumn({
     type: 'int',
   })
@@ -66,6 +66,12 @@ export class User extends BaseEntity {
     nullable: true,
   })
   profilePicture: string;
+
+  @Column('text')
+  city: string;
+
+  @Column('text')
+  state: string;
 
   @OneToMany(() => Review, (review) => review.user)
   reviews: Review[];

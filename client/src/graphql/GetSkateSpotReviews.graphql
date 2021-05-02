@@ -1,6 +1,7 @@
-mutation GetSkateSpotReviews($skateSpotId: Int!) {
+query GetSkateSpotReviews($skateSpotId: Int!) {
   getSkateSpotReviews(skateSpotId: $skateSpotId) {
     id
     review
     rating
+  }
 }

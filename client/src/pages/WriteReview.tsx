@@ -26,7 +26,7 @@ export const WriteReview: React.FC<RouteComponentProps & Props> = ({ history, lo
 
   const formik = useFormik({
     initialValues: {
-      rating: '',
+      rating: 0,
       skateSpotId: location.state.skateSpot.id,
       userId: me(),
       review: '',

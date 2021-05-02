@@ -1,11 +1,11 @@
-import { Field, ObjectType } from 'type-graphql';
+import { Field, Int, ObjectType } from 'type-graphql';
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Review } from './Review';
 
 @ObjectType()
 @Entity('skatespots')
 export class SkateSpot extends BaseEntity {
-  @Field()
+  @Field(() => Int)
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -65,7 +65,7 @@ export class SkateSpot extends BaseEntity {
   @Column('text', { nullable: true })
   popularTimesHistogram: string;
 
-  @Field()
+  @Field(() => Int)
   @Column('text', { nullable: false })
   reviewsCount: number;
 

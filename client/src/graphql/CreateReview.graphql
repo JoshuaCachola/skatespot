@@ -1,3 +1,3 @@
-mutation CreateReview($review: String!, $userId: Float!, $skateSpotId: Float!, $rating: String!) {
-  createReview(review: $review, userId: $userId, skateSpotId: $skateSpotId, rating: $rating)
+mutation CreateReview($review: String!, $userId: Int!, $skateSpotId: Int!, $rating: Int!, $imgFiles: [Upload!]) {
+  createReview(review: $review, userId: $userId, skateSpotId: $skateSpotId, rating: $rating, imgFiles: $imgFiles)
 }

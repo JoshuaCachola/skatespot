@@ -22,7 +22,7 @@ export type Scalars = {
 export type LoginResponse = {
   __typename?: 'LoginResponse';
   accessToken: Scalars['String'];
-  id: Scalars['Float'];
+  id: Scalars['Int'];
 };
 
 export type Mutation = {
@@ -79,9 +79,9 @@ export type MutationUploadProfilePictureArgs = {
 
 export type MutationCreateReviewArgs = {
   imgFiles?: Maybe<Array<Scalars['Upload']>>;
-  rating: Scalars['String'];
-  userId: Scalars['Float'];
-  skateSpotId: Scalars['Float'];
+  rating: Scalars['Int'];
+  userId: Scalars['Int'];
+  skateSpotId: Scalars['Int'];
   review: Scalars['String'];
 };
 
@@ -91,11 +91,33 @@ export type Query = {
   users: Array<User>;
   me: User;
   getSkateSpots: Array<SkateSpot>;
+  getSkateSpotReviews: Array<Review>;
+  getUserReviews: Array<Review>;
+};
+
+
+export type QueryGetSkateSpotReviewsArgs = {
+  skateSpotId: Scalars['Int'];
+};
+
+
+export type QueryGetUserReviewsArgs = {
+  userId: Scalars['Int'];
+};
+
+export type Review = {
+  __typename?: 'Review';
+  id: Scalars['Int'];
+  review: Scalars['String'];
+  userId: Scalars['Int'];
+  skateSpotId: Scalars['Int'];
+  imageUrls: Scalars['String'];
+  rating: Scalars['Int'];
 };
 
 export type SkateSpot = {
   __typename?: 'SkateSpot';
-  id: Scalars['Float'];
+  id: Scalars['Int'];
   name: Scalars['String'];
   categoryName: Scalars['String'];
   city: Scalars['String'];
@@ -110,14 +132,14 @@ export type SkateSpot = {
   imageUrls: Scalars['String'];
   location: Scalars['String'];
   popularTimesHistogram: Scalars['String'];
-  reviewsCount: Scalars['Float'];
+  reviewsCount: Scalars['Int'];
   reviewsDistribution: Scalars['String'];
 };
 
 
 export type User = {
   __typename?: 'User';
-  id: Scalars['Float'];
+  id: Scalars['Int'];
   email: Scalars['String'];
   username: Scalars['String'];
   firstName: Scalars['String'];
@@ -127,9 +149,10 @@ export type User = {
 
 export type CreateReviewMutationVariables = Exact<{
   review: Scalars['String'];
-  userId: Scalars['Float'];
-  skateSpotId: Scalars['Float'];
-  rating: Scalars['String'];
+  userId: Scalars['Int'];
+  skateSpotId: Scalars['Int'];
+  rating: Scalars['Int'];
+  imgFiles?: Maybe<Array<Scalars['Upload']> | Scalars['Upload']>;
 }>;
 
 
@@ -150,6 +173,19 @@ export type CreateSkateSpotMutationVariables = Exact<{
 export type CreateSkateSpotMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'createSkateSpot'>
+);
+
+export type GetSkateSpotReviewsQueryVariables = Exact<{
+  skateSpotId: Scalars['Int'];
+}>;
+
+
+export type GetSkateSpotReviewsQuery = (
+  { __typename?: 'Query' }
+  & { getSkateSpotReviews: Array<(
+    { __typename?: 'Review' }
+    & Pick<Review, 'id' | 'review' | 'rating'>
+  )> }
 );
 
 export type GetSkateSpotsQueryVariables = Exact<{ [key: string]: never; }>;
@@ -220,12 +256,13 @@ export type HelloQuery = (
 
 
 export const CreateReviewDocument = gql`
-    mutation CreateReview($review: String!, $userId: Float!, $skateSpotId: Float!, $rating: String!) {
+    mutation CreateReview($review: String!, $userId: Int!, $skateSpotId: Int!, $rating: Int!, $imgFiles: [Upload!]) {
   createReview(
     review: $review
     userId: $userId
     skateSpotId: $skateSpotId
     rating: $rating
+    imgFiles: $imgFiles
   )
 }
     `;
@@ -248,6 +285,7 @@ export type CreateReviewMutationFn = Apollo.MutationFunction<CreateReviewMutatio
  *      userId: // value for 'userId'
  *      skateSpotId: // value for 'skateSpotId'
  *      rating: // value for 'rating'
+ *      imgFiles: // value for 'imgFiles'
  *   },
  * });
  */
@@ -299,6 +337,43 @@ export function useCreateSkateSpotMutation(baseOptions?: Apollo.MutationHookOpti
 export type CreateSkateSpotMutationHookResult = ReturnType<typeof useCreateSkateSpotMutation>;
 export type CreateSkateSpotMutationResult = Apollo.MutationResult<CreateSkateSpotMutation>;
 export type CreateSkateSpotMutationOptions = Apollo.BaseMutationOptions<CreateSkateSpotMutation, CreateSkateSpotMutationVariables>;
+export const GetSkateSpotReviewsDocument = gql`
+    query GetSkateSpotReviews($skateSpotId: Int!) {
+  getSkateSpotReviews(skateSpotId: $skateSpotId) {
+    id
+    review
+    rating
+  }
+}
+    `;
+
+/**
+ * __useGetSkateSpotReviewsQuery__
+ *
+ * To run a query within a React component, call `useGetSkateSpotReviewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSkateSpotReviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSkateSpotReviewsQuery({
+ *   variables: {
+ *      skateSpotId: // value for 'skateSpotId'
+ *   },
+ * });
+ */
+export function useGetSkateSpotReviewsQuery(baseOptions: Apollo.QueryHookOptions<GetSkateSpotReviewsQuery, GetSkateSpotReviewsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSkateSpotReviewsQuery, GetSkateSpotReviewsQueryVariables>(GetSkateSpotReviewsDocument, options);
+      }
+export function useGetSkateSpotReviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSkateSpotReviewsQuery, GetSkateSpotReviewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSkateSpotReviewsQuery, GetSkateSpotReviewsQueryVariables>(GetSkateSpotReviewsDocument, options);
+        }
+export type GetSkateSpotReviewsQueryHookResult = ReturnType<typeof useGetSkateSpotReviewsQuery>;
+export type GetSkateSpotReviewsLazyQueryHookResult = ReturnType<typeof useGetSkateSpotReviewsLazyQuery>;
+export type GetSkateSpotReviewsQueryResult = Apollo.QueryResult<GetSkateSpotReviewsQuery, GetSkateSpotReviewsQueryVariables>;
 export const GetSkateSpotsDocument = gql`
     query GetSkateSpots {
   getSkateSpots {
