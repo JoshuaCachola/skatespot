@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Carousel } from 'react-responsive-carousel';
 import { ImageModal } from 'src/utils/ImageModal';
-import SkateSpot1 from '../../assets/SkateSpot1.jpg';
+// import SkateSpot1 from '../../assets/SkateSpot1.jpg';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { Link, RouteComponentProps } from 'react-router-dom';
+import { SkateSpotReviews } from './SkateSpotReviews';
 
 interface LocationProps {
   location: any;
@@ -27,6 +28,7 @@ export const SkateSpot: React.FC<RouteComponentProps> = ({ location }: LocationP
     setImagesIdx(parseInt(e.target.id));
   };
 
+  console.log();
   return (
     <div>
       <Header />
@@ -156,62 +158,7 @@ export const SkateSpot: React.FC<RouteComponentProps> = ({ location }: LocationP
                     </div>
                   </div>
                   {/* Reviews */}
-                  <div>
-                    {/* User information */}
-                    <div className="flex">
-                      {/* Profile image */}
-                      <div className="rounded h-24 w-24">
-                        <img src={SkateSpot1} alt="profile-avatar" />
-                      </div>
-                      {/* User information */}
-                      <div className="ml-2">
-                        {/* username */}
-                        <div className="font-bold text-base">
-                          <span>Crookiemonster</span>
-                        </div>
-                        <div className="text-sm">
-                          <span>San Jose, CA</span>
-                        </div>
-                        {/* Add reviews images */}
-                        <div></div>
-                      </div>
-                    </div>
-                    {/* User rating */}
-                    <div className="flex items-center mb-5">
-                      <div className="text-base text-black font-bold">
-                        <span>
-                          <FontAwesomeIcon icon={['fas', 'star']} />
-                          <FontAwesomeIcon icon={['fas', 'star']} />
-                          <FontAwesomeIcon icon={['fas', 'star']} />
-                          <FontAwesomeIcon icon={['fas', 'star']} />
-                          <FontAwesomeIcon icon={['fas', 'star']} />
-                        </span>
-                      </div>
-                      {/* Review date */}
-                      <div className="text-sm">
-                        <span>&nbsp;04/28/2021</span>
-                      </div>
-                    </div>
-                    {/* review */}
-                    <div className="break-words font-light">
-                      <div>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin gravida lorem ac ligula fermentum
-                        convallis. Etiam non ipsum eget quam elementum vestibulum. Aenean finibus purus et eros
-                        consequat egestas. Donec efficitur rutrum nisl at consequat.
-                        <br />
-                        <br />
-                        Cras id orci quis ligula rhoncus aliquam sed tristique mauris. Sed et sagittis odio. Donec
-                        mollis venenatis nisi id vulputate. Duis sit amet dui at arcu posuere suscipit. Nulla
-                        ullamcorper tincidunt sagittis.Maecenas ultrices posuere lacus, id finibus leo interdum at. Cras
-                        tincidunt, orci vitae pellentesque euismod, lectus nunc sagittis ligula, sed vehicula nunc nisi
-                        iaculis velit. Ut in suscipit nisi, quis ultrices tellus. Donec pulvinar elementum lacus, non
-                        interdum massa varius sit amet. Fusce ut commodo tortor. Mauris ornare eget est vitae semper.
-                        Maecenas vestibulum semper pretium. Duis sed orci sem. Nunc ornare porttitor ipsum. Nunc
-                        pharetra vehicula fermentum. Nullam non justo accumsan, tincidunt nisi nec, viverra mi. Orci
-                        varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                      </div>
-                    </div>
-                  </div>
+                  <SkateSpotReviews skateSpotId={spot.id} />
                 </div>
                 {/* fixed side panel for directions and photos */}
                 {spot.website && (

@@ -11,6 +11,7 @@ import { SkateSpotResults } from './pages/SkateSpotResults';
 import { SkateSpot } from './pages/skatespot/SkateSpot';
 import { WriteReview } from './pages/WriteReview';
 import { NotFound } from './pages/NotFound';
+import { SkateSpotReviews } from './pages/skatespot/SkateSpotReviews';
 
 export const Routes: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ export const Routes: React.FC = () => {
         <PrivateRoute exact={true} path="/search" component={SkateSpotResults} />
         <PrivateRoute exact={true} path="/skate-spot/:name" component={SkateSpot} />
         <PrivateRoute exact={true} path="/write-review/:name" component={WriteReview} />
+        <Route exact={true} path="/reviews" component={SkateSpotReviews} />
         <Route exact path="/" component={Home} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />

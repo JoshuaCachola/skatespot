@@ -3,5 +3,11 @@ query GetSkateSpotReviews($skateSpotId: Int!) {
     id
     review
     rating
+    user {
+      id
+      username
+      firstName
+      lastName
+    }
   }
 }

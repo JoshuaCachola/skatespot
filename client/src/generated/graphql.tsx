@@ -109,10 +109,12 @@ export type Review = {
   __typename?: 'Review';
   id: Scalars['Int'];
   review: Scalars['String'];
+  user: User;
   userId: Scalars['Int'];
   skateSpotId: Scalars['Int'];
   imageUrls: Scalars['String'];
   rating: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
 };
 
 export type SkateSpot = {
@@ -185,6 +187,10 @@ export type GetSkateSpotReviewsQuery = (
   & { getSkateSpotReviews: Array<(
     { __typename?: 'Review' }
     & Pick<Review, 'id' | 'review' | 'rating'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'username' | 'firstName' | 'lastName'>
+    ) }
   )> }
 );
 
@@ -343,6 +349,12 @@ export const GetSkateSpotReviewsDocument = gql`
     id
     review
     rating
+    user {
+      id
+      username
+      firstName
+      lastName
+    }
   }
 }
     `;
