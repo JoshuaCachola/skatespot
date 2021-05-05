@@ -8,7 +8,7 @@ enum reviewsDistributionValues {
   fiveStar = 5,
 }
 
-export const useAverageReviewStars = ({ reviewsDistribution, reviewsCount }) => {
+export const AverageReviewStars = ({ reviewsDistribution, reviewsCount }) => {
   const [average, setAverage] = React.useState<number>(0);
   React.useEffect(() => {
     let total: number = 0;
@@ -18,5 +18,10 @@ export const useAverageReviewStars = ({ reviewsDistribution, reviewsCount }) => 
     }
     setAverage(total / reviewsCount);
   }, []);
-  return average;
+
+  return (
+    <div>
+      <h1>{average}</h1>
+    </div>
+  );
 };

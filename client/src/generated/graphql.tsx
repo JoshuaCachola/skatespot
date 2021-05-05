@@ -111,6 +111,7 @@ export type Review = {
   review: Scalars['String'];
   user: User;
   userId: Scalars['Int'];
+  skateSpot: SkateSpot;
   skateSpotId: Scalars['Int'];
   imageUrls: Scalars['String'];
   rating: Scalars['Int'];
@@ -202,6 +203,23 @@ export type GetSkateSpotsQuery = (
   & { getSkateSpots: Array<(
     { __typename?: 'SkateSpot' }
     & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'street' | 'city' | 'postalCode' | 'state' | 'temporarilyClosed' | 'permanentlyClosed' | 'location' | 'reviewsCount' | 'reviewsDistribution' | 'imageUrls'>
+  )> }
+);
+
+export type GetUserReviewsQueryVariables = Exact<{
+  userId: Scalars['Int'];
+}>;
+
+
+export type GetUserReviewsQuery = (
+  { __typename?: 'Query' }
+  & { getUserReviews: Array<(
+    { __typename?: 'Review' }
+    & Pick<Review, 'review' | 'createdAt' | 'id' | 'rating'>
+    & { skateSpot: (
+      { __typename?: 'SkateSpot' }
+      & Pick<SkateSpot, 'name' | 'city' | 'state'>
+    ) }
   )> }
 );
 
@@ -432,6 +450,49 @@ export function useGetSkateSpotsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetSkateSpotsQueryHookResult = ReturnType<typeof useGetSkateSpotsQuery>;
 export type GetSkateSpotsLazyQueryHookResult = ReturnType<typeof useGetSkateSpotsLazyQuery>;
 export type GetSkateSpotsQueryResult = Apollo.QueryResult<GetSkateSpotsQuery, GetSkateSpotsQueryVariables>;
+export const GetUserReviewsDocument = gql`
+    query GetUserReviews($userId: Int!) {
+  getUserReviews(userId: $userId) {
+    review
+    createdAt
+    id
+    rating
+    skateSpot {
+      name
+      city
+      state
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetUserReviewsQuery__
+ *
+ * To run a query within a React component, call `useGetUserReviewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserReviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserReviewsQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetUserReviewsQuery(baseOptions: Apollo.QueryHookOptions<GetUserReviewsQuery, GetUserReviewsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserReviewsQuery, GetUserReviewsQueryVariables>(GetUserReviewsDocument, options);
+      }
+export function useGetUserReviewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserReviewsQuery, GetUserReviewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserReviewsQuery, GetUserReviewsQueryVariables>(GetUserReviewsDocument, options);
+        }
+export type GetUserReviewsQueryHookResult = ReturnType<typeof useGetUserReviewsQuery>;
+export type GetUserReviewsLazyQueryHookResult = ReturnType<typeof useGetUserReviewsLazyQuery>;
+export type GetUserReviewsQueryResult = Apollo.QueryResult<GetUserReviewsQuery, GetUserReviewsQueryVariables>;
 export const GetUsersDocument = gql`
     query GetUsers {
   users {

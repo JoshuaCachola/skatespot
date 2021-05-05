@@ -1,9 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { useGetUserReviewsQuery } from 'src/generated/graphql';
+import { me } from 'src/graphql/reactive-variables/me';
 import SearchResultsFull1 from '../assets/SearchResultsFull1.jpg';
 import SkateSpot1 from '../assets/SkateSpot1.jpg';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
+import { ReviewText } from './components/ReviewText';
 
 interface Props {}
 
@@ -15,6 +18,19 @@ const user = {
 };
 
 export const UserProfile: React.FC<Props> = () => {
+  const { data, loading, error } = useGetUserReviewsQuery({
+    variables: { userId: 2 },
+  });
+
+  console.log(data, me());
+  if (loading) {
+    return <h1>loading</h1>;
+  }
+
+  if (error) {
+    return <h1>error</h1>;
+  }
+
   return (
     <div>
       <Header />
@@ -44,118 +60,54 @@ export const UserProfile: React.FC<Props> = () => {
         <div className="text-lg font-bold text-red-600 mt-6 ml-2">
           <h1>Reviews</h1>
         </div>
-        <div className="border-b border-gray-400 py-10">
-          {/* User information */}
-          <div className="flex">
-            {/* Profile image */}
-            <div className="rounded h-24 w-24">
-              <img src={SkateSpot1} alt="profile-avatar" />
-            </div>
-            {/* User information */}
-            <div className="ml-2">
-              {/* username */}
-              <div className="font-bold text-base">
-                <span>Crookiemonster</span>
+        {!loading &&
+          data?.getUserReviews.map((review) => {
+            return (
+              <div key={review.id} className="border-b border-gray-400 py-10">
+                {/* User information */}
+                <div className="flex">
+                  {/* Profile image */}
+                  <div className="rounded h-24 w-24">
+                    <img src={SkateSpot1} alt="profile-avatar" />
+                  </div>
+                  {/* User information */}
+                  <div className="ml-2">
+                    {/* username */}
+                    <div className="font-bold text-base">
+                      <span>{review.skateSpot.name}</span>
+                    </div>
+                    <div className="text-sm">
+                      <span>
+                        {review.skateSpot.city}, {review.skateSpot.state}
+                      </span>
+                    </div>
+                    {/* Add reviews images */}
+                    <div></div>
+                  </div>
+                </div>
+                {/* User rating */}
+                <div className="flex items-center mb-5">
+                  <div className="text-base text-black font-bold">
+                    <span>
+                      <FontAwesomeIcon icon={['fas', 'star']} />
+                      <FontAwesomeIcon icon={['fas', 'star']} />
+                      <FontAwesomeIcon icon={['fas', 'star']} />
+                      <FontAwesomeIcon icon={['fas', 'star']} />
+                      <FontAwesomeIcon icon={['fas', 'star']} />
+                    </span>
+                  </div>
+                  {/* Review date */}
+                  <div className="text-sm">
+                    <span>&nbsp;04/28/2021</span>
+                  </div>
+                </div>
+                {/* review */}
+                <div className="break-words font-light">
+                  <ReviewText review={review.review} />
+                </div>
               </div>
-              <div className="text-sm">
-                <span>San Jose, CA</span>
-              </div>
-              {/* Add reviews images */}
-              <div></div>
-            </div>
-          </div>
-          {/* User rating */}
-          <div className="flex items-center mb-5">
-            <div className="text-base text-black font-bold">
-              <span>
-                <FontAwesomeIcon icon={['fas', 'star']} />
-                <FontAwesomeIcon icon={['fas', 'star']} />
-                <FontAwesomeIcon icon={['fas', 'star']} />
-                <FontAwesomeIcon icon={['fas', 'star']} />
-                <FontAwesomeIcon icon={['fas', 'star']} />
-              </span>
-            </div>
-            {/* Review date */}
-            <div className="text-sm">
-              <span>&nbsp;04/28/2021</span>
-            </div>
-          </div>
-          {/* review */}
-          <div className="break-words font-light">
-            <div>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin gravida lorem ac ligula fermentum
-              convallis. Etiam non ipsum eget quam elementum vestibulum. Aenean finibus purus et eros consequat egestas.
-              Donec efficitur rutrum nisl at consequat.
-              <br />
-              <br />
-              Cras id orci quis ligula rhoncus aliquam sed tristique mauris. Sed et sagittis odio. Donec mollis
-              venenatis nisi id vulputate. Duis sit amet dui at arcu posuere suscipit. Nulla ullamcorper tincidunt
-              sagittis.Maecenas ultrices posuere lacus, id finibus leo interdum at. Cras tincidunt, orci vitae
-              pellentesque euismod, lectus nunc sagittis ligula, sed vehicula nunc nisi iaculis velit. Ut in suscipit
-              nisi, quis ultrices tellus. Donec pulvinar elementum lacus, non interdum massa varius sit amet. Fusce ut
-              commodo tortor. Mauris ornare eget est vitae semper. Maecenas vestibulum semper pretium. Duis sed orci
-              sem. Nunc ornare porttitor ipsum. Nunc pharetra vehicula fermentum. Nullam non justo accumsan, tincidunt
-              nisi nec, viverra mi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-              mus.
-            </div>
-          </div>
-        </div>
-        <div className="border-b border-gray-400 py-10">
-          {/* User information */}
-          <div className="flex">
-            {/* Profile image */}
-            <div className="rounded h-24 w-24">
-              <img src={SkateSpot1} alt="profile-avatar" />
-            </div>
-            {/* User information */}
-            <div className="ml-2">
-              {/* username */}
-              <div className="font-bold text-base">
-                <span>Crookiemonster</span>
-              </div>
-              <div className="text-sm">
-                <span>San Jose, CA</span>
-              </div>
-              {/* Add reviews images */}
-              <div></div>
-            </div>
-          </div>
-          {/* User rating */}
-          <div className="flex items-center mb-5">
-            <div className="text-base text-black font-bold">
-              <span>
-                <FontAwesomeIcon icon={['fas', 'star']} />
-                <FontAwesomeIcon icon={['fas', 'star']} />
-                <FontAwesomeIcon icon={['fas', 'star']} />
-                <FontAwesomeIcon icon={['fas', 'star']} />
-                <FontAwesomeIcon icon={['fas', 'star']} />
-              </span>
-            </div>
-            {/* Review date */}
-            <div className="text-sm">
-              <span>&nbsp;04/28/2021</span>
-            </div>
-          </div>
-          {/* review */}
-          <div className="break-words font-light">
-            <div>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin gravida lorem ac ligula fermentum
-              convallis. Etiam non ipsum eget quam elementum vestibulum. Aenean finibus purus et eros consequat egestas.
-              Donec efficitur rutrum nisl at consequat.
-              <br />
-              <br />
-              Cras id orci quis ligula rhoncus aliquam sed tristique mauris. Sed et sagittis odio. Donec mollis
-              venenatis nisi id vulputate. Duis sit amet dui at arcu posuere suscipit. Nulla ullamcorper tincidunt
-              sagittis.Maecenas ultrices posuere lacus, id finibus leo interdum at. Cras tincidunt, orci vitae
-              pellentesque euismod, lectus nunc sagittis ligula, sed vehicula nunc nisi iaculis velit. Ut in suscipit
-              nisi, quis ultrices tellus. Donec pulvinar elementum lacus, non interdum massa varius sit amet. Fusce ut
-              commodo tortor. Mauris ornare eget est vitae semper. Maecenas vestibulum semper pretium. Duis sed orci
-              sem. Nunc ornare porttitor ipsum. Nunc pharetra vehicula fermentum. Nullam non justo accumsan, tincidunt
-              nisi nec, viverra mi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-              mus.
-            </div>
-          </div>
-        </div>
+            );
+          })}
       </div>
       <Footer />
     </div>

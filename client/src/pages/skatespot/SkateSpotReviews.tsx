@@ -3,6 +3,7 @@ import React from 'react';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useGetSkateSpotReviewsQuery } from 'src/generated/graphql';
 import SkateSpot1 from '../../assets/SkateSpot1.jpg';
+import { ReviewText } from '../components/ReviewText';
 
 interface Props {
   skateSpotId: number;
@@ -63,14 +64,7 @@ export const SkateSpotReviews: React.FC<Props> = ({ skateSpotId }) => {
                 </div>
               </div>
               <div className="break-words font-light">
-                {review.review.split('\n').map((paragraph, idx) => {
-                  return (
-                    <div key={idx}>
-                      <p className="break-all whitespace-pre-line">{paragraph}</p>
-                      <br />
-                    </div>
-                  );
-                })}
+                <ReviewText review={review.review} />
               </div>
             </div>
           );

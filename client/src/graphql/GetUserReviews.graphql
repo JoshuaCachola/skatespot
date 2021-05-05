@@ -1,0 +1,13 @@
+query GetUserReviews($userId: Int!) {
+  getUserReviews(userId: $userId) {
+    review
+    createdAt
+    id
+    rating
+    skateSpot {
+      name
+      city
+      state
+    }
+  }
+}
