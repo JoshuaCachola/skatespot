@@ -1,12 +1,12 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useGetUserReviewsQuery } from 'src/generated/graphql';
-import { me } from 'src/graphql/reactive-variables/me';
+// import { me } from 'src/graphql/reactive-variables/me';
 import SearchResultsFull1 from '../assets/SearchResultsFull1.jpg';
 import SkateSpot1 from '../assets/SkateSpot1.jpg';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { ReviewText } from './components/ReviewText';
+import { AverageReviewStars } from './components/AverageReviewStars';
 
 interface Props {}
 
@@ -22,7 +22,6 @@ export const UserProfile: React.FC<Props> = () => {
     variables: { userId: 2 },
   });
 
-  console.log(data, me());
   if (loading) {
     return <h1>loading</h1>;
   }
@@ -87,15 +86,28 @@ export const UserProfile: React.FC<Props> = () => {
                 </div>
                 {/* User rating */}
                 <div className="flex items-center mb-5">
-                  <div className="text-base text-black font-bold">
+                  {/* {review} */}
+                  <AverageReviewStars rating={review.rating} />
+                  {/* <div className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1">
                     <span>
-                      <FontAwesomeIcon icon={['fas', 'star']} />
-                      <FontAwesomeIcon icon={['fas', 'star']} />
-                      <FontAwesomeIcon icon={['fas', 'star']} />
-                      <FontAwesomeIcon icon={['fas', 'star']} />
                       <FontAwesomeIcon icon={['fas', 'star']} />
                     </span>
                   </div>
+                  <div className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1">
+                    <span>
+                      <FontAwesomeIcon icon={['fas', 'star']} />
+                    </span>
+                  </div>
+                  <div className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1">
+                    <span>
+                      <FontAwesomeIcon icon={['fas', 'star']} />
+                    </span>
+                  </div>
+                  <div className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1">
+                    <span>
+                      <FontAwesomeIcon icon={['fas', 'star']} />
+                    </span>
+                  </div> */}
                   {/* Review date */}
                   <div className="text-sm">
                     <span>&nbsp;04/28/2021</span>

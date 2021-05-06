@@ -1,16 +1,12 @@
 import React from 'react';
 import { Header } from './components/Header';
-// import SearchResults1 from '../assets/SearchResults1.jpg';
-// import SearchResults2 from '../assets/SearchResults2.jpg';
 import { Carousel } from 'react-responsive-carousel';
 import Map from './components/Map';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-// import { Footer } from './components/search/Footer';
 import { useGetSkateSpotsQuery } from '../generated/graphql';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Footer } from './components/Footer';
-// import { skateSpot } from '../graphql/reactive-variables/skateSpot';
 interface Props {}
 
 export const SkateSpotResults: React.FC<Props> = () => {
