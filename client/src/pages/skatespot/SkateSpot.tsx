@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Carousel } from 'react-responsive-carousel';
@@ -8,6 +7,8 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { SkateSpotReviews } from './SkateSpotReviews';
+import { AverageReviewStars } from '../components/AverageReviewStars';
+// import { AverageReviewStars } from '../components/AverageReviewStars';
 
 interface LocationProps {
   location: any;
@@ -28,7 +29,7 @@ export const SkateSpot: React.FC<RouteComponentProps> = ({ location }: LocationP
     setImagesIdx(parseInt(e.target.id));
   };
 
-  console.log();
+  console.log(location);
   return (
     <div>
       <Header />
@@ -82,15 +83,10 @@ export const SkateSpot: React.FC<RouteComponentProps> = ({ location }: LocationP
                 </div>
                 {/* reviews */}
                 <div className="flex text-2xl text-white font-bold">
-                  <div>
-                    <span>
-                      <FontAwesomeIcon icon={['fas', 'star']} />
-                      <FontAwesomeIcon icon={['fas', 'star']} />
-                      <FontAwesomeIcon icon={['fas', 'star']} />
-                      <FontAwesomeIcon icon={['fas', 'star']} />
-                      <FontAwesomeIcon icon={['fas', 'star']} />
-                    </span>
-                  </div>
+                  <AverageReviewStars
+                    reviewsCount={location.state.skateSpot.reviewsCount}
+                    reviewsDistribution={JSON.parse(location.state.skateSpot.reviewsDistribution)}
+                  />
                   <div>
                     <span>&nbsp;{spot.reviewsCount}</span>
                   </div>
@@ -173,7 +169,9 @@ export const SkateSpot: React.FC<RouteComponentProps> = ({ location }: LocationP
           </div>
         </div>
       </div>
-      {isOpen && <ImageModal idx={imagesIdx} setIdx={setImagesIdx} images={spot.imgs} setIsOpen={setIsOpen} />}
+      {isOpen && (
+        <ImageModal idx={imagesIdx} setIdx={setImagesIdx} images={JSON.parse(spot.imageUrls)} setIsOpen={setIsOpen} />
+      )}
       <Footer />
     </div>
   );

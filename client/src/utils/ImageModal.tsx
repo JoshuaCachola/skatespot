@@ -13,7 +13,6 @@ const modal = document.getElementById('modal') as HTMLElement;
 
 export const ImageModal: React.FC<Props> = ({ images, setIsOpen, idx, setIdx }) => {
   const handleClickAway = useCallback(() => {
-    console.log('clicked');
     setIsOpen(false);
   }, [setIsOpen]);
   const [currentImage, setCurrentImage] = useState<string>(images[idx]);
@@ -31,36 +30,36 @@ export const ImageModal: React.FC<Props> = ({ images, setIsOpen, idx, setIdx }) 
   return ReactDom.createPortal(
     <div className="fixed top-0 left-0 bottom-0 right-0 bg-black bg-opacity-70">
       <ClickAwayListener onClickAway={handleClickAway}>
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-12 bg-gray-50">
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-black border-opacity-70">
           <div className="flex">
             {/* Image */}
-            <div>
-              <img src={currentImage} alt="img-modal" />
+            <div className="w-140 h-200 bg-black">
+              <div className="relative top-1/2 transform -translate-y-1/2">
+                <img src={currentImage} alt="img-modal" />
+              </div>
             </div>
             {/* Comments */}
-            <div>
-              <h1>comments</h1>
+            <div className="w-96 h-200 bg-gray-50">
+              <h1>cfasdkljfhasdfjkhasdfkjhasdflkhjasdfjkhadksjf</h1>
             </div>
           </div>
-          <div>
-            <button
-              onClick={() => handleChangeImage('LEFT')}
-              // disabled={}
-            >
-              Left
-            </button>
-            <button
-              onClick={() => handleChangeImage('RIGHT')}
-              // disabled={}?
-            >
-              Right
-            </button>
-            <button
-              onClick={() => setIsOpen(false)}
-              // disabled={idx < images.length}
-            >
-              Close
-            </button>
+          <div className="">
+            <div className="absolute text-white font-bold top-1/2 right-full border rounded border-white p-1 mr-4">
+              <button
+                onClick={() => handleChangeImage('LEFT')}
+                // disabled={}
+              >
+                Left
+              </button>
+            </div>
+            <div className="absolute text-white font-bold top-1/2 left-full border rounded border-white p-1 ml-4">
+              <button
+                onClick={() => handleChangeImage('RIGHT')}
+                // disabled={}?
+              >
+                Right
+              </button>
+            </div>
           </div>
         </div>
       </ClickAwayListener>

@@ -82,9 +82,9 @@ export const SkateSpotResults: React.FC<Props> = () => {
                               {resultIdx + 1}.&nbsp;<span>{result.name}</span>
                             </h4>
                           </div>
-                          <div className="flex">
+                          <div className="flex my-2">
                             {/* stars */}
-                            <div className="flex text-xs text-gray-500 font-bold m-4">
+                            <div className="flex text-xs text-gray-500 font-bold">
                               <div className="flex">
                                 <AverageReviewStars
                                   reviewsCount={result.reviewsCount}

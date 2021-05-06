@@ -1,8 +1,8 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useGetSkateSpotReviewsQuery } from 'src/generated/graphql';
 import SkateSpot1 from '../../assets/SkateSpot1.jpg';
 import { ReviewText } from '../components/ReviewText';
+import { AverageReviewStars } from '../components/AverageReviewStars';
 
 interface Props {
   skateSpotId: number;
@@ -13,7 +13,7 @@ export const SkateSpotReviews: React.FC<Props> = ({ skateSpotId }) => {
     variables: { skateSpotId },
   });
 
-  console.log(skateSpotId);
+  console.log(data?.getSkateSpotReviews);
 
   if (loading) {
     return <h1>loading</h1>;
@@ -47,16 +47,8 @@ export const SkateSpotReviews: React.FC<Props> = ({ skateSpotId }) => {
                 </div>
               </div>
               {/* User rating */}
-              <div className="flex items-center mb-5">
-                <div className="text-base text-black font-bold">
-                  <span>
-                    <FontAwesomeIcon icon={['fas', 'star']} />
-                    <FontAwesomeIcon icon={['fas', 'star']} />
-                    <FontAwesomeIcon icon={['fas', 'star']} />
-                    <FontAwesomeIcon icon={['fas', 'star']} />
-                    <FontAwesomeIcon icon={['fas', 'star']} />
-                  </span>
-                </div>
+              <div className="flex items-center text-sm mb-5">
+                <AverageReviewStars rating={review.rating} />
                 {/* Review date */}
                 <div className="text-sm">
                   <span>&nbsp;04/28/2021</span>

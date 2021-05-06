@@ -17,7 +17,6 @@ interface Props {
 
 export const AverageReviewStars: React.FC<Props> = ({ rating, reviewsDistribution, reviewsCount }) => {
   const [average, setAverage] = React.useState<number>(0);
-
   const createStarReview = React.useCallback(() => {
     let stars: Array<any> = [];
     for (let i = 0; i < Math.floor(average); i++) {
@@ -43,9 +42,7 @@ export const AverageReviewStars: React.FC<Props> = ({ rating, reviewsDistributio
     for (let i = Math.ceil(average); i < 5; i++) {
       const star = (
         <div className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1">
-          <span>
-            <FontAwesomeIcon icon={['fas', 'star']} />
-          </span>
+          <FontAwesomeIcon icon={['fas', 'star']} />
         </div>
       );
       stars.push(star);
@@ -55,13 +52,11 @@ export const AverageReviewStars: React.FC<Props> = ({ rating, reviewsDistributio
 
   React.useEffect(() => {
     if (reviewsCount && reviewsDistribution) {
-      // console.log(reviewsCount, reviewsDistribution);
       let total: number = 0;
       for (const key in reviewsDistribution) {
         const value = reviewsDistribution[key];
         total += value * reviewsDistributionValues[key];
       }
-      // console.log(total / reviewsCount);
       setAverage(total / reviewsCount);
     } else if (rating) {
       setAverage(rating);
