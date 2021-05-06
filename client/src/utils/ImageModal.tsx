@@ -30,7 +30,7 @@ export const ImageModal: React.FC<Props> = ({ images, setIsOpen, idx, setIdx }) 
   return ReactDom.createPortal(
     <div className="fixed top-0 left-0 bottom-0 right-0 bg-black bg-opacity-70">
       <ClickAwayListener onClickAway={handleClickAway}>
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-black opacity-90 border-opacity-70">
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-black">
           <div className="flex">
             {/* Image */}
             <div className="w-140 h-200 bg-black">
@@ -60,6 +60,11 @@ export const ImageModal: React.FC<Props> = ({ images, setIsOpen, idx, setIdx }) 
             >
               Right
             </button>
+          </div>
+          <div className="absolute text-white right-1">
+            <h4>
+              Image {idx + 1} of {images.length}
+            </h4>
           </div>
         </div>
       </ClickAwayListener>

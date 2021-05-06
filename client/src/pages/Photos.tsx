@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import SkateSpot1 from '../assets/SkateSpot1.jpg';
 import { AverageReviewStars } from './components/AverageReviewStars';
+import { ImageModal } from 'src/utils/ImageModal';
 
 interface Props {}
 
@@ -30,6 +31,18 @@ const photos = [
 ];
 
 export const Photos: React.FC<Props> = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [idx, setIdx] = useState<number>(0);
+
+  const handleImageClick = (e) => {
+    if (isOpen) {
+      return;
+    }
+
+    setIdx(parseInt(e.currentTarget.id));
+    setIsOpen(true);
+  };
+
   return (
     <div>
       <Header />
@@ -59,11 +72,16 @@ export const Photos: React.FC<Props> = () => {
         </div>
         {/* Photos grid */}
         <div className="flex justify-center">
-          <ul className="grid grid-flow-row grid-cols-5 grid-rows-5 gap-x-5 gap-y-0">
+          <ul className="grid grid-flow-row grid-cols-5 grid-rows-5 gap-4">
             {photos.map((photo, idx) => {
               return (
-                <li className="w-40 h-40" key={idx}>
-                  <img src={photo} alt="" className="rounded" />
+                <li
+                  className="w-40 h-auto cursor-pointer flex justify-center"
+                  id={idx.toString()}
+                  key={idx}
+                  onClick={(e) => handleImageClick(e)}
+                >
+                  <img src={photo} alt="" className="rounded object-cover align-middle" />
                 </li>
               );
             })}
@@ -75,6 +93,7 @@ export const Photos: React.FC<Props> = () => {
           <div className="mr-2">Next</div>
         </div>
       </div>
+      {isOpen && <ImageModal images={photos} idx={idx} setIdx={setIdx} setIsOpen={setIsOpen} />}
       <Footer />
     </div>
   );
