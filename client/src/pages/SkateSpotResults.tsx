@@ -5,8 +5,8 @@ import Map from './components/Map';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { useGetSkateSpotsQuery } from '../generated/graphql';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Footer } from './components/Footer';
+import { AverageReviewStars } from './components/AverageReviewStars';
 interface Props {}
 
 export const SkateSpotResults: React.FC<Props> = () => {
@@ -86,31 +86,10 @@ export const SkateSpotResults: React.FC<Props> = () => {
                             {/* stars */}
                             <div className="flex text-xs text-gray-500 font-bold m-4">
                               <div className="flex">
-                                <div className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1">
-                                  <span>
-                                    <FontAwesomeIcon icon={['fas', 'star']} />
-                                  </span>
-                                </div>
-                                <div className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1">
-                                  <span>
-                                    <FontAwesomeIcon icon={['fas', 'star']} />
-                                  </span>
-                                </div>
-                                <div className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1">
-                                  <span>
-                                    <FontAwesomeIcon icon={['fas', 'star']} />
-                                  </span>
-                                </div>
-                                <div className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1">
-                                  <span>
-                                    <FontAwesomeIcon icon={['fas', 'star']} />
-                                  </span>
-                                </div>
-                                <div className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1">
-                                  <span>
-                                    <FontAwesomeIcon icon={['fas', 'star']} />
-                                  </span>
-                                </div>
+                                <AverageReviewStars
+                                  reviewsCount={result.reviewsCount}
+                                  reviewsDistribution={JSON.parse(result.reviewsDistribution)}
+                                />
                               </div>
                             </div>
                             {/* number of reviews */}
