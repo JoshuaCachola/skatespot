@@ -21,7 +21,7 @@ class LoginResponse {
   id: number;
 }
 
-@Resolver()
+@Resolver(() => User)
 export class UserResolver {
   @Mutation(() => Boolean)
   async register(

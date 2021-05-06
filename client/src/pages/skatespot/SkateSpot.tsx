@@ -8,7 +8,6 @@ import { Footer } from '../components/Footer';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { SkateSpotReviews } from './SkateSpotReviews';
 import { AverageReviewStars } from '../components/AverageReviewStars';
-// import { AverageReviewStars } from '../components/AverageReviewStars';
 
 interface LocationProps {
   location: any;
@@ -102,9 +101,12 @@ export const SkateSpot: React.FC<RouteComponentProps> = ({ location }: LocationP
               </div>
             </div>
             <div className="flex-initial">
-              <button className="font-bold text-white focus:outline-none border rounded border-white py-3 px-8 w-44">
+              <Link
+                to="/photos"
+                className="font-bold text-white focus:outline-none border rounded border-white py-3 px-8 w-44"
+              >
                 See {JSON.parse(spot.imageUrls).length} Photos
-              </button>
+              </Link>
             </div>
           </div>
         </div>

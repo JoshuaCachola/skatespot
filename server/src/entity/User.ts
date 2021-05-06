@@ -67,12 +67,6 @@ export class User extends BaseEntity {
   })
   profilePicture: string;
 
-  @Column('text')
-  city: string;
-
-  @Column('text')
-  state: string;
-
   @OneToMany(() => Review, (review) => review.user)
   reviews: Review[];
 }

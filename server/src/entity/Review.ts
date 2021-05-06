@@ -23,6 +23,7 @@ export class Review extends BaseEntity {
   @Column()
   userId: number;
 
+  @Field(() => SkateSpot)
   @ManyToOne(() => SkateSpot, (skateSpot) => skateSpot.reviews)
   @JoinColumn({ name: 'skateSpotId', referencedColumnName: 'id' })
   skateSpot: SkateSpot;

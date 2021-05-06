@@ -7,7 +7,7 @@ import { Upload } from './types/Upload';
 
 const s3 = require('./config/s3');
 
-@Resolver()
+@Resolver(() => SkateSpot)
 export class SkateSpotResolver {
   @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
@@ -83,8 +83,11 @@ export class SkateSpotResolver {
   }
 
   @Query(() => [SkateSpot])
-  // @UseMiddleware(isAuth)
+  @UseMiddleware(isAuth)
   async getSkateSpots() {
-    return await SkateSpot.find();
+    const skateSpots = await SkateSpot.find();
+
+    // sorting because when updating skatespot reviews, skatespot gets repositioned in query
+    return skateSpots.sort((a, b) => a.id - b.id);
   }
 }

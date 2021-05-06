@@ -30,16 +30,6 @@ export class ReviewResolver {
     }
   }
 
-  // @FieldResolver()
-  // async reviews(@Root() review: Review) {
-  //   return await Review.find({ where: { id: review.id } });
-  // }
-
-  @FieldResolver()
-  async user(@Root() review: Review) {
-    return await User.findOne({ where: { id: review.userId } });
-  }
-
   @Query(() => [Review])
   @UseMiddleware(isAuth)
   async getUserReviews(@Arg('userId', () => Int) userId: number): Promise<Array<Review>> {
@@ -140,5 +130,15 @@ export class ReviewResolver {
       console.error(err);
       return false;
     }
+  }
+
+  @FieldResolver()
+  async skateSpot(@Root() review: Review) {
+    return await SkateSpot.findOne({ where: { id: review.skateSpotId } });
+  }
+
+  @FieldResolver()
+  async user(@Root() review: Review) {
+    return await User.findOne({ where: { id: review.userId } });
   }
 }
