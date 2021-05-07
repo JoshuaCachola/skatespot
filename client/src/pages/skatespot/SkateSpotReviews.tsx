@@ -54,7 +54,7 @@ export const SkateSpotReviews: React.FC<Props> = ({ skateSpotId }) => {
                   <span>&nbsp;04/28/2021</span>
                 </div>
               </div>
-              <div className="break-words font-light">
+              <div className="font-light">
                 <ReviewText review={review.review} />
               </div>
             </div>

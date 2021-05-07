@@ -4,6 +4,7 @@ import { isAuth } from './utils/isAuth';
 import { GraphQLUpload } from 'graphql-upload';
 import { getGeocoding } from './utils/geocoding';
 import { Upload } from './types/Upload';
+import { getConnection } from 'typeorm';
 
 const s3 = require('./config/s3');
 
@@ -89,5 +90,26 @@ export class SkateSpotResolver {
 
     // sorting because when updating skatespot reviews, skatespot gets repositioned in query
     return skateSpots.sort((a, b) => a.id - b.id);
+  }
+
+  @Query(() => [SkateSpot])
+  // @UseMiddleware(isAuth)
+  async search(
+    @Arg('query') query: string,
+    // @Arg('find') find: string,
+    // @Arg('near') near: string
+  ) {
+    try {
+      return await getConnection()
+        .createQueryBuilder(SkateSpot, 'skatespots')
+        .where('document_with_weights @@ plainto_tsquery(:query)', {
+          query,
+        })
+        .orderBy('ts_rank(document_with_weights, plainto_tsquery(:query))', 'DESC')
+        .getMany();
+    } catch (err) {
+      console.error(err);
+      return [];
+    }
   }
 }

@@ -18,8 +18,8 @@ export const SkateSpot: React.FC<RouteComponentProps> = ({ location }: LocationP
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1223px)' });
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [imagesIdx, setImagesIdx] = useState<number>(0);
+  const spot = React.useMemo(() => location.state.skateSpot, [location.state.skateSpot]);
 
-  const spot = location.state.skateSpot;
   const handleImageClick = (e) => {
     if (isOpen) {
       return;
@@ -28,47 +28,46 @@ export const SkateSpot: React.FC<RouteComponentProps> = ({ location }: LocationP
     setImagesIdx(parseInt(e.target.id));
   };
 
-  console.log(location);
   return (
     <div>
       <Header />
       {/* image carousel, skate spot information */}
-      <div className={`z-50 bg-black mx-auto ${isDesktopOrLaptop ? 'w-full' : 'w-full'}`}>
-        <Carousel
-          showThumbs={false}
-          emulateTouch={true}
-          showIndicators={false}
-          centerSlidePercentage={50}
-          stopOnHover={true}
-          showStatus={false}
-          centerMode={true}
-          infiniteLoop={true}
-          autoPlay={true}
-          interval={5000}
-        >
-          {spot.imageUrls &&
-            JSON.parse(spot.imageUrls).map((img, idx) => {
-              return (
-                <div
-                  key={idx}
-                  id={idx.toString()}
-                  className="flex justify-center h-110 max-w-200 bg-black cursor-pointer"
-                  onClick={(e) => handleImageClick(e)}
-                >
-                  <img src={img} alt={`img-${idx}`} className="object-cover align-middle" />
-                </div>
-              );
-            })}
-        </Carousel>
-      </div>
       <div className="relative">
+        <div className={`relative z-40 bg-black ${isDesktopOrLaptop ? 'w-full' : 'w-full'}`}>
+          <Carousel
+            showThumbs={false}
+            emulateTouch={true}
+            showIndicators={false}
+            centerSlidePercentage={50}
+            stopOnHover={true}
+            showStatus={false}
+            centerMode={true}
+            infiniteLoop={true}
+            autoPlay={true}
+            interval={5000}
+          >
+            {spot.imageUrls &&
+              JSON.parse(spot.imageUrls).map((img, idx) => {
+                return (
+                  <div
+                    key={idx}
+                    id={idx.toString()}
+                    className="relative flex justify-center h-110 max-w-200 bg-black cursor-pointer z-50"
+                    onClick={(e) => handleImageClick(e)}
+                  >
+                    <img src={img} alt={`img-${idx}`} className="object-cover align-middle" />
+                  </div>
+                );
+              })}
+          </Carousel>
+        </div>
         <div
-          className={`absolute m-auto flex content-end box-border flex-wrap top-0 bottom-0 left-0 right-0 ${
+          className={`absolute flex content-end flex-wrap top-0 bottom-0 left-0 right-0 ${
             isDesktopOrLaptop ? 'py-20 px-80' : 'px-20 py-10'
           }`}
         >
-          <div className="border-separate table table-auto min-w-full">
-            <div className="border-collapse box-border align-top table-cell">
+          <div className="relative z-50 min-w-full">
+            <div className="flex justify-between items-center">
               <div className={`mb-2 ${isTabletOrMobile && 'w-72'}`}>
                 {/* name of skate spot */}
                 <div>
@@ -99,14 +98,17 @@ export const SkateSpot: React.FC<RouteComponentProps> = ({ location }: LocationP
                   <div></div>
                 </div>
               </div>
-            </div>
-            <div className="flex-initial">
-              <Link
-                to="/photos"
-                className="font-bold text-white focus:outline-none border rounded border-white py-3 px-8 w-44"
-              >
-                See {JSON.parse(spot.imageUrls).length} Photos
-              </Link>
+              <div className="flex-initial">
+                <Link
+                  to={{
+                    pathname: `/photos/${spot.name}`,
+                    state: { skateSpot: spot },
+                  }}
+                  className="font-bold text-white focus:outline-none border rounded border-white py-3 px-8 w-44"
+                >
+                  See {JSON.parse(spot.imageUrls).length} Photos
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -120,16 +122,20 @@ export const SkateSpot: React.FC<RouteComponentProps> = ({ location }: LocationP
                 {/* buttons for writing reviews, adding photos, follow skate spot */}
                 <div className="w-2/3 max-w-295">
                   <div className="border-b border-black">
-                    <Link
-                      to={{
-                        pathname: `/write-review/${spot.name}`,
-                        state: { skateSpot: { id: spot.id, name: spot.name } },
-                      }}
-                      className="text-black rounded border-red-600 border mb-6 mr-6 py-2 px-6 font-bold"
-                    >
-                      Write Review
-                    </Link>
-                    <button className="text-black rounded border-red-600 border py-1 px-6 font-bold">Add photo</button>
+                    <div className="mb-5">
+                      <Link
+                        to={{
+                          pathname: `/write-review/${spot.name}`,
+                          state: { skateSpot: { id: spot.id, name: spot.name } },
+                        }}
+                        className="text-black rounded border-red-600 border mb-6 mr-6 py-2 px-6 font-bold"
+                      >
+                        Write Review
+                      </Link>
+                      <Link to="/" className="text-black rounded border-red-600 border mb-6 mr-6 py-2 px-6 font-bold">
+                        Add photo
+                      </Link>
+                    </div>
                   </div>
                   <div className="border-b border-black my-4">
                     {/* Header */}

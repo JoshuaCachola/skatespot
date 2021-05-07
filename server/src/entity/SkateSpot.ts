@@ -75,4 +75,7 @@ export class SkateSpot extends BaseEntity {
 
   @OneToMany(() => Review, (review) => review.skateSpot)
   reviews: Review[];
+
+  @Column('tsvector', { select: false, nullable: true })
+  document_with_weights: any;
 }

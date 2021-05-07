@@ -6,7 +6,9 @@ import SkateSpot1 from '../assets/SkateSpot1.jpg';
 import { AverageReviewStars } from './components/AverageReviewStars';
 import { ImageModal } from 'src/utils/ImageModal';
 
-interface Props {}
+interface Props {
+  location: any;
+}
 
 const photos = [
   SkateSpot1,
@@ -30,10 +32,10 @@ const photos = [
   SkateSpot1,
 ];
 
-export const Photos: React.FC<Props> = () => {
+export const Photos: React.FC<Props> = ({ location }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [idx, setIdx] = useState<number>(0);
-
+  const skateSpot = location.state.skateSpot;
   const handleImageClick = (e) => {
     if (isOpen) {
       return;
@@ -49,19 +51,22 @@ export const Photos: React.FC<Props> = () => {
       <div className="my-4 max-w-300 w-295 mx-24">
         <div className="border-b border-gray-400 mb-5">
           <div className="font-bold text-3xl mb-4">
-            <h1>Photos for Milpitas Skate Park</h1>
+            <h1>{skateSpot.name}</h1>
           </div>
           <div className="flex justify-between items-center">
-            <div className="flex">
-              <div className="h-24 w-24">
-                <img src={SkateSpot1} alt="" />
+            <div className="flex my-2">
+              <div className="max-h-20 w-20 flex justify-center">
+                <img src={JSON.parse(skateSpot.imageUrls)[0]} alt="" className="rounded object-cover align-middle" />
               </div>
               <div className="ml-2 text-sm mt-1">
                 <Link to="/" className="text-blue-600 font-bold">
-                  Milpitas Skate Park
+                  {skateSpot.name}
                 </Link>
                 <div className="text-xs flex">
-                  <AverageReviewStars rating={3} />
+                  <AverageReviewStars
+                    reviewsCount={skateSpot.reviewsCount}
+                    reviewsDistribution={JSON.parse(skateSpot.reviewsDistribution)}
+                  />
                 </div>
               </div>
             </div>
@@ -73,15 +78,15 @@ export const Photos: React.FC<Props> = () => {
         {/* Photos grid */}
         <div className="flex justify-center">
           <ul className="grid grid-flow-row grid-cols-5 grid-rows-5 gap-4">
-            {photos.map((photo, idx) => {
+            {JSON.parse(skateSpot.imageUrls).map((photo, idx) => {
               return (
                 <li
-                  className="w-40 h-auto cursor-pointer flex justify-center"
+                  className="w-40 max-h-40 cursor-pointer flex justify-center bg-black rounded"
                   id={idx.toString()}
                   key={idx}
                   onClick={(e) => handleImageClick(e)}
                 >
-                  <img src={photo} alt="" className="rounded object-cover align-middle" />
+                  <img src={photo} alt="" className="object-cover align-middle rounded" />
                 </li>
               );
             })}

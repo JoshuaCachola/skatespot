@@ -1,7 +1,7 @@
-import { Field, Int, ObjectType } from 'type-graphql';
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from './User';
 import { SkateSpot } from './SkateSpot';
+import { Field, Int, ObjectType } from 'type-graphql';
 
 @ObjectType()
 @Entity('reviews')

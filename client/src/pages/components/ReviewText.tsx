@@ -10,7 +10,7 @@ export const ReviewText: React.FC<Props> = ({ review }) => {
       {review.split('\n').map((paragraph, idx) => {
         return (
           <div key={idx}>
-            <p className="break-all whitespace-pre-line">{paragraph}</p>
+            <p className="break-words whitespace-pre-line">{paragraph}</p>
             <br />
           </div>
         );
