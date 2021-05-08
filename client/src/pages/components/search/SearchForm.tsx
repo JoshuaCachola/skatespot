@@ -4,6 +4,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSearchLazyQuery } from 'src/generated/graphql';
 import ClickAwayListener from 'react-click-away-listener';
+import { searchResults } from 'src/graphql/reactive-variables/searchResults';
 
 const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
   const formik = useFormik({
@@ -11,9 +12,9 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
       find: '',
       near: '',
     },
-    onSubmit: (values) => {
-      search();
-      history.push('/search');
+    onSubmit: () => {
+      searchResults(data?.search);
+      history.push(`/search?find=${formik.values.find}&near=${formik.values.near}`);
     },
   });
 
@@ -25,7 +26,6 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
     search({ variables: { query: formik.values.find } });
   }, [formik.values.find, search]);
 
-  console.log(data?.search);
   return (
     <form onSubmit={formik.handleSubmit} className="align-baseline block relative">
       <div className="flex min-w-full">

@@ -7,12 +7,20 @@ import { useMediaQuery } from 'react-responsive';
 import { useGetSkateSpotsQuery } from '../generated/graphql';
 import { Footer } from './components/Footer';
 import { AverageReviewStars } from './components/AverageReviewStars';
+import { searchResults } from 'src/graphql/reactive-variables/searchResults';
 interface Props {}
 
 export const SkateSpotResults: React.FC<Props> = () => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)' });
   const { data, loading, error } = useGetSkateSpotsQuery({ fetchPolicy: 'network-only' });
-  console.log(data);
+  const [skateSpots, setSkateSpots] = React.useState<any>(searchResults());
+
+  React.useEffect(() => {
+    if (skateSpots.length === 0 && data?.getSkateSpots) {
+      setSkateSpots(data?.getSkateSpots);
+    }
+  }, [data?.getSkateSpots, skateSpots.length]);
+
   if (loading) {
     return <h1>loading...</h1>;
   }
@@ -29,16 +37,15 @@ export const SkateSpotResults: React.FC<Props> = () => {
         <ul
           className={`mt-4 mx-4 pr-1 h-screen ${isDesktopOrLaptop ? 'w-1/2 overflow-y-scroll' : 'w-2/3 mx-auto my-0'}`}
         >
-          {!loading &&
-            data?.getSkateSpots &&
-            data.getSkateSpots.map((result, resultIdx) => {
+          {skateSpots.length !== 0 &&
+            skateSpots.map((result, resultIdx) => {
               return (
                 <Link
                   className="z-0"
                   key={result.id}
                   to={{
                     pathname: `/skate-spot/${result.name}`,
-                    state: { skateSpot: data.getSkateSpots[resultIdx] },
+                    state: { skateSpot: skateSpots[resultIdx] },
                   }}
                 >
                   <li className="flex rounded border-2 mb-7 border-gray-100 hover:shadow-xl hover:bg-gray-50">
@@ -122,7 +129,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
         {/* map of locations */}
         {isDesktopOrLaptop ? (
           <div className="w-1/2 h-screen border-t">
-            <Map locations={data?.getSkateSpots} />
+            <Map locations={skateSpots} />
           </div>
         ) : null}
       </div>
