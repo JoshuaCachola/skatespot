@@ -2,26 +2,36 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSearchLazyQuery } from 'src/generated/graphql';
+import ClickAwayListener from 'react-click-away-listener';
 
 const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
-  const [isFindSearchOpen, setIsFindSearchOpen] = useState<boolean>(false);
-  const [isNearSearchOpen, setIsNearSearchOpen] = useState<boolean>(false);
-
   const formik = useFormik({
     initialValues: {
       find: '',
       near: '',
     },
     onSubmit: (values) => {
+      search();
       history.push('/search');
     },
   });
+
+  const [search, { loading, data }] = useSearchLazyQuery({ pollInterval: 500 });
+  const [isFindSearchOpen, setIsFindSearchOpen] = useState<boolean>(false);
+  const [isNearSearchOpen, setIsNearSearchOpen] = useState<boolean>(false);
+
+  React.useEffect(() => {
+    search({ variables: { query: formik.values.find } });
+  }, [formik.values.find, search]);
+
+  console.log(data?.search);
   return (
-    <form onSubmit={formik.handleSubmit} className="mb-0 align-baseline block">
-      <div className="flex min-w-full table-auto">
+    <form onSubmit={formik.handleSubmit} className="align-baseline block relative">
+      <div className="flex min-w-full">
         {/* find input */}
         <div className="flex-1 block box-border">
-          <div className="table min-h-0 min-w-full table-auto">
+          <div className="table min-h-0 min-w-full">
             <div className="table-cell box-border align-top">
               <div className="min-w-full box-border align-top block">
                 <div className="shadow-lg mt-4">
@@ -35,23 +45,39 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
                       <span className="mr-3 text-gray-600">Find</span>
                       <span className="block flex-grow">
                         <input
+                          id="find"
+                          name="find"
                           type="text"
                           autoComplete="off"
                           placeholder="skaters, skate spots, skate crews"
                           maxLength={64}
                           className="cursor-text inline-block w-full box-border focus:outline-none"
                           onClick={() => setIsFindSearchOpen(!isFindSearchOpen)}
+                          onChange={formik.handleChange}
                         />
                       </span>
                     </div>
                     {isFindSearchOpen && (
-                      <div className="absolute w-full inline-block rounded-b box-border shadow-lg mt-3 right-px bg-white border-t z-50">
-                        <ul className="m-4">
-                          <li>skaters</li>
-                          <li>skate spots</li>
-                          <li>skate crews</li>
-                        </ul>
-                      </div>
+                      <ClickAwayListener onClickAway={() => setIsFindSearchOpen(!isFindSearchOpen)}>
+                        <div className="absolute w-full inline-block rounded-b box-border shadow-lg mt-3 right-px bg-white border-t z-50">
+                          {!loading && data?.search.length !== 0 ? (
+                            data?.search.map((result) => {
+                              return (
+                                <ul className="m-4 relative z-50" key={result.id}>
+                                  <li>
+                                    <p>{result.name}</p>
+                                  </li>
+                                </ul>
+                              );
+                            })
+                          ) : (
+                            <ul className="m-4 relative z-50">
+                              <li>skaters</li>
+                              <li>skatespots</li>
+                            </ul>
+                          )}
+                        </div>
+                      </ClickAwayListener>
                     )}
                   </label>
                 </div>
@@ -74,6 +100,8 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
                       <span className="mr-3 text-gray-600">Near</span>
                       <span className="block flex-grow">
                         <input
+                          name="near"
+                          id="near"
                           type="text"
                           autoComplete="off"
                           placeholder="San Jose, CA"
@@ -82,6 +110,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
                           onClick={() => {
                             setIsNearSearchOpen(!isNearSearchOpen);
                           }}
+                          onChange={formik.handleChange}
                         />
                       </span>
                     </div>

@@ -10,7 +10,7 @@ export const AccountDropDown: React.FC<Props> = () => {
   const { setIsLoggedIn } = useContext(TokenContext);
 
   return (
-    <div>
+    <div className="absolute right-8 w-52 h-auto border-2 rounded border-black bg-white shadow-2xl z-50">
       <button
         onClick={async () => {
           await logout();
@@ -21,6 +21,8 @@ export const AccountDropDown: React.FC<Props> = () => {
       >
         Logout
       </button>
+      <p>h</p>
+      <p>h</p>
     </div>
   );
 };

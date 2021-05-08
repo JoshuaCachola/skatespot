@@ -63,7 +63,7 @@ export const SkateSpot: React.FC<RouteComponentProps> = ({ location }: LocationP
         </div>
         <div
           className={`absolute flex content-end flex-wrap top-0 bottom-0 left-0 right-0 ${
-            isDesktopOrLaptop ? 'py-20 px-80' : 'px-20 py-10'
+            isDesktopOrLaptop ? 'py-20 px-40' : 'px-40 py-50'
           }`}
         >
           <div className="relative z-50 min-w-full">
@@ -104,7 +104,7 @@ export const SkateSpot: React.FC<RouteComponentProps> = ({ location }: LocationP
                     pathname: `/photos/${spot.name}`,
                     state: { skateSpot: spot },
                   }}
-                  className="font-bold text-white focus:outline-none border rounded border-white py-3 px-8 w-44"
+                  className="font-bold text-white focus:outline-none border rounded border-white py-3 px-8 min-w-44"
                 >
                   See {JSON.parse(spot.imageUrls).length} Photos
                 </Link>

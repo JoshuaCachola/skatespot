@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ClickAwayListener from 'react-click-away-listener';
+import { AccountDropDown } from '../homepage/AccountDropDown';
 
 interface Props {}
 
@@ -35,11 +36,7 @@ export const Account: React.FC<Props> = () => {
       </div>
       {isMenuOpen && (
         <ClickAwayListener onClickAway={handleClickAway}>
-          <div className='relative'>
-            <div className="absolute right-8 w-52 h-auto border-2 rounded border-black bg-white shadow-2xl">
-              <p>hello</p>
-            </div>
-          </div>
+          <AccountDropDown />
         </ClickAwayListener>
       )}
     </div>

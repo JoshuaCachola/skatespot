@@ -5,7 +5,6 @@ import { Register } from './pages/Register';
 import { Login } from './pages/Login';
 import { UserProfile } from './pages/UserProfile';
 import { PrivateRoute } from './utils/PrivateRoute';
-import { Users } from './pages/Users';
 import { CreateSkateSpot } from './pages/CreateSkateSpot';
 import { SkateSpotResults } from './pages/SkateSpotResults';
 import { SkateSpot } from './pages/skatespot/SkateSpot';
@@ -18,7 +17,6 @@ export const Routes: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <PrivateRoute exact={true} path="/private" component={Users} />
         <PrivateRoute exact={true} path="/create-skate-spot" component={CreateSkateSpot} />
         <PrivateRoute exact={true} path="/user-profile" component={UserProfile} />
         <PrivateRoute exact={true} path="/search" component={SkateSpotResults} />
