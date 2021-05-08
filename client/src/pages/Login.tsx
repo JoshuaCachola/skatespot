@@ -1,13 +1,12 @@
 import React from 'react';
 import { Formik, FormikProps, Form, Field } from 'formik';
-import { useLoginUserMutation } from 'src/generated/graphql';
+import { GetUserDocument, GetUserQuery, useLoginUserMutation } from 'src/generated/graphql';
 import * as Yup from 'yup';
 import { accessToken } from '../graphql/reactive-variables/accessToken';
 import { RouteComponentProps } from 'react-router';
 import { Footer } from './components/Footer';
 import LoginHero from '../assets/LoginHero.png';
 import { Link } from 'react-router-dom';
-import { me } from 'src/graphql/reactive-variables/me';
 
 interface LoginForm {
   email: string;
@@ -18,7 +17,6 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const [login] = useLoginUserMutation({
     onCompleted({ login }) {
       accessToken(login.accessToken);
-      me(login.id);
     },
   });
 
@@ -61,7 +59,21 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
               password: '',
             }}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
-              await login({ variables: values });
+              await login({
+                variables: values,
+                update: (store, { data }) => {
+                  if (!data) {
+                    return null;
+                  }
+
+                  return store.writeQuery<GetUserQuery>({
+                    query: GetUserDocument,
+                    data: {
+                      getUser: data.login.user,
+                    },
+                  });
+                },
+              });
               setSubmitting(false);
               resetForm();
               if (!!accessToken()) {

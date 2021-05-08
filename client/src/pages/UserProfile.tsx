@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGetUserReviewsQuery } from 'src/generated/graphql';
+import { useGetUserQuery, useGetUserReviewsLazyQuery } from 'src/generated/graphql';
 // import { me } from 'src/graphql/reactive-variables/me';
 import SearchResultsFull1 from '../assets/SearchResultsFull1.jpg';
 import SkateSpot1 from '../assets/SkateSpot1.jpg';
@@ -7,8 +7,7 @@ import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { ReviewText } from './components/ReviewText';
 import { AverageReviewStars } from './components/AverageReviewStars';
-
-interface Props {}
+import { RouteComponentProps } from 'react-router';
 
 const user = {
   username: 'crookiemonster',
@@ -17,17 +16,26 @@ const user = {
   stance: 'regular',
 };
 
-export const UserProfile: React.FC<Props> = () => {
-  const { data, loading, error } = useGetUserReviewsQuery({
-    variables: { userId: 2 },
-  });
+export const UserProfile: React.FC<RouteComponentProps> = () => {
+  const { data: userData, loading: userLoading, error: userError } = useGetUserQuery();
+  const [userReviews, { data, loading, error }] = useGetUserReviewsLazyQuery();
 
-  if (loading) {
+  React.useEffect(() => {
+    if (userData?.getUser) {
+      userReviews({ variables: { userId: userData.getUser.id } });
+    }
+  }, [userReviews, userData?.getUser]);
+
+  if (loading || userLoading) {
     return <h1>loading</h1>;
   }
 
   if (error) {
-    return <h1>error</h1>;
+    return <h1>reviews error</h1>;
+  }
+
+  if (userError) {
+    return <h1>user error</h1>;
   }
 
   return (
@@ -43,10 +51,10 @@ export const UserProfile: React.FC<Props> = () => {
         {/* Account information */}
         <div className="my-4 ml-28 leading-normal">
           <div>
-            <h1 className="font-light text-3xl mb-4">{user.username}</h1>
+            <h1 className="font-light text-3xl mb-4">{userData?.getUser.username}</h1>
             <h2 className="font-semibold">
-              <span>{user.firstName}</span>
-              <span className="uppercase">&nbsp;{user.lastName[0]}.</span>
+              <span>{userData?.getUser.firstName}</span>
+              <span className="uppercase">&nbsp;{userData?.getUser.lastName[0]}.</span>
             </h2>
           </div>
           <p className="mb-4">

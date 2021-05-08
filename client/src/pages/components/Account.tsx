@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ClickAwayListener from 'react-click-away-listener';
-import { AccountDropDown } from '../homepage/AccountDropDown';
+import AccountDropDown from '../homepage/AccountDropDown';
 
 interface Props {}
 
 export const Account: React.FC<Props> = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  // const clickAwayRef = React.useRef(null);
 
   const handleClickAway = () => {
     setIsMenuOpen(!isMenuOpen);

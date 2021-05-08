@@ -1,14 +1,16 @@
 import React, { useContext } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router';
 import { useLogoutUserMutation } from 'src/generated/graphql';
 import { TokenContext } from 'src/utils/TokenContext';
 import { accessToken } from '../../graphql/reactive-variables/accessToken';
 
-interface Props {}
-
-export const AccountDropDown: React.FC<Props> = () => {
+const AccountDropDown: React.FC<RouteComponentProps> = ({ history }) => {
   const [logout, { client }] = useLogoutUserMutation();
   const { setIsLoggedIn } = useContext(TokenContext);
 
+  React.useEffect(() => {
+    return () => {};
+  }, []);
   return (
     <div className="absolute right-8 w-52 h-auto border-2 rounded border-black bg-white shadow-2xl z-50">
       <button
@@ -16,7 +18,8 @@ export const AccountDropDown: React.FC<Props> = () => {
           await logout();
           await accessToken('');
           await setIsLoggedIn(false);
-          await client.resetStore();
+          await client.clearStore();
+          await history.push('/');
         }}
       >
         Logout
@@ -26,3 +29,5 @@ export const AccountDropDown: React.FC<Props> = () => {
     </div>
   );
 };
+
+export default withRouter(AccountDropDown);

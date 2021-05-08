@@ -17,7 +17,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
       if (data?.search.length === 1) {
         history.push(`/skate-spot/${data.search[0].name}`);
       }
-      history.push(`/search?find=${formik.values.find}&near=${formik.values.near}`);
+      history.push(`/search?find=${formik.values.find}`);
     },
   });
 
