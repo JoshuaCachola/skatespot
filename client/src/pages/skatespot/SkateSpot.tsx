@@ -20,6 +20,7 @@ export const SkateSpot: React.FC<RouteComponentProps> = ({ location }: LocationP
   const [imagesIdx, setImagesIdx] = useState<number>(0);
   const spot = React.useMemo(() => location.state.skateSpot, [location.state.skateSpot]);
 
+  React.useEffect(() => {}, []);
   const handleImageClick = (e) => {
     if (isOpen) {
       return;

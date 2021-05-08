@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSearchLazyQuery } from 'src/generated/graphql';
 import ClickAwayListener from 'react-click-away-listener';
@@ -14,6 +14,9 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
     },
     onSubmit: () => {
       searchResults(data?.search);
+      if (data?.search.length === 1) {
+        history.push(`/skate-spot/${data.search[0].name}`);
+      }
       history.push(`/search?find=${formik.values.find}&near=${formik.values.near}`);
     },
   });
@@ -65,7 +68,14 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
                               return (
                                 <ul className="m-4 relative z-50" key={result.id}>
                                   <li>
-                                    <p>{result.name}</p>
+                                    <Link
+                                      to={{
+                                        pathname: `/skate-spot/${result.name}`,
+                                        state: { skateSpot: result },
+                                      }}
+                                    >
+                                      {result.name}
+                                    </Link>
                                   </li>
                                 </ul>
                               );

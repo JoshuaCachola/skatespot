@@ -91,9 +91,15 @@ export type Query = {
   users: Array<User>;
   me: User;
   getSkateSpots: Array<SkateSpot>;
+  getSkateSpot: SkateSpot;
   search: Array<SkateSpot>;
   getSkateSpotReviews: Array<Review>;
   getUserReviews: Array<Review>;
+};
+
+
+export type QueryGetSkateSpotArgs = {
+  name: Scalars['String'];
 };
 
 
@@ -182,6 +188,19 @@ export type CreateSkateSpotMutationVariables = Exact<{
 export type CreateSkateSpotMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'createSkateSpot'>
+);
+
+export type GetSkateSpotQueryVariables = Exact<{
+  name: Scalars['String'];
+}>;
+
+
+export type GetSkateSpotQuery = (
+  { __typename?: 'Query' }
+  & { getSkateSpot: (
+    { __typename?: 'SkateSpot' }
+    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'city' | 'state' | 'street' | 'postalCode' | 'phone' | 'website' | 'temporarilyClosed' | 'permanentlyClosed' | 'imageUrls' | 'location' | 'reviewsCount' | 'reviewsDistribution'>
+  ) }
 );
 
 export type GetSkateSpotReviewsQueryVariables = Exact<{
@@ -380,6 +399,55 @@ export function useCreateSkateSpotMutation(baseOptions?: Apollo.MutationHookOpti
 export type CreateSkateSpotMutationHookResult = ReturnType<typeof useCreateSkateSpotMutation>;
 export type CreateSkateSpotMutationResult = Apollo.MutationResult<CreateSkateSpotMutation>;
 export type CreateSkateSpotMutationOptions = Apollo.BaseMutationOptions<CreateSkateSpotMutation, CreateSkateSpotMutationVariables>;
+export const GetSkateSpotDocument = gql`
+    query GetSkateSpot($name: String!) {
+  getSkateSpot(name: $name) {
+    id
+    name
+    categoryName
+    city
+    state
+    street
+    postalCode
+    phone
+    website
+    temporarilyClosed
+    permanentlyClosed
+    imageUrls
+    location
+    reviewsCount
+    reviewsDistribution
+  }
+}
+    `;
+
+/**
+ * __useGetSkateSpotQuery__
+ *
+ * To run a query within a React component, call `useGetSkateSpotQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSkateSpotQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSkateSpotQuery({
+ *   variables: {
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useGetSkateSpotQuery(baseOptions: Apollo.QueryHookOptions<GetSkateSpotQuery, GetSkateSpotQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSkateSpotQuery, GetSkateSpotQueryVariables>(GetSkateSpotDocument, options);
+      }
+export function useGetSkateSpotLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSkateSpotQuery, GetSkateSpotQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSkateSpotQuery, GetSkateSpotQueryVariables>(GetSkateSpotDocument, options);
+        }
+export type GetSkateSpotQueryHookResult = ReturnType<typeof useGetSkateSpotQuery>;
+export type GetSkateSpotLazyQueryHookResult = ReturnType<typeof useGetSkateSpotLazyQuery>;
+export type GetSkateSpotQueryResult = Apollo.QueryResult<GetSkateSpotQuery, GetSkateSpotQueryVariables>;
 export const GetSkateSpotReviewsDocument = gql`
     query GetSkateSpotReviews($skateSpotId: Int!) {
   getSkateSpotReviews(skateSpotId: $skateSpotId) {
