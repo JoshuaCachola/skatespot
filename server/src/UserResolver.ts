@@ -17,8 +17,8 @@ class LoginResponse {
   @Field()
   accessToken: string;
 
-  @Field(() => Int)
-  id: number;
+  @Field()
+  user?: User;
 }
 
 @Resolver(() => User)
@@ -65,7 +65,6 @@ export class UserResolver {
     if (!user) {
       return {
         accessToken: '',
-        id: -1,
       };
     }
 
@@ -74,12 +73,11 @@ export class UserResolver {
       sendRefreshTokenInCookie(res, createToken.refresh(user));
       return {
         accessToken,
-        id: user.id,
+        user,
       };
     } else {
       return {
         accessToken: '',
-        id: -1,
       };
     }
   }
@@ -113,7 +111,7 @@ export class UserResolver {
   }
 
   @Query(() => User)
-  async me(@Ctx() { req }: TokenCookieCtx) {
+  async getUser(@Ctx() { req }: TokenCookieCtx) {
     const authorization = req.headers['authorization'];
 
     if (!authorization) {

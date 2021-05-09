@@ -60,6 +60,7 @@ export class User extends BaseEntity {
   })
   tokenVersion: number;
 
+  @Field()
   @Column({
     type: 'varchar',
     length: 255,

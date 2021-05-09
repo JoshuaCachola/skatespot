@@ -1,10 +1,10 @@
-import { Arg, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql';
+import { Arg, Int, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql';
 import { SkateSpot } from './entity/SkateSpot';
 import { isAuth } from './utils/isAuth';
 import { GraphQLUpload } from 'graphql-upload';
 import { getGeocoding } from './utils/geocoding';
 import { Upload } from './types/Upload';
-import { getConnection } from 'typeorm';
+import { FindManyOptions, getConnection, MoreThan } from 'typeorm';
 
 const s3 = require('./config/s3');
 
@@ -26,7 +26,7 @@ export class SkateSpotResolver {
 
     getGeocoding('1600 Amphitheatre Parkway', 'Mountain View', 'California');
     let imgLinks: Array<string> = [];
-    imgFiles &&
+    if (imgFiles) {
       Promise.all(imgFiles).then((files) => {
         files.forEach(async (file) => {
           const { Location } = await s3
@@ -49,7 +49,6 @@ export class SkateSpotResolver {
               console.log(imgLinks);
             })
             .then(async () => {
-              // fix repetitive code
               try {
                 await SkateSpot.insert({
                   name,
@@ -67,6 +66,7 @@ export class SkateSpotResolver {
             });
         });
       });
+    }
 
     try {
       await SkateSpot.insert({
@@ -85,15 +85,28 @@ export class SkateSpotResolver {
 
   @Query(() => [SkateSpot])
   @UseMiddleware(isAuth)
-  async getSkateSpots() {
-    const skateSpots = await SkateSpot.find();
+  async getSkateSpots(
+    @Arg('cursor', () => Int, { nullable: true }) cursor: number,
+    @Arg('limit', () => Int) limit: number,
+  ) {
+    const options: FindManyOptions<SkateSpot> = {
+      order: { id: 'ASC' },
+      take: limit,
+    };
 
-    // sorting because when updating skatespot reviews, skatespot gets repositioned in query
-    return skateSpots.sort((a, b) => a.id - b.id);
+    if (cursor) {
+      options.where = { id: MoreThan(cursor) };
+    }
+    return await SkateSpot.find(options);
+  }
+
+  @Query(() => SkateSpot)
+  @UseMiddleware(isAuth)
+  async getSkateSpot(@Arg('name') name: string) {
+    return await SkateSpot.find({ where: { name } });
   }
 
   @Query(() => [SkateSpot])
-  // @UseMiddleware(isAuth)
   async search(
     @Arg('query') query: string,
     // @Arg('find') find: string,
