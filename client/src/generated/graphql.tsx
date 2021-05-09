@@ -98,6 +98,12 @@ export type Query = {
 };
 
 
+export type QueryGetSkateSpotsArgs = {
+  limit: Scalars['Int'];
+  cursor?: Maybe<Scalars['Int']>;
+};
+
+
 export type QueryGetSkateSpotArgs = {
   name: Scalars['String'];
 };
@@ -160,6 +166,7 @@ export type User = {
   firstName: Scalars['String'];
   lastName: Scalars['String'];
   createdAt: Scalars['DateTime'];
+  profilePicture: Scalars['String'];
 };
 
 export type CreateReviewMutationVariables = Exact<{
@@ -220,7 +227,10 @@ export type GetSkateSpotReviewsQuery = (
   )> }
 );
 
-export type GetSkateSpotsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetSkateSpotsQueryVariables = Exact<{
+  cursor?: Maybe<Scalars['Int']>;
+  limit: Scalars['Int'];
+}>;
 
 
 export type GetSkateSpotsQuery = (
@@ -238,7 +248,7 @@ export type GetUserQuery = (
   { __typename?: 'Query' }
   & { getUser: (
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'firstName' | 'lastName' | 'username'>
+    & Pick<User, 'id' | 'firstName' | 'lastName' | 'username' | 'profilePicture'>
   ) }
 );
 
@@ -283,7 +293,7 @@ export type LoginUserMutation = (
     & Pick<LoginResponse, 'accessToken'>
     & { user: (
       { __typename?: 'User' }
-      & Pick<User, 'id' | 'firstName' | 'lastName' | 'username'>
+      & Pick<User, 'id' | 'firstName' | 'lastName' | 'username' | 'profilePicture'>
     ) }
   ) }
 );
@@ -507,8 +517,8 @@ export type GetSkateSpotReviewsQueryHookResult = ReturnType<typeof useGetSkateSp
 export type GetSkateSpotReviewsLazyQueryHookResult = ReturnType<typeof useGetSkateSpotReviewsLazyQuery>;
 export type GetSkateSpotReviewsQueryResult = Apollo.QueryResult<GetSkateSpotReviewsQuery, GetSkateSpotReviewsQueryVariables>;
 export const GetSkateSpotsDocument = gql`
-    query GetSkateSpots {
-  getSkateSpots {
+    query GetSkateSpots($cursor: Int, $limit: Int!) {
+  getSkateSpots(cursor: $cursor, limit: $limit) {
     id
     name
     categoryName
@@ -538,10 +548,12 @@ export const GetSkateSpotsDocument = gql`
  * @example
  * const { data, loading, error } = useGetSkateSpotsQuery({
  *   variables: {
+ *      cursor: // value for 'cursor'
+ *      limit: // value for 'limit'
  *   },
  * });
  */
-export function useGetSkateSpotsQuery(baseOptions?: Apollo.QueryHookOptions<GetSkateSpotsQuery, GetSkateSpotsQueryVariables>) {
+export function useGetSkateSpotsQuery(baseOptions: Apollo.QueryHookOptions<GetSkateSpotsQuery, GetSkateSpotsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetSkateSpotsQuery, GetSkateSpotsQueryVariables>(GetSkateSpotsDocument, options);
       }
@@ -559,6 +571,7 @@ export const GetUserDocument = gql`
     firstName
     lastName
     username
+    profilePicture
   }
 }
     `;
@@ -676,6 +689,7 @@ export const LoginUserDocument = gql`
       firstName
       lastName
       username
+      profilePicture
     }
   }
 }

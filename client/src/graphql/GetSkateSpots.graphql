@@ -1,5 +1,5 @@
-query GetSkateSpots {
-  getSkateSpots {
+query GetSkateSpots($cursor: Int, $limit: Int!) {
+  getSkateSpots(cursor: $cursor, limit: $limit) {
     id
     name
     categoryName

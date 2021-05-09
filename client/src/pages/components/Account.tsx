@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ClickAwayListener from 'react-click-away-listener';
-import AccountDropDown from '../homepage/AccountDropDown';
+import { useLogoutUserMutation } from 'src/generated/graphql';
+import { TokenContext } from 'src/utils/TokenContext';
+import { accessToken } from 'src/graphql/reactive-variables/accessToken';
 
 interface Props {}
 
-export const Account: React.FC<Props> = () => {
+const Account: React.FC<Props> = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  // const clickAwayRef = React.useRef(null);
+  const [logout, { client }] = useLogoutUserMutation();
+  const { setIsLoggedIn } = useContext(TokenContext);
 
   const handleClickAway = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   return (
-    <div>
+    <>
       <div className="flex">
         <div className="rounded-l-sm rounded-r-none border">
           <div className="p-2 bg-white text-gray-300 hover:bg-gray-100 hover:text-gray-500">
@@ -37,9 +40,23 @@ export const Account: React.FC<Props> = () => {
       </div>
       {isMenuOpen && (
         <ClickAwayListener onClickAway={handleClickAway}>
-          <AccountDropDown />
+          <div className="absolute top-20 right-4 w-52 h-auto border-2 rounded border-black bg-white shadow-2xl z-50">
+            <Link
+              to="/"
+              onClick={async () => {
+                await logout();
+                await accessToken('');
+                await setIsLoggedIn(false);
+                await client.clearStore();
+              }}
+            >
+              Logout
+            </Link>
+          </div>
         </ClickAwayListener>
       )}
-    </div>
+    </>
   );
 };
+
+export default withRouter(Account);

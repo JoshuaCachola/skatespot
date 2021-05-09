@@ -2,7 +2,7 @@ import React from 'react';
 import { Header } from './components/Header';
 import { Carousel } from 'react-responsive-carousel';
 import Map from './components/Map';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { useGetSkateSpotsQuery } from '../generated/graphql';
 import { Footer } from './components/Footer';
@@ -14,6 +14,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)' });
   const { data, loading, error } = useGetSkateSpotsQuery({
     fetchPolicy: 'network-only',
+    variables: { limit: 5 },
   });
   const [skateSpots, setSkateSpots] = React.useState<any>(searchResults());
 
@@ -28,8 +29,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
   }
 
   if (error) {
-    console.log(error);
-    return <Redirect to="/" />;
+    return <h1>error</h1>;
   }
 
   return (

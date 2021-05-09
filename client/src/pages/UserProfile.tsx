@@ -42,8 +42,8 @@ export const UserProfile: React.FC<RouteComponentProps> = () => {
     <div>
       <Header />
       {/* User information and photo */}
-      <div className="bg-gray-100 absolute h-32 w-screen z-0 top-28" />
-      <div className="relative flex max-w-4xl my-5 mx-auto z-50">
+      <div className="bg-gray-100 absolute h-32 w-screen z-10 top-28" />
+      <div className="relative flex max-w-4xl my-5 mx-auto z-20">
         {/* Account profile picture */}
         <div className="rounded mt-5 mb-8 ml-20">
           <img alt="profile" src={SearchResultsFull1} width={200} height={200} className="rounded" />
@@ -57,13 +57,13 @@ export const UserProfile: React.FC<RouteComponentProps> = () => {
               <span className="uppercase">&nbsp;{userData?.getUser.lastName[0]}.</span>
             </h2>
           </div>
-          <p className="mb-4">
+          <p className="mb-4 w-52">
             <span className="font-semibold">Skate Stance</span> <span className="uppercase">{user.stance}</span>
           </p>
         </div>
       </div>
       {/* Reviews */}
-      <div className="max-w-4xl border-t-2 border-grey-200 my-10 mx-auto">
+      <div className="max-w-4xl border-t border-grey-200 my-10 mx-auto">
         <div className="text-lg font-bold text-red-600 mt-6 ml-2">
           <h1>Reviews</h1>
         </div>

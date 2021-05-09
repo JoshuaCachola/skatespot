@@ -20,6 +20,7 @@ export const SkateSpot: React.FC<RouteComponentProps> = ({ location }: LocationP
   const [imagesIdx, setImagesIdx] = useState<number>(0);
   const spot = React.useMemo(() => location.state.skateSpot, [location.state.skateSpot]);
 
+  console.log(spot);
   React.useEffect(() => {}, []);
   const handleImageClick = (e) => {
     if (isOpen) {
@@ -141,13 +142,20 @@ export const SkateSpot: React.FC<RouteComponentProps> = ({ location }: LocationP
                   <div className="border-b border-black my-4">
                     {/* Header */}
                     <div className="text-black font-bold text-xl mb-4">
-                      <span>Location & Hours</span>
+                      <span>Location</span>
                     </div>
                     <div className="flex">
                       <div className="mb-5">
                         {/* static map */}
-                        <div></div>
                         <div>
+                          <img
+                            src={`https://maps.googleapis.com/maps/api/staticmap?&zoom=13&size=300x150&maptype=roadmap&markers=color:red%7C${
+                              JSON.parse(spot.location).lat
+                            },${JSON.parse(spot.location).lng}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`}
+                            alt="static-map"
+                          />
+                        </div>
+                        <div className="mt-5">
                           <p className="font-semibold text-base">
                             <span>{spot.street}</span>
                           </p>
