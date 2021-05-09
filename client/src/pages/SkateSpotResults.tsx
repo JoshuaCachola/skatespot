@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Header } from './components/Header';
 import { Carousel } from 'react-responsive-carousel';
 import Map from './components/Map';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import { useGetSkateSpotsQuery } from '../generated/graphql';
+import { useGetSkateSpotsLazyQuery, useGetSkateSpotsQuery } from '../generated/graphql';
 import { Footer } from './components/Footer';
 import { AverageReviewStars } from './components/AverageReviewStars';
 import { searchResults } from 'src/graphql/reactive-variables/searchResults';
@@ -16,13 +16,31 @@ export const SkateSpotResults: React.FC<Props> = () => {
     fetchPolicy: 'network-only',
     variables: { limit: 5 },
   });
-  const [skateSpots, setSkateSpots] = React.useState<any>(searchResults());
 
-  React.useEffect(() => {
-    if (skateSpots.length === 0 && data?.getSkateSpots) {
+  const [lazySkateSpots, { data: lazyData }] = useGetSkateSpotsLazyQuery({
+    fetchPolicy: 'network-only',
+  });
+
+  const [skateSpots, setSkateSpots] = React.useState(searchResults());
+
+  useEffect(() => {
+    if (!skateSpots.length && data?.getSkateSpots) {
       setSkateSpots(data?.getSkateSpots);
     }
-  }, [data?.getSkateSpots, skateSpots.length]);
+  }, [data?.getSkateSpots, skateSpots]);
+
+  const handleMoreResults = async () => {
+    const cursor = skateSpots[skateSpots.length - 1].id;
+    await lazySkateSpots({ variables: { cursor, limit: 5 } });
+    if (lazyData?.getSkateSpots) {
+      await setSkateSpots([...skateSpots, ...lazyData?.getSkateSpots]);
+    }
+  };
+  // React.useEffect(() => {
+  //   if (skateSpots.length === 0 && data?.getSkateSpots) {
+  //     setSkateSpots(data?.getSkateSpots);
+  //   }
+  // }, [data?.getSkateSpots, skateSpots.length]);
 
   if (loading) {
     return <h1>loading...</h1>;
@@ -39,12 +57,12 @@ export const SkateSpotResults: React.FC<Props> = () => {
         <ul
           className={`mt-4 mx-4 pr-1 h-screen ${isDesktopOrLaptop ? 'w-1/2 overflow-y-scroll' : 'w-2/3 mx-auto my-0'}`}
         >
-          {skateSpots.length !== 0 &&
+          {skateSpots &&
             skateSpots.map((result, resultIdx) => {
               return (
                 <Link
                   className="z-0"
-                  key={result.id}
+                  key={resultIdx}
                   to={{
                     pathname: `/skate-spot/${result.name}`,
                     state: { skateSpot: skateSpots[resultIdx] },
@@ -127,6 +145,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
                 </Link>
               );
             })}
+          <button onClick={handleMoreResults}>More Results</button>
         </ul>
         {/* map of locations */}
         {isDesktopOrLaptop ? (
