@@ -4,7 +4,6 @@ import { Header } from './components/Header';
 import { ReviewStars } from 'src/utils/ReviewStars';
 import { RouteComponentProps } from 'react-router';
 import * as Yup from 'yup';
-import { me } from 'src/graphql/reactive-variables/me';
 import { useCreateReviewMutation } from 'src/generated/graphql';
 import { Upload } from 'src/utils/Upload';
 import { Footer } from './components/Footer';
@@ -28,7 +27,7 @@ export const WriteReview: React.FC<RouteComponentProps & Props> = ({ history, lo
     initialValues: {
       rating: 0,
       skateSpotId: location.state.skateSpot.id,
-      userId: me(),
+      userId: 1,
       review: '',
       imgFiles: [],
     },

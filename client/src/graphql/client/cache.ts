@@ -1,6 +1,6 @@
 import { InMemoryCache } from '@apollo/client';
+import { concatPagination } from '@apollo/client/utilities';
 import { accessToken } from '../reactive-variables/accessToken';
-import { me } from '../reactive-variables/me';
 import { searchResults } from '../reactive-variables/searchResults';
 
 export const cache = new InMemoryCache({
@@ -12,11 +12,7 @@ export const cache = new InMemoryCache({
             return accessToken();
           },
         },
-        me: {
-          read() {
-            return me();
-          },
-        },
+        getSkateSpots: concatPagination(),
         searchResults: {
           read() {
             return searchResults();
