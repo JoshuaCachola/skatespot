@@ -101,9 +101,14 @@ export class SkateSpotResolver {
   }
 
   @Query(() => SkateSpot)
-  @UseMiddleware(isAuth)
+  // @UseMiddleware(isAuth)
   async getSkateSpot(@Arg('name') name: string) {
-    return await SkateSpot.find({ where: { name } });
+    try {
+      return await SkateSpot.findOne({ where: { name } });
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
   }
 
   @Query(() => [SkateSpot])

@@ -5,23 +5,38 @@ import { ImageModal } from 'src/utils/ImageModal';
 // import SkateSpot1 from '../../assets/SkateSpot1.jpg';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { SkateSpotReviews } from './SkateSpotReviews';
 import { AverageReviewStars } from '../components/AverageReviewStars';
+import { useGetSkateSpotLazyQuery } from 'src/generated/graphql';
+import { NotFound } from '../NotFound';
 
 interface LocationProps {
   location: any;
 }
 
-export const SkateSpot: React.FC<RouteComponentProps> = ({ location }: LocationProps) => {
+export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)' });
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1223px)' });
+  const [skateSpot, { loading, error }] = useGetSkateSpotLazyQuery({
+    onCompleted: ({ getSkateSpot }) => {
+      setSpot(getSkateSpot);
+    },
+  });
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [imagesIdx, setImagesIdx] = useState<number>(0);
-  const spot = React.useMemo(() => location.state.skateSpot, [location.state.skateSpot]);
+  const [spot, setSpot] = useState<any>();
 
-  console.log(spot);
-  React.useEffect(() => {}, []);
+  React.useEffect(() => {
+    if (location.state === undefined) {
+      const pathname = location.pathname.split('/');
+      const name = pathname[pathname.length - 1];
+      skateSpot({ variables: { name } });
+    } else {
+      setSpot(location.state.skateSpot);
+    }
+  }, [location.pathname, location.state, skateSpot]);
+
   const handleImageClick = (e) => {
     if (isOpen) {
       return;
@@ -29,6 +44,14 @@ export const SkateSpot: React.FC<RouteComponentProps> = ({ location }: LocationP
     setIsOpen(true);
     setImagesIdx(parseInt(e.target.id));
   };
+
+  if (loading) {
+    return <h1>loading</h1>;
+  }
+
+  if (!spot || error) {
+    return <NotFound />;
+  }
 
   return (
     <div>
@@ -84,8 +107,8 @@ export const SkateSpot: React.FC<RouteComponentProps> = ({ location }: LocationP
                 {/* reviews */}
                 <div className="flex text-2xl text-white font-bold">
                   <AverageReviewStars
-                    reviewsCount={location.state.skateSpot.reviewsCount}
-                    reviewsDistribution={JSON.parse(location.state.skateSpot.reviewsDistribution)}
+                    reviewsCount={spot.reviewsCount}
+                    reviewsDistribution={JSON.parse(spot.reviewsDistribution)}
                   />
                   <div>
                     <span>&nbsp;{spot.reviewsCount}</span>
