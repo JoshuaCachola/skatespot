@@ -15,7 +15,7 @@ export const Header: React.FC<Props> = () => {
   const value = React.useMemo(() => ({ isLoggedIn, setIsLoggedIn }), [isLoggedIn, setIsLoggedIn]);
 
   return (
-    <header className="border-b border-gray-100">
+    <header className="border-b border-gray-200">
       {/* Logo */}
       <div className="flex items-center justify-between">
         <div className="ml-4 font-semibold p-2 hover:border hover:bg-black hover:bg-opacity-10 rounded-2xl">

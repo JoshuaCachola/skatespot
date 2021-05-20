@@ -14,7 +14,7 @@ interface LoginForm {
 }
 
 export const Login: React.FC<RouteComponentProps> = ({ history }) => {
-  const [login] = useLoginUserMutation({
+  const [login, { error }] = useLoginUserMutation({
     onCompleted({ login }) {
       accessToken(login.accessToken);
     },
@@ -119,6 +119,12 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
                         <div className="font-semibold text-black mt-2">{errors.password}</div>
                       )}
                     </div>
+                    {error && (
+                      <div className="text-center font-bold">
+                        <p>Invalid username or password...</p>
+                        <p>Please try again...</p>
+                      </div>
+                    )}
                     <div className="m-5">
                       <Field
                         type="submit"
