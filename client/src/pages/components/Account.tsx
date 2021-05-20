@@ -46,8 +46,8 @@ const Account: React.FC<Props> = () => {
               onClick={async () => {
                 await logout();
                 await accessToken('');
-                await setIsLoggedIn(false);
                 await client.clearStore();
+                setIsLoggedIn(false);
               }}
             >
               Logout
