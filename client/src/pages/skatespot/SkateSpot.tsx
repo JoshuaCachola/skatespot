@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Carousel } from 'react-responsive-carousel';
 import { ImageModal } from 'src/utils/ImageModal';
-// import SkateSpot1 from '../../assets/SkateSpot1.jpg';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { Link } from 'react-router-dom';
 import { SkateSpotReviews } from './SkateSpotReviews';
 import { AverageReviewStars } from '../components/AverageReviewStars';
-import { useGetSkateSpotLazyQuery } from 'src/generated/graphql';
-import { NotFound } from '../NotFound';
+// import { useGetSkateSpotLazyQuery } from 'src/generated/graphql';
 
 interface LocationProps {
   location: any;
@@ -18,24 +16,27 @@ interface LocationProps {
 export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)' });
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1223px)' });
-  const [skateSpot, { loading, error }] = useGetSkateSpotLazyQuery({
-    onCompleted: ({ getSkateSpot }) => {
-      setSpot(getSkateSpot);
-    },
-  });
+
+  // const [skateSpot, { loading, error }] = useGetSkateSpotLazyQuery({
+  //   onCompleted: ({ getSkateSpot }) => {
+  //     console.log(getSkateSpot);
+  //     setSpot(getSkateSpot);
+  //   },
+  // });
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [imagesIdx, setImagesIdx] = useState<number>(0);
-  const [spot, setSpot] = useState<any>();
+  const spot = React.useMemo(() => location.state.skatespot, [location.state.skatespot]);
+  // const [spot, setSpot] = useState<any>(location.state.skatespot);
 
-  React.useEffect(() => {
-    if (location.state === undefined) {
-      const pathname = location.pathname.split('/');
-      const name = pathname[pathname.length - 1];
-      skateSpot({ variables: { name } });
-    } else {
-      setSpot(location.state.skateSpot);
-    }
-  }, [location.pathname, location.state, skateSpot]);
+  // React.useEffect(() => {
+  //   if (!spot) {
+  //     const pathname = location.pathname.split('/');
+  //     const name = pathname[pathname.length - 1];
+  //     skateSpot({ variables: { name } });
+  //   } else {
+  //     setSpot(location.state.skatespot);
+  //   }
+  // }, [location.pathname, location.state, skateSpot]);
 
   const handleImageClick = (e) => {
     if (isOpen) {
@@ -45,13 +46,13 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
     setImagesIdx(parseInt(e.target.id));
   };
 
-  if (loading) {
-    return <h1>loading</h1>;
-  }
+  // if (loading) {
+  //   return <h1>loading</h1>;
+  // }
 
-  if (!spot || error) {
-    return <NotFound />;
-  }
+  // if (!spot || error) {
+  //   return <NotFound />;
+  // }
 
   return (
     <div>

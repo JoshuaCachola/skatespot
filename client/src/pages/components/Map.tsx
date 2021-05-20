@@ -1,5 +1,7 @@
 import React, { memo, useCallback, useState } from 'react';
 import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { AverageReviewStars } from './AverageReviewStars';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
   locations: Array<any> | undefined;
@@ -21,6 +23,7 @@ const Map: React.FC<Props> = ({ locations }) => {
   const [isInfoOpen, setIsInfoOpen] = useState<boolean>(false);
   const [selectedPlace, setSelectedPlace] = useState<any>({});
   const [markerMap, setMarkerMap] = useState<any>({});
+  const history = useHistory();
 
   React.useEffect(() => {
     return () => {
@@ -30,17 +33,21 @@ const Map: React.FC<Props> = ({ locations }) => {
       setIsInfoOpen(false);
     };
   }, []);
-  console.log(locations);
-  console.log(isInfoOpen);
-  console.log('marker map', markerMap);
-  const handleMouseOver = (name, reviewsCount, reviewsDistribution, categoryName) => {
-    setSelectedPlace({ name, reviewsCount, reviewsDistribution, categoryName });
+
+  const handleMouseOver = (skatespot) => {
+    setSelectedPlace(skatespot);
     setIsInfoOpen(true);
   };
 
   const handleMouseOut = () => {
     setIsInfoOpen(false);
     setSelectedPlace({});
+  };
+
+  const handleOnClick = (skatespot) => {
+    console.log(skatespot);
+    history.push({ pathname: `/skate-spot/${skatespot.name}`, state: { skatespot } });
+    // return <Redirect to={{ pathname: `/skate-spot/${skatespot.name}`, state: { skatespot } }} />;
   };
 
   const { isLoaded } = useJsApiLoader({
@@ -85,22 +92,36 @@ const Map: React.FC<Props> = ({ locations }) => {
   return isLoaded ? (
     <GoogleMap mapContainerStyle={containerStyle} zoom={9} onLoad={onLoad} onUnmount={onUnmount}>
       {locations &&
-        locations.map(({ location, name, reviewsCount, reviewsDistribution, categoryName }, idx) => {
+        locations.map((skatespot, idx) => {
           return (
             <Marker
               key={idx}
-              position={JSON.parse(location)}
+              position={JSON.parse(skatespot.location)}
               animation={2}
-              onLoad={(marker) => markerLoadHandler(marker, name)}
-              onMouseOver={() => handleMouseOver(name, reviewsCount, reviewsDistribution, categoryName)}
+              onLoad={(marker) => markerLoadHandler(marker, skatespot.name)}
+              onMouseOver={() => handleMouseOver(skatespot)}
               onMouseOut={handleMouseOut}
+              onClick={() => handleOnClick(skatespot)}
             />
           );
         })}
 
       {isInfoOpen && selectedPlace && (
         <InfoWindow anchor={markerMap[selectedPlace.name]}>
-          <div>{selectedPlace.name}</div>
+          <>
+            <div className="max-h-40 w-52 flex justify-center">
+              <img src={JSON.parse(selectedPlace.imageUrls)[0]} alt="" className="object-cover align-middle" />
+            </div>
+            <div className="font-bold text-lg my-2">{selectedPlace.name}</div>
+            <div className="flex text-sm my-2">
+              <AverageReviewStars
+                reviewsCount={selectedPlace.reviewsCount}
+                reviewsDistribution={JSON.parse(selectedPlace.reviewsDistribution)}
+              />
+              <span className="text-lg font-semibold">&nbsp;{selectedPlace.reviewsCount}</span>
+            </div>
+            <div className="font-light my-2">{selectedPlace.categoryName}</div>
+          </>
         </InfoWindow>
       )}
     </GoogleMap>

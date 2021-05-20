@@ -13,7 +13,7 @@ interface Props {}
 export const SkateSpotResults: React.FC<Props> = () => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)' });
   const { data, loading, error, fetchMore } = useGetSkateSpotsQuery({
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-first',
     variables: { limit: 5 },
   });
 
@@ -59,7 +59,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
                   key={resultIdx}
                   to={{
                     pathname: `/skate-spot/${result.name}`,
-                    state: { skateSpot: data.getSkateSpots[resultIdx] },
+                    state: { skatespot: data.getSkateSpots[resultIdx] },
                   }}
                 >
                   <li className="flex rounded border-2 mb-7 border-gray-100 hover:shadow-xl hover:bg-gray-50">

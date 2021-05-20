@@ -101,7 +101,7 @@ export class SkateSpotResolver {
   }
 
   @Query(() => SkateSpot)
-  // @UseMiddleware(isAuth)
+  @UseMiddleware(isAuth)
   async getSkateSpot(@Arg('name') name: string) {
     try {
       return await SkateSpot.findOne({ where: { name } });
