@@ -8,6 +8,8 @@ export const Upload = ({ setFieldValue, values }) => {
   const [image, setImage] = useState<any>(null);
   const [isImgCropped, setIsImgCropped] = useState<boolean>(true);
 
+  console.log(image);
+
   const addFile = useCallback(
     (file) => {
       setFieldValue('imgFiles', values.imgFiles.concat(file));

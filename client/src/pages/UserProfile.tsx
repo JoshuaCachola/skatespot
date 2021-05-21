@@ -8,6 +8,7 @@ import { Header } from './components/Header';
 import { ReviewText } from './components/ReviewText';
 import { AverageReviewStars } from './components/AverageReviewStars';
 import { RouteComponentProps } from 'react-router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const user = {
   username: 'crookiemonster',
@@ -16,9 +17,13 @@ const user = {
   stance: 'regular',
 };
 
-export const UserProfile: React.FC<RouteComponentProps> = () => {
+export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
   const { data: userData, loading: userLoading, error: userError } = useGetUserQuery();
   const [userReviews, { data, loading, error }] = useGetUserReviewsLazyQuery();
+
+  const handleOnClick = () => {
+    history.push('/user-photos/add');
+  };
 
   React.useEffect(() => {
     if (userData?.getUser) {
@@ -46,6 +51,15 @@ export const UserProfile: React.FC<RouteComponentProps> = () => {
       <div className="relative flex max-w-4xl my-5 mx-auto z-20">
         {/* Account profile picture */}
         <div className="rounded mt-5 mb-8 ml-20">
+          <div className="absolute">
+            <div
+              className="inline-block text-white border rounded bg-gray-400 text-center px-1 m-1 cursor-pointer hover:bg-gray-500 border-gray-400"
+              onClick={() => handleOnClick()}
+            >
+              <FontAwesomeIcon icon={['fas', 'image']} />
+              <span className="vertical-middle inline-block">&nbsp;Add a photo</span>
+            </div>
+          </div>
           <img alt="profile" src={SearchResultsFull1} width={200} height={200} className="rounded" />
         </div>
         {/* Account information */}
