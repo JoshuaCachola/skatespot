@@ -24,7 +24,8 @@ export class SkateSpotResolver {
       return false;
     }
 
-    getGeocoding('1600 Amphitheatre Parkway', 'Mountain View', 'California');
+    const location = await getGeocoding(street, city, state);
+
     let imgLinks: Array<string> = [];
     if (imgFiles) {
       Promise.all(imgFiles).then((files) => {
@@ -55,6 +56,7 @@ export class SkateSpotResolver {
                   city,
                   state,
                   street,
+                  location,
                   imageUrls: imgLinks ? JSON.stringify(imgLinks.filter((img) => img !== undefined)) : undefined,
                 });
 
@@ -74,6 +76,7 @@ export class SkateSpotResolver {
         city,
         state,
         street,
+        location,
       });
 
       return true;
