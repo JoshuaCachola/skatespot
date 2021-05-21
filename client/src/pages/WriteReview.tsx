@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import { useCreateReviewMutation } from 'src/generated/graphql';
 import { Upload } from 'src/utils/Upload';
 import { Footer } from './components/Footer';
+import { SKATESPOT_IMAGE } from 'src/utils/constants';
 
 interface Props {
   skateSpotId: number;
@@ -69,7 +70,12 @@ export const WriteReview: React.FC<RouteComponentProps & Props> = ({ history, lo
             <h4>Add Photos</h4>
           </div>
           <section>
-            <Upload values={formik.values} setFieldValue={formik.setFieldValue} />
+            <Upload
+              values={formik.values}
+              setFieldValue={formik.setFieldValue}
+              type={SKATESPOT_IMAGE}
+              submitForm={formik.submitForm}
+            />
           </section>
           <div className="mt-6">
             <button

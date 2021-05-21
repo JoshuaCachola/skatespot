@@ -1,0 +1,2 @@
+export const PROFILE_IMAGE = 'PROFILE_IMAGE';
+export const SKATESPOT_IMAGE = 'SKATESPOT_IMAGE';

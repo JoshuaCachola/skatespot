@@ -7,6 +7,10 @@ import { isAuth } from './utils/isAuth';
 import { sendRefreshTokenInCookie } from './utils/sendRefreshTokenInCookie';
 import { getConnection } from 'typeorm';
 import { verify } from 'jsonwebtoken';
+import { Upload } from './types/Upload';
+import { GraphQLUpload } from 'graphql-upload';
+
+const s3 = require('./config/s3');
 
 interface Payload {
   userId: string;
@@ -97,6 +101,41 @@ export class UserResolver {
   async logout(@Ctx() { res }: TokenCookieCtx) {
     sendRefreshTokenInCookie(res, '');
     return true;
+  }
+
+  @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
+  async uploadProfilePicture(
+    @Arg('profilePicture', () => GraphQLUpload) { createReadStream, filename, mimetype }: Upload,
+    @Arg('id', () => Int) id: number,
+  ): Promise<boolean> {
+    const { Location } = await s3
+      .upload({
+        Body: createReadStream(),
+        Key: `${filename}`,
+        ContentType: mimetype,
+      })
+      .promise();
+    return new Promise((resolve, reject) => {
+      if (Location) {
+        resolve(true);
+      } else {
+        reject(false);
+      }
+    }).then(async () => {
+      try {
+        await getConnection()
+          .createQueryBuilder()
+          .update(User)
+          .set({ profilePicture: Location })
+          .where('id = :id', { id })
+          .execute();
+        return true;
+      } catch (err) {
+        console.error(err);
+        return false;
+      }
+    });
   }
 
   @Query(() => String)

@@ -5,6 +5,7 @@ import { useCreateSkateSpotMutation } from '../../src/generated/graphql';
 import * as Yup from 'yup';
 import { RouteComponentProps } from 'react-router';
 import { Header } from './components/Header';
+import { SKATESPOT_IMAGE } from '../utils/constants';
 
 interface SkateSpotForm {
   name: string;
@@ -58,7 +59,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
         })}
       >
         {(props: FormikProps<SkateSpotForm>) => {
-          const { values, handleChange, handleBlur, setFieldValue } = props;
+          const { values, handleChange, handleBlur, setFieldValue, submitForm } = props;
           return (
             <Form>
               <div className="my-10 w-140 mx-auto border border-gray-300 rounded">
@@ -133,7 +134,12 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
                   </h4>
                 </div>
                 <section>
-                  <Upload values={values} setFieldValue={setFieldValue} />
+                  <Upload
+                    values={values}
+                    setFieldValue={setFieldValue}
+                    type={SKATESPOT_IMAGE}
+                    submitForm={submitForm}
+                  />
                 </section>
               </div>
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useGetUserQuery, useGetUserReviewsLazyQuery } from 'src/generated/graphql';
-// import { me } from 'src/graphql/reactive-variables/me';
 import SearchResultsFull1 from '../assets/SearchResultsFull1.jpg';
 import SkateSpot1 from '../assets/SkateSpot1.jpg';
 import { Footer } from './components/Footer';
@@ -110,26 +109,6 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
                 <div className="flex items-center mb-5">
                   {/* {review} */}
                   <AverageReviewStars rating={review.rating} />
-                  {/* <div className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1">
-                    <span>
-                      <FontAwesomeIcon icon={['fas', 'star']} />
-                    </span>
-                  </div>
-                  <div className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1">
-                    <span>
-                      <FontAwesomeIcon icon={['fas', 'star']} />
-                    </span>
-                  </div>
-                  <div className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1">
-                    <span>
-                      <FontAwesomeIcon icon={['fas', 'star']} />
-                    </span>
-                  </div>
-                  <div className="cursor-pointer mr-1 border rounded border-gray-500 bg-gray-500 text-white p-1">
-                    <span>
-                      <FontAwesomeIcon icon={['fas', 'star']} />
-                    </span>
-                  </div> */}
                   {/* Review date */}
                   <div className="text-sm">
                     <span>&nbsp;04/28/2021</span>
