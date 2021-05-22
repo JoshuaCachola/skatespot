@@ -87,7 +87,6 @@ export class SkateSpotResolver {
   }
 
   @Query(() => [SkateSpot])
-  @UseMiddleware(isAuth)
   async getSkateSpots(
     @Arg('cursor', () => Int, { nullable: true }) cursor: number,
     @Arg('limit', () => Int, { nullable: true }) limit: number,

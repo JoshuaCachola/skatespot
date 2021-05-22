@@ -70,7 +70,7 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
             centerMode={true}
             infiniteLoop={true}
             autoPlay={true}
-            interval={5000}
+            interval={3000}
           >
             {spot.imageUrls &&
               JSON.parse(spot.imageUrls).map((img, idx) => {

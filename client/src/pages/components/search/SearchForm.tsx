@@ -17,7 +17,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
       if (data?.search.length === 1) {
         history.push(`/skate-spot/${data.search[0].name}`);
       }
-      history.push(`/search?find=${formik.values.find}`);
+      history.push({ pathname: '/search', search: `find=${formik.values.find}` });
     },
   });
 
@@ -74,7 +74,15 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
                                         state: { skateSpot: result },
                                       }}
                                     >
-                                      {result.name}
+                                      <div className="flex">
+                                        <div className="flex justify-center align-middle overflow-hidden mr-2">
+                                          <img src={JSON.parse(result.imageUrls)[0]} alt="" className="h-12 w-12" />
+                                        </div>
+                                        <div className="text-sm font-normal">
+                                          <p>{result.name.length > 50 ? result.name.slice(0, 40) : result.name}</p>
+                                          <p>{result.categoryName}</p>
+                                        </div>
+                                      </div>
                                     </Link>
                                   </li>
                                 </ul>

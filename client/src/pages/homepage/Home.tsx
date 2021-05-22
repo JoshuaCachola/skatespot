@@ -9,6 +9,8 @@ import { useMediaQuery } from 'react-responsive';
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { useGetSkateSpotsQuery } from 'src/generated/graphql';
+import { ReviewStar } from 'src/utils/ReviewStar';
+import { Link } from 'react-router-dom';
 
 interface Props {}
 
@@ -42,7 +44,9 @@ export const Home: React.FC<Props> = () => {
     };
   }, []);
 
-  const handleRemoveSkateSpot = (id) => {
+  const handleRemoveSkateSpot = (event, id) => {
+    event.preventDefault();
+    event.stopPropagation();
     const newSkateSpots = skateSpots.filter((skateSpot) => skateSpot.id !== id);
     setSkateSpots(newSkateSpots);
   };
@@ -95,28 +99,42 @@ export const Home: React.FC<Props> = () => {
               skateSpots.length &&
               skateSpots.slice(0, 5).map((skateSpot, idx) => {
                 return (
-                  <div
-                    key={skateSpot.id}
-                    className="w-115 h-36 border border-gray-300 rounded my-5 flex overflow-hidden hover:bg-gray-50 cursor-pointer"
+                  <Link
+                    to={{
+                      pathname: `/write-review/${skateSpot.name}`,
+                      state: { skateSpot },
+                    }}
                   >
-                    <div className="absolute right-2">
-                      <button className="" onClick={() => handleRemoveSkateSpot(skateSpot.id)}>
-                        x
-                      </button>
-                    </div>
-                    <div className="flex justify-center align-middle overflow-hidden m-2">
-                      <img src={JSON.parse(skateSpot.imageUrls)[0]} alt="" className="min-h-full w-44" />
-                    </div>
-                    <div>
-                      <div className="font-bold text-base my-2 ml-5 text-red-600 overflow-clip">
-                        <h3>{skateSpot.name}</h3>
+                    <div
+                      key={skateSpot.id}
+                      className="w-115 h-36 border border-gray-300 rounded my-5 flex overflow-hidden hover:bg-gray-50 cursor-pointer"
+                    >
+                      <div className="absolute right-2 rounded px-1 py-1">
+                        <button className="" onClick={(event) => handleRemoveSkateSpot(event, skateSpot.id)}>
+                          x
+                        </button>
                       </div>
-                      <div className="ml-5">
-                        <p>Review this skate spot</p>
+                      <div className="flex justify-center align-middle overflow-hidden m-2">
+                        <img src={JSON.parse(skateSpot.imageUrls)[0]} alt="" className="min-h-full w-44" />
                       </div>
-                      <div>{/* <ReviewStars /> */}</div>
+                      <div>
+                        <div className="font-bold text-base my-2 ml-5 text-red-600 overflow-clip">
+                          <h3>{skateSpot.name}</h3>
+                        </div>
+
+                        <div className="ml-5">
+                          <p>Review this skate spot</p>
+                        </div>
+                        <div className="flex text-sm text-gray-500 font-bold m-4">
+                          <ReviewStar />
+                          <ReviewStar />
+                          <ReviewStar />
+                          <ReviewStar />
+                          <ReviewStar />
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
           </div>
