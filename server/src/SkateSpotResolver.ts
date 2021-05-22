@@ -90,12 +90,15 @@ export class SkateSpotResolver {
   @UseMiddleware(isAuth)
   async getSkateSpots(
     @Arg('cursor', () => Int, { nullable: true }) cursor: number,
-    @Arg('limit', () => Int) limit: number,
+    @Arg('limit', () => Int, { nullable: true }) limit: number,
   ) {
     const options: FindManyOptions<SkateSpot> = {
       order: { id: 'ASC' },
-      take: limit,
     };
+
+    if (limit) {
+      options.take = limit;
+    }
 
     if (cursor) {
       options.where = { id: MoreThan(cursor) };

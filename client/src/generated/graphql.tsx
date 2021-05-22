@@ -106,7 +106,7 @@ export type Query = {
 
 
 export type QueryGetSkateSpotsArgs = {
-  limit: Scalars['Int'];
+  limit?: Maybe<Scalars['Int']>;
   cursor?: Maybe<Scalars['Int']>;
 };
 
@@ -236,7 +236,7 @@ export type GetSkateSpotReviewsQuery = (
 
 export type GetSkateSpotsQueryVariables = Exact<{
   cursor?: Maybe<Scalars['Int']>;
-  limit: Scalars['Int'];
+  limit?: Maybe<Scalars['Int']>;
 }>;
 
 
@@ -535,7 +535,7 @@ export type GetSkateSpotReviewsQueryHookResult = ReturnType<typeof useGetSkateSp
 export type GetSkateSpotReviewsLazyQueryHookResult = ReturnType<typeof useGetSkateSpotReviewsLazyQuery>;
 export type GetSkateSpotReviewsQueryResult = Apollo.QueryResult<GetSkateSpotReviewsQuery, GetSkateSpotReviewsQueryVariables>;
 export const GetSkateSpotsDocument = gql`
-    query GetSkateSpots($cursor: Int, $limit: Int!) {
+    query GetSkateSpots($cursor: Int, $limit: Int) {
   getSkateSpots(cursor: $cursor, limit: $limit) {
     id
     name
@@ -571,7 +571,7 @@ export const GetSkateSpotsDocument = gql`
  *   },
  * });
  */
-export function useGetSkateSpotsQuery(baseOptions: Apollo.QueryHookOptions<GetSkateSpotsQuery, GetSkateSpotsQueryVariables>) {
+export function useGetSkateSpotsQuery(baseOptions?: Apollo.QueryHookOptions<GetSkateSpotsQuery, GetSkateSpotsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetSkateSpotsQuery, GetSkateSpotsQueryVariables>(GetSkateSpotsDocument, options);
       }
