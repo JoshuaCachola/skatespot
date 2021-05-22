@@ -31,6 +31,7 @@ export type Mutation = {
   login: LoginResponse;
   revokeRefreshTokenForUser: Scalars['Boolean'];
   logout: Scalars['Boolean'];
+  updateProfilePicture: Scalars['Boolean'];
   createSkateSpot: Scalars['Boolean'];
   singleUpload: Scalars['Boolean'];
   uploadProfilePicture: Scalars['Boolean'];
@@ -55,6 +56,12 @@ export type MutationLoginArgs = {
 
 export type MutationRevokeRefreshTokenForUserArgs = {
   userId: Scalars['Int'];
+};
+
+
+export type MutationUpdateProfilePictureArgs = {
+  id: Scalars['Int'];
+  profilePicture: Array<Scalars['Upload']>;
 };
 
 
@@ -331,6 +338,17 @@ export type SearchQuery = (
     { __typename?: 'SkateSpot' }
     & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'city' | 'state' | 'street' | 'postalCode' | 'phone' | 'website' | 'temporarilyClosed' | 'permanentlyClosed' | 'imageUrls' | 'location' | 'reviewsCount' | 'reviewsDistribution'>
   )> }
+);
+
+export type UpdateProfilePictureMutationVariables = Exact<{
+  profilePicture: Array<Scalars['Upload']> | Scalars['Upload'];
+  id: Scalars['Int'];
+}>;
+
+
+export type UpdateProfilePictureMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'updateProfilePicture'>
 );
 
 export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
@@ -841,6 +859,38 @@ export function useSearchLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Sea
 export type SearchQueryHookResult = ReturnType<typeof useSearchQuery>;
 export type SearchLazyQueryHookResult = ReturnType<typeof useSearchLazyQuery>;
 export type SearchQueryResult = Apollo.QueryResult<SearchQuery, SearchQueryVariables>;
+export const UpdateProfilePictureDocument = gql`
+    mutation UpdateProfilePicture($profilePicture: [Upload!]!, $id: Int!) {
+  updateProfilePicture(profilePicture: $profilePicture, id: $id)
+}
+    `;
+export type UpdateProfilePictureMutationFn = Apollo.MutationFunction<UpdateProfilePictureMutation, UpdateProfilePictureMutationVariables>;
+
+/**
+ * __useUpdateProfilePictureMutation__
+ *
+ * To run a mutation, you first call `useUpdateProfilePictureMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateProfilePictureMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateProfilePictureMutation, { data, loading, error }] = useUpdateProfilePictureMutation({
+ *   variables: {
+ *      profilePicture: // value for 'profilePicture'
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useUpdateProfilePictureMutation(baseOptions?: Apollo.MutationHookOptions<UpdateProfilePictureMutation, UpdateProfilePictureMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateProfilePictureMutation, UpdateProfilePictureMutationVariables>(UpdateProfilePictureDocument, options);
+      }
+export type UpdateProfilePictureMutationHookResult = ReturnType<typeof useUpdateProfilePictureMutation>;
+export type UpdateProfilePictureMutationResult = Apollo.MutationResult<UpdateProfilePictureMutation>;
+export type UpdateProfilePictureMutationOptions = Apollo.BaseMutationOptions<UpdateProfilePictureMutation, UpdateProfilePictureMutationVariables>;
 export const HelloDocument = gql`
     query Hello {
   hello

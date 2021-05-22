@@ -105,15 +105,16 @@ export class UserResolver {
 
   @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
-  async uploadProfilePicture(
-    @Arg('profilePicture', () => GraphQLUpload) { createReadStream, filename, mimetype }: Upload,
+  async updateProfilePicture(
+    @Arg('profilePicture', () => [GraphQLUpload]) profilePicture: [Upload],
     @Arg('id', () => Int) id: number,
   ): Promise<boolean> {
+    const picture = await profilePicture[0];
     const { Location } = await s3
       .upload({
-        Body: createReadStream(),
-        Key: `${filename}`,
-        ContentType: mimetype,
+        Body: picture.createReadStream(),
+        Key: `${picture.filename}`,
+        ContentType: picture.mimetype,
       })
       .promise();
     return new Promise((resolve, reject) => {

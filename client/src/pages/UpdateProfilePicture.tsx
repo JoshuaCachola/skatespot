@@ -1,11 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Formik, FormikProps } from 'formik';
 import React from 'react';
-// import { useDropzone } from 'react-dropzone';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { useGetUserQuery } from 'src/generated/graphql';
+import { useGetUserQuery, useUpdateProfilePictureMutation } from 'src/generated/graphql';
 import { Header } from 'src/pages/components/Header';
-import { Upload } from 'src/utils/Upload';
+import { UploadProfilePicture } from 'src/utils/UploadProfilePicture';
 import { Footer } from './components/Footer';
 // import * as Yup from 'yup';
 
@@ -28,13 +27,15 @@ interface ProfilePicture {
 
 export const UpdateProfilePicture: React.FC<RouteComponentProps> = () => {
   const { data } = useGetUserQuery();
-  // const { values, setFieldValue } = useFormikContext();
+  const [profilePicture, setProfilePicture] = React.useState([]);
+  const [update, { loading, error }] = useUpdateProfilePictureMutation();
 
-  // React.useEffect(() => {
-  //   if (values.profilePicture.length > 0) {
-
-  //   }
-  // }, []);
+  React.useEffect(() => {
+    if (profilePicture.length > 0) {
+      // console.log(profilePicture);
+      update({ variables: { profilePicture, id: data!.getUser.id } });
+    }
+  }, [data, profilePicture, update]);
 
   // const formik = useFormik({
   //   initialValues: {
@@ -50,6 +51,14 @@ export const UpdateProfilePicture: React.FC<RouteComponentProps> = () => {
   //     // setFieldValue('profilePicture', values.profilePicture.concat(acceptedFile));
   //   },
   // });
+
+  if (loading) {
+    return <h1>loading</h1>;
+  }
+
+  if (error) {
+    return <h1>error</h1>;
+  }
 
   return (
     <div>
@@ -77,13 +86,17 @@ export const UpdateProfilePicture: React.FC<RouteComponentProps> = () => {
         <div>
           <Formik initialValues={{ profilePicture: [] }} onSubmit={() => alert('hello')}>
             {(props: FormikProps<ProfilePicture>) => {
-              const { values, submitForm, setFieldValue } = props;
+              const { setFieldValue, values } = props;
               return (
-                <>
-                  <Form>
-                    <Upload values={values} setFieldValue={setFieldValue} type={'PROFILE'} submitForm={submitForm} />
-                  </Form>
-                </>
+                <Form>
+                  <UploadProfilePicture
+                    setProfilePicture={setProfilePicture}
+                    setFieldValue={setFieldValue}
+                    values={values}
+                    // update={update}
+                    // id={data?.getUser.id}
+                  />
+                </Form>
               );
             }}
           </Formik>
