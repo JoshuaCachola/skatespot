@@ -13,6 +13,7 @@ import { NotFound } from './pages/NotFound';
 import { SkateSpotReviews } from './pages/skatespot/SkateSpotReviews';
 import { Photos } from './pages/Photos';
 import { UpdateProfilePicture } from './pages/UpdateProfilePicture';
+import { AddPhoto } from './pages/AddPhoto';
 
 export const Routes: React.FC = () => {
   return (
@@ -24,8 +25,9 @@ export const Routes: React.FC = () => {
         <PrivateRoute exact={true} path="/skate-spot/:name" component={SkateSpot} />
         <PrivateRoute exact={true} path="/write-review/:name" component={WriteReview} />
         <PrivateRoute exact={true} path="/photos/:name" component={Photos} />
+        <PrivateRoute exact={true} path="/user-photos/add" component={UpdateProfilePicture} />
+        <PrivateRoute exact={true} path="/skatespot-photos/add" component={AddPhoto} />
         <Route exact={true} path="/reviews" component={SkateSpotReviews} />
-        <Route exact={true} path="/user-photos/add" component={UpdateProfilePicture} />
         <Route exact path="/" component={Home} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />

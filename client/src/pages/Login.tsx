@@ -61,12 +61,12 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
             onSubmit={async (values, { setSubmitting, resetForm }) => {
               await login({
                 variables: values,
-                update: (store, { data }) => {
+                update: (cache, { data }) => {
                   if (!data) {
                     return null;
                   }
 
-                  return store.writeQuery<GetUserQuery>({
+                  return cache.writeQuery<GetUserQuery>({
                     query: GetUserDocument,
                     data: {
                       getUser: data.login.user,

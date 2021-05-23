@@ -31,7 +31,7 @@ export type Mutation = {
   login: LoginResponse;
   revokeRefreshTokenForUser: Scalars['Boolean'];
   logout: Scalars['Boolean'];
-  updateProfilePicture: Scalars['Boolean'];
+  updateProfilePicture: User;
   createSkateSpot: Scalars['Boolean'];
   singleUpload: Scalars['Boolean'];
   uploadProfilePicture: Scalars['Boolean'];
@@ -60,7 +60,6 @@ export type MutationRevokeRefreshTokenForUserArgs = {
 
 
 export type MutationUpdateProfilePictureArgs = {
-  id: Scalars['Int'];
   profilePicture: Array<Scalars['Upload']>;
 };
 
@@ -342,13 +341,15 @@ export type SearchQuery = (
 
 export type UpdateProfilePictureMutationVariables = Exact<{
   profilePicture: Array<Scalars['Upload']> | Scalars['Upload'];
-  id: Scalars['Int'];
 }>;
 
 
 export type UpdateProfilePictureMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'updateProfilePicture'>
+  & { updateProfilePicture: (
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'firstName' | 'lastName' | 'username' | 'profilePicture'>
+  ) }
 );
 
 export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
@@ -860,8 +861,14 @@ export type SearchQueryHookResult = ReturnType<typeof useSearchQuery>;
 export type SearchLazyQueryHookResult = ReturnType<typeof useSearchLazyQuery>;
 export type SearchQueryResult = Apollo.QueryResult<SearchQuery, SearchQueryVariables>;
 export const UpdateProfilePictureDocument = gql`
-    mutation UpdateProfilePicture($profilePicture: [Upload!]!, $id: Int!) {
-  updateProfilePicture(profilePicture: $profilePicture, id: $id)
+    mutation UpdateProfilePicture($profilePicture: [Upload!]!) {
+  updateProfilePicture(profilePicture: $profilePicture) {
+    id
+    firstName
+    lastName
+    username
+    profilePicture
+  }
 }
     `;
 export type UpdateProfilePictureMutationFn = Apollo.MutationFunction<UpdateProfilePictureMutation, UpdateProfilePictureMutationVariables>;
@@ -880,7 +887,6 @@ export type UpdateProfilePictureMutationFn = Apollo.MutationFunction<UpdateProfi
  * const [updateProfilePictureMutation, { data, loading, error }] = useUpdateProfilePictureMutation({
  *   variables: {
  *      profilePicture: // value for 'profilePicture'
- *      id: // value for 'id'
  *   },
  * });
  */

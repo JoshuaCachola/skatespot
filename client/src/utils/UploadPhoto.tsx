@@ -1,24 +1,17 @@
 import React from 'react';
 import { useDropzone } from 'react-dropzone';
+import { Thumbnail } from './Thumbnail';
 
-export const UploadProfilePicture = ({ setProfilePicture, setFieldValue, values }) => {
-  // const onDrop = useCallback(
-  //   (file) => {
-  //     setFieldValue('profilePicture', file);
-  //     update({ variables: values });
-  //   },
-  //   [setFieldValue, values],
-  // );
-
+export const UploadPhoto = ({ photos, setPhotos, setFieldValue, values }) => {
   React.useEffect(() => {
-    if (values.profilePicture.length > 0) {
-      setProfilePicture(values.profilePicture);
+    if (values.photos.length > 0) {
+      setPhotos(values.photos);
     }
-  }, [values, setProfilePicture]);
+  }, [values, setPhotos]);
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFile) => {
-      setFieldValue('profilePicture', values.profilePicture.concat(acceptedFile));
+      setFieldValue('photos', values.photos.concat(acceptedFile));
     },
     accept: 'image/jpeg, image/png',
   });
@@ -36,6 +29,16 @@ export const UploadProfilePicture = ({ setProfilePicture, setFieldValue, values 
           <div className="text-white font-bold text-base px-4 py-2 rounded bg-red-500 cursor-pointer w-32 mx-auto">
             <input {...getInputProps()} />
             Browse Files
+          </div>
+          <div className="flex flex-wrap">
+            {photos &&
+              photos.map((img: File, idx: number) => {
+                return (
+                  <div key={idx} className="mx-3">
+                    <Thumbnail img={img} />
+                  </div>
+                );
+              })}
           </div>
         </div>
       </div>

@@ -110,7 +110,10 @@ export const Home: React.FC<Props> = () => {
                       className="w-115 h-36 border border-gray-300 rounded my-5 flex overflow-hidden hover:bg-gray-50 cursor-pointer"
                     >
                       <div className="absolute right-2 rounded px-1 py-1">
-                        <button className="" onClick={(event) => handleRemoveSkateSpot(event, skateSpot.id)}>
+                        <button
+                          className="text-lg text-gray-400"
+                          onClick={(event) => handleRemoveSkateSpot(event, skateSpot.id)}
+                        >
                           x
                         </button>
                       </div>
@@ -119,7 +122,7 @@ export const Home: React.FC<Props> = () => {
                       </div>
                       <div>
                         <div className="font-bold text-base my-2 ml-5 text-red-600 overflow-clip">
-                          <h3>{skateSpot.name}</h3>
+                          <h3>{skateSpot.name.slice(0, 25)}</h3>
                         </div>
 
                         <div className="ml-5">

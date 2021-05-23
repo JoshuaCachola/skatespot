@@ -1,6 +1,5 @@
 import React from 'react';
 import { useGetUserQuery, useGetUserReviewsLazyQuery } from 'src/generated/graphql';
-import SearchResultsFull1 from '../assets/SearchResultsFull1.jpg';
 import SkateSpot1 from '../assets/SkateSpot1.jpg';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
@@ -17,7 +16,11 @@ const user = {
 };
 
 export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
-  const { data: userData, loading: userLoading, error: userError } = useGetUserQuery();
+  const { data: userData, loading: userLoading, error: userError } = useGetUserQuery({
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'cache-first',
+  });
+
   const [userReviews, { data, loading, error }] = useGetUserReviewsLazyQuery();
 
   const handleOnClick = () => {
@@ -59,7 +62,7 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
               <span className="vertical-middle inline-block">&nbsp;Add a photo</span>
             </div>
           </div>
-          <img alt="profile" src={SearchResultsFull1} width={200} height={200} className="rounded" />
+          <img alt="profile" src={userData?.getUser.profilePicture} width={200} height={200} className="rounded" />
         </div>
         {/* Account information */}
         <div className="my-4 ml-28 leading-normal">

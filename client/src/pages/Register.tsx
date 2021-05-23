@@ -156,7 +156,7 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
                   <div className="flex my-5 justify-center">
                     <Field
                       type="submit"
-                      value="submit"
+                      value="Submit"
                       disabled={isSubmitting}
                       className="cursor-pointer font-bold bg-red-500 px-6 py-2 border rounded border-red-500 text-white"
                     />

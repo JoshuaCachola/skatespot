@@ -1,3 +1,9 @@
-mutation UpdateProfilePicture($profilePicture: [Upload!]!, $id: Int!) {
-  updateProfilePicture(profilePicture: $profilePicture, id: $id)
+mutation UpdateProfilePicture($profilePicture: [Upload!]!) {
+  updateProfilePicture(profilePicture: $profilePicture) {
+    id
+    firstName
+    lastName
+    username
+    profilePicture
+  }
 }

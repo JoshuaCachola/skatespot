@@ -2,55 +2,45 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Formik, FormikProps } from 'formik';
 import React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { useGetUserQuery, useUpdateProfilePictureMutation } from 'src/generated/graphql';
+import {
+  GetUserQuery,
+  GetUsersDocument,
+  useGetUserQuery,
+  useUpdateProfilePictureMutation,
+} from 'src/generated/graphql';
 import { Header } from 'src/pages/components/Header';
-import { UploadProfilePicture } from 'src/utils/UploadProfilePicture';
+import { UploadPhoto } from 'src/utils/UploadPhoto';
 import { Footer } from './components/Footer';
 // import * as Yup from 'yup';
 
 interface ProfilePicture {
-  profilePicture: Array<File>;
+  photos: Array<File>;
 }
-
-// const AutoSubmitProfilePicture = (profilePicture) => {
-//   React.useEffect(() => {
-//     if (profilePicture.length > 0) {
-//       console.log(profilePicture);
-//     }
-//   }, [profilePicture]);
-
-//   return null;
-// };
-// const validationSchema = Yup.object({
-//   profilePicture: Yup.
-// });
 
 export const UpdateProfilePicture: React.FC<RouteComponentProps> = () => {
   const { data } = useGetUserQuery();
-  const [profilePicture, setProfilePicture] = React.useState([]);
+  const [photos, setPhotos] = React.useState([]);
   const [update, { loading, error }] = useUpdateProfilePictureMutation();
 
   React.useEffect(() => {
-    if (profilePicture.length > 0) {
-      // console.log(profilePicture);
-      update({ variables: { profilePicture, id: data!.getUser.id } });
+    if (photos.length > 0) {
+      update({
+        variables: { profilePicture: photos },
+        update: (cache, { data }) => {
+          if (!data) {
+            return null;
+          }
+
+          return cache.writeQuery<GetUserQuery>({
+            query: GetUsersDocument,
+            data: {
+              getUser: { ...data.updateProfilePicture, __typename: 'User' },
+            },
+          });
+        },
+      });
     }
-  }, [data, profilePicture, update]);
-
-  // const formik = useFormik({
-  //   initialValues: {
-  //     profilePicture: [],
-  //   },
-  //   onSubmit: async (values, { resetForm, setSubmitting }) => {
-  //     alert('sent');
-  //   },
-  // });
-
-  // const { getRootProps, getInputProps } = useDropzone({
-  //   onDrop: (acceptedFile) => {
-  //     // setFieldValue('profilePicture', values.profilePicture.concat(acceptedFile));
-  //   },
-  // });
+  }, [data, photos, update]);
 
   if (loading) {
     return <h1>loading</h1>;
@@ -84,18 +74,12 @@ export const UpdateProfilePicture: React.FC<RouteComponentProps> = () => {
           <h2 className="mb-4">Add Photos</h2>
         </div>
         <div>
-          <Formik initialValues={{ profilePicture: [] }} onSubmit={() => alert('hello')}>
+          <Formik initialValues={{ photos: [] }} onSubmit={() => alert('hello')}>
             {(props: FormikProps<ProfilePicture>) => {
               const { setFieldValue, values } = props;
               return (
                 <Form>
-                  <UploadProfilePicture
-                    setProfilePicture={setProfilePicture}
-                    setFieldValue={setFieldValue}
-                    values={values}
-                    // update={update}
-                    // id={data?.getUser.id}
-                  />
+                  <UploadPhoto photos={photos} setPhotos={setPhotos} setFieldValue={setFieldValue} values={values} />
                 </Form>
               );
             }}

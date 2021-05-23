@@ -103,38 +103,48 @@ export class UserResolver {
     return true;
   }
 
-  @Mutation(() => Boolean)
-  @UseMiddleware(isAuth)
+  @Mutation(() => User)
   async updateProfilePicture(
     @Arg('profilePicture', () => [GraphQLUpload]) profilePicture: [Upload],
-    @Arg('id', () => Int) id: number,
-  ): Promise<boolean> {
+    @Ctx() { req }: TokenCookieCtx,
+  ) {
+    const authorization = req.headers['authorization'];
+
+    if (!authorization) {
+      return null;
+    }
+
+    const accessToken = authorization.split(' ')[1];
+    const payload = verify(accessToken, process.env.ACCESS_TOKEN_SECRET!) as Payload;
+
+    const user = await User.findOne(payload.userId);
+
+    if (!user) {
+      return null;
+    }
+
     const picture = await profilePicture[0];
     const { Location } = await s3
       .upload({
         Body: picture.createReadStream(),
-        Key: `${picture.filename}`,
+        Key: `${user.username}`,
         ContentType: picture.mimetype,
       })
       .promise();
     return new Promise((resolve, reject) => {
       if (Location) {
+        user.profilePicture = Location;
         resolve(true);
       } else {
         reject(false);
       }
     }).then(async () => {
       try {
-        await getConnection()
-          .createQueryBuilder()
-          .update(User)
-          .set({ profilePicture: Location })
-          .where('id = :id', { id })
-          .execute();
-        return true;
+        await user.save();
+        return user;
       } catch (err) {
         console.error(err);
-        return false;
+        return null;
       }
     });
   }

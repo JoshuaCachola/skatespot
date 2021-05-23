@@ -2,13 +2,14 @@ import { useContext, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ClickAwayListener from 'react-click-away-listener';
-import { useLogoutUserMutation } from 'src/generated/graphql';
+import { useGetUserQuery, useLogoutUserMutation } from 'src/generated/graphql';
 import { TokenContext } from 'src/utils/TokenContext';
 import { accessToken } from 'src/graphql/reactive-variables/accessToken';
 
 interface Props {}
 
 const Account: React.FC<Props> = () => {
+  const { data } = useGetUserQuery({ fetchPolicy: 'cache-and-network', nextFetchPolicy: 'cache-first' });
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [logout, { client }] = useLogoutUserMutation();
   const { setIsLoggedIn } = useContext(TokenContext);
@@ -20,17 +21,21 @@ const Account: React.FC<Props> = () => {
   return (
     <>
       <div className="flex">
-        <div className="rounded-l-sm rounded-r-none border">
-          <div className="p-2 bg-white text-gray-300 hover:bg-gray-100 hover:text-gray-500">
+        <div className="rounded-l-sm rounded-r-none">
+          <div className=" text-gray-300 hover:bg-gray-100 hover:text-gray-500 flex justify-center align-middle overflow-hidden">
             <Link to="/user-profile">
-              <FontAwesomeIcon icon={['fas', 'user']} />
+              {data?.getUser.profilePicture ? (
+                <img src={data.getUser.profilePicture} alt="" className="rounded-l-sm rounded-r-none h-11 w-10" />
+              ) : (
+                <FontAwesomeIcon icon={['fas', 'user']} />
+              )}
             </Link>
           </div>
         </div>
-        <div className="rounded-r-sm roudner-l-none border border-black border-opacity-30">
-          <div className="my-auto mx-0 h-full">
+        <div className="rounded-r-sm roudner-l-none border border-black border-opacity-30 bg-black bg-opacity-20">
+          <div className="h-10 w-5">
             <div
-              className="cursor-pointer p-2 text-white bg-black bg-opacity-25 hover:bg-opacity-50"
+              className="pt-2 align-middle cursor-pointer text-white text-center"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <FontAwesomeIcon icon={['fas', 'angle-down']} />
@@ -45,7 +50,7 @@ const Account: React.FC<Props> = () => {
               to="/"
               onClick={async () => {
                 await logout();
-                await accessToken('');
+                accessToken('');
                 await client.clearStore();
                 setIsLoggedIn(false);
               }}

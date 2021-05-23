@@ -158,7 +158,13 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
                       >
                         Write Review
                       </Link>
-                      <Link to="/" className="text-black rounded border-red-600 border mb-6 mr-6 py-2 px-6 font-bold">
+                      <Link
+                        to={{
+                          pathname: '/skatespot-photos/add',
+                          state: { name: spot.name, id: spot.id },
+                        }}
+                        className="text-black rounded border-red-600 border mb-6 mr-6 py-2 px-6 font-bold"
+                      >
                         Add photo
                       </Link>
                     </div>
