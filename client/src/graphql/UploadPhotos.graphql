@@ -1,0 +1,3 @@
+mutation UploadPhotos($skateSpotId: Int!, $imgFiles: [Upload!]!) {
+  uploadPhotos(skateSpotId: $skateSpotId, imgFiles: $imgFiles)
+}

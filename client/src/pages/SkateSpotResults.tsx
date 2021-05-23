@@ -25,11 +25,11 @@ export const SkateSpotResults: React.FC<Props> = () => {
   //   }
   // }, [data?.getSkateSpots, skateSpots]);
 
-  const handleMoreResults = async () => {
-    fetchMore({
-      variables: { cursor: data?.getSkateSpots[data.getSkateSpots.length - 1].id, limit: 5 },
-    });
-  };
+  // const handleMoreResults = async () => {
+  //   fetchMore({
+  //     variables: { cursor: data?.getSkateSpots[data.getSkateSpots.length - 1].id, limit: 5 },
+  //   });
+  // };
   // React.useEffect(() => {
   //   if (skateSpots.length === 0 && data?.getSkateSpots) {
   //     setSkateSpots(data?.getSkateSpots);
@@ -139,7 +139,6 @@ export const SkateSpotResults: React.FC<Props> = () => {
                 </Link>
               );
             })}
-          <button onClick={handleMoreResults}>More Results</button>
         </ul>
         {/* map of locations */}
         {isDesktopOrLaptop ? (

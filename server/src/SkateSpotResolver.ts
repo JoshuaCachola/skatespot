@@ -5,6 +5,7 @@ import { GraphQLUpload } from 'graphql-upload';
 import { getGeocoding } from './utils/geocoding';
 import { Upload } from './types/Upload';
 import { FindManyOptions, getConnection, MoreThan } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
 
 const s3 = require('./config/s3');
 
@@ -33,7 +34,7 @@ export class SkateSpotResolver {
           const { Location } = await s3
             .upload({
               Body: file.createReadStream(),
-              Key: `${file.filename}`,
+              Key: `${uuidv4()}`,
               ContentType: file.mimetype,
             })
             .promise();
@@ -134,5 +135,55 @@ export class SkateSpotResolver {
       console.error(err);
       return [];
     }
+  }
+
+  @Mutation(() => Boolean)
+  async uploadPhotos(
+    @Arg('skateSpotId', () => Int) skateSpotId: number,
+    @Arg('imgFiles', () => [GraphQLUpload]) imgFiles: [Upload],
+  ) {
+    const skateSpot = await SkateSpot.findOne({ where: { id: skateSpotId } });
+
+    if (!skateSpot) {
+      return false;
+    }
+
+    let imgLinks: Array<string> = [];
+
+    Promise.all(imgFiles).then((files) => {
+      files.forEach(async (file) => {
+        const { Location } = await s3
+          .upload({
+            Body: file.createReadStream(),
+            Key: `${file.filename}`,
+            ContentType: file.mimetype,
+          })
+          .promise();
+
+        return new Promise((resolve, reject) => {
+          if (Location) {
+            resolve(Location);
+          } else {
+            reject(undefined);
+          }
+        })
+          .then((url) => {
+            url && imgLinks.push(url as string);
+            console.log(imgLinks);
+          })
+          .then(async () => {
+            try {
+              const imageUrls = JSON.parse(skateSpot.imageUrls);
+              skateSpot.imageUrls = imageUrls;
+              return true;
+            } catch (err) {
+              console.error(err);
+              return false;
+            }
+          });
+      });
+    });
+
+    return false;
   }
 }

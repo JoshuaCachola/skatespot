@@ -71,12 +71,14 @@ export const Photos: React.FC<Props> = ({ location }) => {
               </div>
             </div>
             <div className="border-red-500 rounded p-2 bg-red-500 text-white font-bold">
-              <Link to="/">Add Photos</Link>
+              <Link to={{ pathname: '/skatespot-photos/add', state: { name: skateSpot.name, id: skateSpot.id } }}>
+                Add Photos
+              </Link>
             </div>
           </div>
         </div>
         {/* Photos grid */}
-        <div className="flex justify-center">
+        <div className="flex">
           <ul className="grid grid-flow-row grid-cols-5 grid-rows-5 gap-4">
             {JSON.parse(skateSpot.imageUrls).map((photo, idx) => {
               return (

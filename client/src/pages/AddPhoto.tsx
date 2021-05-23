@@ -1,7 +1,7 @@
 import { Form, Formik, FormikProps } from 'formik';
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { useGetUserQuery } from 'src/generated/graphql';
+import { useUploadPhotosMutation } from 'src/generated/graphql';
 import { Header } from 'src/pages/components/Header';
 import { UploadPhoto } from 'src/utils/UploadPhoto';
 import { Footer } from './components/Footer';
@@ -16,21 +16,17 @@ interface Props {
 }
 
 export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, location }) => {
-  const { data } = useGetUserQuery();
+  // const { data } = useGetUserQuery();
+  const [upload, { loading, error }] = useUploadPhotosMutation();
   const [photos, setPhotos] = React.useState([]);
 
-  console.log(location);
-  React.useEffect(() => {
-    console.log(photos);
-  }, [data, photos]);
+  if (loading) {
+    return <h1>loading</h1>;
+  }
 
-  // if (loading) {
-  //   return <h1>loading</h1>;
-  // }
-
-  // if (error) {
-  //   return <h1>error</h1>;
-  // }
+  if (error) {
+    return <h1>error</h1>;
+  }
 
   return (
     <div>
@@ -38,19 +34,6 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
       {/* Upload */}
       <div className="w-220 mx-auto my-0">
         <div className="mt-4 flex">
-          {/* <Link to="/user-profile" className="text-blue-700 font-bold">
-            <h3>
-              {data?.getUser.firstName} <span>{data?.getUser.lastName[0]}.</span>
-            </h3>
-          </Link>
-          <div className="font-normal text-gray-500">
-            <span>
-              &nbsp;
-              <FontAwesomeIcon icon={['fas', 'angle-double-right']} />
-              &nbsp;
-            </span>
-          </div>
-          <div className="font-extralight">Profile Pictures</div> */}
           <div
             className="font-bold text-blue-700 text-3xl cursor-pointer border-b-2 border-transparent hover:border-blue-700"
             onClick={() => history.goBack()}
@@ -63,7 +46,14 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
           </div>
         </div>
         <div>
-          <Formik initialValues={{ photos: [] }} onSubmit={() => alert('hello')}>
+          <Formik
+            initialValues={{ photos: [] }}
+            onSubmit={async (values, { setSubmitting, resetForm }) => {
+              await upload({ variables: { imgFiles: values.photos, skateSpotId: location.state.id } });
+              resetForm();
+              setSubmitting(false);
+            }}
+          >
             {(props: FormikProps<SkateSpotPhotos>) => {
               const { setFieldValue, values } = props;
               return (
