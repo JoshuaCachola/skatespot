@@ -174,16 +174,20 @@ export const Photos: React.FC<Props> = ({ location }) => {
             Page {currentPage} of {maxPages}
           </div>
           <div>
-            {currentPage > 1 && (
-              <button className="mr-2" onClick={() => handlePrevPage()}>
-                Prev
-              </button>
-            )}
-            {currentPage < maxPages && (
-              <button className="mr-2" onClick={() => handleNextPage()}>
-                Next
-              </button>
-            )}
+            <button
+              className={`mr-2 ${currentPage === 1 ? 'text-gray-400' : 'text-black'}`}
+              onClick={() => handlePrevPage()}
+              disabled={currentPage === 1}
+            >
+              Prev
+            </button>
+            <button
+              className={`mr-2 ${currentPage === maxPages ? 'text-gray-400' : 'text-black'}`}
+              onClick={() => handleNextPage()}
+              disabled={currentPage === maxPages}
+            >
+              Next
+            </button>
           </div>
         </div>
       </div>
