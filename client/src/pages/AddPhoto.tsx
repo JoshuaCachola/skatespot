@@ -60,15 +60,15 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
                 <>
                   <Form>
                     <UploadPhoto photos={photos} setPhotos={setPhotos} setFieldValue={setFieldValue} values={values} />
+                    <div className="mt-6 justify-center flex">
+                      <button
+                        type="submit"
+                        className="border rounded border-red-500 bg-red-500 text-white py-2 px-8 text-lg font-semibold"
+                      >
+                        Upload Photos
+                      </button>
+                    </div>
                   </Form>
-                  <div className="mt-6 justify-center flex">
-                    <button
-                      type="submit"
-                      className="border rounded border-red-500 bg-red-500 text-white py-2 px-8 text-lg font-semibold"
-                    >
-                      Upload Photos
-                    </button>
-                  </div>
                 </>
               );
             }}

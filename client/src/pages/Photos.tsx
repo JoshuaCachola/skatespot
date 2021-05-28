@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
@@ -30,12 +30,74 @@ const photos = [
   SkateSpot1,
   SkateSpot1,
   SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
+  SkateSpot1,
 ];
 
 export const Photos: React.FC<Props> = ({ location }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [idx, setIdx] = useState<number>(0);
+  const [maxPages, setMaxPages] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [sliceRange, setSliceRange] = useState<Array<number>>([0, 25]);
+
   const skateSpot = location.state.skateSpot;
+
+  console.log(currentPage, sliceRange);
+  useEffect(() => {
+    setMaxPages(Math.ceil(photos.length / 25));
+  }, []);
+
+  const handleNextPage = () => {
+    if (currentPage === maxPages) {
+      return;
+    }
+
+    setSliceRange([sliceRange[1], sliceRange[1] + 25]);
+
+    setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage === 1) {
+      return;
+    }
+
+    setSliceRange([sliceRange[0] - 25, sliceRange[1] - 25]);
+    setCurrentPage(currentPage - 1);
+  };
+
   const handleImageClick = (e) => {
     if (isOpen) {
       return;
@@ -48,7 +110,7 @@ export const Photos: React.FC<Props> = ({ location }) => {
   return (
     <div>
       <Header />
-      <div className="my-4 max-w-300 w-295 mx-24">
+      <div className="my-4 w-210 mx-auto">
         <div className="border-b border-gray-400 mb-5">
           <div className="font-bold text-3xl mb-4">
             <h1>{skateSpot.name}</h1>
@@ -80,7 +142,19 @@ export const Photos: React.FC<Props> = ({ location }) => {
         {/* Photos grid */}
         <div className="flex">
           <ul className="grid grid-flow-row grid-cols-5 grid-rows-5 gap-4">
-            {JSON.parse(skateSpot.imageUrls).map((photo, idx) => {
+            {/* {JSON.parse(skateSpot.imageUrls).map((photo, idx) => {
+              return (
+                <li
+                  className="w-40 max-h-40 cursor-pointer flex justify-center bg-black rounded"
+                  id={idx.toString()}
+                  key={idx}
+                  onClick={(e) => handleImageClick(e)}
+                >
+                  <img src={photo} alt="" className="object-cover align-middle rounded" />
+                </li>
+              );
+            })} */}
+            {photos.slice(sliceRange[0], sliceRange[1]).map((photo, idx) => {
               return (
                 <li
                   className="w-40 max-h-40 cursor-pointer flex justify-center bg-black rounded"
@@ -95,9 +169,22 @@ export const Photos: React.FC<Props> = ({ location }) => {
           </ul>
         </div>
         {/* Pagination */}
-        <div className="border-t border-b border-gray-400 flex justify-between">
-          <div className="ml-2">Page 1 of 1</div>
-          <div className="mr-2">Next</div>
+        <div className="border-t border-b border-gray-400 flex justify-between mt-10 mb-20">
+          <div className="ml-2">
+            Page {currentPage} of {maxPages}
+          </div>
+          <div>
+            {currentPage > 1 && (
+              <button className="mr-2" onClick={() => handlePrevPage()}>
+                Prev
+              </button>
+            )}
+            {currentPage < maxPages && (
+              <button className="mr-2" onClick={() => handleNextPage()}>
+                Next
+              </button>
+            )}
+          </div>
         </div>
       </div>
       {isOpen && <ImageModal images={photos} idx={idx} setIdx={setIdx} setIsOpen={setIsOpen} />}

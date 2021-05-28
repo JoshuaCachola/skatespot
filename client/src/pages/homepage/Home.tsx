@@ -104,11 +104,9 @@ export const Home: React.FC<Props> = () => {
                       pathname: `/write-review/${skateSpot.name}`,
                       state: { skateSpot },
                     }}
+                    key={skateSpot.id}
                   >
-                    <div
-                      key={skateSpot.id}
-                      className="w-115 h-36 border border-gray-300 rounded my-5 flex overflow-hidden hover:bg-gray-50 cursor-pointer"
-                    >
+                    <div className="w-115 h-36 border border-gray-300 rounded my-5 flex overflow-hidden hover:bg-gray-50 cursor-pointer">
                       <div className="absolute right-2 rounded px-1 py-1">
                         <button
                           className="text-lg text-gray-400"

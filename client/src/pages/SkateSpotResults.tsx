@@ -7,12 +7,13 @@ import { useMediaQuery } from 'react-responsive';
 import { useGetSkateSpotsQuery } from '../generated/graphql';
 import { Footer } from './components/Footer';
 import { AverageReviewStars } from './components/AverageReviewStars';
+// import { Waypoint } from 'react-waypoint';
 // import { searchResults } from 'src/graphql/reactive-variables/searchResults';
 interface Props {}
 
 export const SkateSpotResults: React.FC<Props> = () => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)' });
-  const { data, loading, error, fetchMore } = useGetSkateSpotsQuery({
+  const { data, loading, error } = useGetSkateSpotsQuery({
     fetchPolicy: 'network-only',
     variables: { limit: 5 },
   });
@@ -30,6 +31,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
   //     variables: { cursor: data?.getSkateSpots[data.getSkateSpots.length - 1].id, limit: 5 },
   //   });
   // };
+
   // React.useEffect(() => {
   //   if (skateSpots.length === 0 && data?.getSkateSpots) {
   //     setSkateSpots(data?.getSkateSpots);
@@ -54,15 +56,14 @@ export const SkateSpotResults: React.FC<Props> = () => {
           {data?.getSkateSpots &&
             data.getSkateSpots.map((result, resultIdx) => {
               return (
-                <Link
-                  className="z-0"
-                  key={resultIdx}
-                  to={{
-                    pathname: `/skate-spot/${result.name}`,
-                    state: { skatespot: data.getSkateSpots[resultIdx] },
-                  }}
-                >
-                  <li className="flex rounded border-2 mb-7 border-gray-100 hover:shadow-xl hover:bg-gray-50">
+                <li className="z-0" key={resultIdx}>
+                  <Link
+                    className="flex rounded border-2 mb-7 border-gray-100 hover:shadow-xl hover:bg-gray-50"
+                    to={{
+                      pathname: `/skate-spot/${result.name}`,
+                      state: { skatespot: data.getSkateSpots[resultIdx] },
+                    }}
+                  >
                     {/* skate spot img carousel */}
                     <div
                       className="m-6 w-40 z-50"
@@ -93,6 +94,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
                       </Carousel>
                     </div>
                     {/* skatespot information */}
+
                     <div className="w-full my-8">
                       {/* skatespot name/rating and address*/}
                       <div className="flex justify-between">
@@ -132,11 +134,12 @@ export const SkateSpotResults: React.FC<Props> = () => {
                           </address>
                         </div>
                       </div>
+
                       {/* what is there to skate, skating conditions etc... */}
                       <div></div>
                     </div>
-                  </li>
-                </Link>
+                  </Link>
+                </li>
               );
             })}
         </ul>

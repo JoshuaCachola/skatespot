@@ -24,6 +24,8 @@ export const Upload = ({ setFieldValue, values }) => {
     accept: 'image/jpeg, image/png',
   });
 
+  const handleRemovePhoto = (event, idx) => {};
+
   return (
     <>
       <div
@@ -41,7 +43,7 @@ export const Upload = ({ setFieldValue, values }) => {
             values.imgFiles.map((img: File, idx: number) => {
               return (
                 <div key={idx} className="mx-3">
-                  <Thumbnail img={img} />
+                  <Thumbnail img={img} idx={idx} handleRemovePhoto={handleRemovePhoto} />
                 </div>
               );
             })}

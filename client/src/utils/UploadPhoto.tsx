@@ -9,6 +9,15 @@ export const UploadPhoto = ({ photos, setPhotos, setFieldValue, values }) => {
     }
   }, [values, setPhotos]);
 
+  const handleRemovePhoto = (event, idx) => {
+    console.log('clicked');
+    event.preventDefault();
+    event.stopPropagation();
+    const filteredPhotos = values.photos.filter((_, i) => i !== idx);
+    setFieldValue('photos', filteredPhotos);
+    setPhotos(filteredPhotos);
+  };
+
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFile) => {
       setFieldValue('photos', values.photos.concat(acceptedFile));
@@ -35,7 +44,7 @@ export const UploadPhoto = ({ photos, setPhotos, setFieldValue, values }) => {
               photos.map((img: File, idx: number) => {
                 return (
                   <div key={idx} className="mx-3">
-                    <Thumbnail img={img} />
+                    <Thumbnail img={img} idx={idx} handleRemovePhoto={handleRemovePhoto} />
                   </div>
                 );
               })}
