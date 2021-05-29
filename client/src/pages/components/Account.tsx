@@ -22,12 +22,14 @@ const Account: React.FC<Props> = () => {
     <>
       <div className="flex">
         <div className="rounded-l-sm rounded-r-none">
-          <div className=" text-gray-300 hover:bg-gray-100 hover:text-gray-500 flex justify-center align-middle overflow-hidden">
+          <div className=" text-gray-300 hover:bg-gray-100 hover:text-gray-500 flex justify-center align-middle overflow-hidden rounded-l-sm rounded-r-none">
             <Link to="/user-profile">
               {data?.getUser.profilePicture ? (
-                <img src={data.getUser.profilePicture} alt="" className="rounded-l-sm rounded-r-none h-11 w-10" />
+                <img src={data.getUser.profilePicture} alt="" className="h-11 w-10" />
               ) : (
-                <FontAwesomeIcon icon={['fas', 'user']} />
+                <div className="h-10 w-5 my-auto py-2 mx-2 pl-0.5">
+                  <FontAwesomeIcon icon={['fas', 'user']} />
+                </div>
               )}
             </Link>
           </div>

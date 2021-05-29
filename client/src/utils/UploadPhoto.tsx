@@ -10,7 +10,6 @@ export const UploadPhoto = ({ photos, setPhotos, setFieldValue, values }) => {
   }, [values, setPhotos]);
 
   const handleRemovePhoto = (event, idx) => {
-    console.log('clicked');
     event.preventDefault();
     event.stopPropagation();
     const filteredPhotos = values.photos.filter((_, i) => i !== idx);

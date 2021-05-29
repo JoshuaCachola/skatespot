@@ -96,7 +96,7 @@ export const Home: React.FC<Props> = () => {
               <h2 className="text-center">Review Skate Spots</h2>
             </div>
             {!loading &&
-              skateSpots.length &&
+              skateSpots &&
               skateSpots.slice(0, 5).map((skateSpot, idx) => {
                 return (
                   <Link
