@@ -18,7 +18,7 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({ img, idx, handleRemovePhot
         </button>
       </div>
       <div className="flex justify-center align-middle">
-        <img src={URL.createObjectURL(img)} alt={img.name} className="mt-2" height={100} width={100} />
+        <img src={URL.createObjectURL(img)} alt={img.name} className="" height={100} width={100} />
       </div>
     </div>
   );

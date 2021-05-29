@@ -1,30 +1,23 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { ImageCropModal } from './ImageCropModal';
 import { Thumbnail } from './Thumbnail';
 
 export const Upload = ({ setFieldValue, values }) => {
-  const [image, setImage] = useState<any>(null);
-  const [isImgCropped, setIsImgCropped] = useState<boolean>(true);
-
-  const addFile = useCallback(
-    (file) => {
-      setFieldValue('imgFiles', values.imgFiles.concat(file));
-      setIsImgCropped(true);
-    },
-    [setFieldValue, values],
-  );
-
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFile) => {
-      setImage(acceptedFile[0]);
-      setIsImgCropped(false);
+      setFieldValue('imgFiles', values.imgFiles.concat(acceptedFile));
     },
     accept: 'image/jpeg, image/png',
   });
 
-  const handleRemovePhoto = (event, idx) => {};
+  const handleRemovePhoto = (event, idx) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setFieldValue(
+      'imgFiles',
+      values.imgFiles.filter((_, i) => i !== idx),
+    );
+  };
 
   return (
     <>
@@ -32,11 +25,10 @@ export const Upload = ({ setFieldValue, values }) => {
         {...getRootProps({ className: 'dropzone' })}
         className="flex flex-1 flex-col p-5 rounded border-2 focus:outline-none hover:border-red-500 cursor-pointer"
       >
-        {!isImgCropped && <ImageCropModal image={image} open={!isImgCropped} addFile={addFile} />}
         <div className="text-gray-400 text-3xl mx-auto my-5 hovered-difference:text-red-500">
           <FontAwesomeIcon icon={['fas', 'images']} />
         </div>
-        <input {...getInputProps()} disabled={!isImgCropped} />
+        <input {...getInputProps()} />
 
         <div className="flex flex-wrap">
           {values.imgFiles &&
