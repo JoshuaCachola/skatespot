@@ -30,7 +30,7 @@ export class SkateSpot extends BaseEntity {
   street: string;
 
   @Field()
-  @Column('text', { nullable: false }) // remember to change
+  @Column('text', { default: '' })
   postalCode: string;
 
   @Field()
@@ -54,23 +54,19 @@ export class SkateSpot extends BaseEntity {
   permanentlyClosed: boolean;
 
   @Field()
-  @Column('text', { nullable: true })
+  @Column('text', { default: [] })
   imageUrls: string;
 
   @Field()
   @Column('text', { nullable: false })
   location: string;
 
-  @Field()
-  @Column('text', { nullable: true })
-  popularTimesHistogram: string;
-
   @Field(() => Int)
-  @Column('text', { nullable: false })
+  @Column('text', { default: 0 })
   reviewsCount: number;
 
   @Field()
-  @Column('text', { nullable: true })
+  @Column('text', { default: { oneStar: 0, twoStar: 0, threeStar: 0, fourStar: 0, fiveStar: 0 } })
   reviewsDistribution: string;
 
   @OneToMany(() => Review, (review) => review.skateSpot)

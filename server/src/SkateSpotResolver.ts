@@ -18,14 +18,17 @@ export class SkateSpotResolver {
     @Arg('street') street: string,
     @Arg('city') city: string,
     @Arg('state') state: string,
+    @Arg('categoryName') categoryName: string,
     @Arg('imgFiles', () => [GraphQLUpload], { nullable: true }) imgFiles?: [Upload],
   ): Promise<boolean> {
-    const skateSpot = await SkateSpot.findOne({ where: { name, street, city, state } });
+    const skateSpot = await SkateSpot.findOne({ where: { name } });
     if (skateSpot) {
+      console.log('skatespot');
       return false;
     }
 
     const location = await getGeocoding(street, city, state);
+    console.log(location);
 
     let imgLinks: Array<string> = [];
     if (imgFiles) {
@@ -41,8 +44,10 @@ export class SkateSpotResolver {
 
           return new Promise((resolve, reject) => {
             if (Location) {
+              console.log('resolve');
               resolve(Location);
             } else {
+              console.log('reject');
               reject(undefined);
             }
           })
@@ -52,11 +57,13 @@ export class SkateSpotResolver {
             })
             .then(async () => {
               try {
+                console.log('insert');
                 await SkateSpot.insert({
                   name,
                   city,
                   state,
                   street,
+                  categoryName,
                   location,
                   imageUrls: imgLinks ? JSON.stringify(imgLinks.filter((img) => img !== undefined)) : undefined,
                 });
@@ -72,11 +79,13 @@ export class SkateSpotResolver {
     }
 
     try {
+      console.log('accept no image');
       await SkateSpot.insert({
         name,
         city,
         state,
         street,
+        categoryName,
         location,
       });
 

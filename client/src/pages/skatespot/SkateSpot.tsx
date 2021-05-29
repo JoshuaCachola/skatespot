@@ -26,6 +26,7 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [imagesIdx, setImagesIdx] = useState<number>(0);
   const spot = React.useMemo(() => location.state.skatespot, [location.state.skatespot]);
+  console.log(spot);
   // const [spot, setSpot] = useState<any>(location.state.skatespot);
 
   // React.useEffect(() => {

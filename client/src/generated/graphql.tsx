@@ -67,6 +67,7 @@ export type MutationUpdateProfilePictureArgs = {
 
 export type MutationCreateSkateSpotArgs = {
   imgFiles?: Maybe<Array<Scalars['Upload']>>;
+  categoryName: Scalars['String'];
   state: Scalars['String'];
   city: Scalars['String'];
   street: Scalars['String'];
@@ -165,7 +166,6 @@ export type SkateSpot = {
   permanentlyClosed: Scalars['Boolean'];
   imageUrls: Scalars['String'];
   location: Scalars['String'];
-  popularTimesHistogram: Scalars['String'];
   reviewsCount: Scalars['Int'];
   reviewsDistribution: Scalars['String'];
 };
@@ -201,6 +201,7 @@ export type CreateSkateSpotMutationVariables = Exact<{
   street: Scalars['String'];
   city: Scalars['String'];
   state: Scalars['String'];
+  categoryName: Scalars['String'];
   imgFiles?: Maybe<Array<Scalars['Upload']> | Scalars['Upload']>;
 }>;
 
@@ -421,12 +422,13 @@ export type CreateReviewMutationHookResult = ReturnType<typeof useCreateReviewMu
 export type CreateReviewMutationResult = Apollo.MutationResult<CreateReviewMutation>;
 export type CreateReviewMutationOptions = Apollo.BaseMutationOptions<CreateReviewMutation, CreateReviewMutationVariables>;
 export const CreateSkateSpotDocument = gql`
-    mutation CreateSkateSpot($name: String!, $street: String!, $city: String!, $state: String!, $imgFiles: [Upload!]) {
+    mutation CreateSkateSpot($name: String!, $street: String!, $city: String!, $state: String!, $categoryName: String!, $imgFiles: [Upload!]) {
   createSkateSpot(
     name: $name
     street: $street
     city: $city
     state: $state
+    categoryName: $categoryName
     imgFiles: $imgFiles
   )
 }
@@ -450,6 +452,7 @@ export type CreateSkateSpotMutationFn = Apollo.MutationFunction<CreateSkateSpotM
  *      street: // value for 'street'
  *      city: // value for 'city'
  *      state: // value for 'state'
+ *      categoryName: // value for 'categoryName'
  *      imgFiles: // value for 'imgFiles'
  *   },
  * });

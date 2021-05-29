@@ -11,6 +11,7 @@ interface SkateSpotForm {
   street: string;
   state: string;
   city: string;
+  categoryName: 'Skateboard Park' | 'Park' | 'Street' | '';
   imgFiles?: Array<File>;
 }
 
@@ -21,6 +22,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
     street: '',
     city: '',
     state: '',
+    categoryName: '',
     imgFiles: [],
   };
 
@@ -51,9 +53,9 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
         }}
         validationSchema={Yup.object().shape({
           name: Yup.string().required('Name is required.'),
-          address: Yup.string().required('Address is required.'),
           city: Yup.string().required('City is required.'),
           state: Yup.string().required('State is required'),
+          categoryName: Yup.string().required('Category is required.'),
           imgFiles: Yup.array(),
         })}
       >
@@ -123,9 +125,26 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
                       className="w-full ml-2 focus:outline-none border-b border-black border-dashed focus:shadow-lg"
                     />
                   </div>
-                  {/* Drag and drop */}
+                  <div className="my-4 flex justify-between">
+                    <label id="category-name" className="w-6">
+                      Category
+                    </label>
+                    <label>
+                      <Field type="radio" name="categoryName" value="Skateboard Park" />
+                      &nbsp;Skateboard Park
+                    </label>
+                    <label>
+                      <Field type="radio" name="categoryName" value="Park" />
+                      &nbsp;Park
+                    </label>
+                    <label>
+                      <Field type="radio" name="categoryName" value="Street" />
+                      &nbsp;Street
+                    </label>
+                  </div>
                 </div>
               </div>
+              {/* Drag and drop */}
               <div className="w-140 mx-auto my-0">
                 <div className="my-4 font-bold text-xl">
                   <h4>

@@ -13,11 +13,12 @@ interface Props {}
 
 export const SkateSpotResults: React.FC<Props> = () => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)' });
-  const { data, loading, error } = useGetSkateSpotsQuery({
+  const { data, loading } = useGetSkateSpotsQuery({
     fetchPolicy: 'network-only',
     variables: { limit: 5 },
   });
 
+  console.log(data);
   // const [skateSpots, setSkateSpots] = React.useState(searchResults());
 
   // useEffect(() => {
@@ -42,9 +43,9 @@ export const SkateSpotResults: React.FC<Props> = () => {
     return <h1>loading...</h1>;
   }
 
-  if (error) {
-    return <h1>error</h1>;
-  }
+  // if (error) {
+  //   return <h1>error</h1>;
+  // }
 
   return (
     <div>

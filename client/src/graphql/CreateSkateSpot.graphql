@@ -1,3 +1,17 @@
-mutation CreateSkateSpot($name: String!, $street: String!, $city: String!, $state: String!, $imgFiles: [Upload!]) {
-  createSkateSpot(name: $name, street: $street, city: $city, state: $state, imgFiles: $imgFiles)
+mutation CreateSkateSpot(
+  $name: String!
+  $street: String!
+  $city: String!
+  $state: String!
+  $categoryName: String!
+  $imgFiles: [Upload!]
+) {
+  createSkateSpot(
+    name: $name
+    street: $street
+    city: $city
+    state: $state
+    categoryName: $categoryName
+    imgFiles: $imgFiles
+  )
 }
