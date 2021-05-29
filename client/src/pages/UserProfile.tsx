@@ -55,14 +55,20 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
         <div className="rounded mt-5 mb-8 ml-20">
           <div className="absolute">
             <div
-              className="inline-block text-white border rounded bg-gray-400 text-center px-1 m-1 cursor-pointer hover:bg-gray-500 border-gray-400"
+              className="inline-block text-white border rounded bg-gray-300 text-center px-1 m-1 cursor-pointer hover:bg-gray-500 border-gray-300"
               onClick={() => handleOnClick()}
             >
               <FontAwesomeIcon icon={['fas', 'image']} />
               <span className="vertical-middle inline-block">&nbsp;Add a photo</span>
             </div>
           </div>
-          <img alt="profile" src={userData?.getUser.profilePicture} width={200} height={200} className="rounded" />
+          {userData?.getUser.profilePicture ? (
+            <img alt="profile" src={userData?.getUser.profilePicture} width={200} height={200} className="rounded" />
+          ) : (
+            <div className="text-8xl text-gray-400 border bg-white px-12 py-3 rounded-md">
+              <FontAwesomeIcon icon={['fas', 'user']} />
+            </div>
+          )}
         </div>
         {/* Account information */}
         <div className="my-4 ml-28 leading-normal">
