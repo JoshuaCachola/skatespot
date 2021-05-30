@@ -50,14 +50,6 @@ export class ReviewResolver {
     @Arg('rating', () => Int) rating: number,
     @Arg('imgFiles', () => [GraphQLUpload], { nullable: true }) imgFiles?: [Upload],
   ) {
-    // const user = await User.findOne({ where: { id: userId } });
-
-    // if (!user) {
-    //   console.log('user');
-    //   return false;
-    // }
-
-    // {\"oneStar\":18,\"twoStar\":3,\"threeStar\":14,\"fourStar\":17,\"fiveStar\":27}",
     const skateSpot = await SkateSpot.findOne({ where: { id: skateSpotId } });
 
     if (!skateSpot) {
@@ -67,8 +59,6 @@ export class ReviewResolver {
 
     const updatedReviewsDistribution = JSON.parse(skateSpot.reviewsDistribution);
 
-    // why?
-
     const updatedReviewsCount = Math.floor(skateSpot.reviewsCount) + 1;
     updatedReviewsDistribution[ratingKeys[rating]] += 1;
     skateSpot.reviewsCount = updatedReviewsCount;
@@ -76,7 +66,7 @@ export class ReviewResolver {
     await skateSpot.save();
 
     let imgLinks: Array<string> = [];
-    imgFiles &&
+    if (imgFiles?.length) {
       Promise.all(imgFiles).then((files) => {
         files.forEach(async (file) => {
           const { Location } = await s3
@@ -116,20 +106,22 @@ export class ReviewResolver {
             });
         });
       });
+    } else {
+      try {
+        await Review.insert({
+          review,
+          skateSpotId,
+          userId,
+          rating,
+        });
 
-    try {
-      await Review.insert({
-        review,
-        skateSpotId,
-        userId,
-        rating,
-      });
-
-      return true;
-    } catch (err) {
-      console.error(err);
-      return false;
+        return true;
+      } catch (err) {
+        console.error(err);
+        return false;
+      }
     }
+    return true;
   }
 
   @FieldResolver()

@@ -52,7 +52,7 @@ export const WriteReview: React.FC<RouteComponentProps & Props> = ({ history, lo
           <span>{location.state.skateSpot.name}</span>
         </div>
       </div>
-      <div className="border rounded border-gray-300 w-140 mx-auto my-0 h-110">
+      <div className="border rounded border-gray-300 w-140 mx-auto h-110">
         <form onSubmit={formik.handleSubmit}>
           <ReviewStars rating={formik.values.rating} setFieldValue={formik.setFieldValue} />
           <div className="relative overflow-hidden w-full h-full p-4">

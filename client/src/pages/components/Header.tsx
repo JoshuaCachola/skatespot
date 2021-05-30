@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { TokenContext } from 'src/utils/TokenContext';
 import { useIsLoggedIn } from 'src/utils/useIsLoggedIn';
 import Account from './Account';
-import SearchForm from './search/SearchForm';
+import SearchForm from './SearchForm';
 
 interface Props {}
 

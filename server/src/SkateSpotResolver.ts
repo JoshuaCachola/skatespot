@@ -28,10 +28,9 @@ export class SkateSpotResolver {
     }
 
     const location = await getGeocoding(street, city, state);
-    console.log(location);
 
     let imgLinks: Array<string> = [];
-    if (imgFiles) {
+    if (imgFiles?.length) {
       Promise.all(imgFiles).then((files) => {
         files.forEach(async (file) => {
           const { Location } = await s3

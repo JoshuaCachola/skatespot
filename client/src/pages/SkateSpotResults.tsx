@@ -14,7 +14,7 @@ interface Props {}
 export const SkateSpotResults: React.FC<Props> = () => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)' });
   const { data, loading } = useGetSkateSpotsQuery({
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-first',
     variables: { limit: 5 },
   });
 

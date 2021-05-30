@@ -4,7 +4,7 @@ import HeroOuter from '../../assets/HeroOuter.png';
 import HomepageBody from '../../assets/HomepageBody.jpg';
 import { Parallax } from 'react-parallax';
 import { HomepageHeader } from './HomepageHeader';
-import SearchForm from '../components/search/SearchForm';
+import SearchForm from '../components/SearchForm';
 import { useMediaQuery } from 'react-responsive';
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
@@ -22,10 +22,9 @@ export const Home: React.FC<Props> = () => {
   const [skateSpots, setSkateSpots] = useState<Array<any>>([]);
 
   const { data, loading } = useGetSkateSpotsQuery({
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-first',
   });
 
-  console.log(skateSpots);
   useEffect(() => {
     if (data) {
       setSkateSpots(data.getSkateSpots);

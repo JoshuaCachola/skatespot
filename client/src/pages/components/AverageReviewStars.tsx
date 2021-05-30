@@ -18,6 +18,7 @@ interface Props {
 export const AverageReviewStars: React.FC<Props> = ({ rating, reviewsDistribution, reviewsCount }) => {
   const [average, setAverage] = React.useState<number>(0);
 
+  console.log(reviewsDistribution);
   const createStarReview = React.useCallback(() => {
     let stars: Array<any> = [];
 
