@@ -20,6 +20,12 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
   const [upload, { loading, error }] = useUploadPhotosMutation();
   const [photos, setPhotos] = React.useState([]);
 
+  React.useEffect(() => {
+    return () => {
+      setPhotos([]);
+    };
+  }, []);
+
   if (loading) {
     return <h1>loading</h1>;
   }

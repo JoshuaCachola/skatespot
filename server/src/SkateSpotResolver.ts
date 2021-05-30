@@ -23,7 +23,6 @@ export class SkateSpotResolver {
   ): Promise<boolean> {
     const skateSpot = await SkateSpot.findOne({ where: { name } });
     if (skateSpot) {
-      console.log('skatespot');
       return false;
     }
 
@@ -43,20 +42,16 @@ export class SkateSpotResolver {
 
           return new Promise((resolve, reject) => {
             if (Location) {
-              console.log('resolve');
               resolve(Location);
             } else {
-              console.log('reject');
               reject(undefined);
             }
           })
             .then((url) => {
               url && imgLinks.push(url as string);
-              console.log(imgLinks);
             })
             .then(async () => {
               try {
-                console.log('insert');
                 await SkateSpot.insert({
                   name,
                   city,
@@ -77,7 +72,6 @@ export class SkateSpotResolver {
       });
     } else {
       try {
-        console.log('accept no image');
         await SkateSpot.insert({
           name,
           city,
@@ -86,7 +80,6 @@ export class SkateSpotResolver {
           categoryName,
           location,
         });
-
         return true;
       } catch (err) {
         console.error(err);
@@ -164,7 +157,7 @@ export class SkateSpotResolver {
         const { Location } = await s3
           .upload({
             Body: file.createReadStream(),
-            Key: `${file.filename}`,
+            Key: `${uuidv4()}`,
             ContentType: file.mimetype,
           })
           .promise();
@@ -178,12 +171,13 @@ export class SkateSpotResolver {
         })
           .then((url) => {
             url && imgLinks.push(url as string);
-            console.log(imgLinks);
           })
           .then(async () => {
             try {
               const imageUrls = JSON.parse(skateSpot.imageUrls);
-              skateSpot.imageUrls = imageUrls;
+              console.log('true', imgLinks, imageUrls);
+              skateSpot.imageUrls = JSON.stringify([...imageUrls, ...imgLinks]);
+              await skateSpot.save();
               return true;
             } catch (err) {
               console.error(err);
@@ -193,6 +187,6 @@ export class SkateSpotResolver {
       });
     });
 
-    return false;
+    return true;
   }
 }
