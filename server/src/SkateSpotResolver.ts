@@ -75,24 +75,25 @@ export class SkateSpotResolver {
             });
         });
       });
-    }
+    } else {
+      try {
+        console.log('accept no image');
+        await SkateSpot.insert({
+          name,
+          city,
+          state,
+          street,
+          categoryName,
+          location,
+        });
 
-    try {
-      console.log('accept no image');
-      await SkateSpot.insert({
-        name,
-        city,
-        state,
-        street,
-        categoryName,
-        location,
-      });
-
-      return true;
-    } catch (err) {
-      console.error(err);
-      return false;
+        return true;
+      } catch (err) {
+        console.error(err);
+        return false;
+      }
     }
+    return true;
   }
 
   @Query(() => [SkateSpot])
