@@ -7,6 +7,7 @@ import { RouteComponentProps } from 'react-router';
 import { Footer } from './components/Footer';
 import LoginHero from '../assets/LoginHero.png';
 import { Link } from 'react-router-dom';
+import { TokenContext } from 'src/utils/TokenContext';
 
 interface LoginForm {
   email: string;
@@ -14,9 +15,11 @@ interface LoginForm {
 }
 
 export const Login: React.FC<RouteComponentProps> = ({ history }) => {
+  const { setIsLoggedIn } = React.useContext(TokenContext);
   const [login, { error }] = useLoginUserMutation({
     onCompleted({ login }) {
       accessToken(login.accessToken);
+      setIsLoggedIn(true);
     },
   });
 

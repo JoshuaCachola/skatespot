@@ -7,10 +7,8 @@ import { Footer } from '../components/Footer';
 import { Link } from 'react-router-dom';
 import { SkateSpotReviews } from './SkateSpotReviews';
 import { AverageReviewStars } from '../components/AverageReviewStars';
-import { GetSkateSpotDocument, useGetSkateSpotQuery } from 'src/generated/graphql';
+import { useGetSkateSpotQuery } from 'src/generated/graphql';
 import { NotFound } from '../NotFound';
-// import { useApolloClient } from '@apollo/client';
-// import { useGetSkateSpotLazyQuery } from 'src/generated/graphql';
 
 interface LocationProps {
   location: any;
@@ -20,17 +18,10 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)' });
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1223px)' });
 
-  // const [skateSpot, { loading, error }] = useGetSkateSpotLazyQuery({
-  //   onCompleted: ({ getSkateSpot }) => {
-  //     console.log(getSkateSpot);
-  //     setSpot(getSkateSpot);
-  //   },
-  // });
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [imagesIdx, setImagesIdx] = useState<number>(0);
-  // const data?.getSkateSpot = React.useMemo(() => location.state.skatespot, [location.state.skatespot]);
-  const { data, loading, error, client } = useGetSkateSpotQuery({
-    variables: { name: location.state.skatespot.name },
+  const { data, loading, error } = useGetSkateSpotQuery({
+    variables: { name: location.pathname.split('/')[2] },
     fetchPolicy: 'cache-first',
   });
 
@@ -40,36 +31,6 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
       setImagesIdx(0);
     };
   }, []);
-
-  const clientData = client.readQuery({
-    query: GetSkateSpotDocument,
-    variables: { name: location.state.skatespot.name },
-  });
-
-  console.log(clientData);
-  // React.useEffect(() => {
-  //   const data = client.readQuery({
-  //     query: GetSkateSpotDocument,
-  //     variables: { id: location.state.skatespot.id },
-  //   });
-  //   console.log(data);
-  //   setSpot(data);
-  // }, [client, location.state.skatespot.id]);
-
-  // console.log(data?.getSkateSpot);
-  // console.log(data?.getSkateSpot);
-
-  // const [data?.getSkateSpot, setSpot] = useState<any>(location.state.skatespot);
-
-  // React.useEffect(() => {
-  //   if (!data?.getSkateSpot) {
-  //     const pathname = location.pathname.split('/');
-  //     const name = pathname[pathname.length - 1];
-  //     skateSpot({ variables: { name } });
-  //   } else {
-  //     setSpot(location.state.skatespot);
-  //   }
-  // }, [location.pathname, location.state, skateSpot]);
 
   const handleImageClick = (e) => {
     if (isOpen) {
@@ -83,14 +44,14 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
     return <h1>loading</h1>;
   }
 
-  if (!data?.getSkateSpot || error) {
+  if (error) {
     return <NotFound />;
   }
 
   return (
     <div>
       <Header />
-      {/* image carousel, skate data?.getSkateSpot information */}
+      {/* image carousel, skate spot information */}
       <div className="relative">
         <div className={`relative z-40 bg-black ${isDesktopOrLaptop ? 'w-full' : 'w-full'}`}>
           <Carousel
@@ -128,7 +89,7 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
           <div className="relative z-50 min-w-full">
             <div className="flex justify-between items-center">
               <div className={`mb-2 ${isTabletOrMobile && 'w-72'}`}>
-                {/* name of skate data?.getSkateSpot */}
+                {/* name of skate spot */}
                 <div>
                   <h1
                     className={`text-white font-extrabold inline leading-10 ${
@@ -173,13 +134,13 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
           </div>
         </div>
       </div>
-      {/* Container for skate data?.getSkateSpot information */}
+      {/* Container for skate spot information */}
       <div className="mt-6 mb-28">
         <div className="min-w-300">
           <div className="max-w-295 mx-auto my-0">
             <div className="leading-loose mx-auto my-0 w-2/3">
               <div className="flex w-full">
-                {/* buttons for writing reviews, adding photos, follow skate data?.getSkateSpot */}
+                {/* buttons for writing reviews, adding photos, follow skate spot */}
                 <div className="w-2/3 max-w-295">
                   <div className="border-b border-black">
                     <div className="mb-5">

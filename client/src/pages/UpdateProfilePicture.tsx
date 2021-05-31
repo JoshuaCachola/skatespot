@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Formik, FormikProps } from 'formik';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import {
   GetUserQuery,
@@ -20,18 +20,18 @@ interface ProfilePicture {
 export const UpdateProfilePicture: React.FC<RouteComponentProps> = () => {
   const { data } = useGetUserQuery();
   const [photos, setPhotos] = React.useState([]);
-  const [update, { loading, error }] = useUpdateProfilePictureMutation();
+  const [updatePhoto, { loading, error }] = useUpdateProfilePictureMutation();
 
   React.useEffect(() => {
     if (photos.length > 0) {
-      update({
+      updatePhoto({
         variables: { profilePicture: photos },
-        update: (cache, { data }) => {
+        update: (client, { data }) => {
           if (!data) {
             return null;
           }
 
-          return cache.writeQuery<GetUserQuery>({
+          return client.writeQuery<GetUserQuery>({
             query: GetUsersDocument,
             data: {
               getUser: { ...data.updateProfilePicture, __typename: 'User' },
@@ -40,7 +40,13 @@ export const UpdateProfilePicture: React.FC<RouteComponentProps> = () => {
         },
       });
     }
-  }, [data, photos, update]);
+  }, [data, photos, updatePhoto]);
+
+  useEffect(() => {
+    return () => {
+      setPhotos([]);
+    };
+  }, []);
 
   if (loading) {
     return <h1>loading</h1>;

@@ -31,7 +31,6 @@ export const SkateSpotResults: React.FC<Props> = () => {
     });
   };
 
-  console.log(data);
   // const [skateSpots, setSkateSpots] = React.useState(searchResults());
 
   // useEffect(() => {
@@ -75,7 +74,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
                     className="flex rounded border-2 mb-7 border-gray-100 hover:shadow-xl hover:bg-gray-50"
                     to={{
                       pathname: `/skate-spot/${result.name}`,
-                      state: { skatespot: data.getSkateSpots[resultIdx] },
+                      // state: { skatespot: data.getSkateSpots[resultIdx] },
                     }}
                     onClick={() => handleSkateSpotClick(data.getSkateSpots[resultIdx])}
                   >

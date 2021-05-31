@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { TokenContext } from 'src/utils/TokenContext';
-import { useIsLoggedIn } from 'src/utils/useIsLoggedIn';
+// import { useIsLoggedIn } from 'src/utils/useIsLoggedIn';
 import Account from './Account';
 import SearchForm from './SearchForm';
 
@@ -11,9 +11,7 @@ interface Props {}
 //  - align logo middle
 
 export const Header: React.FC<Props> = () => {
-  const [isLoggedIn, setIsLoggedIn] = useIsLoggedIn(false);
-  const value = React.useMemo(() => ({ isLoggedIn, setIsLoggedIn }), [isLoggedIn, setIsLoggedIn]);
-
+  const { isLoggedIn } = React.useContext(TokenContext);
   return (
     <header className="border-b border-gray-200">
       {/* Logo */}
@@ -39,9 +37,9 @@ export const Header: React.FC<Props> = () => {
                   </div>
                 </li>
                 <li>
-                  <TokenContext.Provider value={value}>
-                    <Account />
-                  </TokenContext.Provider>
+                  {/* <TokenContext.Provider value={value}> */}
+                  <Account />
+                  {/* </TokenContext.Provider> */}
                 </li>
               </ul>
             </nav>

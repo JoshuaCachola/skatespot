@@ -158,13 +158,12 @@ export class SkateSpotResolver {
     setTimeout(async () => {
       try {
         const imageUrls = JSON.parse(skateSpot.imageUrls);
-        console.log(imgLinks);
         skateSpot.imageUrls = JSON.stringify([...imageUrls, ...imgLinks]);
         await skateSpot.save();
-        return skateSpot;
+        return;
       } catch (err) {
         console.error(err);
-        return null;
+        return;
       }
     }, 1000);
 

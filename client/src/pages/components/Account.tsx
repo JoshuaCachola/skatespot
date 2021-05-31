@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ClickAwayListener from 'react-click-away-listener';
 import { useGetUserQuery, useLogoutUserMutation } from 'src/generated/graphql';
@@ -66,4 +66,4 @@ const Account: React.FC<Props> = () => {
   );
 };
 
-export default withRouter(Account);
+export default Account;

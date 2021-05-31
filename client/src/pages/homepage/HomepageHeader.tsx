@@ -1,14 +1,11 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { TokenContext } from 'src/utils/TokenContext';
-import { useIsLoggedIn } from 'src/utils/useIsLoggedIn';
 import Account from '../components/Account';
 // import { useMediaQuery } from 'react-responsive';
 
 export const HomepageHeader: React.FC = () => {
-  // const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
-  const [isLoggedIn, setIsLoggedIn] = useIsLoggedIn(false);
-  const value = useMemo(() => ({ isLoggedIn, setIsLoggedIn }), [isLoggedIn, setIsLoggedIn]);
+  const { isLoggedIn } = React.useContext(TokenContext);
 
   return (
     <header>
@@ -31,9 +28,9 @@ export const HomepageHeader: React.FC = () => {
             </ul>
             <ul className="inline-block float-right">
               <li>
-                <TokenContext.Provider value={value}>
-                  <Account />
-                </TokenContext.Provider>
+                {/* <TokenContext.Provider value={value}> */}
+                <Account />
+                {/* </TokenContext.Provider> */}
               </li>
             </ul>
           </nav>
