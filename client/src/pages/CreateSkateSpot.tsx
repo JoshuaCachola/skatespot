@@ -48,7 +48,6 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
           await createSkateSpotMutation({ variables: values });
           setSubmitting(false);
           resetForm();
-          setSubmitting(false);
           history.push('/');
         }}
         validationSchema={Yup.object().shape({

@@ -1,4 +1,4 @@
-import { Arg, Field, Int, Mutation, ObjectType, Query, Resolver, UseMiddleware } from 'type-graphql';
+import { Arg, Int, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql';
 import { SkateSpot } from './entity/SkateSpot';
 import { isAuth } from './utils/isAuth';
 import { GraphQLUpload } from 'graphql-upload';
@@ -9,12 +9,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { s3MultipleUpload } from './utils/s3Upload';
 
 const s3 = require('./config/s3');
-
-@ObjectType()
-class UploadPhotosResponse {
-  @Field()
-  skateSpot: SkateSpot;
-}
 
 @Resolver(() => SkateSpot)
 export class SkateSpotResolver {
@@ -117,9 +111,9 @@ export class SkateSpotResolver {
 
   @Query(() => SkateSpot)
   @UseMiddleware(isAuth)
-  async getSkateSpot(@Arg('id', () => Int) id: number) {
+  async getSkateSpot(@Arg('name') name: string) {
     try {
-      return await SkateSpot.findOne({ where: { id } });
+      return await SkateSpot.findOne({ where: { name } });
     } catch (err) {
       console.error(err);
       return null;
@@ -146,60 +140,36 @@ export class SkateSpotResolver {
     }
   }
 
-  @Mutation(() => UploadPhotosResponse)
+  @Mutation(() => SkateSpot)
   async uploadPhotos(
     @Arg('skateSpotId', () => Int) skateSpotId: number,
     @Arg('imgFiles', () => [GraphQLUpload]) imgFiles: [Upload],
-  ) {
+  ): Promise<SkateSpot | null> {
     const skateSpot = await SkateSpot.findOne({ where: { id: skateSpotId } });
 
     if (!skateSpot) {
       return null;
     }
 
-    // let imgLinks: Array<string> = [];
+    let imgLinks: Array<string> = [];
 
-    // const res = Promise.all(imgFiles).then((files) => {
-    //   files.forEach(async (file) => {
-    //     const { Location } = await s3
-    //       .upload({
-    //         Body: file.createReadStream(),
-    //         Key: `${uuidv4()}`,
-    //         ContentType: file.mimetype,
-    //       })
-    //       .promise();
+    await s3MultipleUpload(imgFiles, imgLinks);
 
-    //     return new Promise((resolve, reject) => {
-    //       if (Location) {
-    //         console.log('skatespot1');
-    //         resolve(Location);
-    //       } else {
-    //         console.log('skatespot2');
-    //         reject(undefined);
-    //       }
-    //     })
-    //       .then((url) => {
-    //         url && imgLinks.push(url as string);
-    //       })
-    //       .then(async () => {
-    //         try {
-    //           const imageUrls = JSON.parse(skateSpot.imageUrls);
-    //           skateSpot.imageUrls = JSON.stringify([...imageUrls, ...imgLinks]);
-    //           await skateSpot.save();
-    //           return true;
-    //         } catch (err) {
-    //           console.log('err');
-    //           console.error(err);
-    //           return false;
-    //         }
-    //       });
-    //   });
-    // });
+    setTimeout(async () => {
+      try {
+        const imageUrls = JSON.parse(skateSpot.imageUrls);
+        console.log(imgLinks);
+        skateSpot.imageUrls = JSON.stringify([...imageUrls, ...imgLinks]);
+        await skateSpot.save();
+        return skateSpot;
+      } catch (err) {
+        console.error(err);
+        return null;
+      }
+    }, 1000);
 
-    // imgFiles.map(async (file: Upload) => await s3Upload(file));
-    // console.log(imgFiles);
-    const imgLinks = s3MultipleUpload(imgFiles);
-
-    return true;
+    return await new Promise((res) => {
+      setTimeout(() => res(skateSpot), 2000);
+    });
   }
 }

@@ -119,7 +119,7 @@ export type QueryGetSkateSpotsArgs = {
 
 
 export type QueryGetSkateSpotArgs = {
-  id: Scalars['Int'];
+  name: Scalars['String'];
 };
 
 
@@ -212,7 +212,7 @@ export type CreateSkateSpotMutation = (
 );
 
 export type GetSkateSpotQueryVariables = Exact<{
-  id: Scalars['Int'];
+  name: Scalars['String'];
 }>;
 
 
@@ -468,8 +468,8 @@ export type CreateSkateSpotMutationHookResult = ReturnType<typeof useCreateSkate
 export type CreateSkateSpotMutationResult = Apollo.MutationResult<CreateSkateSpotMutation>;
 export type CreateSkateSpotMutationOptions = Apollo.BaseMutationOptions<CreateSkateSpotMutation, CreateSkateSpotMutationVariables>;
 export const GetSkateSpotDocument = gql`
-    query GetSkateSpot($id: Int!) {
-  getSkateSpot(id: $id) {
+    query GetSkateSpot($name: String!) {
+  getSkateSpot(name: $name) {
     id
     name
     categoryName
@@ -500,7 +500,7 @@ export const GetSkateSpotDocument = gql`
  * @example
  * const { data, loading, error } = useGetSkateSpotQuery({
  *   variables: {
- *      id: // value for 'id'
+ *      name: // value for 'name'
  *   },
  * });
  */

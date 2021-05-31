@@ -7,8 +7,9 @@ import { Footer } from '../components/Footer';
 import { Link } from 'react-router-dom';
 import { SkateSpotReviews } from './SkateSpotReviews';
 import { AverageReviewStars } from '../components/AverageReviewStars';
-import { GetSkateSpotDocument } from 'src/generated/graphql';
-import { useApolloClient } from '@apollo/client';
+import { GetSkateSpotDocument, useGetSkateSpotQuery } from 'src/generated/graphql';
+import { NotFound } from '../NotFound';
+// import { useApolloClient } from '@apollo/client';
 // import { useGetSkateSpotLazyQuery } from 'src/generated/graphql';
 
 interface LocationProps {
@@ -27,28 +28,41 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
   // });
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [imagesIdx, setImagesIdx] = useState<number>(0);
-  const spot = React.useMemo(() => location.state.skatespot, [location.state.skatespot]);
-  const [stuff, setStuff] = useState<any>();
-  // const { client } = useGetSkateSpotQuery({ variables: { id: location.state.skatespot.id } });
-
-  const client = useApolloClient();
+  // const data?.getSkateSpot = React.useMemo(() => location.state.skatespot, [location.state.skatespot]);
+  const { data, loading, error, client } = useGetSkateSpotQuery({
+    variables: { name: location.state.skatespot.name },
+    fetchPolicy: 'cache-first',
+  });
 
   React.useEffect(() => {
-    const data = client.readQuery({
-      query: GetSkateSpotDocument,
-      variables: { id: location.state.skatespot.id },
-    });
-    console.log(data);
-    setStuff(data);
-  }, [client, location.state.skatespot.id]);
+    return () => {
+      setIsOpen(false);
+      setImagesIdx(0);
+    };
+  }, []);
 
-  console.log(stuff);
-  // console.log(spot);
+  const clientData = client.readQuery({
+    query: GetSkateSpotDocument,
+    variables: { name: location.state.skatespot.name },
+  });
 
-  // const [spot, setSpot] = useState<any>(location.state.skatespot);
+  console.log(clientData);
+  // React.useEffect(() => {
+  //   const data = client.readQuery({
+  //     query: GetSkateSpotDocument,
+  //     variables: { id: location.state.skatespot.id },
+  //   });
+  //   console.log(data);
+  //   setSpot(data);
+  // }, [client, location.state.skatespot.id]);
+
+  // console.log(data?.getSkateSpot);
+  // console.log(data?.getSkateSpot);
+
+  // const [data?.getSkateSpot, setSpot] = useState<any>(location.state.skatespot);
 
   // React.useEffect(() => {
-  //   if (!spot) {
+  //   if (!data?.getSkateSpot) {
   //     const pathname = location.pathname.split('/');
   //     const name = pathname[pathname.length - 1];
   //     skateSpot({ variables: { name } });
@@ -65,18 +79,18 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
     setImagesIdx(parseInt(e.target.id));
   };
 
-  // if (loading) {
-  //   return <h1>loading</h1>;
-  // }
+  if (loading) {
+    return <h1>loading</h1>;
+  }
 
-  // if (!spot || error) {
-  //   return <NotFound />;
-  // }
+  if (!data?.getSkateSpot || error) {
+    return <NotFound />;
+  }
 
   return (
     <div>
       <Header />
-      {/* image carousel, skate spot information */}
+      {/* image carousel, skate data?.getSkateSpot information */}
       <div className="relative">
         <div className={`relative z-40 bg-black ${isDesktopOrLaptop ? 'w-full' : 'w-full'}`}>
           <Carousel
@@ -91,8 +105,8 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
             autoPlay={true}
             interval={3000}
           >
-            {spot.imageUrls &&
-              JSON.parse(spot.imageUrls).map((img, idx) => {
+            {data?.getSkateSpot.imageUrls &&
+              JSON.parse(data?.getSkateSpot.imageUrls).map((img, idx) => {
                 return (
                   <div
                     key={idx}
@@ -114,30 +128,31 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
           <div className="relative z-50 min-w-full">
             <div className="flex justify-between items-center">
               <div className={`mb-2 ${isTabletOrMobile && 'w-72'}`}>
-                {/* name of skate spot */}
+                {/* name of skate data?.getSkateSpot */}
                 <div>
                   <h1
                     className={`text-white font-extrabold inline leading-10 ${
                       isDesktopOrLaptop ? 'text-5xl' : 'text-4xl'
                     }`}
                   >
-                    {spot.name}
+                    {data?.getSkateSpot.name}
                   </h1>
                 </div>
                 {/* reviews */}
                 <div className="flex text-2xl text-white font-bold">
                   <AverageReviewStars
-                    reviewsCount={spot.reviewsCount}
-                    reviewsDistribution={JSON.parse(spot.reviewsDistribution)}
+                    reviewsCount={data?.getSkateSpot.reviewsCount}
+                    reviewsDistribution={JSON.parse(data!.getSkateSpot.reviewsDistribution)}
                   />
                   <div>
-                    <span>&nbsp;{spot.reviewsCount}</span>
+                    <span>&nbsp;{data?.getSkateSpot.reviewsCount}</span>
                   </div>
                 </div>
                 <div className="text-white font-semibold">
                   <div>
                     <h4>
-                      {spot.categoryName}&nbsp;•&nbsp;{spot.permanentlyClosed ? 'Closed' : 'Open'}
+                      {data?.getSkateSpot.categoryName}&nbsp;•&nbsp;
+                      {data?.getSkateSpot.permanentlyClosed ? 'Closed' : 'Open'}
                     </h4>
                   </div>
                   <div></div>
@@ -146,32 +161,32 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
               <div className="flex-initial">
                 <Link
                   to={{
-                    pathname: `/photos/${spot.name}`,
-                    state: { skateSpot: spot },
+                    pathname: `/photos/${data?.getSkateSpot.name}`,
+                    state: { skateSpot: data?.getSkateSpot },
                   }}
                   className="font-bold text-white focus:outline-none border rounded border-white py-3 px-8 min-w-44"
                 >
-                  See {JSON.parse(spot.imageUrls).length} Photos
+                  See {JSON.parse(data!.getSkateSpot.imageUrls).length} Photos
                 </Link>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {/* Container for skate spot information */}
+      {/* Container for skate data?.getSkateSpot information */}
       <div className="mt-6 mb-28">
         <div className="min-w-300">
           <div className="max-w-295 mx-auto my-0">
             <div className="leading-loose mx-auto my-0 w-2/3">
               <div className="flex w-full">
-                {/* buttons for writing reviews, adding photos, follow skate spot */}
+                {/* buttons for writing reviews, adding photos, follow skate data?.getSkateSpot */}
                 <div className="w-2/3 max-w-295">
                   <div className="border-b border-black">
                     <div className="mb-5">
                       <Link
                         to={{
-                          pathname: `/write-review/${spot.name}`,
-                          state: { skateSpot: { id: spot.id, name: spot.name } },
+                          pathname: `/write-review/${data?.getSkateSpot.name}`,
+                          state: { skateSpot: { id: data?.getSkateSpot.id, name: data?.getSkateSpot.name } },
                         }}
                         className="text-black rounded border-red-600 border mb-6 mr-6 py-2 px-6 font-bold"
                       >
@@ -180,7 +195,7 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
                       <Link
                         to={{
                           pathname: '/skatespot-photos/add',
-                          state: { name: spot.name, id: spot.id },
+                          state: { skatespot: data?.getSkateSpot },
                         }}
                         className="text-black rounded border-red-600 border mb-6 mr-6 py-2 px-6 font-bold"
                       >
@@ -199,18 +214,21 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
                         <div>
                           <img
                             src={`https://maps.googleapis.com/maps/api/staticmap?&zoom=13&size=300x150&maptype=roadmap&markers=color:red%7C${
-                              JSON.parse(spot.location).lat
-                            },${JSON.parse(spot.location).lng}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`}
+                              JSON.parse(data!.getSkateSpot.location).lat
+                            },${JSON.parse(data!.getSkateSpot.location).lng}&key=${
+                              process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+                            }`}
                             alt="static-map"
                           />
                         </div>
                         <div className="mt-5">
                           <p className="font-semibold text-base">
-                            <span>{spot.street}</span>
+                            <span>{data?.getSkateSpot.street}</span>
                           </p>
                           <p className="font-normal text-base">
                             <span>
-                              {spot.city},&nbsp;{spot.state}&nbsp;{spot.postalCode}
+                              {data?.getSkateSpot.city},&nbsp;{data?.getSkateSpot.state}&nbsp;
+                              {data?.getSkateSpot.postalCode}
                             </span>
                           </p>
                         </div>
@@ -220,13 +238,13 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
                     </div>
                   </div>
                   {/* Reviews */}
-                  <SkateSpotReviews skateSpotId={spot.id} />
+                  <SkateSpotReviews skateSpotId={data!.getSkateSpot.id} />
                 </div>
                 {/* fixed side panel for directions and photos */}
-                {spot.website && (
+                {data?.getSkateSpot.website && (
                   <div className="w-1/3 max-h-48 sticky ml-12 border rounded border-gray-200 mb-4">
                     <div>
-                      <span>{spot.website}</span>
+                      <span>{data?.getSkateSpot.website}</span>
                     </div>
                   </div>
                 )}
@@ -236,7 +254,12 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
         </div>
       </div>
       {isOpen && (
-        <ImageModal idx={imagesIdx} setIdx={setImagesIdx} images={JSON.parse(spot.imageUrls)} setIsOpen={setIsOpen} />
+        <ImageModal
+          idx={imagesIdx}
+          setIdx={setImagesIdx}
+          images={JSON.parse(data!.getSkateSpot.imageUrls)}
+          setIsOpen={setIsOpen}
+        />
       )}
       <Footer />
     </div>

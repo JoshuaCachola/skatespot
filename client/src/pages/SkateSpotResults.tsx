@@ -7,26 +7,27 @@ import { useMediaQuery } from 'react-responsive';
 import { GetSkateSpotDocument, useGetSkateSpotsQuery } from '../generated/graphql';
 import { Footer } from './components/Footer';
 import { AverageReviewStars } from './components/AverageReviewStars';
-import { useApolloClient } from '@apollo/react-hooks';
+// import { useApolloClient } from '@apollo/react-hooks';
 // import { Waypoint } from 'react-waypoint';
 // import { searchResults } from 'src/graphql/reactive-variables/searchResults';
 interface Props {}
 
 export const SkateSpotResults: React.FC<Props> = () => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)' });
-  const client = useApolloClient();
-  const { data, loading } = useGetSkateSpotsQuery({
+  // const client = useApolloClient();
+  const { data, loading, client } = useGetSkateSpotsQuery({
     fetchPolicy: 'cache-first',
     variables: { limit: 5 },
   });
 
   const handleSkateSpotClick = (skatespot) => {
+    console.log(skatespot);
     client.writeQuery({
       query: GetSkateSpotDocument,
       data: {
         getSkateSpot: { ...skatespot },
       },
-      variables: { id: skatespot.id },
+      variables: { name: skatespot.name },
     });
   };
 

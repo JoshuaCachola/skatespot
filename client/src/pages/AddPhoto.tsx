@@ -1,7 +1,7 @@
 import { Form, Formik, FormikProps } from 'formik';
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { useUploadPhotosMutation } from 'src/generated/graphql';
+import { GetSkateSpotDocument, useUploadPhotosMutation } from 'src/generated/graphql';
 import { Header } from 'src/pages/components/Header';
 import { UploadPhoto } from 'src/utils/UploadPhoto';
 import { Footer } from './components/Footer';
@@ -16,16 +16,20 @@ interface Props {
 }
 
 export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, location }) => {
-  // const { data } = useGetUserQuery();
-  const [upload, { loading, error }] = useUploadPhotosMutation({
-    onCompleted(data) {
-      console.log(data);
-      // client.writeQuery({
-      //   query: GetSkateSpotDocument,
-      //   data: { getSkateSpot: uploadPhotos, __typename: 'SkateSpot' },
-      // });
+  const [upload, { loading, error, client }] = useUploadPhotosMutation({
+    onCompleted({ uploadPhotos }) {
+      console.log(uploadPhotos);
+      client.writeQuery({
+        query: GetSkateSpotDocument,
+        data: {
+          getSkateSpot: { ...location.state.skatespot, imageUrls: uploadPhotos.imageUrls },
+        },
+        variables: { name: location.state.skatespot.name },
+      });
     },
   });
+
+  console.log(location.state.skatespot);
   const [photos, setPhotos] = React.useState([]);
 
   React.useEffect(() => {
@@ -52,7 +56,7 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
             className="font-bold text-blue-700 text-3xl cursor-pointer border-b-2 border-transparent hover:border-blue-700"
             onClick={() => history.goBack()}
           >
-            <h2>{location.state.name}</h2>
+            <h2>{location.state.skatespot.name}</h2>
           </div>
           <span className="font-semibold text-3xl text-blue-700">:</span>
           <div className="font-extrabold text-black text-3xl">
@@ -64,12 +68,15 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
             initialValues={{ photos: [] }}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
               console.log(location, values);
-              await upload({ variables: { imgFiles: values.photos, skateSpotId: location.state.id } });
+              await upload({ variables: { imgFiles: values.photos, skateSpotId: location.state.skatespot.id } });
               console.log('after upload');
               resetForm();
               setSubmitting(false);
-              // history.push({ pathname: `/skate-spot/${location.state.name}`, state: { skatespot: location.state } });
-              history.goBack();
+              history.push({
+                pathname: `/skate-spot/${location.state.name}`,
+                state: { skatespot: location.state.skatespot },
+              });
+              // history.goBack();
             }}
           >
             {(props: FormikProps<SkateSpotPhotos>) => {

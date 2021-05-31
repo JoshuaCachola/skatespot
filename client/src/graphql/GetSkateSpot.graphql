@@ -1,5 +1,5 @@
-query GetSkateSpot($id: Int!) {
-  getSkateSpot(id: $id) {
+query GetSkateSpot($name: String!) {
+  getSkateSpot(name: $name) {
     id
     name
     categoryName
