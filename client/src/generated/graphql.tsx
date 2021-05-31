@@ -33,7 +33,7 @@ export type Mutation = {
   logout: Scalars['Boolean'];
   updateProfilePicture: User;
   createSkateSpot: Scalars['Boolean'];
-  uploadPhotos: UploadPhotosResponse;
+  uploadPhotos: SkateSpot;
   singleUpload: Scalars['Boolean'];
   uploadProfilePicture: Scalars['Boolean'];
   createReview: Scalars['Boolean'];
@@ -170,11 +170,6 @@ export type SkateSpot = {
   reviewsDistribution: Scalars['String'];
 };
 
-
-export type UploadPhotosResponse = {
-  __typename?: 'UploadPhotosResponse';
-  skateSpot: SkateSpot;
-};
 
 export type User = {
   __typename?: 'User';
@@ -374,11 +369,8 @@ export type UploadPhotosMutationVariables = Exact<{
 export type UploadPhotosMutation = (
   { __typename?: 'Mutation' }
   & { uploadPhotos: (
-    { __typename?: 'UploadPhotosResponse' }
-    & { skateSpot: (
-      { __typename?: 'SkateSpot' }
-      & Pick<SkateSpot, 'imageUrls'>
-    ) }
+    { __typename?: 'SkateSpot' }
+    & Pick<SkateSpot, 'imageUrls'>
   ) }
 );
 
@@ -932,9 +924,7 @@ export type UpdateProfilePictureMutationOptions = Apollo.BaseMutationOptions<Upd
 export const UploadPhotosDocument = gql`
     mutation UploadPhotos($skateSpotId: Int!, $imgFiles: [Upload!]!) {
   uploadPhotos(skateSpotId: $skateSpotId, imgFiles: $imgFiles) {
-    skateSpot {
-      imageUrls
-    }
+    imageUrls
   }
 }
     `;

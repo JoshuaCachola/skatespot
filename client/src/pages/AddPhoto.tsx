@@ -68,7 +68,8 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
               console.log('after upload');
               resetForm();
               setSubmitting(false);
-              history.push({ pathname: `/skate-spot/${location.state.name}`, state: { skatespot: location.state } });
+              // history.push({ pathname: `/skate-spot/${location.state.name}`, state: { skatespot: location.state } });
+              history.goBack();
             }}
           >
             {(props: FormikProps<SkateSpotPhotos>) => {
