@@ -1,4 +1,4 @@
-import { Arg, Int, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql';
+import { Arg, Field, Int, Mutation, ObjectType, Query, Resolver, UseMiddleware } from 'type-graphql';
 import { SkateSpot } from './entity/SkateSpot';
 import { isAuth } from './utils/isAuth';
 import { GraphQLUpload } from 'graphql-upload';
@@ -6,8 +6,15 @@ import { getGeocoding } from './utils/geocoding';
 import { Upload } from './types/Upload';
 import { FindManyOptions, getConnection, MoreThan } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
+import { s3MultipleUpload } from './utils/s3Upload';
 
 const s3 = require('./config/s3');
+
+@ObjectType()
+class UploadPhotosResponse {
+  @Field()
+  skateSpot: SkateSpot;
+}
 
 @Resolver(() => SkateSpot)
 export class SkateSpotResolver {
@@ -110,9 +117,9 @@ export class SkateSpotResolver {
 
   @Query(() => SkateSpot)
   @UseMiddleware(isAuth)
-  async getSkateSpot(@Arg('name') name: string) {
+  async getSkateSpot(@Arg('id', () => Int) id: number) {
     try {
-      return await SkateSpot.findOne({ where: { name } });
+      return await SkateSpot.findOne({ where: { id } });
     } catch (err) {
       console.error(err);
       return null;
@@ -139,7 +146,7 @@ export class SkateSpotResolver {
     }
   }
 
-  @Mutation(() => Boolean)
+  @Mutation(() => UploadPhotosResponse)
   async uploadPhotos(
     @Arg('skateSpotId', () => Int) skateSpotId: number,
     @Arg('imgFiles', () => [GraphQLUpload]) imgFiles: [Upload],
@@ -147,45 +154,51 @@ export class SkateSpotResolver {
     const skateSpot = await SkateSpot.findOne({ where: { id: skateSpotId } });
 
     if (!skateSpot) {
-      return false;
+      return null;
     }
 
-    let imgLinks: Array<string> = [];
+    // let imgLinks: Array<string> = [];
 
-    Promise.all(imgFiles).then((files) => {
-      files.forEach(async (file) => {
-        const { Location } = await s3
-          .upload({
-            Body: file.createReadStream(),
-            Key: `${uuidv4()}`,
-            ContentType: file.mimetype,
-          })
-          .promise();
+    // const res = Promise.all(imgFiles).then((files) => {
+    //   files.forEach(async (file) => {
+    //     const { Location } = await s3
+    //       .upload({
+    //         Body: file.createReadStream(),
+    //         Key: `${uuidv4()}`,
+    //         ContentType: file.mimetype,
+    //       })
+    //       .promise();
 
-        return new Promise((resolve, reject) => {
-          if (Location) {
-            resolve(Location);
-          } else {
-            reject(undefined);
-          }
-        })
-          .then((url) => {
-            url && imgLinks.push(url as string);
-          })
-          .then(async () => {
-            try {
-              const imageUrls = JSON.parse(skateSpot.imageUrls);
-              console.log('true', imgLinks, imageUrls);
-              skateSpot.imageUrls = JSON.stringify([...imageUrls, ...imgLinks]);
-              await skateSpot.save();
-              return true;
-            } catch (err) {
-              console.error(err);
-              return false;
-            }
-          });
-      });
-    });
+    //     return new Promise((resolve, reject) => {
+    //       if (Location) {
+    //         console.log('skatespot1');
+    //         resolve(Location);
+    //       } else {
+    //         console.log('skatespot2');
+    //         reject(undefined);
+    //       }
+    //     })
+    //       .then((url) => {
+    //         url && imgLinks.push(url as string);
+    //       })
+    //       .then(async () => {
+    //         try {
+    //           const imageUrls = JSON.parse(skateSpot.imageUrls);
+    //           skateSpot.imageUrls = JSON.stringify([...imageUrls, ...imgLinks]);
+    //           await skateSpot.save();
+    //           return true;
+    //         } catch (err) {
+    //           console.log('err');
+    //           console.error(err);
+    //           return false;
+    //         }
+    //       });
+    //   });
+    // });
+
+    // imgFiles.map(async (file: Upload) => await s3Upload(file));
+    // console.log(imgFiles);
+    const imgLinks = s3MultipleUpload(imgFiles);
 
     return true;
   }

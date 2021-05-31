@@ -1,5 +1,5 @@
-query GetSkateSpot($name: String!) {
-  getSkateSpot(name: $name) {
+query GetSkateSpot($id: Int!) {
+  getSkateSpot(id: $id) {
     id
     name
     categoryName
@@ -7,7 +7,6 @@ query GetSkateSpot($name: String!) {
     state
     street
     postalCode
-    phone
     website
     temporarilyClosed
     permanentlyClosed

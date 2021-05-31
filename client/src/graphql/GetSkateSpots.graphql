@@ -3,15 +3,16 @@ query GetSkateSpots($cursor: Int, $limit: Int) {
     id
     name
     categoryName
-    street
     city
-    postalCode
     state
+    street
+    postalCode
+    website
     temporarilyClosed
     permanentlyClosed
+    imageUrls
     location
     reviewsCount
     reviewsDistribution
-    imageUrls
   }
 }

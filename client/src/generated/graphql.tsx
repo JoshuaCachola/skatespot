@@ -33,7 +33,7 @@ export type Mutation = {
   logout: Scalars['Boolean'];
   updateProfilePicture: User;
   createSkateSpot: Scalars['Boolean'];
-  uploadPhotos: Scalars['Boolean'];
+  uploadPhotos: UploadPhotosResponse;
   singleUpload: Scalars['Boolean'];
   uploadProfilePicture: Scalars['Boolean'];
   createReview: Scalars['Boolean'];
@@ -119,7 +119,7 @@ export type QueryGetSkateSpotsArgs = {
 
 
 export type QueryGetSkateSpotArgs = {
-  name: Scalars['String'];
+  id: Scalars['Int'];
 };
 
 
@@ -171,6 +171,11 @@ export type SkateSpot = {
 };
 
 
+export type UploadPhotosResponse = {
+  __typename?: 'UploadPhotosResponse';
+  skateSpot: SkateSpot;
+};
+
 export type User = {
   __typename?: 'User';
   id: Scalars['Int'];
@@ -212,7 +217,7 @@ export type CreateSkateSpotMutation = (
 );
 
 export type GetSkateSpotQueryVariables = Exact<{
-  name: Scalars['String'];
+  id: Scalars['Int'];
 }>;
 
 
@@ -220,7 +225,7 @@ export type GetSkateSpotQuery = (
   { __typename?: 'Query' }
   & { getSkateSpot: (
     { __typename?: 'SkateSpot' }
-    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'city' | 'state' | 'street' | 'postalCode' | 'phone' | 'website' | 'temporarilyClosed' | 'permanentlyClosed' | 'imageUrls' | 'location' | 'reviewsCount' | 'reviewsDistribution'>
+    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'city' | 'state' | 'street' | 'postalCode' | 'website' | 'temporarilyClosed' | 'permanentlyClosed' | 'imageUrls' | 'location' | 'reviewsCount' | 'reviewsDistribution'>
   ) }
 );
 
@@ -251,7 +256,7 @@ export type GetSkateSpotsQuery = (
   { __typename?: 'Query' }
   & { getSkateSpots: Array<(
     { __typename?: 'SkateSpot' }
-    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'street' | 'city' | 'postalCode' | 'state' | 'temporarilyClosed' | 'permanentlyClosed' | 'location' | 'reviewsCount' | 'reviewsDistribution' | 'imageUrls'>
+    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'city' | 'state' | 'street' | 'postalCode' | 'website' | 'temporarilyClosed' | 'permanentlyClosed' | 'imageUrls' | 'location' | 'reviewsCount' | 'reviewsDistribution'>
   )> }
 );
 
@@ -368,7 +373,13 @@ export type UploadPhotosMutationVariables = Exact<{
 
 export type UploadPhotosMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'uploadPhotos'>
+  & { uploadPhotos: (
+    { __typename?: 'UploadPhotosResponse' }
+    & { skateSpot: (
+      { __typename?: 'SkateSpot' }
+      & Pick<SkateSpot, 'imageUrls'>
+    ) }
+  ) }
 );
 
 export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
@@ -465,8 +476,8 @@ export type CreateSkateSpotMutationHookResult = ReturnType<typeof useCreateSkate
 export type CreateSkateSpotMutationResult = Apollo.MutationResult<CreateSkateSpotMutation>;
 export type CreateSkateSpotMutationOptions = Apollo.BaseMutationOptions<CreateSkateSpotMutation, CreateSkateSpotMutationVariables>;
 export const GetSkateSpotDocument = gql`
-    query GetSkateSpot($name: String!) {
-  getSkateSpot(name: $name) {
+    query GetSkateSpot($id: Int!) {
+  getSkateSpot(id: $id) {
     id
     name
     categoryName
@@ -474,7 +485,6 @@ export const GetSkateSpotDocument = gql`
     state
     street
     postalCode
-    phone
     website
     temporarilyClosed
     permanentlyClosed
@@ -498,7 +508,7 @@ export const GetSkateSpotDocument = gql`
  * @example
  * const { data, loading, error } = useGetSkateSpotQuery({
  *   variables: {
- *      name: // value for 'name'
+ *      id: // value for 'id'
  *   },
  * });
  */
@@ -562,16 +572,17 @@ export const GetSkateSpotsDocument = gql`
     id
     name
     categoryName
-    street
     city
-    postalCode
     state
+    street
+    postalCode
+    website
     temporarilyClosed
     permanentlyClosed
+    imageUrls
     location
     reviewsCount
     reviewsDistribution
-    imageUrls
   }
 }
     `;
@@ -920,7 +931,11 @@ export type UpdateProfilePictureMutationResult = Apollo.MutationResult<UpdatePro
 export type UpdateProfilePictureMutationOptions = Apollo.BaseMutationOptions<UpdateProfilePictureMutation, UpdateProfilePictureMutationVariables>;
 export const UploadPhotosDocument = gql`
     mutation UploadPhotos($skateSpotId: Int!, $imgFiles: [Upload!]!) {
-  uploadPhotos(skateSpotId: $skateSpotId, imgFiles: $imgFiles)
+  uploadPhotos(skateSpotId: $skateSpotId, imgFiles: $imgFiles) {
+    skateSpot {
+      imageUrls
+    }
+  }
 }
     `;
 export type UploadPhotosMutationFn = Apollo.MutationFunction<UploadPhotosMutation, UploadPhotosMutationVariables>;

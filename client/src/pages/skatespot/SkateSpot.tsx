@@ -7,6 +7,8 @@ import { Footer } from '../components/Footer';
 import { Link } from 'react-router-dom';
 import { SkateSpotReviews } from './SkateSpotReviews';
 import { AverageReviewStars } from '../components/AverageReviewStars';
+import { GetSkateSpotDocument } from 'src/generated/graphql';
+import { useApolloClient } from '@apollo/client';
 // import { useGetSkateSpotLazyQuery } from 'src/generated/graphql';
 
 interface LocationProps {
@@ -26,7 +28,23 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [imagesIdx, setImagesIdx] = useState<number>(0);
   const spot = React.useMemo(() => location.state.skatespot, [location.state.skatespot]);
-  console.log(spot);
+  const [stuff, setStuff] = useState<any>();
+  // const { client } = useGetSkateSpotQuery({ variables: { id: location.state.skatespot.id } });
+
+  const client = useApolloClient();
+
+  React.useEffect(() => {
+    const data = client.readQuery({
+      query: GetSkateSpotDocument,
+      variables: { id: location.state.skatespot.id },
+    });
+    console.log(data);
+    setStuff(data);
+  }, [client, location.state.skatespot.id]);
+
+  console.log(stuff);
+  // console.log(spot);
+
   // const [spot, setSpot] = useState<any>(location.state.skatespot);
 
   // React.useEffect(() => {

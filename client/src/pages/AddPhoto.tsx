@@ -17,7 +17,15 @@ interface Props {
 
 export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, location }) => {
   // const { data } = useGetUserQuery();
-  const [upload, { loading, error }] = useUploadPhotosMutation();
+  const [upload, { loading, error }] = useUploadPhotosMutation({
+    onCompleted(data) {
+      console.log(data);
+      // client.writeQuery({
+      //   query: GetSkateSpotDocument,
+      //   data: { getSkateSpot: uploadPhotos, __typename: 'SkateSpot' },
+      // });
+    },
+  });
   const [photos, setPhotos] = React.useState([]);
 
   React.useEffect(() => {
@@ -55,9 +63,12 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
           <Formik
             initialValues={{ photos: [] }}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
+              console.log(location, values);
               await upload({ variables: { imgFiles: values.photos, skateSpotId: location.state.id } });
+              console.log('after upload');
               resetForm();
               setSubmitting(false);
+              history.push({ pathname: `/skate-spot/${location.state.name}`, state: { skatespot: location.state } });
             }}
           >
             {(props: FormikProps<SkateSpotPhotos>) => {
