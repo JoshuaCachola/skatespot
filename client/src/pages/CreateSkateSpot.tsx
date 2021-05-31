@@ -5,6 +5,7 @@ import { useCreateSkateSpotMutation } from '../../src/generated/graphql';
 import * as Yup from 'yup';
 import { RouteComponentProps } from 'react-router';
 import { Header } from './components/Header';
+import { Footer } from './components/Footer';
 
 interface SkateSpotForm {
   name: string;
@@ -164,6 +165,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
           );
         }}
       </Formik>
+      <Footer />
     </div>
   );
 };

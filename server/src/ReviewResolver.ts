@@ -5,9 +5,7 @@ import { isAuth } from './utils/isAuth';
 import { Upload } from './types/Upload';
 import { SkateSpot } from './entity/SkateSpot';
 import { User } from './entity/User';
-import { v4 as uuidv4 } from 'uuid';
-
-const s3 = require('./config/s3');
+import { s3MultipleUpload } from './utils/s3Upload';
 
 const ratingKeys: any = {
   '1': 'oneStar',
@@ -49,11 +47,10 @@ export class ReviewResolver {
     @Arg('userId', () => Int) userId: number,
     @Arg('rating', () => Int) rating: number,
     @Arg('imgFiles', () => [GraphQLUpload], { nullable: true }) imgFiles?: [Upload],
-  ) {
+  ): Promise<Boolean> {
     const skateSpot = await SkateSpot.findOne({ where: { id: skateSpotId } });
 
     if (!skateSpot) {
-      console.log('skateSpot');
       return false;
     }
 
@@ -65,65 +62,94 @@ export class ReviewResolver {
     skateSpot.reviewsDistribution = updatedReviewsDistribution;
 
     let imgLinks: Array<string> = [];
-    if (imgFiles?.length) {
-      Promise.all(imgFiles).then((files) => {
-        files.forEach(async (file) => {
-          const { Location } = await s3
-            .upload({
-              Body: file.createReadStream(),
-              Key: `${uuidv4()}`,
-              ContentType: file.mimetype,
-            })
-            .promise();
+    // if (imgFiles?.length) {
+    //   Promise.all(imgFiles).then((files) => {
+    //     files.forEach(async (file) => {
+    //       const { Location } = await s3
+    //         .upload({
+    //           Body: file.createReadStream(),
+    //           Key: `${uuidv4()}`,
+    //           ContentType: file.mimetype,
+    //         })
+    //         .promise();
 
-          return new Promise((resolve, reject) => {
-            if (Location) {
-              resolve(Location);
-            } else {
-              reject(undefined);
-            }
-          })
-            .then((url) => {
-              url && imgLinks.push(url as string);
-            })
-            .then(async () => {
-              // fix repetitive code
-              try {
-                const imageUrls = JSON.parse(skateSpot.imageUrls);
-                skateSpot.imageUrls = JSON.stringify([...imageUrls, imgLinks]);
-                await skateSpot.save();
-                await Review.insert({
-                  review,
-                  skateSpotId,
-                  userId,
-                  rating,
-                  imageUrls: imgLinks ? JSON.stringify(imgLinks.filter((img) => img !== undefined)) : undefined,
-                });
-                return true;
-              } catch (err) {
-                console.error(err);
-                return false;
-              }
-            });
-        });
-      });
-    } else {
-      try {
-        await skateSpot.save();
-        await Review.insert({
-          review,
-          skateSpotId,
-          userId,
-          rating,
-        });
+    //       return new Promise((resolve, reject) => {
+    //         if (Location) {
+    //           resolve(Location);
+    //         } else {
+    //           reject(undefined);
+    //         }
+    //       })
+    //         .then((url) => {
+    //           url && imgLinks.push(url as string);
+    //         })
+    //         .then(async () => {
+    //           // fix repetitive code
+    //           try {
+    //             const imageUrls = JSON.parse(skateSpot.imageUrls);
+    //             skateSpot.imageUrls = JSON.stringify([...imageUrls, imgLinks]);
+    //             await skateSpot.save();
+    //             await Review.insert({
+    //               review,
+    //               skateSpotId,
+    //               userId,
+    //               rating,
+    //               imageUrls: imgLinks ? JSON.stringify(imgLinks.filter((img) => img !== undefined)) : undefined,
+    //             });
+    //             return true;
+    //           } catch (err) {
+    //             console.error(err);
+    //             return false;
+    //           }
+    //         });
+    //     });
+    //   });
+    // } else {
+    //   try {
+    //     await skateSpot.save();
+    //     await Review.insert({
+    //       review,
+    //       skateSpotId,
+    //       userId,
+    //       rating,
+    //     });
 
-        return true;
-      } catch (err) {
-        console.error(err);
-        return false;
-      }
+    //     return true;
+    //   } catch (err) {
+    //     console.error(err);
+    //     return false;
+    //   }
+    // }
+
+    if (imgFiles) {
+      await s3MultipleUpload(imgFiles, imgLinks);
     }
-    return true;
+
+    setTimeout(
+      async () => {
+        try {
+          const imageUrls = JSON.parse(skateSpot.imageUrls);
+          skateSpot.imageUrls = JSON.stringify([...imageUrls, imgLinks]);
+          await skateSpot.save();
+          await Review.insert({
+            review,
+            skateSpotId,
+            userId,
+            rating,
+            imageUrls: imgLinks.length ? JSON.stringify(imgLinks) : JSON.stringify([]),
+          });
+          return;
+        } catch (err) {
+          console.error(err);
+          return;
+        }
+      },
+      imgFiles?.length ? 1000 * imgFiles.length : 1000,
+    );
+
+    return await new Promise((res) => {
+      setTimeout(() => res(true), imgFiles?.length ? 1000 * imgFiles.length + 1000 : 2000);
+    });
   }
 
   @FieldResolver()

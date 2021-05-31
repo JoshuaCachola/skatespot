@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { TokenContext } from 'src/utils/TokenContext';
 import Account from '../components/Account';
-// import { useMediaQuery } from 'react-responsive';
 
 export const HomepageHeader: React.FC = () => {
   const { isLoggedIn } = React.useContext(TokenContext);
@@ -13,13 +12,6 @@ export const HomepageHeader: React.FC = () => {
         <div className="block">
           <nav>
             <ul className="flex float-left">
-              {/* <li
-                className={`cursor-pointer text-white block font-bold leading-tight pt-2 px-3.5 pb-2 border-b-2 border-transparent mr-4 hover:border-white`}
-              >
-                <Link to="/write-review">
-                  <span>Write a Review</span>
-                </Link>
-              </li> */}
               <li className="cursor-pointer text-white block font-bold leading-tight pt-2 px-3.5 pb-2 border-b-2 border-transparent mr-4 hover:border-white">
                 <Link to="/create-skate-spot">
                   <span>Create Skate Spot</span>
@@ -28,9 +20,7 @@ export const HomepageHeader: React.FC = () => {
             </ul>
             <ul className="inline-block float-right">
               <li>
-                {/* <TokenContext.Provider value={value}> */}
                 <Account />
-                {/* </TokenContext.Provider> */}
               </li>
             </ul>
           </nav>

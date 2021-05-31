@@ -22,7 +22,11 @@ const validationSchema = Yup.object({
 
 export const WriteReview: React.FC<RouteComponentProps & Props> = ({ history, location }) => {
   const { data } = useGetUserQuery();
-  const [createReview, { loading }] = useCreateReviewMutation();
+  const [createReview, { loading }] = useCreateReviewMutation({
+    onCompleted({ createReview }) {
+      console.log(createReview);
+    },
+  });
 
   const formik = useFormik({
     initialValues: {

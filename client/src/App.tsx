@@ -22,15 +22,25 @@ export const App: React.FC = () => {
         }
 
         const data = await response.json();
-
         accessToken(data.accessToken);
+
+        !data.accessToken ? setIsLoggedIn(false) : setIsLoggedIn(true);
+
         setLoading(false);
+        console.log('here');
       } catch (err) {
         console.error(err);
         return;
       }
     })();
-  }, []);
+  }, [setIsLoggedIn]);
+
+  useEffect(() => {
+    return () => {
+      setIsLoggedIn(false);
+      setLoading(true);
+    };
+  }, [setIsLoggedIn]);
 
   if (loading) {
     return <h1>Loading...</h1>;

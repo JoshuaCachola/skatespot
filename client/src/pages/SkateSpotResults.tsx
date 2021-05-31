@@ -142,9 +142,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
                         </div>
                         <div className="mr-2">
                           <address>
-                            <p>
-                              <span className="text-xs">{result.street}</span>
-                            </p>
+                            <p className="text-xs">{result.street}</p>
                           </address>
                         </div>
                       </div>
