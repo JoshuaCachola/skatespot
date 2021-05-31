@@ -22,7 +22,7 @@ const Account: React.FC<Props> = () => {
     <>
       <div className="flex">
         <div className="rounded-l-sm rounded-r-none">
-          <div className=" text-gray-300 hover:bg-gray-100 hover:text-gray-500 flex justify-center align-middle overflow-hidden rounded-l-sm rounded-r-none">
+          <div className=" text-gray-400 hover:bg-black hover:bg-opacity-10 hover:text-gray-500 flex justify-center align-middle overflow-hidden rounded-l-sm rounded-r-none bg-white">
             <Link to="/user-profile">
               {data?.getUser.profilePicture ? (
                 <img src={data.getUser.profilePicture} alt="" className="h-11 w-10" />
@@ -34,7 +34,7 @@ const Account: React.FC<Props> = () => {
             </Link>
           </div>
         </div>
-        <div className="rounded-r-sm roudner-l-none border border-black border-opacity-30 bg-black bg-opacity-20">
+        <div className="rounded-r-sm roudner-l-none border border-black border-opacity-10 bg-black bg-opacity-20">
           <div className="h-10 w-5">
             <div
               className="pt-2 align-middle cursor-pointer text-white text-center"

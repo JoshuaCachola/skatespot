@@ -15,6 +15,8 @@ export const SkateSpotReviews: React.FC<Props> = ({ skateSpotId }) => {
     nextFetchPolicy: 'cache-first',
   });
 
+  console.log(data?.getSkateSpotReviews);
+
   return (
     <div>
       {data?.getSkateSpotReviews &&
@@ -23,8 +25,8 @@ export const SkateSpotReviews: React.FC<Props> = ({ skateSpotId }) => {
             <div key={review.id} className="mb-5">
               <div className="flex">
                 {/* Profile image */}
-                <div className="rounded h-24 w-24">
-                  <img src={SkateSpot1} alt="profile-avatar" />
+                <div className="h-24 w-24">
+                  <img src={SkateSpot1} alt="profile-avatar" className="rounded" />
                 </div>
                 {/* User information */}
                 <div className="ml-2">
@@ -43,12 +45,22 @@ export const SkateSpotReviews: React.FC<Props> = ({ skateSpotId }) => {
               <div className="flex items-center text-sm mb-5">
                 <AverageReviewStars rating={review.rating} />
                 {/* Review date */}
-                <div className="text-sm">
-                  <span>&nbsp;04/28/2021</span>
+                <div className="text-sm font-semibold">
+                  <h2>&nbsp;{review.createdAt.slice(0, 10)}</h2>
                 </div>
               </div>
               <div className="font-light">
                 <ReviewText review={review.review} />
+              </div>
+              <div className="flex">
+                {review.imageUrls &&
+                  JSON.parse(review.imageUrls).map((img: string, idx) => {
+                    return (
+                      <div key={idx} className="h-44 w-44 mr-5">
+                        <img src={img} alt="" className="rounded" />
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           );

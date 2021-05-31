@@ -3,6 +3,8 @@ query GetSkateSpotReviews($skateSpotId: Int!) {
     id
     review
     rating
+    imageUrls
+    createdAt
     user {
       id
       username

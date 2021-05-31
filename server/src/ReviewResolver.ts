@@ -3,9 +3,9 @@ import { Arg, FieldResolver, Int, Mutation, Query, Resolver, Root, UseMiddleware
 import { Review } from './entity/Review';
 import { isAuth } from './utils/isAuth';
 import { Upload } from './types/Upload';
-// import { User } from './entity/User';
 import { SkateSpot } from './entity/SkateSpot';
 import { User } from './entity/User';
+import { v4 as uuidv4 } from 'uuid';
 
 const s3 = require('./config/s3');
 
@@ -63,7 +63,6 @@ export class ReviewResolver {
     updatedReviewsDistribution[ratingKeys[rating]] += 1;
     skateSpot.reviewsCount = updatedReviewsCount;
     skateSpot.reviewsDistribution = updatedReviewsDistribution;
-    await skateSpot.save();
 
     let imgLinks: Array<string> = [];
     if (imgFiles?.length) {
@@ -72,7 +71,7 @@ export class ReviewResolver {
           const { Location } = await s3
             .upload({
               Body: file.createReadStream(),
-              Key: `${file.filename}`,
+              Key: `${uuidv4()}`,
               ContentType: file.mimetype,
             })
             .promise();
@@ -86,11 +85,13 @@ export class ReviewResolver {
           })
             .then((url) => {
               url && imgLinks.push(url as string);
-              console.log(imgLinks);
             })
             .then(async () => {
               // fix repetitive code
               try {
+                const imageUrls = JSON.parse(skateSpot.imageUrls);
+                skateSpot.imageUrls = JSON.stringify([...imageUrls, imgLinks]);
+                await skateSpot.save();
                 await Review.insert({
                   review,
                   skateSpotId,
@@ -108,6 +109,7 @@ export class ReviewResolver {
       });
     } else {
       try {
+        await skateSpot.save();
         await Review.insert({
           review,
           skateSpotId,

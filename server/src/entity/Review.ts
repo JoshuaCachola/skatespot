@@ -33,7 +33,7 @@ export class Review extends BaseEntity {
   skateSpotId: number;
 
   @Field()
-  @Column('text', { nullable: true })
+  @Column('text', { default: [] })
   imageUrls: string;
 
   @Field(() => Int)
