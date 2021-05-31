@@ -9,22 +9,15 @@ interface Props {
 }
 
 export const SkateSpotReviews: React.FC<Props> = ({ skateSpotId }) => {
-  const { data, loading, error } = useGetSkateSpotReviewsQuery({
+  const { data } = useGetSkateSpotReviewsQuery({
     variables: { skateSpotId },
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'cache-first',
   });
 
-  console.log(data?.getSkateSpotReviews);
-
-  if (loading) {
-    return <h1>loading</h1>;
-  }
-
-  if (error) {
-    return <h1>error</h1>;
-  }
   return (
     <div>
-      {!loading &&
+      {data?.getSkateSpotReviews &&
         data?.getSkateSpotReviews.map((review) => {
           return (
             <div key={review.id} className="mb-5">

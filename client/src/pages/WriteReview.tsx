@@ -4,12 +4,12 @@ import { Header } from './components/Header';
 import { ReviewStars } from 'src/utils/ReviewStars';
 import { RouteComponentProps } from 'react-router';
 import * as Yup from 'yup';
-import { useCreateReviewMutation } from 'src/generated/graphql';
+import { useCreateReviewMutation, useGetUserQuery } from 'src/generated/graphql';
 import { Upload } from 'src/utils/Upload';
 import { Footer } from './components/Footer';
 
 interface Props {
-  skateSpotId: number;
+  history: any;
   location: any;
 }
 
@@ -21,22 +21,23 @@ const validationSchema = Yup.object({
 });
 
 export const WriteReview: React.FC<RouteComponentProps & Props> = ({ history, location }) => {
+  const { data } = useGetUserQuery();
   const [createReview, { loading }] = useCreateReviewMutation();
 
   const formik = useFormik({
     initialValues: {
       rating: 0,
       skateSpotId: location.state.skateSpot.id,
-      userId: 1,
+      userId: 0,
       review: '',
       imgFiles: [],
     },
     validationSchema,
     onSubmit: async (values, { resetForm, setSubmitting }) => {
-      await createReview({ variables: values });
+      await createReview({ variables: { ...values, userId: data!.getUser.id } });
       resetForm();
       setSubmitting(false);
-      history.goBack();
+      history.push(`/skate-spot/${location.state.skateSpot.name}`);
     },
   });
 
@@ -61,7 +62,7 @@ export const WriteReview: React.FC<RouteComponentProps & Props> = ({ history, lo
               value={formik.values.review}
               onChange={formik.handleChange}
               rows={13}
-              placeholder={`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sodales velit eu orci molestie elementum. Nulla facilisi. Vestibulum blandit diam quis tortor ullamcorper condimentum. Sed sit amet volutpat nibh. Proin ac turpis vel orci semper porttitor. Integer scelerisque tristique tincidunt. Duis ac convallis justo. Vivamus lobortis ipsum id ante varius.`}
+              placeholder="Write your review here..."
               className="resize-none w-full h-full overflow-y-hidden focus:outline-none"
             ></textarea>
           </div>

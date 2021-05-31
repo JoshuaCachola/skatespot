@@ -33,6 +33,7 @@ export const ReviewStars = ({ rating, setFieldValue }) => {
   const handleMouseOverStar = (starHovered) => {
     for (let i = 0; i < starHovered; i++) {
       stars[i].current!.style.backgroundColor = 'red';
+      stars[i].current!.style.borderColor = 'red';
     }
   };
 
@@ -48,6 +49,7 @@ export const ReviewStars = ({ rating, setFieldValue }) => {
     }
     for (grayStars; grayStars < stars.length; grayStars++) {
       stars[grayStars].current!.style.backgroundColor = 'gray';
+      stars[grayStars].current!.style.borderColor = 'gray';
     }
   };
 
@@ -56,8 +58,10 @@ export const ReviewStars = ({ rating, setFieldValue }) => {
     for (let i = 0; i < stars.length; i++) {
       if (i < numberOfStars) {
         stars[i].current!.style.backgroundColor = 'red';
+        stars[i].current!.style.borderColor = 'red';
       } else {
         stars[i].current!.style.backgroundColor = 'gray';
+        stars[i].current!.style.borderColor = 'gray';
       }
     }
   };

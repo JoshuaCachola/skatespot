@@ -22,7 +22,8 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
   const [imagesIdx, setImagesIdx] = useState<number>(0);
   const { data, loading, error } = useGetSkateSpotQuery({
     variables: { name: location.pathname.split('/')[2] },
-    fetchPolicy: 'cache-first',
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'cache-first',
   });
 
   React.useEffect(() => {
