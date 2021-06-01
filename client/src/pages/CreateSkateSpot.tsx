@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { RouteComponentProps } from 'react-router';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
+import { skatespotObstacles, skatespotObstacleImages } from '../utils/skatespotObstacles';
 
 interface SkateSpotForm {
   name: string;
@@ -14,6 +15,7 @@ interface SkateSpotForm {
   city: string;
   categoryName: 'Skateboard Park' | 'Park' | 'Street' | '';
   imgFiles?: Array<File>;
+  skatespotObstacles: Array<number>;
 }
 
 export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
@@ -25,6 +27,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
     state: '',
     categoryName: '',
     imgFiles: [],
+    skatespotObstacles: [],
   };
 
   if (loading) {
@@ -57,6 +60,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
           state: Yup.string().required('State is required'),
           categoryName: Yup.string().required('Category is required.'),
           imgFiles: Yup.array(),
+          skatespotObstacles: Yup.array(),
         })}
       >
         {(props: FormikProps<SkateSpotForm>) => {
@@ -66,7 +70,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
               <div className="my-10 w-140 mx-auto border border-gray-300 rounded">
                 <div className="m-6">
                   <div className="my-4 flex">
-                    <label id="name" className="w-12">
+                    <label id="name" className="w-12 font-semibold">
                       Name
                     </label>
                     <Field
@@ -81,7 +85,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
                     />
                   </div>
                   <div className="my-4 flex">
-                    <label id="street" className="w-12">
+                    <label id="street" className="w-12 font-semibold">
                       Street
                     </label>
                     <Field
@@ -96,7 +100,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
                     />
                   </div>
                   <div className="my-4 flex">
-                    <label id="city" className="w-12">
+                    <label id="city" className="w-12 font-semibold">
                       City
                     </label>
                     <Field
@@ -111,7 +115,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
                     />
                   </div>
                   <div className="my-4 flex">
-                    <label id="state" className="w-12">
+                    <label id="state" className="w-12 font-semibold">
                       State
                     </label>
                     <Field
@@ -125,8 +129,9 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
                       className="w-full ml-2 focus:outline-none border-b border-black border-dashed focus:shadow-lg"
                     />
                   </div>
+                  {/* Skatespot Category */}
                   <div className="my-4 flex justify-between">
-                    <label id="category-name" className="w-6">
+                    <label id="category-name" className="w-6 font-semibold">
                       Category
                     </label>
                     <label>
@@ -141,6 +146,21 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
                       <Field type="radio" name="categoryName" value="Street" />
                       &nbsp;Street
                     </label>
+                  </div>
+                  {/* Skatespot Obstacles */}
+                  <h2 className="text-center my-2 font-semibold">Skatespot Obstacles</h2>
+                  <div className="flex flex-wrap">
+                    {skatespotObstacles.map((obstacle) => {
+                      return (
+                        <div key={obstacle} className="text-center">
+                          <label>
+                            <img src={skatespotObstacleImages[obstacle]} alt={obstacle} className="w-36 h-14" />
+                            <Field type="checkbox" id={obstacle} name="skatespotObstacles" value={obstacle} />
+                            <span>&nbsp;{obstacle}</span>
+                          </label>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>

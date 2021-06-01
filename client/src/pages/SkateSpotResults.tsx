@@ -7,25 +7,12 @@ import { useMediaQuery } from 'react-responsive';
 import { GetSkateSpotDocument, useGetSkateSpotsQuery } from '../generated/graphql';
 import { Footer } from './components/Footer';
 import { AverageReviewStars } from './components/AverageReviewStars';
+import { skatespotObstacles } from '../utils/skatespotObstacles';
+
 // import { useApolloClient } from '@apollo/react-hooks';
 // import { Waypoint } from 'react-waypoint';
 // import { searchResults } from 'src/graphql/reactive-variables/searchResults';
 interface Props {}
-
-const skatespotObstacles = [
-  'bank',
-  'curb',
-  'flat rail',
-  'funbox',
-  'gap',
-  'half pipe',
-  'handrail',
-  'london',
-  'manual pad',
-  'pole jam',
-  'pool',
-  'quarter pipe',
-];
 
 export const SkateSpotResults: React.FC<Props> = () => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)' });

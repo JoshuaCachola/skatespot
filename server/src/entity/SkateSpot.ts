@@ -66,6 +66,10 @@ export class SkateSpot extends BaseEntity {
   reviewsCount: number;
 
   @Field()
+  @Column('text', { nullable: true })
+  skatespotObstacles: string;
+
+  @Field()
   @Column('text', { default: { oneStar: 0, twoStar: 0, threeStar: 0, fourStar: 0, fiveStar: 0 } })
   reviewsDistribution: string;
 
