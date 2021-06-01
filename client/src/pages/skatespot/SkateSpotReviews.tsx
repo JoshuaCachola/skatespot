@@ -19,7 +19,7 @@ export const SkateSpotReviews: React.FC<Props> = ({ skateSpotId }) => {
   console.log(data?.getSkateSpotReviews);
 
   return (
-    <div>
+    <div className="mt-5">
       {data?.getSkateSpotReviews &&
         data?.getSkateSpotReviews.map((review) => {
           return (

@@ -12,6 +12,21 @@ import { AverageReviewStars } from './components/AverageReviewStars';
 // import { searchResults } from 'src/graphql/reactive-variables/searchResults';
 interface Props {}
 
+const skatespotObstacles = [
+  'bank',
+  'curb',
+  'flat rail',
+  'funbox',
+  'gap',
+  'half pipe',
+  'handrail',
+  'london',
+  'manual pad',
+  'pole jam',
+  'pool',
+  'quarter pipe',
+];
+
 export const SkateSpotResults: React.FC<Props> = () => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)' });
   // const client = useApolloClient();
@@ -134,8 +149,21 @@ export const SkateSpotResults: React.FC<Props> = () => {
                               <span>&nbsp;{result.reviewsCount}</span>
                             </div>
                           </div>
+                          {/* what is there to skate, skating conditions etc... */}
                           <div>
-                            <div className="text-gray-500">
+                            <h2 className="font-semibold">Skatespot Obstacles</h2>
+                            <div className="flex w-96 text-sm">
+                              {skatespotObstacles.slice(0, 6).map((obstacle, idx) => {
+                                return (
+                                  <div key={obstacle}>
+                                    {obstacle}&nbsp;{idx !== 5 ? '•' : ''}&nbsp;
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-gray-500 text-base flex">
                               <span>{result.categoryName}</span>
                             </div>
                           </div>
@@ -146,9 +174,6 @@ export const SkateSpotResults: React.FC<Props> = () => {
                           </address>
                         </div>
                       </div>
-
-                      {/* what is there to skate, skating conditions etc... */}
-                      <div></div>
                     </div>
                   </Link>
                 </li>

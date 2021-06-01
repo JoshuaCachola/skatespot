@@ -1,6 +1,35 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SkateSpotReviews } from './SkateSpotReviews';
+import bank from '../../assets/obstacles/obstacle-bank.jpg';
+import curb from '../../assets/obstacles/obstacle-curb.jpg';
+import flatrail from '../../assets/obstacles/obstacle-flat-rail.jpg';
+import funbox from '../../assets/obstacles/obstacle-funbox.jpg';
+import gap from '../../assets/obstacles/obstacle-gap.jpg';
+import halfpipe from '../../assets/obstacles/obstacle-half-pipe.jpg';
+import handrail from '../../assets/obstacles/obstacle-handrail.jpg';
+import london from '../../assets/obstacles/obstacle-london.jpg';
+import manualpad from '../../assets/obstacles/obstacle-manual-pad.jpg';
+import miniramp from '../../assets/obstacles/obstacle-mini-ramp.jpg';
+import polejam from '../../assets/obstacles/obstacle-pole-jam.jpg';
+import pool from '../../assets/obstacles/obstacle-pool.jpg';
+import quarterpipe from '../../assets/obstacles/obstacle-quater-pipe.jpg';
+
+const skatespotObstacles = [
+  bank,
+  curb,
+  flatrail,
+  funbox,
+  gap,
+  halfpipe,
+  handrail,
+  london,
+  manualpad,
+  miniramp,
+  polejam,
+  pool,
+  quarterpipe,
+];
 
 interface Props {
   skatespot: any;
@@ -64,12 +93,27 @@ export const SkateSpotBottom: React.FC<Props> = ({ skatespot }) => {
                       </p>
                     </div>
                   </div>
-                  {/* Popular times histogram */}
-                  <div></div>
+                  {/* Popular times histogram
+                  <div></div> */}
                 </div>
               </div>
+              {/* Skatespot Obstacles */}
+              <h2 className="font-semibold text-lg">Skatespot Obstacles</h2>
+              <div className="flex mt-5 mb-10 justify-between border border-gray-200 py-8 px-4 bg-gray-200 rounded w-full">
+                {skatespotObstacles.slice(0, 6).map((obstacle) => {
+                  return (
+                    <div className="border-white rounded mx-2 bg-white border">
+                      <img src={obstacle} alt="" className="py-4" />
+                      <h3 className="text-center">obstacle</h3>
+                    </div>
+                  );
+                })}
+              </div>
               {/* Reviews */}
-              <SkateSpotReviews skateSpotId={skatespot.id} />
+              <div className="border-t border-black">
+                <h2 className="text-red-500 font-semibold mt-5 text-lg">Reviews</h2>
+                <SkateSpotReviews skateSpotId={skatespot.id} />
+              </div>
             </div>
             {/* fixed side panel for directions and photos */}
             {skatespot.website && (
