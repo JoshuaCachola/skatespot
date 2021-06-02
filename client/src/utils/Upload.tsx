@@ -24,9 +24,9 @@ export const Upload = ({ setFieldValue, values }) => {
     <>
       <div
         {...getRootProps({ className: 'dropzone' })}
-        className="flex flex-1 flex-col p-5 rounded border-2 focus:outline-none hover:border-red-500 cursor-pointer"
+        className="flex flex-1 flex-col p-5 rounded border-2 focus:outline-none hover:border-blue-400 cursor-pointer"
       >
-        <div className="text-gray-400 text-3xl mx-auto my-5 hovered-difference:text-red-500">
+        <div className="text-gray-400 text-3xl mx-auto my-5 hovered-difference:text-blue-200">
           <FontAwesomeIcon icon={['fas', 'images']} />
         </div>
         <input {...getInputProps()} />

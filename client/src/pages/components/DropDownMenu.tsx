@@ -34,7 +34,7 @@ const DropDownMenu: React.FC<Props> = () => {
             </Link>
           </div>
         </div>
-        <div className="rounded-r-sm roudner-l-none border border-black border-opacity-10 bg-black bg-opacity-20">
+        <div className="rounded-r-sm roudner-l-none border border-black border-opacity-10 bg-black bg-opacity-20 hover:bg-opacity-30">
           <div className="h-10 w-5">
             <div
               className="pt-2 align-middle cursor-pointer text-white text-center"
@@ -50,7 +50,11 @@ const DropDownMenu: React.FC<Props> = () => {
           <div className="absolute mt-1 right-0 w-52 h-auto border-t border-l border-r-4 border-b-4 rounded border-black bg-white shadow-2xl z-50">
             <Link to="/user-profile" className="flex m-2">
               {data?.getUser.profilePicture ? (
-                <img src={data.getUser.profilePicture} alt="profile-image" className="h-11 w-10 rounded" />
+                <img
+                  src={data.getUser.profilePicture}
+                  alt="profile-image"
+                  className="h-11 w-10 rounded border-b-4 border-r-4 border-t border-l border-black"
+                />
               ) : (
                 <div className="h-10 w-5 my-auto py-2 mx-2 pl-0.5">
                   <FontAwesomeIcon icon={['fas', 'user']} />

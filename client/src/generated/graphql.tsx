@@ -239,7 +239,7 @@ export type GetSkateSpotReviewsQuery = (
     & Pick<Review, 'id' | 'review' | 'rating' | 'imageUrls' | 'createdAt'>
     & { user: (
       { __typename?: 'User' }
-      & Pick<User, 'id' | 'username' | 'firstName' | 'lastName'>
+      & Pick<User, 'id' | 'username' | 'firstName' | 'lastName' | 'profilePicture'>
     ) }
   )> }
 );
@@ -534,6 +534,7 @@ export const GetSkateSpotReviewsDocument = gql`
       username
       firstName
       lastName
+      profilePicture
     }
   }
 }

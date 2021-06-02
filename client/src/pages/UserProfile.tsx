@@ -1,6 +1,5 @@
 import React from 'react';
 import { useGetUserQuery, useGetUserReviewsLazyQuery } from 'src/generated/graphql';
-import SkateSpot1 from '../assets/SkateSpot1.jpg';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { ReviewText } from './components/ReviewText';
@@ -50,13 +49,13 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
     <div>
       <Header />
       {/* User information and photo */}
-      <div className="bg-gray-100 absolute h-32 w-screen z-10 top-28" />
+      <div className="bg-gray-100 absolute h-32 w-screen z-10 top-28 border-b border-t border-gray-200" />
       <div className="relative flex max-w-4xl my-5 mx-auto z-20">
         {/* Account profile picture */}
         <div className="rounded mt-5 mb-8 ml-20">
           <div className="absolute">
             <div
-              className="inline-block text-white border rounded bg-gray-300 text-center px-1 m-1 cursor-pointer hover:bg-gray-500 border-gray-300 hover:border-gray-500"
+              className="inline-block text-white border rounded bg-gray-400 text-center px-1 m-1 cursor-pointer hover:bg-gray-500 border-gray-400 hover:border-gray-500"
               onClick={() => handleOnClick()}
             >
               <FontAwesomeIcon icon={['fas', 'image']} />
@@ -64,9 +63,15 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
             </div>
           </div>
           {userData?.getUser.profilePicture ? (
-            <img alt="profile" src={userData?.getUser.profilePicture} width={200} height={200} className="rounded" />
+            <img
+              alt="profile"
+              src={userData?.getUser.profilePicture}
+              width={200}
+              height={200}
+              className="rounded border-b-4 border-r-4 border-t border-l border-black"
+            />
           ) : (
-            <div className="text-8xl text-gray-400 border bg-white px-12 py-3 rounded-md">
+            <div className="text-8xl text-gray-400 bg-white px-12 py-3 rounded-md border-b-4 border-r-4 border-t border-l border-black">
               <FontAwesomeIcon icon={['fas', 'user']} />
             </div>
           )}
@@ -88,7 +93,7 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
       </div>
       {/* Reviews */}
       <div className="max-w-4xl my-10 mx-auto">
-        <div className="text-xl font-bold text-red-600 mt-6 ml-2">
+        <div className="text-xl font-bold text-red-500 mt-6 ml-2">
           <h1>Reviews</h1>
         </div>
         {!loading &&
@@ -99,7 +104,11 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
                 <div className="flex">
                   {/* Profile image */}
                   <div className="rounded h-24 w-24">
-                    <img src={SkateSpot1} alt="profile-avatar" />
+                    <img
+                      src={userData?.getUser.profilePicture}
+                      alt="profile-avatar"
+                      className="border-b-4 border-r-4 border-t border-l border-black"
+                    />
                   </div>
                   {/* User information */}
                   <div className="ml-2">
@@ -122,7 +131,7 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
                   <AverageReviewStars rating={review.rating} />
                   {/* Review date */}
                   <div className="text-sm">
-                    <span>&nbsp;04/28/2021</span>
+                    <span>&nbsp;{review.createdAt.slice(0, 10)}</span>
                   </div>
                 </div>
                 {/* review */}

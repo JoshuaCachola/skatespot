@@ -84,7 +84,7 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
                     <div className="mt-6 justify-center flex">
                       <button
                         type="submit"
-                        className="border rounded border-red-500 bg-red-500 text-white py-2 px-8 text-lg font-semibold hover:bg-red-400 hover:text-black"
+                        className="rounded text-white py-2 px-8 text-lg font-semibold border-blue-400 bg-blue-400 border-r-2 border-b-2 border-l border-t hover:bg-blue-200 hover:text-black"
                       >
                         Upload Photos
                       </button>

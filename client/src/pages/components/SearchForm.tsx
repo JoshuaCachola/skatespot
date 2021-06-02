@@ -23,7 +23,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
 
   const [search, { loading, data }] = useSearchLazyQuery({ pollInterval: 500 });
   const [isFindSearchOpen, setIsFindSearchOpen] = useState<boolean>(false);
-  const [isNearSearchOpen, setIsNearSearchOpen] = useState<boolean>(false);
+  // const [isNearSearchOpen, setIsNearSearchOpen] = useState<boolean>(false);
 
   React.useEffect(() => {
     search({ variables: { query: formik.values.find } });
@@ -39,9 +39,9 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
               <div className="min-w-full box-border align-top block">
                 <div className="shadow-lg mt-4">
                   <label
-                    search-divider=""
-                    className={`after:content relative rounded-l rounded-r-none px-3 py-3 text-lg font-bold bg-white box-border block w-full mt-0 mb-5 mx-0 ${
-                      isFindSearchOpen ? 'rounded-bl-none' : 'rounded-br-none after:content'
+                    // search-divider=""
+                    className={`relative rounded-l rounded-r-none px-3 py-3 text-lg font-bold bg-white box-border block w-full mt-0 mb-5 mx-0 border-l border-white shadow-2xl  ${
+                      isFindSearchOpen ? 'rounded-bl-none' : 'rounded-br-none'
                     }`}
                   >
                     <div className="flex">
@@ -52,7 +52,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
                           name="find"
                           type="text"
                           autoComplete="off"
-                          placeholder="skaters, skate spots, skate crews"
+                          placeholder="Try California..."
                           maxLength={64}
                           className="cursor-text inline-block w-full box-border focus:outline-none"
                           onClick={() => setIsFindSearchOpen(!isFindSearchOpen)}
@@ -104,7 +104,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
           </div>
         </div>
         {/* near input */}
-        <div className="flex-1 block box-border">
+        {/* <div className="flex-1 block box-border">
           <div className="table min-w-full table-auto">
             <div className="table-cell box-border align-top">
               <div className="block min-w-full box-border align-top">
@@ -143,21 +143,21 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
                   </label>
                 </div>
               </div>
-            </div>
-            {/* search button */}
-            <div className="box-border table-cell align-top">
-              <button
-                type="submit"
-                className="shadow-lg mt-4 rounded-l-none rounded-r bg-red-500 px-5 py-3.75 leading-normal focus:outline-none text-white hover:bg-red-400 hover:text-black"
-              >
-                <span className="w-6 h-6 text-base">
-                  <FontAwesomeIcon icon={['fas', 'search']} />
-                </span>
-              </button>
-            </div>
-          </div>
+            </div> */}
+        {/* search button */}
+        <div className="box-border table-cell align-top">
+          <button
+            type="submit"
+            className="shadow-lg mt-4 rounded-l-none rounded-r bg-blue-400 px-5 py-3.75 leading-normal focus:outline-none text-white hover:bg-blue-200 hover:text-black"
+          >
+            <span className="w-6 h-6 text-base">
+              <FontAwesomeIcon icon={['fas', 'search']} />
+            </span>
+          </button>
         </div>
       </div>
+      {/* </div> */}
+      {/* </div> */}
     </form>
   );
 };

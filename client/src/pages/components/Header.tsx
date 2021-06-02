@@ -3,17 +3,26 @@ import { Link } from 'react-router-dom';
 import { TokenContext } from 'src/utils/TokenContext';
 import DropDownMenu from './DropDownMenu';
 import SearchForm from './SearchForm';
+import BoardTap from '../../assets/board-tap.png';
 
 export const Header: React.FC = () => {
   const { isLoggedIn } = React.useContext(TokenContext);
   return (
-    <header className="border-b border-gray-200 bg-gray-300">
+    <header className="bg-gray-500">
       {/* Logo */}
       <div className="flex items-center justify-between">
-        <div className="ml-4 font-semibold p-2 hover:border hover:bg-black hover:bg-opacity-10 rounded">
+        <div className="mx-6 font-semibold p-2 hover:border hover:bg-black hover:bg-opacity-10 rounded">
           <Link to="/">
-            <span className="font-bold text-lg">Skate</span>
-            <span className="font-light text-lg">Spot</span>
+            <div className="flex">
+              <div className="flex border-2 border-black px-1 rounded bg-white">
+                <span className="font-bold">S</span>
+                <span className="font-thin">S</span>
+              </div>
+              <div className="text-white">
+                <span className="font-bold text-lg">&nbsp;Skate</span>
+                <span className="font-light text-lg">Spot</span>
+              </div>
+            </div>
           </Link>
         </div>
         {/* Search Form */}
@@ -26,7 +35,16 @@ export const Header: React.FC = () => {
                 <li className="mr-5">
                   <div className="font-semibold p-2 hover:border hover:bg-black hover:bg-opacity-10 rounded">
                     <span>
-                      <Link to="/create-skate-spot">Create Skate Spot</Link>
+                      <Link to="/create-skate-spot">
+                        <div className="flex">
+                          <div className="border-2 border-black rounded p-1 bg-white">
+                            <img src={BoardTap} alt="" className="w-4 h-4" />
+                          </div>
+                          <div className="text-white">
+                            &nbsp;Create <span className="font-light">Skate Spot</span>
+                          </div>
+                        </div>
+                      </Link>
                     </span>
                   </div>
                 </li>

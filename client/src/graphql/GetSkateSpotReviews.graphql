@@ -10,6 +10,7 @@ query GetSkateSpotReviews($skateSpotId: Int!) {
       username
       firstName
       lastName
+      profilePicture
     }
   }
 }

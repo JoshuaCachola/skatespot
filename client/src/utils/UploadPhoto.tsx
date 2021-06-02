@@ -34,7 +34,7 @@ export const UploadPhoto = ({ photos, setPhotos, setFieldValue, values }) => {
           <fieldset className="border-t border-gray-400 my-4">
             <legend className="font-normal text-base px-4">OR</legend>
           </fieldset>
-          <div className="text-white font-bold text-base px-4 py-2 rounded bg-red-500 cursor-pointer w-32 mx-auto hover:bg-red-400 hover:text-black">
+          <div className="text-white font-bold text-base px-4 py-2 rounded cursor-pointer w-32 mx-auto border-blue-400 bg-blue-400 border-r-2 border-b-2 border-l border-t hover:bg-blue-200 hover:text-black">
             <input {...getInputProps()} />
             Browse Files
           </div>

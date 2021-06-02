@@ -1,6 +1,5 @@
 import React from 'react';
 import { useGetSkateSpotReviewsQuery } from 'src/generated/graphql';
-import SkateSpot1 from '../../assets/SkateSpot1.jpg';
 import { ReviewText } from '../components/ReviewText';
 import { AverageReviewStars } from '../components/AverageReviewStars';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -28,7 +27,11 @@ export const SkateSpotReviews: React.FC<Props> = ({ skateSpotId }) => {
               <div className="flex">
                 {/* Profile image */}
                 <div className="h-24 w-24">
-                  <img src={SkateSpot1} alt="profile-avatar" className="rounded" />
+                  <img
+                    src={review.user.profilePicture}
+                    alt="profile-avatar"
+                    className="rounded border-b-4 border-r-4 border-t border-l border-black"
+                  />
                 </div>
                 {/* User information */}
                 <div className="ml-2">
