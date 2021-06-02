@@ -5,6 +5,7 @@ import { GetSkateSpotDocument, useUploadPhotosMutation } from 'src/generated/gra
 import { Header } from 'src/pages/components/Header';
 import { UploadPhoto } from 'src/utils/UploadPhoto';
 import { Footer } from './components/Footer';
+import { LoadingAnimation } from './components/LoadingAnimation';
 // import * as Yup from 'yup';
 
 interface SkateSpotPhotos {
@@ -36,23 +37,26 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
     };
   }, []);
 
-  if (loading) {
-    return <h1>loading</h1>;
-  }
-
   if (error) {
     return <h1>error</h1>;
   }
 
   return (
     <div>
+      {loading && (
+        <div className="fixed top-0 left-0 bottom-0 right-0 bg-black bg-opacity-70 z-50">
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-auto">
+            <LoadingAnimation />
+          </div>
+        </div>
+      )}
       <Header />
       {/* Upload */}
       <div className="w-220 mx-auto my-0">
         <div className="mt-4 flex">
           <div
             className="font-bold text-blue-700 text-3xl cursor-pointer border-b-2 border-transparent hover:border-blue-700"
-            onClick={() => history.goBack()}
+            onClick={() => history.push(`/skate-spot/${location.state.skatespot.name}`)}
           >
             <h2>{location.state.skatespot.name}</h2>
           </div>

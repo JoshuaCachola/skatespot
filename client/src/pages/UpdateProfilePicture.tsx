@@ -11,13 +11,14 @@ import {
 import { Header } from 'src/pages/components/Header';
 import { UploadPhoto } from 'src/utils/UploadPhoto';
 import { Footer } from './components/Footer';
+import { LoadingAnimation } from './components/LoadingAnimation';
 // import * as Yup from 'yup';
 
 interface ProfilePicture {
   photos: Array<File>;
 }
 
-export const UpdateProfilePicture: React.FC<RouteComponentProps> = () => {
+export const UpdateProfilePicture: React.FC<RouteComponentProps> = ({ history }) => {
   const { data } = useGetUserQuery();
   const [photos, setPhotos] = React.useState([]);
   const [updatePhoto, { loading, error }] = useUpdateProfilePictureMutation();
@@ -39,6 +40,8 @@ export const UpdateProfilePicture: React.FC<RouteComponentProps> = () => {
           });
         },
       });
+
+      setTimeout(() => history.push('/user-profile'), 1000);
     }
   }, [data, photos, updatePhoto]);
 
@@ -48,16 +51,19 @@ export const UpdateProfilePicture: React.FC<RouteComponentProps> = () => {
     };
   }, []);
 
-  if (loading) {
-    return <h1>loading</h1>;
-  }
-
   if (error) {
     return <h1>error</h1>;
   }
 
   return (
     <div>
+      {loading && (
+        <div className="fixed top-0 left-0 bottom-0 right-0 bg-black bg-opacity-70 z-50">
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-auto">
+            <LoadingAnimation />
+          </div>
+        </div>
+      )}
       <Header />
       {/* Upload */}
       <div className="w-220 mx-auto my-0">
@@ -80,7 +86,7 @@ export const UpdateProfilePicture: React.FC<RouteComponentProps> = () => {
           <h2 className="mb-4">Add Photos</h2>
         </div>
         <div>
-          <Formik initialValues={{ photos: [] }} onSubmit={() => alert('hello')}>
+          <Formik initialValues={{ photos: [] }} onSubmit={() => alert('submitted')}>
             {(props: FormikProps<ProfilePicture>) => {
               const { setFieldValue, values } = props;
               return (

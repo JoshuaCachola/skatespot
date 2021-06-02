@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import { useCreateReviewMutation, useGetUserQuery } from 'src/generated/graphql';
 import { Upload } from 'src/utils/Upload';
 import { Footer } from './components/Footer';
+import { LoadingAnimation } from './components/LoadingAnimation';
 
 interface Props {
   history: any;
@@ -45,12 +46,15 @@ export const WriteReview: React.FC<RouteComponentProps & Props> = ({ history, lo
     },
   });
 
-  if (loading) {
-    return <h1>loading</h1>;
-  }
-
   return (
     <div>
+      {loading && (
+        <div className="fixed top-0 left-0 bottom-0 right-0 bg-black bg-opacity-70 z-50">
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-auto">
+            <LoadingAnimation />
+          </div>
+        </div>
+      )}
       <Header />
       <div className="flex mx-auto my-10 max-w-140 w-140">
         <div className="font-extrabold text-3xl">

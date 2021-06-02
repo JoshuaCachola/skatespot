@@ -43,6 +43,30 @@ module.exports = {
     fontFamily: {
       display: ['Raleway', 'sans-serif'],
     },
+    keyframes: {
+      wave1: {
+        '0%': {
+          backgroundPosition: '0px',
+        },
+        '100%': {
+          backgroundPosition: '3000px',
+        },
+      },
+      wave2: {
+        '0%': {
+          backgroundPosition: '0px',
+        },
+        '100%': {
+          backgroundPosition: '-3000px',
+        },
+      },
+    },
+    animation: {
+      wave1: 'wave1 25s linear infinite',
+      wave2: 'wave2 18s linear infinite',
+      wave3: 'wave1 12s linear infinite',
+      wave4: 'wave2 22s linear infinite',
+    },
   },
   variants: {
     extend: {

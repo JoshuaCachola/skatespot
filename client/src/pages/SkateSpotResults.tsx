@@ -7,7 +7,7 @@ import { useMediaQuery } from 'react-responsive';
 import { GetSkateSpotDocument, useGetSkateSpotsQuery } from '../generated/graphql';
 import { Footer } from './components/Footer';
 import { AverageReviewStars } from './components/AverageReviewStars';
-import { skatespotObstacles } from '../utils/skatespotObstacles';
+// import { skatespotObstacles } from '../utils/skatespotObstacles';
 
 // import { useApolloClient } from '@apollo/react-hooks';
 // import { Waypoint } from 'react-waypoint';
@@ -140,10 +140,11 @@ export const SkateSpotResults: React.FC<Props> = () => {
                           <div>
                             <h2 className="font-semibold">Skatespot Obstacles</h2>
                             <div className="flex w-96 text-sm">
-                              {skatespotObstacles.slice(0, 6).map((obstacle, idx) => {
+                              {JSON.parse(result.skatespotObstacles).map((obstacle, idx) => {
                                 return (
                                   <div key={obstacle}>
-                                    {obstacle}&nbsp;{idx !== 5 ? '•' : ''}&nbsp;
+                                    {obstacle}&nbsp;
+                                    {idx !== JSON.parse(result.skatespotObstacles).length - 1 ? '•' : ''}&nbsp;
                                   </div>
                                 );
                               })}

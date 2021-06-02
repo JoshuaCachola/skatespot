@@ -4,6 +4,7 @@ mutation CreateSkateSpot(
   $city: String!
   $state: String!
   $categoryName: String!
+  $skatespotObstacles: [String!]
   $imgFiles: [Upload!]
 ) {
   createSkateSpot(
@@ -12,6 +13,7 @@ mutation CreateSkateSpot(
     city: $city
     state: $state
     categoryName: $categoryName
+    skatespotObstacles: $skatespotObstacles
     imgFiles: $imgFiles
   )
 }

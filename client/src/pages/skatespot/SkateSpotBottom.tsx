@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SkateSpotReviews } from './SkateSpotReviews';
-import { skatespotObstacles } from '../../utils/skatespotObstacles';
+import { skatespotObstacleImages } from '../../utils/skatespotObstacles';
 
 interface Props {
   skatespot: any;
@@ -71,12 +71,12 @@ export const SkateSpotBottom: React.FC<Props> = ({ skatespot }) => {
               </div>
               {/* Skatespot Obstacles */}
               <h2 className="font-semibold text-lg">Skatespot Obstacles</h2>
-              <div className="flex mt-5 mb-10 justify-between border border-gray-200 py-8 px-4 bg-gray-200 rounded w-full">
-                {skatespotObstacles.slice(0, 6).map((obstacle) => {
+              <div className="flex mt-5 mb-10 justify-between border border-gray-200 py-8 px-4 bg-gray-200 rounded w-full shadow-xl">
+                {JSON.parse(skatespot.skatespotObstacles).map((obstacle) => {
                   return (
-                    <div className="border-white rounded mx-2 bg-white border" key={obstacle}>
-                      <img src={obstacle} alt="" className="py-4" />
-                      <h3 className="text-center">obstacle</h3>
+                    <div className="border-gray-100 rounded mx-2 bg-white border-2 shadow-2xl" key={obstacle}>
+                      <img src={skatespotObstacleImages[obstacle]} alt="" className="py-4 max-w-44 max-h-20" />
+                      <h3 className="text-center italic font-semibold">{obstacle}</h3>
                     </div>
                   );
                 })}

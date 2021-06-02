@@ -14,5 +14,6 @@ query GetSkateSpot($name: String!) {
     location
     reviewsCount
     reviewsDistribution
+    skatespotObstacles
   }
 }

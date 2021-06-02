@@ -7,6 +7,7 @@ import { RouteComponentProps } from 'react-router';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { skatespotObstacles, skatespotObstacleImages } from '../utils/skatespotObstacles';
+import { LoadingAnimation } from './components/LoadingAnimation';
 
 interface SkateSpotForm {
   name: string;
@@ -15,7 +16,7 @@ interface SkateSpotForm {
   city: string;
   categoryName: 'Skateboard Park' | 'Park' | 'Street' | '';
   imgFiles?: Array<File>;
-  skatespotObstacles: Array<number>;
+  skatespotObstacles: Array<string>;
 }
 
 export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
@@ -30,16 +31,19 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
     skatespotObstacles: [],
   };
 
-  if (loading) {
-    return <h1>loading</h1>;
-  }
-
   if (error) {
     return <h1>error</h1>;
   }
 
   return (
     <div>
+      {loading && (
+        <div className="fixed top-0 left-0 bottom-0 right-0 bg-black bg-opacity-70 z-50">
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-auto">
+            <LoadingAnimation />
+          </div>
+        </div>
+      )}
       <Header />
       <div className="w-140 mx-auto my-10 text-3xl font-bold">
         <h1>
@@ -167,9 +171,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
               {/* Drag and drop */}
               <div className="w-140 mx-auto my-0">
                 <div className="my-4 font-bold text-xl">
-                  <h4>
-                    <span>Add Photos</span>
-                  </h4>
+                  <h4>Add Photos</h4>
                 </div>
                 <section>
                   <Upload values={values} setFieldValue={setFieldValue} />
@@ -185,6 +187,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
           );
         }}
       </Formik>
+
       <Footer />
     </div>
   );

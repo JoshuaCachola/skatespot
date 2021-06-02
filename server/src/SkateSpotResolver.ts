@@ -20,7 +20,7 @@ export class SkateSpotResolver {
     @Arg('city') city: string,
     @Arg('state') state: string,
     @Arg('categoryName') categoryName: string,
-    @Arg('skatespotObstacles', { nullable: true }) skatespotObstacles?: string,
+    @Arg('skatespotObstacles', () => [String], { nullable: true }) skatespotObstacles?: [string],
     @Arg('imgFiles', () => [GraphQLUpload], { nullable: true }) imgFiles?: [Upload],
   ): Promise<boolean> {
     const skateSpot = await SkateSpot.findOne({ where: { name } });
@@ -61,7 +61,7 @@ export class SkateSpotResolver {
                   street,
                   categoryName,
                   location,
-                  skatespotObstacles: skatespotObstacles ? skatespotObstacles : JSON.stringify([]),
+                  skatespotObstacles: skatespotObstacles ? JSON.stringify(skatespotObstacles) : JSON.stringify([]),
                   imageUrls: imgLinks ? JSON.stringify(imgLinks.filter((img) => img !== undefined)) : undefined,
                 });
 
@@ -82,7 +82,7 @@ export class SkateSpotResolver {
           street,
           categoryName,
           location,
-          skatespotObstacles: skatespotObstacles ? skatespotObstacles : JSON.stringify([]),
+          skatespotObstacles: skatespotObstacles ? JSON.stringify(skatespotObstacles) : JSON.stringify([]),
         });
         return true;
       } catch (err) {

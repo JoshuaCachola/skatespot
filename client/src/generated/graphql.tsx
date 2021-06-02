@@ -67,6 +67,7 @@ export type MutationUpdateProfilePictureArgs = {
 
 export type MutationCreateSkateSpotArgs = {
   imgFiles?: Maybe<Array<Scalars['Upload']>>;
+  skatespotObstacles?: Maybe<Array<Scalars['String']>>;
   categoryName: Scalars['String'];
   state: Scalars['String'];
   city: Scalars['String'];
@@ -167,6 +168,7 @@ export type SkateSpot = {
   imageUrls: Scalars['String'];
   location: Scalars['String'];
   reviewsCount: Scalars['Int'];
+  skatespotObstacles: Scalars['String'];
   reviewsDistribution: Scalars['String'];
 };
 
@@ -202,6 +204,7 @@ export type CreateSkateSpotMutationVariables = Exact<{
   city: Scalars['String'];
   state: Scalars['String'];
   categoryName: Scalars['String'];
+  skatespotObstacles?: Maybe<Array<Scalars['String']> | Scalars['String']>;
   imgFiles?: Maybe<Array<Scalars['Upload']> | Scalars['Upload']>;
 }>;
 
@@ -220,7 +223,7 @@ export type GetSkateSpotQuery = (
   { __typename?: 'Query' }
   & { getSkateSpot: (
     { __typename?: 'SkateSpot' }
-    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'city' | 'state' | 'street' | 'postalCode' | 'website' | 'temporarilyClosed' | 'permanentlyClosed' | 'imageUrls' | 'location' | 'reviewsCount' | 'reviewsDistribution'>
+    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'city' | 'state' | 'street' | 'postalCode' | 'website' | 'temporarilyClosed' | 'permanentlyClosed' | 'imageUrls' | 'location' | 'reviewsCount' | 'reviewsDistribution' | 'skatespotObstacles'>
   ) }
 );
 
@@ -251,7 +254,7 @@ export type GetSkateSpotsQuery = (
   { __typename?: 'Query' }
   & { getSkateSpots: Array<(
     { __typename?: 'SkateSpot' }
-    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'city' | 'state' | 'street' | 'postalCode' | 'website' | 'temporarilyClosed' | 'permanentlyClosed' | 'imageUrls' | 'location' | 'reviewsCount' | 'reviewsDistribution'>
+    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'city' | 'state' | 'street' | 'postalCode' | 'website' | 'temporarilyClosed' | 'permanentlyClosed' | 'imageUrls' | 'location' | 'reviewsCount' | 'reviewsDistribution' | 'skatespotObstacles'>
   )> }
 );
 
@@ -425,13 +428,14 @@ export type CreateReviewMutationHookResult = ReturnType<typeof useCreateReviewMu
 export type CreateReviewMutationResult = Apollo.MutationResult<CreateReviewMutation>;
 export type CreateReviewMutationOptions = Apollo.BaseMutationOptions<CreateReviewMutation, CreateReviewMutationVariables>;
 export const CreateSkateSpotDocument = gql`
-    mutation CreateSkateSpot($name: String!, $street: String!, $city: String!, $state: String!, $categoryName: String!, $imgFiles: [Upload!]) {
+    mutation CreateSkateSpot($name: String!, $street: String!, $city: String!, $state: String!, $categoryName: String!, $skatespotObstacles: [String!], $imgFiles: [Upload!]) {
   createSkateSpot(
     name: $name
     street: $street
     city: $city
     state: $state
     categoryName: $categoryName
+    skatespotObstacles: $skatespotObstacles
     imgFiles: $imgFiles
   )
 }
@@ -456,6 +460,7 @@ export type CreateSkateSpotMutationFn = Apollo.MutationFunction<CreateSkateSpotM
  *      city: // value for 'city'
  *      state: // value for 'state'
  *      categoryName: // value for 'categoryName'
+ *      skatespotObstacles: // value for 'skatespotObstacles'
  *      imgFiles: // value for 'imgFiles'
  *   },
  * });
@@ -484,6 +489,7 @@ export const GetSkateSpotDocument = gql`
     location
     reviewsCount
     reviewsDistribution
+    skatespotObstacles
   }
 }
     `;
@@ -577,6 +583,7 @@ export const GetSkateSpotsDocument = gql`
     location
     reviewsCount
     reviewsDistribution
+    skatespotObstacles
   }
 }
     `;

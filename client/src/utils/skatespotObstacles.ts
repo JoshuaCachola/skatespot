@@ -11,6 +11,8 @@ import miniramp from '../assets/obstacles/obstacle-mini-ramp.jpg';
 import polejam from '../assets/obstacles/obstacle-pole-jam.jpg';
 import pool from '../assets/obstacles/obstacle-pool.jpg';
 import quarterpipe from '../assets/obstacles/obstacle-quater-pipe.jpg';
+import stairs from '../assets/obstacles/obstacle-stairs.jpg';
+import jumpramp from '../assets/obstacles/obstacle-jump-ramp.jpg';
 
 export const skatespotObstacles = [
   'Bank',
@@ -26,6 +28,8 @@ export const skatespotObstacles = [
   'Pole jam',
   'Pool',
   'Quarter pipe',
+  'Stairs',
+  'Jump ramp',
 ];
 
 export const skatespotObstacleImages = {
@@ -42,4 +46,6 @@ export const skatespotObstacleImages = {
   'Pole jam': polejam,
   Pool: pool,
   'Quarter pipe': quarterpipe,
+  Stairs: stairs,
+  'Jump ramp': jumpramp,
 };

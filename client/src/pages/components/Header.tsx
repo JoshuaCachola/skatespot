@@ -1,22 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { TokenContext } from 'src/utils/TokenContext';
-// import { useIsLoggedIn } from 'src/utils/useIsLoggedIn';
 import Account from './Account';
 import SearchForm from './SearchForm';
 
-interface Props {}
-
-// todo
-//  - align logo middle
-
-export const Header: React.FC<Props> = () => {
+export const Header: React.FC = () => {
   const { isLoggedIn } = React.useContext(TokenContext);
   return (
     <header className="border-b border-gray-200">
       {/* Logo */}
       <div className="flex items-center justify-between">
-        <div className="ml-4 font-semibold p-2 hover:border hover:bg-black hover:bg-opacity-10 rounded-2xl">
+        <div className="ml-4 font-semibold p-2 hover:border hover:bg-black hover:bg-opacity-10 rounded">
           <Link to="/">
             <span className="font-bold text-lg">Skate</span>
             <span className="font-light text-lg">Spot</span>
@@ -30,16 +24,14 @@ export const Header: React.FC<Props> = () => {
             <nav>
               <ul className="flex items-center">
                 <li className="mr-5">
-                  <div className="font-semibold p-2 hover:border hover:bg-black hover:bg-opacity-10 rounded-2xl">
+                  <div className="font-semibold p-2 hover:border hover:bg-black hover:bg-opacity-10 rounded">
                     <span>
                       <Link to="/create-skate-spot">Create Skate Spot</Link>
                     </span>
                   </div>
                 </li>
                 <li>
-                  {/* <TokenContext.Provider value={value}> */}
                   <Account />
-                  {/* </TokenContext.Provider> */}
                 </li>
               </ul>
             </nav>
