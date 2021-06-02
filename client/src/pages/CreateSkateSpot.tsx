@@ -190,7 +190,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
           );
         }}
       </Formik>
-      <div className="absolute bottom-0">
+      <div className="fixed bottom-0">
         <Footer />
       </div>
     </div>

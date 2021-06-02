@@ -278,7 +278,7 @@ export type GetUserReviewsQuery = (
   { __typename?: 'Query' }
   & { getUserReviews: Array<(
     { __typename?: 'Review' }
-    & Pick<Review, 'review' | 'createdAt' | 'id' | 'rating'>
+    & Pick<Review, 'review' | 'createdAt' | 'id' | 'rating' | 'imageUrls'>
     & { skateSpot: (
       { __typename?: 'SkateSpot' }
       & Pick<SkateSpot, 'name' | 'city' | 'state'>
@@ -661,6 +661,7 @@ export const GetUserReviewsDocument = gql`
     createdAt
     id
     rating
+    imageUrls
     skateSpot {
       name
       city

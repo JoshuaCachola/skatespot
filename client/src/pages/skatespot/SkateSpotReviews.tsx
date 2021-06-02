@@ -4,6 +4,7 @@ import SkateSpot1 from '../../assets/SkateSpot1.jpg';
 import { ReviewText } from '../components/ReviewText';
 import { AverageReviewStars } from '../components/AverageReviewStars';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ReviewImages } from '../components/ReviewImages';
 
 interface Props {
   skateSpotId: number;
@@ -23,7 +24,7 @@ export const SkateSpotReviews: React.FC<Props> = ({ skateSpotId }) => {
       {data?.getSkateSpotReviews &&
         data?.getSkateSpotReviews.map((review) => {
           return (
-            <div key={review.id} className="mb-5">
+            <div key={review.id} className="mb-5 border-b">
               <div className="flex">
                 {/* Profile image */}
                 <div className="h-24 w-24">
@@ -64,16 +65,7 @@ export const SkateSpotReviews: React.FC<Props> = ({ skateSpotId }) => {
               <div className="font-light">
                 <ReviewText review={review.review} />
               </div>
-              <div className="flex mb-10">
-                {review.imageUrls &&
-                  JSON.parse(review.imageUrls).map((img: string, idx: number) => {
-                    return (
-                      <div key={idx} className="max-h-64 w-64 mr-5">
-                        <img src={img} alt="" className="rounded" />
-                      </div>
-                    );
-                  })}
-              </div>
+              <ReviewImages images={JSON.parse(review.imageUrls)} />
             </div>
           );
         })}

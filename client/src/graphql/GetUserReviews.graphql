@@ -4,6 +4,7 @@ query GetUserReviews($userId: Int!) {
     createdAt
     id
     rating
+    imageUrls
     skateSpot {
       name
       city

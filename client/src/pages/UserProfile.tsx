@@ -7,6 +7,7 @@ import { ReviewText } from './components/ReviewText';
 import { AverageReviewStars } from './components/AverageReviewStars';
 import { RouteComponentProps } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ReviewImages } from './components/ReviewImages';
 
 const user = {
   username: 'crookiemonster',
@@ -75,7 +76,8 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
           <div>
             <h1 className="font-light text-3xl mb-4">{userData?.getUser.username}</h1>
             <h2 className="font-semibold">
-              <span>{userData?.getUser.firstName}</span>
+              <span className="uppercase">{userData?.getUser.firstName[0]}</span>
+              <span>{userData?.getUser.firstName.slice(1)}</span>
               <span className="uppercase">&nbsp;{userData?.getUser.lastName[0]}.</span>
             </h2>
           </div>
@@ -85,14 +87,14 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
         </div>
       </div>
       {/* Reviews */}
-      <div className="max-w-4xl border-t border-grey-200 my-10 mx-auto">
-        <div className="text-lg font-bold text-red-600 mt-6 ml-2">
+      <div className="max-w-4xl my-10 mx-auto">
+        <div className="text-xl font-bold text-red-600 mt-6 ml-2">
           <h1>Reviews</h1>
         </div>
         {!loading &&
           data?.getUserReviews.map((review) => {
             return (
-              <div key={review.id} className="border-b border-gray-400 py-10">
+              <div key={review.id} className="border-b border-gray-200 py-10">
                 {/* User information */}
                 <div className="flex">
                   {/* Profile image */}
@@ -127,6 +129,7 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
                 <div className="break-words font-light">
                   <ReviewText review={review.review} />
                 </div>
+                <ReviewImages images={JSON.parse(review.imageUrls)} />
               </div>
             );
           })}

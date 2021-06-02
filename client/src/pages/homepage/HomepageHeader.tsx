@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { TokenContext } from 'src/utils/TokenContext';
-import Account from '../components/Account';
+import DropDownMenu from '../components/DropDownMenu';
 
 export const HomepageHeader: React.FC = () => {
   const { isLoggedIn } = React.useContext(TokenContext);
@@ -20,7 +20,7 @@ export const HomepageHeader: React.FC = () => {
             </ul>
             <ul className="inline-block float-right">
               <li>
-                <Account />
+                <DropDownMenu />
               </li>
             </ul>
           </nav>

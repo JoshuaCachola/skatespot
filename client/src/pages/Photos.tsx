@@ -74,7 +74,6 @@ export const Photos: React.FC<Props> = ({ location }) => {
 
   const skateSpot = location.state.skateSpot;
 
-  console.log(currentPage, sliceRange);
   useEffect(() => {
     setMaxPages(Math.ceil(photos.length / 25));
   }, []);

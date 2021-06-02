@@ -23,7 +23,6 @@ export const SkateSpotResults: React.FC<Props> = () => {
   });
 
   const handleSkateSpotClick = (skatespot) => {
-    console.log(skatespot);
     client.writeQuery({
       query: GetSkateSpotDocument,
       data: {
@@ -71,12 +70,11 @@ export const SkateSpotResults: React.FC<Props> = () => {
           {data?.getSkateSpots &&
             data.getSkateSpots.map((result, resultIdx) => {
               return (
-                <li className="z-0" key={resultIdx}>
+                <li className="z-0 min-w-200" key={resultIdx}>
                   <Link
                     className="flex rounded border-2 mb-7 border-gray-100 hover:shadow-xl hover:bg-gray-50"
                     to={{
                       pathname: `/skate-spot/${result.name}`,
-                      // state: { skatespot: data.getSkateSpots[resultIdx] },
                     }}
                     onClick={() => handleSkateSpotClick(data.getSkateSpots[resultIdx])}
                   >
@@ -139,7 +137,7 @@ export const SkateSpotResults: React.FC<Props> = () => {
                           {/* what is there to skate, skating conditions etc... */}
                           <div>
                             <h2 className="font-semibold">Skatespot Obstacles</h2>
-                            <div className="flex w-96 text-sm">
+                            <div className="flex text-sm">
                               {JSON.parse(result.skatespotObstacles).map((obstacle, idx) => {
                                 return (
                                   <div key={obstacle}>
@@ -157,8 +155,11 @@ export const SkateSpotResults: React.FC<Props> = () => {
                           </div>
                         </div>
                         <div className="mr-2">
-                          <address>
-                            <p className="text-xs">{result.street}</p>
+                          <address className="text-xs">
+                            <p>{result.street}</p>
+                            <p>
+                              {result.city}, {result.state}
+                            </p>
                           </address>
                         </div>
                       </div>

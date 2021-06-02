@@ -15,7 +15,7 @@ export const SkateSpotBottom: React.FC<Props> = ({ skatespot }) => {
           <div className="flex w-full">
             {/* buttons for writing reviews, adding photos, follow skate spot */}
             <div className="w-2/3 max-w-295">
-              <div className="border-b border-black">
+              <div className="border-b border-dashed border-black">
                 <div className="mb-5">
                   <Link
                     to={{
@@ -37,7 +37,7 @@ export const SkateSpotBottom: React.FC<Props> = ({ skatespot }) => {
                   </Link>
                 </div>
               </div>
-              <div className="border-b border-black my-4">
+              <div className="border-b border-black border-dashed my-4">
                 {/* Header */}
                 <div className="text-black font-bold text-xl mb-4">
                   <span>Location</span>
@@ -71,7 +71,7 @@ export const SkateSpotBottom: React.FC<Props> = ({ skatespot }) => {
               </div>
               {/* Skatespot Obstacles */}
               <h2 className="font-semibold text-lg">Skatespot Obstacles</h2>
-              <div className="flex mt-5 mb-10 justify-between border border-gray-200 py-8 px-4 bg-gray-200 rounded w-full shadow-xl">
+              <div className="flex mt-5 mb-10 justify-between border border-gray-100 py-8 px-4 bg-gray-100 rounded w-full shadow-xl">
                 {JSON.parse(skatespot.skatespotObstacles).map((obstacle) => {
                   return (
                     <div className="border-gray-100 rounded mx-2 bg-white border-2 shadow-2xl" key={obstacle}>
@@ -82,7 +82,7 @@ export const SkateSpotBottom: React.FC<Props> = ({ skatespot }) => {
                 })}
               </div>
               {/* Reviews */}
-              <div className="border-t border-black">
+              <div className="border-t border-black border-dashed">
                 <h2 className="text-red-500 font-semibold mt-5 text-lg">Reviews</h2>
                 <SkateSpotReviews skateSpotId={skatespot.id} />
               </div>

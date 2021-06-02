@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { TokenContext } from 'src/utils/TokenContext';
-import Account from './Account';
+import DropDownMenu from './DropDownMenu';
 import SearchForm from './SearchForm';
 
 export const Header: React.FC = () => {
   const { isLoggedIn } = React.useContext(TokenContext);
   return (
-    <header className="border-b border-gray-200">
+    <header className="border-b border-gray-200 bg-gray-300">
       {/* Logo */}
       <div className="flex items-center justify-between">
         <div className="ml-4 font-semibold p-2 hover:border hover:bg-black hover:bg-opacity-10 rounded">
@@ -31,7 +31,7 @@ export const Header: React.FC = () => {
                   </div>
                 </li>
                 <li>
-                  <Account />
+                  <DropDownMenu />
                 </li>
               </ul>
             </nav>
