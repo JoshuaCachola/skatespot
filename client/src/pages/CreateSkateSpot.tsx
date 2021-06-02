@@ -179,7 +179,10 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
               </div>
 
               <div className="my-6 mx-auto w-140">
-                <button type="submit" className="border border-red-500 px-8 py-2 rounded bg-red-500 text-white">
+                <button
+                  type="submit"
+                  className="border border-red-500 px-8 py-2 rounded bg-red-500 text-white hover:bg-red-400 hover:text-black"
+                >
                   Submit
                 </button>
               </div>
@@ -187,8 +190,9 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
           );
         }}
       </Formik>
-
-      <Footer />
+      <div className="absolute bottom-0">
+        <Footer />
+      </div>
     </div>
   );
 };

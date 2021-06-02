@@ -25,7 +25,7 @@ const Account: React.FC<Props> = () => {
           <div className=" text-gray-400 hover:bg-black hover:bg-opacity-10 hover:text-gray-500 flex justify-center align-middle overflow-hidden rounded-l-sm rounded-r-none bg-white">
             <Link to="/user-profile">
               {data?.getUser.profilePicture ? (
-                <img src={data.getUser.profilePicture} alt="" className="h-11 w-10" />
+                <img src={data.getUser.profilePicture} alt="profile-image" className="h-11 w-10" />
               ) : (
                 <div className="h-10 w-5 my-auto py-2 mx-2 pl-0.5">
                   <FontAwesomeIcon icon={['fas', 'user']} />
@@ -47,7 +47,18 @@ const Account: React.FC<Props> = () => {
       </div>
       {isMenuOpen && (
         <ClickAwayListener onClickAway={handleClickAway}>
-          <div className="absolute top-20 right-4 w-52 h-auto border-2 rounded border-black bg-white shadow-2xl z-50">
+          <div className="absolute top-20 right-4 w-52 h-auto border-t border-l border-r-4 border-b-4 rounded border-black bg-white shadow-2xl z-50">
+            <Link to="/user-profile" className="flex m-2">
+              {data?.getUser.profilePicture ? (
+                <img src={data.getUser.profilePicture} alt="profile-image" className="h-11 w-10 rounded" />
+              ) : (
+                <div className="h-10 w-5 my-auto py-2 mx-2 pl-0.5">
+                  <FontAwesomeIcon icon={['fas', 'user']} />
+                </div>
+              )}
+              <span className="ml-2 my-auto font-semibold">{data?.getUser.username}</span>
+            </Link>
+            <div className="w-11/12 border-b mx-auto" />
             <Link
               to="/"
               onClick={async () => {
@@ -56,6 +67,7 @@ const Account: React.FC<Props> = () => {
                 await client.clearStore();
                 setIsLoggedIn(false);
               }}
+              className="m-2 font-semibold"
             >
               Logout
             </Link>

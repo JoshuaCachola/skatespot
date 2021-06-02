@@ -129,7 +129,7 @@ export class ReviewResolver {
       async () => {
         try {
           const imageUrls = JSON.parse(skateSpot.imageUrls);
-          skateSpot.imageUrls = JSON.stringify([...imageUrls, imgLinks]);
+          skateSpot.imageUrls = JSON.stringify([...imageUrls, ...imgLinks]);
           await skateSpot.save();
           await Review.insert({
             review,

@@ -22,7 +22,7 @@ export const SkateSpotBottom: React.FC<Props> = ({ skatespot }) => {
                       pathname: `/write-review/${skatespot.name}`,
                       state: { skateSpot: { id: skatespot.id, name: skatespot.name } },
                     }}
-                    className="text-white rounded border-red-500 bg-red-500 border mb-6 mr-6 py-2 px-6 font-bold"
+                    className="text-white rounded border-red-500 bg-red-500 border mb-6 mr-6 py-2 px-6 font-bold hover:bg-red-400 hover:text-black"
                   >
                     Write Review
                   </Link>
@@ -31,7 +31,7 @@ export const SkateSpotBottom: React.FC<Props> = ({ skatespot }) => {
                       pathname: '/skatespot-photos/add',
                       state: { skatespot: skatespot },
                     }}
-                    className="text-white rounded border-red-500 bg-red-500 border mb-6 mr-6 py-2 px-6 font-bold"
+                    className="text-white rounded border-red-500 bg-red-500 border mb-6 mr-6 py-2 px-6 font-bold hover:bg-red-400 hover:text-black"
                   >
                     Add photo
                   </Link>

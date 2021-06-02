@@ -98,7 +98,9 @@ export const UpdateProfilePicture: React.FC<RouteComponentProps> = ({ history })
           </Formik>
         </div>
       </div>
-      <Footer />
+      <div className="absolute bottom-0">
+        <Footer />
+      </div>
     </div>
   );
 };

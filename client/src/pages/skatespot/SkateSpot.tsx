@@ -126,7 +126,7 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
                     pathname: `/photos/${data?.getSkateSpot.name}`,
                     state: { skateSpot: data?.getSkateSpot },
                   }}
-                  className="font-bold text-white focus:outline-none border rounded border-white py-3 px-8 min-w-44"
+                  className="font-bold text-white focus:outline-none border-t border-l border-r-4 border-b-4 rounded border-white py-3 px-8 min-w-44 hover:bg-black hover:bg-opacity-40"
                 >
                   See {JSON.parse(data!.getSkateSpot.imageUrls).length} Photos
                 </Link>

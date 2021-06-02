@@ -68,7 +68,7 @@ export const Home: React.FC<Props> = () => {
               <HomepageHeader />
             </div>
             <div
-              className={`absolute max-w-5xl mt-16 mx-auto z-20 top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-3/4 ${
+              className={`absolute max-w-5xl mt-12 mx-auto z-20 top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-3/4 ${
                 isTabletOrMobile ? 'pt-44' : 'pt-20'
               }`}
             >
@@ -145,7 +145,9 @@ export const Home: React.FC<Props> = () => {
           )}
         </div>
       </section>
-      <Footer />
+      <div className={`${isTabletOrMobile && 'fixed bottom-0'}`}>
+        <Footer />
+      </div>
     </div>
   );
 };

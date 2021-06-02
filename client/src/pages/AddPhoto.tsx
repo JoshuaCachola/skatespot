@@ -84,7 +84,7 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
                     <div className="mt-6 justify-center flex">
                       <button
                         type="submit"
-                        className="border rounded border-red-500 bg-red-500 text-white py-2 px-8 text-lg font-semibold"
+                        className="border rounded border-red-500 bg-red-500 text-white py-2 px-8 text-lg font-semibold hover:bg-red-400 hover:text-black"
                       >
                         Upload Photos
                       </button>
@@ -96,7 +96,9 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
           </Formik>
         </div>
       </div>
-      <Footer />
+      <div className="absolute bottom-0">
+        <Footer />
+      </div>
     </div>
   );
 };

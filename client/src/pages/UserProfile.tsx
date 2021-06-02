@@ -55,7 +55,7 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
         <div className="rounded mt-5 mb-8 ml-20">
           <div className="absolute">
             <div
-              className="inline-block text-white border rounded bg-gray-300 text-center px-1 m-1 cursor-pointer hover:bg-gray-500 border-gray-300"
+              className="inline-block text-white border rounded bg-gray-300 text-center px-1 m-1 cursor-pointer hover:bg-gray-500 border-gray-300 hover:border-gray-500"
               onClick={() => handleOnClick()}
             >
               <FontAwesomeIcon icon={['fas', 'image']} />

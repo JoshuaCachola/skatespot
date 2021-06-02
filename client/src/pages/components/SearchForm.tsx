@@ -148,12 +148,10 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
             <div className="box-border table-cell align-top">
               <button
                 type="submit"
-                className="shadow-lg mt-4 rounded-l-none rounded-r bg-red-500 px-5 py-3.75 leading-normal focus:outline-none"
+                className="shadow-lg mt-4 rounded-l-none rounded-r bg-red-500 px-5 py-3.75 leading-normal focus:outline-none text-white hover:bg-red-400 hover:text-black"
               >
-                <span>
-                  <span className="w-6 h-6 text-white text-base">
-                    <FontAwesomeIcon icon={['fas', 'search']} />
-                  </span>
+                <span className="w-6 h-6 text-base">
+                  <FontAwesomeIcon icon={['fas', 'search']} />
                 </span>
               </button>
             </div>

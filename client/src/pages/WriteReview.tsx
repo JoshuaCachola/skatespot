@@ -83,14 +83,16 @@ export const WriteReview: React.FC<RouteComponentProps & Props> = ({ history, lo
           <div className="mt-6">
             <button
               type="submit"
-              className="border rounded border-red-500 bg-red-500 text-white py-2 px-8 text-lg font-semibold"
+              className="border rounded border-red-500 bg-red-500 text-white py-2 px-8 text-lg font-semibold hover:bg-red-400 hover:text-black"
             >
               Post Review
             </button>
           </div>
         </form>
       </div>
-      <Footer />
+      <div className="absolute bottom-0">
+        <Footer />
+      </div>
     </div>
   );
 };
