@@ -4,6 +4,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { GetSkateSpotDocument, useUploadPhotosMutation } from 'src/generated/graphql';
 import { Header } from 'src/pages/components/Header';
 import { UploadPhoto } from 'src/utils/UploadPhoto';
+import { ErrorBanner } from './components/ErrorBanner';
 import { Footer } from './components/Footer';
 import { LoadingAnimation } from './components/LoadingAnimation';
 // import * as Yup from 'yup';
@@ -37,10 +38,6 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
     };
   }, []);
 
-  if (error) {
-    return <h1>error</h1>;
-  }
-
   return (
     <div>
       {loading && (
@@ -51,6 +48,7 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
         </div>
       )}
       <Header />
+      {error && <ErrorBanner />}
       {/* Upload */}
       <div className="w-220 mx-auto my-0">
         <div className="mt-4 flex">

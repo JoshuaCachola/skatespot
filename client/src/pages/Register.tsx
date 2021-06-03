@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { Footer } from './components/Footer';
 import LoginHero from '../assets/LoginHero.png';
 import { Link } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
 interface RegisterForm {
   firstName: string;
@@ -17,10 +18,15 @@ interface RegisterForm {
 }
 
 export const Register: React.FC<RouteComponentProps> = ({ history }) => {
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 768px)' });
   const [register] = useRegisterUserMutation();
   return (
     <div>
-      <header className="flex text-3xl justify-around border-b border-red-500 h-full bg-red-500 py-5 m-0 text-white">
+      <header
+        className={`text-center w-full border-b border-blue-400 h-full bg-blue-400 py-5 m-0 text-white ${
+          isTabletOrMobile ? 'text-2xl' : 'text-3xl'
+        }`}
+      >
         <Link to="/">
           <h1 className="m-0 p-0">
             <span className="font-bold">Skate</span>
@@ -28,7 +34,11 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
           </h1>
         </Link>
       </header>
-      <div className="flex w-200 mx-auto my-0 h-screen justify-between">
+      <div
+        className={`flex align-middle mx-auto h-screen ${
+          isTabletOrMobile ? 'w-3/4 justify-center' : 'w-200 justify-between'
+        }`}
+      >
         <div className="my-auto mx-0">
           <Formik
             initialValues={{
@@ -60,6 +70,9 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
               const { values, touched, errors, isSubmitting, handleChange, handleBlur } = props;
               return (
                 <Form>
+                  <div className="my-2 font-semibold text-xl text-center">
+                    <h1>Register for SkateSpot</h1>
+                  </div>
                   <div className="border rounded border-gray-600">
                     <div className="m-5">
                       <Field
@@ -158,7 +171,7 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
                       type="submit"
                       value="Submit"
                       disabled={isSubmitting}
-                      className="cursor-pointer font-bold bg-red-500 px-6 py-2 border rounded border-red-500 text-white"
+                      className="cursor-pointer font-bold px-6 py-2 rounded border-blue-400 bg-blue-400 border-r-2 border-b-2 border-l border-t hover:bg-blue-200 hover:text-blackborder-red-500 text-white"
                     />
                   </div>
                 </Form>
@@ -166,9 +179,13 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
             }}
           </Formik>
         </div>
-        <div className="w-80 h-80 my-auto mx-0">
-          <img src={LoginHero} alt="login-hero" />
-        </div>
+        {isTabletOrMobile ? (
+          <></>
+        ) : (
+          <div className="w-80 h-80 my-auto mx-0">
+            <img src={LoginHero} alt="login-hero" />
+          </div>
+        )}
       </div>
       <Footer />
     </div>

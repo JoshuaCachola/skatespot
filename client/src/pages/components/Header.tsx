@@ -4,9 +4,12 @@ import { TokenContext } from 'src/utils/TokenContext';
 import DropDownMenu from './DropDownMenu';
 import SearchForm from './SearchForm';
 import BoardTap from '../../assets/board-tap.png';
+import { useMediaQuery } from 'react-responsive';
 
 export const Header: React.FC = () => {
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 768px)' });
   const { isLoggedIn } = React.useContext(TokenContext);
+
   return (
     <header className="bg-gray-500">
       {/* Logo */}
@@ -18,10 +21,12 @@ export const Header: React.FC = () => {
                 <span className="font-bold">S</span>
                 <span className="font-thin">S</span>
               </div>
-              <div className="text-white">
-                <span className="font-bold text-lg">&nbsp;Skate</span>
-                <span className="font-light text-lg">Spot</span>
-              </div>
+              {!isTabletOrMobile && (
+                <div className="text-white">
+                  <span className="font-bold text-lg">&nbsp;Skate</span>
+                  <span className="font-light text-lg">Spot</span>
+                </div>
+              )}
             </div>
           </Link>
         </div>

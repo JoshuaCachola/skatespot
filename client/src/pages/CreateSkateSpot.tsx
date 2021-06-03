@@ -8,6 +8,7 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { skatespotObstacles, skatespotObstacleImages } from '../utils/skatespotObstacles';
 import { LoadingAnimation } from './components/LoadingAnimation';
+import { ErrorBanner } from './components/ErrorBanner';
 
 interface SkateSpotForm {
   name: string;
@@ -31,10 +32,6 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
     skatespotObstacles: [],
   };
 
-  if (error) {
-    return <h1>error</h1>;
-  }
-
   return (
     <div>
       {loading && (
@@ -44,6 +41,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
           </div>
         </div>
       )}
+      {error && <ErrorBanner />}
       <Header />
       <div className="w-140 mx-auto my-10 text-3xl font-bold">
         <h1>

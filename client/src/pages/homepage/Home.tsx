@@ -94,6 +94,25 @@ export const Home: React.FC<Props> = () => {
             <div className="mx-auto my-0 font-bold text-xl border-b-2 pb-2 border-black">
               <h2 className="text-center">Review Skate Spots</h2>
             </div>
+            {loading &&
+              Array(5)
+                .fill(0)
+                .map((_, idx) => {
+                  return (
+                    <div className="border border-gray-100 shadow rounded p-4 w-115 h-36 mx-auto my-2" key={idx}>
+                      <div className="animate-pulse flex space-x-4">
+                        <div className="rounded-full bg-light-gray-100 h-12 w-12"></div>
+                        <div className="flex-1 space-y-4 py-1">
+                          <div className="h-4 bg-light-gray-100 rounded w-3/4"></div>
+                          <div className="space-y-2">
+                            <div className="h-4 bg-light-gray-100 rounded"></div>
+                            <div className="h-4 bg-light-gray-100 rounded w-5/6"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
             {!loading &&
               skateSpots &&
               skateSpots.slice(0, 5).map((skateSpot, idx) => {

@@ -10,6 +10,7 @@ import {
 } from 'src/generated/graphql';
 import { Header } from 'src/pages/components/Header';
 import { UploadPhoto } from 'src/utils/UploadPhoto';
+import { ErrorBanner } from './components/ErrorBanner';
 import { Footer } from './components/Footer';
 import { LoadingAnimation } from './components/LoadingAnimation';
 // import * as Yup from 'yup';
@@ -43,7 +44,7 @@ export const UpdateProfilePicture: React.FC<RouteComponentProps> = ({ history })
 
       setTimeout(() => history.push('/user-profile'), 1000);
     }
-  }, [data, photos, updatePhoto]);
+  }, [data, photos, updatePhoto, history]);
 
   useEffect(() => {
     return () => {
@@ -65,6 +66,7 @@ export const UpdateProfilePicture: React.FC<RouteComponentProps> = ({ history })
         </div>
       )}
       <Header />
+      {error && <ErrorBanner />}
       {/* Upload */}
       <div className="w-220 mx-auto my-0">
         <div className="flex text-center mt-4">

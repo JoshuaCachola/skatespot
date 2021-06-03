@@ -8,6 +8,7 @@ import {
   faUser,
   faAngleDoubleRight,
   faImage,
+  faBars,
 } from '@fortawesome/free-solid-svg-icons';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 
@@ -22,4 +23,5 @@ library.add(
   faWindowMaximize,
   faAngleDoubleRight,
   faImage,
+  faBars,
 );

@@ -9,25 +9,23 @@ import { searchResults } from 'src/graphql/reactive-variables/searchResults';
 const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
   const formik = useFormik({
     initialValues: {
-      find: '',
-      near: '',
+      query: '',
     },
     onSubmit: () => {
       searchResults(data?.search);
       if (data?.search.length === 1) {
         history.push(`/skate-spot/${data.search[0].name}`);
       }
-      history.push({ pathname: '/search', search: `find=${formik.values.find}` });
+      history.push({ pathname: '/search', search: `query=${formik.values.query}` });
     },
   });
 
   const [search, { loading, data }] = useSearchLazyQuery({ pollInterval: 500 });
   const [isFindSearchOpen, setIsFindSearchOpen] = useState<boolean>(false);
-  // const [isNearSearchOpen, setIsNearSearchOpen] = useState<boolean>(false);
 
   React.useEffect(() => {
-    search({ variables: { query: formik.values.find } });
-  }, [formik.values.find, search]);
+    search({ variables: formik.values });
+  }, [formik.values, search]);
 
   return (
     <form onSubmit={formik.handleSubmit} className="align-baseline block relative">
@@ -40,7 +38,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
                 <div className="shadow-lg mt-4">
                   <label
                     // search-divider=""
-                    className={`relative rounded-l rounded-r-none px-3 py-3 text-lg font-bold bg-white box-border block w-full mt-0 mb-5 mx-0 border-l border-white shadow-2xl  ${
+                    className={`relative rounded-l rounded-r-none px-3 py-3 text-lg font-bold bg-white block w-full mt-0 mb-5 mx-0 border-l border-white shadow-2xl ${
                       isFindSearchOpen ? 'rounded-bl-none' : 'rounded-br-none'
                     }`}
                   >
@@ -48,13 +46,13 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
                       <span className="mr-3 text-gray-600">Find</span>
                       <span className="block flex-grow">
                         <input
-                          id="find"
-                          name="find"
+                          id="query"
+                          name="query"
                           type="text"
                           autoComplete="off"
                           placeholder="Try California..."
                           maxLength={64}
-                          className="cursor-text inline-block w-full box-border focus:outline-none"
+                          className="cursor-text inline-block w-full focus:outline-none"
                           onClick={() => setIsFindSearchOpen(!isFindSearchOpen)}
                           onChange={formik.handleChange}
                         />
@@ -156,8 +154,6 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
           </button>
         </div>
       </div>
-      {/* </div> */}
-      {/* </div> */}
     </form>
   );
 };

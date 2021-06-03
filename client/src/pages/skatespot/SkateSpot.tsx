@@ -42,9 +42,15 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
   };
 
   if (loading) {
-    return <h1>loading</h1>;
+    return (
+      <>
+        <Header />
+        <div className="text-lg font-semibold text-center my-10">
+          <span>Searching for skate spot...</span>
+        </div>
+      </>
+    );
   }
-
   if (error) {
     return <NotFound />;
   }

@@ -5,14 +5,16 @@ import ClickAwayListener from 'react-click-away-listener';
 import { useGetUserQuery, useLogoutUserMutation } from 'src/generated/graphql';
 import { TokenContext } from 'src/utils/TokenContext';
 import { accessToken } from 'src/graphql/reactive-variables/accessToken';
+// import { useMediaQuery } from 'react-responsive';
 
 interface Props {}
 
 const DropDownMenu: React.FC<Props> = () => {
+  // const isTabletOrMobile = useMediaQuery({ query: '(max-width: 768px)' });
   const { data } = useGetUserQuery({ fetchPolicy: 'cache-and-network', nextFetchPolicy: 'cache-first' });
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [logout, { client }] = useLogoutUserMutation();
-  const { setIsLoggedIn } = useContext(TokenContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(TokenContext);
 
   const handleClickAway = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -25,7 +27,7 @@ const DropDownMenu: React.FC<Props> = () => {
           <div className=" text-gray-400 hover:bg-black hover:bg-opacity-10 hover:text-gray-500 flex justify-center align-middle overflow-hidden rounded-l-sm rounded-r-none bg-white">
             <Link to="/user-profile">
               {data?.getUser.profilePicture ? (
-                <img src={data.getUser.profilePicture} alt="profile-image" className="h-11 w-10" />
+                <img src={data.getUser.profilePicture} alt="profile" className="h-11 w-10" />
               ) : (
                 <div className="h-10 w-5 my-auto py-2 mx-2 pl-0.5">
                   <FontAwesomeIcon icon={['fas', 'user']} />
@@ -48,33 +50,42 @@ const DropDownMenu: React.FC<Props> = () => {
       {isMenuOpen && (
         <ClickAwayListener onClickAway={handleClickAway}>
           <div className="absolute mt-1 right-0 w-52 h-auto border-t border-l border-r-4 border-b-4 rounded border-black bg-white shadow-2xl z-50">
-            <Link to="/user-profile" className="flex m-2">
-              {data?.getUser.profilePicture ? (
-                <img
-                  src={data.getUser.profilePicture}
-                  alt="profile-image"
-                  className="h-11 w-10 rounded border-b-4 border-r-4 border-t border-l border-black"
-                />
-              ) : (
-                <div className="h-10 w-5 my-auto py-2 mx-2 pl-0.5">
-                  <FontAwesomeIcon icon={['fas', 'user']} />
-                </div>
-              )}
-              <span className="ml-2 my-auto font-semibold">{data?.getUser.username}</span>
-            </Link>
-            <div className="w-11/12 border-b mx-auto" />
-            <Link
-              to="/"
-              onClick={async () => {
-                await logout();
-                accessToken('');
-                await client.clearStore();
-                setIsLoggedIn(false);
-              }}
-              className="m-2 font-semibold"
-            >
-              Logout
-            </Link>
+            {isLoggedIn ? (
+              <>
+                <Link to="/user-profile" className="flex m-2">
+                  {data?.getUser.profilePicture ? (
+                    <img
+                      src={data.getUser.profilePicture}
+                      alt="profile-menu"
+                      className="h-11 w-10 rounded border-b-4 border-r-4 border-t border-l border-black"
+                    />
+                  ) : (
+                    <div className="h-10 w-5 my-auto py-2 mx-2 pl-0.5">
+                      <FontAwesomeIcon icon={['fas', 'user']} />
+                    </div>
+                  )}
+                  <span className="ml-2 my-auto font-semibold">{data?.getUser.username}</span>
+                </Link>
+                <div className="w-11/12 border-b mx-auto" />
+                <Link
+                  to="/"
+                  onClick={async () => {
+                    await logout();
+                    accessToken('');
+                    await client.clearStore();
+                    setIsLoggedIn(false);
+                  }}
+                  className="m-2 font-semibold"
+                >
+                  Logout
+                </Link>
+              </>
+            ) : (
+              <div>
+                <Link to="/login">Log In</Link>
+                <Link to="sign-up">Sign Up</Link>
+              </div>
+            )}
           </div>
         </ClickAwayListener>
       )}

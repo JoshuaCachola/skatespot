@@ -8,6 +8,7 @@ import { Footer } from './components/Footer';
 import LoginHero from '../assets/LoginHero.png';
 import { Link } from 'react-router-dom';
 import { TokenContext } from 'src/utils/TokenContext';
+import { useMediaQuery } from 'react-responsive';
 
 interface LoginForm {
   email: string;
@@ -15,6 +16,7 @@ interface LoginForm {
 }
 
 export const Login: React.FC<RouteComponentProps> = ({ history }) => {
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 768px)' });
   const { setIsLoggedIn } = React.useContext(TokenContext);
   const [login, { error }] = useLoginUserMutation({
     onCompleted({ login }) {
@@ -26,7 +28,11 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
   return (
     <div>
       {/* Logo */}
-      <header className="flex text-3xl justify-around border-b border-red-500 h-full bg-red-500 py-5 m-0 text-white">
+      <header
+        className={`text-center border-b border-blue-400 bg-blue-400 py-5 m-0 text-white w-full ${
+          isTabletOrMobile ? 'text-2xl' : 'text-3xl'
+        }`}
+      >
         <Link to="/">
           <h1 className="m-0 p-0">
             <span className="font-bold">Skate</span>
@@ -34,13 +40,17 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
           </h1>
         </Link>
       </header>
-      <div className="flex w-200 mx-auto my-0 h-screen justify-between">
+      <div
+        className={`flex mx-auto align-middle h-screen ${
+          isTabletOrMobile ? 'w-3/4 justify-center' : 'w-200 justify-between flex'
+        }`}
+      >
         <div className="my-auto mx-0">
           {/* Link to register for new users*/}
           <div className="flex justify-center my-2">
             <div className="font-semibold text-xl">
               <h2>
-                <span>Log in to Skate Spot</span>
+                <span>Log in to SkateSpot</span>
               </h2>
             </div>
           </div>
@@ -48,7 +58,7 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
             <div className="font-semibold text-base">
               <h3>
                 <span>
-                  New to Skate Spot?{' '}
+                  New to SkateSpot?{' '}
                   <Link to="/register">
                     <span className="text-blue-700">Register</span>
                   </Link>
@@ -100,7 +110,7 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
                         value={values.email}
                         type="email"
                         placeholder="Email Address"
-                        className="border-b border-black border-dashed font-display focus:outline-none focus:border-primarycolor transition-all duration-500 text-lg"
+                        className="border-b border-black border-dashed font-display focus:outline-none focus:border-primarycolor transition-all duration-500 text-lg w-full"
                         onBlur={handleBlur}
                         onChange={handleChange}
                       />
@@ -114,7 +124,7 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
                         id="password"
                         type="password"
                         placeholder="Password"
-                        className="border-b border-black border-dashed font-display focus:outline-none focus:border-primarycolor transition-all duration-500 text-lg"
+                        className="border-b border-black border-dashed font-display focus:outline-none focus:border-primarycolor transition-all duration-500 text-lg w-full"
                         onBlur={handleBlur}
                         onChange={handleChange}
                       />
@@ -133,7 +143,7 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
                         type="submit"
                         value="Log In"
                         disabled={isSubmitting}
-                        className="cursor-pointer font-bold bg-red-500 px-6 py-2 border rounded border-red-500 text-white"
+                        className="cursor-pointer font-bold px-6 py-2 rounded border-blue-400 bg-blue-400 border-r-2 border-b-2 border-l border-t hover:bg-blue-200 hover:text-blackborder-red-500 text-white"
                       />
                     </div>
                   </div>
@@ -142,9 +152,13 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
             }}
           </Formik>
         </div>
-        <div className="w-80 h-80 my-auto mx-0">
-          <img src={LoginHero} alt="login-hero" />
-        </div>
+        {isTabletOrMobile ? (
+          <></>
+        ) : (
+          <div className="w-80 h-80 my-auto mx-0">
+            <img src={LoginHero} alt="login-hero" />
+          </div>
+        )}
       </div>
       <Footer />
     </div>

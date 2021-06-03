@@ -7,7 +7,7 @@ interface Props {}
 export const NotFound: React.FC<Props> = () => {
   return (
     <div>
-      <header className="flex text-3xl justify-around border-b border-red-500 h-full bg-red-500 py-5 m-0 text-white">
+      <header className="flex text-3xl justify-around border-b border-blue-400 h-full bg-blue-400 py-5 m-0 text-white">
         <Link to="/">
           <h1 className="m-0 p-0">
             <span className="font-bold">Skate</span>

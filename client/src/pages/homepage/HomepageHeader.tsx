@@ -40,7 +40,7 @@ export const HomepageHeader: React.FC = () => {
               <li className="inline-block">
                 <Link
                   to="/register"
-                  className="cursor-pointer align-middle text-center font-bold select-none text-sm rounded -mt-0.5 border-solid border-white border-2 pt-2 pb-2 px-7.5 whitespace-nowrap leading-tight transition duration-500 ease-in-out hover:bg-white hover:text-black text-white"
+                  className="cursor-pointer align-middle text-center font-bold select-none text-sm rounded -mt-0.5 border-solid border-white  border-2 pt-2 pb-2 px-7.5 whitespace-nowrap leading-tight transition duration-500 ease-in-out hover:bg-white hover:text-black text-white"
                 >
                   Sign Up
                 </Link>

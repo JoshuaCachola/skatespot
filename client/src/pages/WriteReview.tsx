@@ -8,6 +8,7 @@ import { useCreateReviewMutation, useGetUserQuery } from 'src/generated/graphql'
 import { Upload } from 'src/utils/Upload';
 import { Footer } from './components/Footer';
 import { LoadingAnimation } from './components/LoadingAnimation';
+import { ErrorBanner } from './components/ErrorBanner';
 
 interface Props {
   history: any;
@@ -23,7 +24,7 @@ const validationSchema = Yup.object({
 
 export const WriteReview: React.FC<RouteComponentProps & Props> = ({ history, location }) => {
   const { data } = useGetUserQuery();
-  const [createReview, { loading }] = useCreateReviewMutation({
+  const [createReview, { loading, error }] = useCreateReviewMutation({
     onCompleted({ createReview }) {
       console.log(createReview);
     },
@@ -55,6 +56,7 @@ export const WriteReview: React.FC<RouteComponentProps & Props> = ({ history, lo
           </div>
         </div>
       )}
+      {error && <ErrorBanner />}
       <Header />
       <div className="flex mx-auto my-10 max-w-140 w-140">
         <div className="font-extrabold text-3xl">
