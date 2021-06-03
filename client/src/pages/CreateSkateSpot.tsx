@@ -47,7 +47,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
       <div>
         <Header />
       </div>
-      <section className={`h-screen ${isMobile && 'overflow-y-scroll'}`}>
+      <section className={`h-full mb-6 ${isMobile && 'overflow-y-scroll'}`}>
         <div className={`text-3xl mx-auto my-10 font-bold ${isMobile ? 'w-72' : 'w-140'}`}>
           <h1>
             <span>Add Skate Spot</span>
@@ -156,7 +156,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
                     </div>
                     {/* Skatespot Obstacles */}
                     <h2 className="text-center my-2 font-semibold">Skatespot Obstacles</h2>
-                    <div className="flex flex-wrap">
+                    <div className="flex flex-wrap justify-center">
                       {skatespotObstacles.map((obstacle) => {
                         return (
                           <div key={obstacle} className="text-center mx-2">
@@ -183,7 +183,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
                   </section>
                 </div>
 
-                <div className={`mx-auto my-6 ${isMobile ? 'w-72' : 'w-140'}`}>
+                <div className={`mx-auto mt-6 ${isMobile ? 'w-72' : 'w-140'}`}>
                   <button
                     type="submit"
                     className="border-l border-t border-r-2 border-b-2 border-blue-400 px-8 py-2 rounded bg-blue-400 text-white hover:bg-blue-200 hover:text-black "

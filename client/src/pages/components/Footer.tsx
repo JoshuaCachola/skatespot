@@ -9,7 +9,7 @@ export const Footer: React.FC<Props> = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 415px)' });
 
   return (
-    <div className="table-row align-bottom bottom-0 w-screen bg-gray-200 z-20">
+    <div className="table-row align-bottom w-full bg-gray-200 z-20">
       <div className="flex flex-col items-end w-screen py-2">
         <div className={`flex text-black text-middle mr-6 ${isMobile ? 'text-base' : 'text-lg'}`}>
           <Link to={{ pathname: 'https://www.linkedin.com/in/joshua-cachola-b6bab9194/' }} target="_blank">

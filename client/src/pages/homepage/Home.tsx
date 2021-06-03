@@ -62,8 +62,8 @@ export const Home: React.FC<Props> = () => {
         </>
       ) : (
         <>
-          <Parallax bgImage={HeroOuter} strength={220} blur={{ min: -2, max: 4 }}>
-            <div className="w-full">
+          <Parallax bgImage={HeroOuter} strength={220} blur={{ min: -2, max: 4 }} className="max-w-max">
+            <div className="w-full max-w-max">
               <img src={HeroInner} alt="hero-inner" />
             </div>
           </Parallax>
@@ -72,12 +72,12 @@ export const Home: React.FC<Props> = () => {
               <HomepageHeader />
             </div>
             <div
-              className={`absolute max-w-5xl mt-12 mx-auto z-20 top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-3/4 ${
-                isTabletOrMobile ? 'pt-44' : 'pt-20'
+              className={`absolute mx-auto z-20 top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-3/4 ${
+                isTabletOrMobile ? 'pt-44' : 'pt-32'
               }`}
             >
               <div
-                className="w-72 h-20 mt-0 mx-auto align-baseline text-white text-5xl"
+                className="w-72 h-20 mt-0 mx-auto align-baseline text-white text-6xl"
                 style={{ opacity: `${-scroll / (headerHeight / 5) + 1}` }}
               >
                 <h1 className="text-center">
@@ -92,7 +92,7 @@ export const Home: React.FC<Props> = () => {
         </>
       )}
       {error && <ErrorBanner />}
-      <section className="mt-10 mb-28 h-full bg-white relative z-10">
+      <section className="mt-10 mb-28 h-screen bg-white relative z-10">
         <div className={`max-w-7xl my-10 mx-auto flex ${isTabletOrMobile ? 'justify-center' : 'justify-around'}`}>
           {/* Section Header */}
           <div className="relative">

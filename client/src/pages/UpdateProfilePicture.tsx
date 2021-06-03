@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Formik, FormikProps } from 'formik';
 import React, { useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import {
   GetUserQuery,
@@ -20,6 +21,7 @@ interface ProfilePicture {
 }
 
 export const UpdateProfilePicture: React.FC<RouteComponentProps> = ({ history }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 415px)' });
   const { data } = useGetUserQuery();
   const [photos, setPhotos] = React.useState([]);
   const [updatePhoto, { loading, error }] = useUpdateProfilePictureMutation();
@@ -68,7 +70,7 @@ export const UpdateProfilePicture: React.FC<RouteComponentProps> = ({ history })
       <Header />
       {error && <ErrorBanner />}
       {/* Upload */}
-      <div className="w-220 mx-auto my-0">
+      <section className={`mx-auto my-0 h-screen ${isMobile ? 'w-72' : 'w-220'}`}>
         <div className="flex text-center mt-4">
           <Link to="/user-profile" className="text-blue-700 font-bold">
             <h3>
@@ -99,10 +101,10 @@ export const UpdateProfilePicture: React.FC<RouteComponentProps> = ({ history })
             }}
           </Formik>
         </div>
-      </div>
-      <div className="absolute bottom-0">
+      </section>
+      <section className="absolute bottom-0">
         <Footer />
-      </div>
+      </section>
     </div>
   );
 };

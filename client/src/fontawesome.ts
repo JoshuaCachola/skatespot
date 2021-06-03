@@ -9,6 +9,9 @@ import {
   faAngleDoubleRight,
   faImage,
   faBars,
+  faSignOutAlt,
+  faUserPlus,
+  faSignInAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 
@@ -24,4 +27,7 @@ library.add(
   faAngleDoubleRight,
   faImage,
   faBars,
+  faSignOutAlt,
+  faUserPlus,
+  faSignInAlt,
 );

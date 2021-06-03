@@ -5,6 +5,7 @@ import ClickAwayListener from 'react-click-away-listener';
 import { useGetUserQuery, useLogoutUserMutation } from 'src/generated/graphql';
 import { TokenContext } from 'src/utils/TokenContext';
 import { accessToken } from 'src/graphql/reactive-variables/accessToken';
+import BoardTap from '../../assets/board-tap.png';
 import { useMediaQuery } from 'react-responsive';
 
 interface Props {}
@@ -64,11 +65,14 @@ const DropDownMenu: React.FC<Props> = () => {
               <>
                 <Link to="/user-profile" className="flex m-2">
                   {data?.getUser.profilePicture ? (
-                    <img
-                      src={data.getUser.profilePicture}
-                      alt="profile-menu"
-                      className="h-11 w-10 rounded border-b-4 border-r-4 border-t border-l border-black"
-                    />
+                    <div className="flex">
+                      <img
+                        src={data.getUser.profilePicture}
+                        alt="profile-menu"
+                        className="h-11 w-10 rounded border-b-4 border-r-4 border-t border-l border-black"
+                      />
+                      <span className="ml-2 my-auto font-semibold">{data?.getUser.username}</span>
+                    </div>
                   ) : (
                     <div className="flex items-center h-10 w-5 my-auto mx-2">
                       <div className="border px-2 py-1 rounded bg-gray-200 text-xl">
@@ -80,33 +84,53 @@ const DropDownMenu: React.FC<Props> = () => {
                   {/* <span className="ml-2 my-auto font-semibold">{data?.getUser.username}</span> */}
                 </Link>
                 {isMobile && (
-                  <div className="m-2 font-semibold">
-                    <Link to="/create-skate-spot">Create Skate Spot</Link>
+                  <div className="flex m-2 font-semibold">
+                    <div className="border-t border-l border-r-4 border-b-4 border-black rounded p-1 bg-white">
+                      <img src={BoardTap} alt="" className="w-4 h-4" />
+                    </div>
+                    <Link to="/create-skate-spot" className="ml-5">
+                      Create Skate Spot
+                    </Link>
                   </div>
                 )}
                 <div className="w-11/12 border-b my-2 mx-auto" />
-                <Link
-                  to="/"
-                  onClick={async () => {
-                    await logout();
-                    accessToken('');
-                    await client.clearStore();
-                    setIsLoggedIn(false);
-                  }}
-                  className="m-2 font-semibold"
-                >
-                  Logout
-                </Link>
+                <div className="flex m-2">
+                  <div className="px-1 mr-5 border-l border-t border-r-4 border-b-4 border-black rounded">
+                    <FontAwesomeIcon icon={['fas', 'sign-out-alt']} />
+                  </div>
+                  <Link
+                    to="/"
+                    onClick={async () => {
+                      await logout();
+                      accessToken('');
+                      await client.clearStore();
+                      setIsLoggedIn(false);
+                    }}
+                    className="font-semibold"
+                  >
+                    Logout
+                  </Link>
+                </div>
               </>
             ) : (
-              <div className="flex flex-col m-2">
-                <Link to="/login" className="font-semibold">
-                  Log In
-                </Link>
+              <div className="m-2">
+                <div className="flex">
+                  <div className="px-1 mr-5 border-l border-t border-r-4 border-b-4 border-black rounded">
+                    <FontAwesomeIcon icon={['fas', 'sign-in-alt']} />
+                  </div>
+                  <Link to="/login" className="font-semibold">
+                    Log In
+                  </Link>
+                </div>
                 <div className="border-b my-1" />
-                <Link to="sign-up" className="font-semibold">
-                  Sign Up
-                </Link>
+                <div className="flex">
+                  <div className="px-1 mr-5 border-l border-t border-r-4 border-b-4 border-black rounded">
+                    <FontAwesomeIcon icon={['fas', 'user-plus']} />
+                  </div>
+                  <Link to="sign-up" className="font-semibold">
+                    Sign Up
+                  </Link>
+                </div>
               </div>
             )}
           </div>

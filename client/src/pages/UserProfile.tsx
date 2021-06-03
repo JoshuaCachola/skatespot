@@ -104,7 +104,7 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
         </section>
         {/* Reviews */}
         <section className={`max-w-4xl my-10 mx-auto ${isMobile && 'w-72'}`}>
-          <div className="text-xl font-bold text-red-500 mt-6 ml-2">
+          <div className="text-xl font-bold text-red-500 mt-6 ml-5">
             <h1>Reviews</h1>
           </div>
           {!loading &&

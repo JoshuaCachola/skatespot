@@ -41,7 +41,7 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
   }, []);
 
   return (
-    <div className="overflow-y-scroll">
+    <div>
       {loading && (
         <div className="fixed top-0 left-0 bottom-0 right-0 bg-black bg-opacity-70 z-50">
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-auto">
@@ -52,17 +52,20 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
       <Header />
       {error && <ErrorBanner />}
       {/* Upload */}
-      <section className={`h-screen mx-auto my-10 ${isMobile ? 'w-72' : 'w-220'}`}>
+      <section className={`h-screen mx-auto my-10 ${isMobile ? 'w-72' : 'w-3/4'}`}>
         <div className="mt-4">
           <div
-            className={`flex font-bold text-blue-700 cursor-pointer border-b-2 border-transparent hover:border-blue-700 ${
+            className={`font-bold text-blue-700 cursor-pointer border-b-2 border-transparent hover:border-blue-700 ${
               isMobile ? 'text-2xl w-72' : 'text-3xl '
             }`}
             onClick={() => history.push(`/skate-spot/${location.state.skatespot.name}`)}
           >
-            <h2>{location.state.skatespot.name}</h2>
-            <span className="font-semibold text-blue-700">:</span>
-            <span className="font-extrabold text-black">Add Photos</span>
+            <h2>
+              {location.state.skatespot.name}
+              <span className="font-extrabold text-black">
+                <span className="font-semibold text-blue-700">:</span>Add Photos
+              </span>
+            </h2>
           </div>
         </div>
         <div>
