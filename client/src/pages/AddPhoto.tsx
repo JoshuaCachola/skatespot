@@ -1,5 +1,6 @@
 import { Form, Formik, FormikProps } from 'formik';
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { RouteComponentProps } from 'react-router-dom';
 import { GetSkateSpotDocument, useUploadPhotosMutation } from 'src/generated/graphql';
 import { Header } from 'src/pages/components/Header';
@@ -18,6 +19,7 @@ interface Props {
 }
 
 export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, location }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 415px)' });
   const [upload, { loading, error, client }] = useUploadPhotosMutation({
     onCompleted({ uploadPhotos }) {
       client.writeQuery({
@@ -39,7 +41,7 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
   }, []);
 
   return (
-    <div>
+    <div className="overflow-y-scroll">
       {loading && (
         <div className="fixed top-0 left-0 bottom-0 right-0 bg-black bg-opacity-70 z-50">
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-auto">
@@ -50,17 +52,17 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
       <Header />
       {error && <ErrorBanner />}
       {/* Upload */}
-      <div className="w-220 mx-auto my-0">
-        <div className="mt-4 flex">
+      <section className={`h-screen mx-auto my-10 ${isMobile ? 'w-72' : 'w-220'}`}>
+        <div className="mt-4">
           <div
-            className="font-bold text-blue-700 text-3xl cursor-pointer border-b-2 border-transparent hover:border-blue-700"
+            className={`flex font-bold text-blue-700 cursor-pointer border-b-2 border-transparent hover:border-blue-700 ${
+              isMobile ? 'text-2xl w-72' : 'text-3xl '
+            }`}
             onClick={() => history.push(`/skate-spot/${location.state.skatespot.name}`)}
           >
             <h2>{location.state.skatespot.name}</h2>
-          </div>
-          <span className="font-semibold text-3xl text-blue-700">:</span>
-          <div className="font-extrabold text-black text-3xl">
-            <h2>Add Photos</h2>
+            <span className="font-semibold text-blue-700">:</span>
+            <span className="font-extrabold text-black">Add Photos</span>
           </div>
         </div>
         <div>
@@ -93,10 +95,8 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
             }}
           </Formik>
         </div>
-      </div>
-      <div className="absolute bottom-0">
-        <Footer />
-      </div>
+      </section>
+      <Footer />
     </div>
   );
 };

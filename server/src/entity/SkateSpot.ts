@@ -42,7 +42,7 @@ export class SkateSpot extends BaseEntity {
   phone: string;
 
   @Field()
-  @Column('text', { default: '' })
+  @Column('text', { nullable: true, default: '' })
   website: string;
 
   @Field()

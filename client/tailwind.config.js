@@ -12,6 +12,10 @@ module.exports = {
         hero: '35.625rem',
         110: '426px',
         200: '745px',
+        // vh80: '80vh',
+        // vh10: '10vh',
+        // vh20: '20vh',
+        // vh15: '15vh',
       },
       width: {
         200: '745px',

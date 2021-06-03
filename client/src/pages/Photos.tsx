@@ -5,6 +5,7 @@ import { Header } from './components/Header';
 import SkateSpot1 from '../assets/SkateSpot1.jpg';
 import { AverageReviewStars } from './components/AverageReviewStars';
 import { ImageModal } from 'src/utils/ImageModal';
+import { useMediaQuery } from 'react-responsive';
 
 interface Props {
   location: any;
@@ -66,6 +67,7 @@ const photos = [
 ];
 
 export const Photos: React.FC<Props> = ({ location }) => {
+  const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 768px)' });
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [idx, setIdx] = useState<number>(0);
   const [maxPages, setMaxPages] = useState<number>(1);
@@ -109,7 +111,7 @@ export const Photos: React.FC<Props> = ({ location }) => {
   return (
     <div>
       <Header />
-      <div className="my-4 w-210 mx-auto">
+      <div className={`my-4 mx-auto ${isDesktopOrLaptop ? 'w-210' : ''}`}>
         <div className="border-b border-gray-400 mb-5">
           <div className="font-bold text-3xl mb-4">
             <h1>{skateSpot.name}</h1>
@@ -191,7 +193,9 @@ export const Photos: React.FC<Props> = ({ location }) => {
         </div>
       </div>
       {isOpen && <ImageModal images={photos} idx={idx} setIdx={setIdx} setIsOpen={setIsOpen} />}
-      <Footer />
+      <div className="absolute bottom-0">
+        <Footer />
+      </div>
     </div>
   );
 };

@@ -1,20 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SkateSpotReviews } from './SkateSpotReviews';
-import { skatespotObstacleImages } from '../../utils/skatespotObstacles';
+// import { skatespotObstacleImages } from '../../utils/skatespotObstacles';
+import { useMediaQuery } from 'react-responsive';
 
 interface Props {
   skatespot: any;
 }
 
 export const SkateSpotBottom: React.FC<Props> = ({ skatespot }) => {
+  const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1024px)' });
+
   return (
-    <div className="min-w-300">
-      <div className="max-w-295 mx-auto my-0">
-        <div className="leading-loose mx-auto my-0 w-2/3">
+    <div className="min-w-300 h-screen">
+      <div className="w-10/12 max-w-295 mx-auto my-0">
+        <div className={`leading-loose mx-auto my-0 ${isDesktopOrLaptop ? 'w-2/3' : 'w-3/4'}`}>
           <div className="flex w-full">
             {/* buttons for writing reviews, adding photos, follow skate spot */}
-            <div className="w-2/3 max-w-295">
+            <div className={`w-2/3 max-w-295 ${isDesktopOrLaptop ? 'w-2/3' : 'w-full'}`}>
               <div className="border-b border-dashed border-black">
                 <div className="mb-5">
                   <Link
@@ -22,7 +25,9 @@ export const SkateSpotBottom: React.FC<Props> = ({ skatespot }) => {
                       pathname: `/write-review/${skatespot.name}`,
                       state: { skateSpot: { id: skatespot.id, name: skatespot.name } },
                     }}
-                    className="text-white rounded border-blue-400 bg-blue-400 border-r-2 border-b-2 border-l border-t mb-6 mr-6 py-2 px-6 font-bold hover:bg-blue-200 hover:text-black"
+                    className={`text-white rounded border-blue-400 bg-blue-400 border-r-2 border-b-2 border-l border-t mb-6 py-2 font-bold hover:bg-blue-200 hover:text-black ${
+                      isDesktopOrLaptop ? 'text-base px-6 mr-6' : 'text-xs px-1 mr-3'
+                    }`}
                   >
                     Write Review
                   </Link>
@@ -31,7 +36,9 @@ export const SkateSpotBottom: React.FC<Props> = ({ skatespot }) => {
                       pathname: '/skatespot-photos/add',
                       state: { skatespot: skatespot },
                     }}
-                    className="text-white rounded border-blue-400 bg-blue-400 border-r-2 border-b-2 border-l border-t mb-6 mr-6 py-2 px-6 font-bold hover:bg-blue-200 hover:text-black"
+                    className={`text-white rounded border-blue-400 bg-blue-400 border-r-2 border-b-2 border-l border-t mb-6 mr-6 py-2 font-bold hover:bg-blue-200 hover:text-black ${
+                      isDesktopOrLaptop ? 'text-base px-6' : 'text-xs px-1'
+                    }`}
                   >
                     Add photo
                   </Link>
@@ -72,14 +79,14 @@ export const SkateSpotBottom: React.FC<Props> = ({ skatespot }) => {
               {/* Skatespot Obstacles */}
               <h2 className="font-semibold text-lg">Skatespot Obstacles</h2>
               <div className="flex mt-5 mb-10 justify-between border border-gray-100 py-8 px-4 bg-gray-100 rounded w-full shadow-xl">
-                {JSON.parse(skatespot.skatespotObstacles).map((obstacle) => {
+                {/* {JSON.parse(skatespot.skatespotObstacles).map((obstacle) => {
                   return (
                     <div className="border-gray-100 rounded mx-2 bg-white border-2 shadow-2xl" key={obstacle}>
                       <img src={skatespotObstacleImages[obstacle]} alt="" className="py-4 max-w-44 max-h-20" />
                       <h3 className="text-center italic font-semibold">{obstacle}</h3>
                     </div>
                   );
-                })}
+                })} */}
               </div>
               {/* Reviews */}
               <div className="border-t border-black border-dashed">

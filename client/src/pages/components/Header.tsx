@@ -12,15 +12,15 @@ export const Header: React.FC = () => {
   const { isLoggedIn } = React.useContext(TokenContext);
 
   return (
-    <header className="bg-gray-500">
+    <header className="bg-gray-500 border-b border-gray-400 shadow-lg">
       {/* Logo */}
       <div className="flex items-center justify-between">
         <div className="mx-6 font-semibold p-2 hover:border hover:bg-black hover:bg-opacity-10 rounded">
           <Link to="/">
-            <div className="flex">
+            <div className="flex items-center">
               <div className="flex border-2 border-black px-1 rounded bg-white">
-                <span className="font-bold">S</span>
-                <span className="font-thin">S</span>
+                <span className="font-bold text-lg">S</span>
+                <span className="font-thin text-lg">S</span>
               </div>
               {!isTabletOrMobile && (
                 <div className="text-white">
@@ -47,7 +47,7 @@ export const Header: React.FC = () => {
                             <div className="border-2 border-black rounded p-1 bg-white">
                               <img src={BoardTap} alt="" className="w-4 h-4" />
                             </div>
-                            <div className="text-white">
+                            <div className="text-white text-lg">
                               &nbsp;Create <span className="font-light">Skate Spot</span>
                             </div>
                           </div>

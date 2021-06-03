@@ -15,7 +15,7 @@ interface LocationProps {
 }
 
 export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
-  const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)' });
+  const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 768px)' });
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1223px)' });
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -60,7 +60,7 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
       <Header />
       {/* image carousel, skate spot information */}
       <div className="relative">
-        <div className={`relative z-40 bg-black ${isDesktopOrLaptop ? 'w-full' : 'w-full'}`}>
+        <div className="relative z-40 bg-black">
           <Carousel
             showThumbs={false}
             emulateTouch={true}
@@ -79,7 +79,9 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
                   <div
                     key={idx}
                     id={idx.toString()}
-                    className="relative flex justify-center h-110 max-w-200 bg-black cursor-pointer z-50"
+                    className={`relative flex justify-center max-w-200 bg-black cursor-pointer z-50 ${
+                      isTabletOrMobile ? 'h-80' : 'h-110'
+                    }`}
                     onClick={(e) => handleImageClick(e)}
                   >
                     <img src={img} alt={`img-${idx}`} className="object-cover align-middle" />
@@ -90,33 +92,33 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
         </div>
         <div
           className={`absolute flex content-end flex-wrap top-0 bottom-0 left-0 right-0 ${
-            isDesktopOrLaptop ? 'py-20 px-40' : 'px-40 py-50'
+            isDesktopOrLaptop ? 'py-50 px-20' : 'px-2 py-50'
           }`}
         >
-          <div className="relative z-50 min-w-full">
+          <div className="relative z-40 min-w-full">
             <div className="flex justify-between items-center">
-              <div className={`mb-2 ${isTabletOrMobile && 'w-72'}`}>
+              <div className={`mb-2 ${isTabletOrMobile && 'w-44'}`}>
                 {/* name of skate spot */}
                 <div>
                   <h1
                     className={`text-white font-extrabold inline leading-10 ${
-                      isDesktopOrLaptop ? 'text-5xl' : 'text-4xl'
+                      isDesktopOrLaptop ? 'text-5xl' : 'text-xl'
                     }`}
                   >
                     {data?.getSkateSpot.name}
                   </h1>
                 </div>
                 {/* reviews */}
-                <div className="flex text-2xl text-white font-bold">
+                <div className={`flex text-white font-bold ${isDesktopOrLaptop ? 'text-2xl' : 'text-xs'}`}>
                   <AverageReviewStars
                     reviewsCount={data?.getSkateSpot.reviewsCount}
                     reviewsDistribution={JSON.parse(data!.getSkateSpot.reviewsDistribution)}
                   />
                   <div>
-                    <span>&nbsp;{data?.getSkateSpot.reviewsCount}</span>
+                    <span className="text-lg">&nbsp;{data?.getSkateSpot.reviewsCount}</span>
                   </div>
                 </div>
-                <div className="text-white font-semibold">
+                <div className={`text-white font-semibold ${isDesktopOrLaptop ? 'text-base' : 'text-xs'}`}>
                   <div>
                     <h4>
                       {data?.getSkateSpot.categoryName}&nbsp;•&nbsp;
@@ -132,7 +134,9 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
                     pathname: `/photos/${data?.getSkateSpot.name}`,
                     state: { skateSpot: data?.getSkateSpot },
                   }}
-                  className="font-bold text-white focus:outline-none border-t border-l border-r-4 border-b-4 rounded border-white py-3 px-8 min-w-44 hover:bg-black hover:bg-opacity-40"
+                  className={`font-bold text-white focus:outline-none border-t border-l border-r-4 border-b-4 rounded border-white min-w-44 hover:bg-black hover:bg-opacity-40 ${
+                    isDesktopOrLaptop ? 'text-base min-w-44 py-3 px-8' : 'text-sm py-1 px-1'
+                  }`}
                 >
                   See {JSON.parse(data!.getSkateSpot.imageUrls).length} Photos
                 </Link>

@@ -7,13 +7,11 @@ query GetSkateSpots($cursor: Int, $limit: Int) {
     state
     street
     postalCode
-    website
     temporarilyClosed
     permanentlyClosed
     imageUrls
     location
     reviewsCount
     reviewsDistribution
-    skatespotObstacles
   }
 }

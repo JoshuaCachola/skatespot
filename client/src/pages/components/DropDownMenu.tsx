@@ -11,7 +11,7 @@ interface Props {}
 
 const DropDownMenu: React.FC<Props> = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1223px)' });
-  const isMobile = useMediaQuery({ query: '(max-width: 702px)' });
+  const isMobile = useMediaQuery({ query: '(max-width: 736px)' });
   const { data } = useGetUserQuery({ fetchPolicy: 'cache-and-network', nextFetchPolicy: 'cache-first' });
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [logout, { client }] = useLogoutUserMutation();
@@ -21,13 +21,6 @@ const DropDownMenu: React.FC<Props> = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // if (isTabletOrMobile) {
-  //   return (
-  //     <div className='relative'>
-
-  //     </div>
-  //   );
-  // }
   return (
     <div className="relative">
       {isTabletOrMobile ? (
@@ -77,11 +70,14 @@ const DropDownMenu: React.FC<Props> = () => {
                       className="h-11 w-10 rounded border-b-4 border-r-4 border-t border-l border-black"
                     />
                   ) : (
-                    <div className="h-10 w-5 my-auto py-2 mx-2 pl-0.5">
-                      <FontAwesomeIcon icon={['fas', 'user']} />
+                    <div className="flex items-center h-10 w-5 my-auto mx-2">
+                      <div className="border px-2 py-1 rounded bg-gray-200 text-xl">
+                        <FontAwesomeIcon icon={['fas', 'user']} />
+                      </div>
+                      <span className="ml-2 my-auto font-semibold">{data?.getUser.username}</span>
                     </div>
                   )}
-                  <span className="ml-2 my-auto font-semibold">{data?.getUser.username}</span>
+                  {/* <span className="ml-2 my-auto font-semibold">{data?.getUser.username}</span> */}
                 </Link>
                 {isMobile && (
                   <div className="m-2 font-semibold">

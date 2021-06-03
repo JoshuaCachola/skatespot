@@ -7,17 +7,10 @@ import { useMediaQuery } from 'react-responsive';
 import { GetSkateSpotDocument, useGetSkateSpotsQuery } from '../generated/graphql';
 import { Footer } from './components/Footer';
 import { AverageReviewStars } from './components/AverageReviewStars';
-// import { skatespotObstacles } from '../utils/skatespotObstacles';
 
-// import { useApolloClient } from '@apollo/react-hooks';
-// import { Waypoint } from 'react-waypoint';
-// import { searchResults } from 'src/graphql/reactive-variables/searchResults';
-interface Props {}
-
-export const SkateSpotResults: React.FC<Props> = () => {
+export const SkateSpotResults: React.FC = () => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1024px)' });
   const isMobile = useMediaQuery({ query: '(max-width: 415px)' });
-  // const client = useApolloClient();
   const { data, loading, client } = useGetSkateSpotsQuery({
     fetchPolicy: 'cache-first',
     variables: { limit: 5 },
@@ -33,41 +26,13 @@ export const SkateSpotResults: React.FC<Props> = () => {
     });
   };
 
-  // const [skateSpots, setSkateSpots] = React.useState(searchResults());
-
-  // useEffect(() => {
-  //   if (!skateSpots.length && data?.getSkateSpots) {
-  //     setSkateSpots(data?.getSkateSpots);
-  //   }
-  // }, [data?.getSkateSpots, skateSpots]);
-
-  // const handleMoreResults = async () => {
-  //   fetchMore({
-  //     variables: { cursor: data?.getSkateSpots[data.getSkateSpots.length - 1].id, limit: 5 },
-  //   });
-  // };
-
-  // React.useEffect(() => {
-  //   if (skateSpots.length === 0 && data?.getSkateSpots) {
-  //     setSkateSpots(data?.getSkateSpots);
-  //   }
-  // }, [data?.getSkateSpots, skateSpots.length]);
-
-  // if (loading) {
-  //   return <h1>loading...</h1>;
-  // }
-
-  // if (error) {
-  //   return <h1>error</h1>;
-  // }
-
   return (
     <div>
       <Header />
       <div className="flex border-t border-gray-100 mb-16 overflow-hidden">
         <ul
-          className={`mt-4 pr-1 h-screen ${
-            isDesktopOrLaptop ? 'w-1/2 overflow-y-scroll mx-4' : 'w-11/12 mx-auto my-0'
+          className={`mt-4 pr-1 h-screen overflow-y-scroll ${
+            isDesktopOrLaptop ? 'w-1/2 mx-4' : 'w-11/12 mx-auto my-0'
           }`}
         >
           {loading && (
@@ -170,14 +135,14 @@ export const SkateSpotResults: React.FC<Props> = () => {
                           <div>
                             <h2 className="font-semibold">Skatespot Obstacles</h2>
                             <div className="flex text-sm">
-                              {JSON.parse(result.skatespotObstacles).map((obstacle, idx) => {
+                              {/* {JSON.parse(result.skatespotObstacles).map((obstacle, idx) => {
                                 return (
                                   <div key={obstacle}>
                                     {obstacle}&nbsp;
                                     {idx !== JSON.parse(result.skatespotObstacles).length - 1 ? '•' : ''}&nbsp;
                                   </div>
                                 );
-                              })}
+                              })} */}
                             </div>
                           </div>
                           <div>

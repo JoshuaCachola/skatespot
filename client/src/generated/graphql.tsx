@@ -223,7 +223,7 @@ export type GetSkateSpotQuery = (
   { __typename?: 'Query' }
   & { getSkateSpot: (
     { __typename?: 'SkateSpot' }
-    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'city' | 'state' | 'street' | 'postalCode' | 'website' | 'temporarilyClosed' | 'permanentlyClosed' | 'imageUrls' | 'location' | 'reviewsCount' | 'reviewsDistribution' | 'skatespotObstacles'>
+    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'city' | 'state' | 'street' | 'postalCode' | 'temporarilyClosed' | 'permanentlyClosed' | 'imageUrls' | 'location' | 'reviewsCount' | 'reviewsDistribution'>
   ) }
 );
 
@@ -254,7 +254,7 @@ export type GetSkateSpotsQuery = (
   { __typename?: 'Query' }
   & { getSkateSpots: Array<(
     { __typename?: 'SkateSpot' }
-    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'city' | 'state' | 'street' | 'postalCode' | 'website' | 'temporarilyClosed' | 'permanentlyClosed' | 'imageUrls' | 'location' | 'reviewsCount' | 'reviewsDistribution' | 'skatespotObstacles'>
+    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'city' | 'state' | 'street' | 'postalCode' | 'temporarilyClosed' | 'permanentlyClosed' | 'imageUrls' | 'location' | 'reviewsCount' | 'reviewsDistribution'>
   )> }
 );
 
@@ -482,14 +482,12 @@ export const GetSkateSpotDocument = gql`
     state
     street
     postalCode
-    website
     temporarilyClosed
     permanentlyClosed
     imageUrls
     location
     reviewsCount
     reviewsDistribution
-    skatespotObstacles
   }
 }
     `;
@@ -577,14 +575,12 @@ export const GetSkateSpotsDocument = gql`
     state
     street
     postalCode
-    website
     temporarilyClosed
     permanentlyClosed
     imageUrls
     location
     reviewsCount
     reviewsDistribution
-    skatespotObstacles
   }
 }
     `;

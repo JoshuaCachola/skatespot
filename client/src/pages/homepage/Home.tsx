@@ -11,6 +11,7 @@ import { Header } from '../components/Header';
 import { useGetSkateSpotsQuery } from 'src/generated/graphql';
 import { ReviewStar } from 'src/utils/ReviewStar';
 import { Link } from 'react-router-dom';
+import { ErrorBanner } from '../components/ErrorBanner';
 
 interface Props {}
 
@@ -23,8 +24,9 @@ export const Home: React.FC<Props> = () => {
   const headerRef = useRef<HTMLDivElement>(null);
   const [skateSpots, setSkateSpots] = useState<Array<any>>([]);
 
-  const { data, loading } = useGetSkateSpotsQuery({
-    fetchPolicy: 'cache-first',
+  const { data, loading, error } = useGetSkateSpotsQuery({
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'cache-first',
   });
 
   useEffect(() => {
@@ -89,6 +91,7 @@ export const Home: React.FC<Props> = () => {
           </>
         </>
       )}
+      {error && <ErrorBanner />}
       <section className="mt-10 mb-28 h-full bg-white relative z-10">
         <div className={`max-w-7xl my-10 mx-auto flex ${isTabletOrMobile ? 'justify-center' : 'justify-around'}`}>
           {/* Section Header */}
@@ -177,9 +180,7 @@ export const Home: React.FC<Props> = () => {
           )}
         </div>
       </section>
-      <div className={`${isTabletOrMobile && 'fixed bottom-0'}`}>
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };
