@@ -16,6 +16,8 @@ interface Props {}
 
 export const Home: React.FC<Props> = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1226px)' });
+  const isMobile = useMediaQuery({ query: '(max-width: 415px)' });
+
   const [headerHeight, setHeaderHeight] = useState<any>(0);
   const [scroll, setScroll] = useState<any>(0);
   const headerRef = useRef<HTMLDivElement>(null);
@@ -99,7 +101,12 @@ export const Home: React.FC<Props> = () => {
                 .fill(0)
                 .map((_, idx) => {
                   return (
-                    <div className="border border-gray-100 shadow rounded p-4 w-115 h-36 mx-auto my-2" key={idx}>
+                    <div
+                      className={`border border-gray-100 shadow rounded p-4 w-115 h-36 mx-auto my-2 ${
+                        isMobile && 'w-80'
+                      }`}
+                      key={idx}
+                    >
                       <div className="animate-pulse flex space-x-4">
                         <div className="rounded-full bg-light-gray-100 h-12 w-12"></div>
                         <div className="flex-1 space-y-4 py-1">
@@ -115,7 +122,7 @@ export const Home: React.FC<Props> = () => {
                 })}
             {!loading &&
               skateSpots &&
-              skateSpots.slice(0, 5).map((skateSpot, idx) => {
+              skateSpots.slice(0, 5).map((skateSpot) => {
                 return (
                   <Link
                     to={{
@@ -124,7 +131,11 @@ export const Home: React.FC<Props> = () => {
                     }}
                     key={skateSpot.id}
                   >
-                    <div className="w-115 h-36 border border-gray-300 rounded my-5 flex overflow-hidden hover:bg-gray-50 cursor-pointer">
+                    <div
+                      className={`h-36 border border-gray-300 rounded my-5 flex overflow-hidden hover:bg-gray-50 cursor-pointer ${
+                        isMobile ? 'w-72' : 'w-115'
+                      }`}
+                    >
                       <div className="absolute right-2 rounded px-1 py-1">
                         <button
                           className="text-lg text-gray-400"
@@ -133,9 +144,11 @@ export const Home: React.FC<Props> = () => {
                           x
                         </button>
                       </div>
-                      <div className="flex justify-center align-middle overflow-hidden m-2">
-                        <img src={JSON.parse(skateSpot.imageUrls)[0]} alt="" className="min-h-full w-44" />
-                      </div>
+                      {!isMobile && (
+                        <div className="flex justify-center align-middle overflow-hidden m-2">
+                          <img src={JSON.parse(skateSpot.imageUrls)[0]} alt="skate-spot" className="min-h-full w-44" />
+                        </div>
+                      )}
                       <div>
                         <div className="font-bold text-base my-2 ml-5 text-red-600 overflow-clip">
                           <h3>{skateSpot.name.slice(0, 25)}</h3>

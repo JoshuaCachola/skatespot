@@ -20,6 +20,7 @@ interface RegisterForm {
 export const Register: React.FC<RouteComponentProps> = ({ history }) => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 768px)' });
   const [register] = useRegisterUserMutation();
+
   return (
     <div>
       <header

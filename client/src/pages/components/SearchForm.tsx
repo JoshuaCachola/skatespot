@@ -5,8 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSearchLazyQuery } from 'src/generated/graphql';
 import ClickAwayListener from 'react-click-away-listener';
 import { searchResults } from 'src/graphql/reactive-variables/searchResults';
+// import { useMediaQuery } from 'react-responsive';
 
 const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
+  // const isMobile = useMediaQuery({ query: '(max-width: 415px)' });
   const formik = useFormik({
     initialValues: {
       query: '',
@@ -37,7 +39,6 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
               <div className="min-w-full box-border align-top block">
                 <div className="shadow-lg mt-4">
                   <label
-                    // search-divider=""
                     className={`relative rounded-l rounded-r-none px-3 py-3 text-lg font-bold bg-white block w-full mt-0 mb-5 mx-0 border-l border-white shadow-2xl ${
                       isFindSearchOpen ? 'rounded-bl-none' : 'rounded-br-none'
                     }`}
