@@ -12,8 +12,8 @@ export const SkateSpotBottom: React.FC<Props> = ({ skatespot }) => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1024px)' });
 
   return (
-    <div className="min-w-300 h-screen">
-      <div className="w-10/12 max-w-295 mx-auto my-0">
+    <div className="min-w-300 h-full">
+      <div className="w-10/12 max-w-295 mx-auto">
         <div className={`leading-loose mx-auto my-0 ${isDesktopOrLaptop ? 'w-2/3' : 'w-3/4'}`}>
           <div className="flex w-full">
             {/* buttons for writing reviews, adding photos, follow skate spot */}

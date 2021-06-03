@@ -27,7 +27,7 @@ export const Footer: React.FC<Props> = () => {
             </h6>
           </Link>
         </div>
-        <div className={`flex text-black text-middle mr-5 ${isMobile ? 'text-base' : 'text-lg'}`}>
+        <div className={`flex text-black text-middle mr-6 ${isMobile ? 'text-base' : 'text-lg'}`}>
           <Link to={{ pathname: 'https://joshuacachola.github.io' }} target="_blank">
             <h6>
               <FontAwesomeIcon icon={['fas', 'window-maximize']} />

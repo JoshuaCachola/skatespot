@@ -18,7 +18,7 @@ const user = {
 
 export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 415px)' });
-  const { data: userData, loading: userLoading, error: userError } = useGetUserQuery({
+  const { data: userData, error: userError } = useGetUserQuery({
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'cache-first',
   });
@@ -34,10 +34,6 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
       userReviews({ variables: { userId: userData.getUser.id } });
     }
   }, [userReviews, userData?.getUser]);
-
-  if (loading || userLoading) {
-    return <h1>loading</h1>;
-  }
 
   if (error) {
     return <h1>reviews error</h1>;
@@ -70,13 +66,15 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
               </div>
             </div>
             {userData?.getUser.profilePicture ? (
-              <img
-                alt="profile"
-                src={userData?.getUser.profilePicture}
-                width={200}
-                height={200}
-                className="rounded border-b-4 border-r-4 border-t border-l border-black"
-              />
+              <div className={`h-auto ${isMobile ? 'w-36' : 'w-52'}`}>
+                <img
+                  alt="profile"
+                  src={userData?.getUser.profilePicture}
+                  width={200}
+                  height={200}
+                  className="object-contain rounded border-b-4 border-r-4 border-t border-l border-black"
+                />
+              </div>
             ) : (
               <div
                 className={`text-gray-400 bg-white rounded-md border-b-4 border-r-4 border-t border-l border-black ${
@@ -103,14 +101,19 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
           </div>
         </section>
         {/* Reviews */}
-        <section className={`max-w-4xl my-10 mx-auto ${isMobile && 'w-72'}`}>
+        {loading && (
+          <div className="text-lg font-semibold">
+            <span>Fetching reviews...</span>
+          </div>
+        )}
+        <section className={`max-w-4xl mx-auto ${isMobile && 'w-72'}`}>
           <div className="text-xl font-bold text-red-500 mt-6 ml-5">
             <h1>Reviews</h1>
           </div>
           {!loading &&
             data?.getUserReviews.map((review) => {
               return (
-                <div key={review.id} className="border-b border-gray-200 py-10">
+                <div key={review.id} className="border-b border-gray-200 py-10 mx-5">
                   {/* User information */}
                   <div className="flex">
                     {/* Profile image */}

@@ -8,8 +8,8 @@ interface ThumbnailProps {
 
 export const Thumbnail: React.FC<ThumbnailProps> = ({ img, idx, handleRemovePhoto }) => {
   return (
-    <div className="flex">
-      <div className="absolute">
+    <div className="flex relative">
+      <div className="absolute right-0 m-1">
         <button
           className="text-sm border-2 font-bold border-black rounded-full px-2 py-px hover:bg-black hover:bg-opacity-30"
           onClick={(event) => handleRemovePhoto(event, idx)}

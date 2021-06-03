@@ -68,7 +68,7 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
             centerSlidePercentage={50}
             stopOnHover={true}
             showStatus={false}
-            centerMode={true}
+            centerMode={isDesktopOrLaptop ? true : false}
             infiniteLoop={true}
             autoPlay={true}
             interval={3000}

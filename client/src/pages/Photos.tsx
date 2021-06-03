@@ -111,29 +111,35 @@ export const Photos: React.FC<Props> = ({ location }) => {
   return (
     <div>
       <Header />
-      <div className={`my-4 mx-auto h-full ${isDesktopOrLaptop ? 'w-210' : ''}`}>
+      <div className={`my-4 mx-auto h-full ${isDesktopOrLaptop ? 'w-210' : 'w-72'}`}>
         <div className="border-b border-gray-400 mb-5">
           <div className="font-bold text-3xl mb-4">
             <h1>{skateSpot.name}</h1>
           </div>
           <div className="flex justify-between items-center">
-            <div className="flex my-2">
-              <div className="max-h-20 w-20 flex justify-center">
+            <div className="flex my-2 items-center">
+              <div className={`max-h-20 flex justify-center ${isDesktopOrLaptop ? 'w-20' : 'w-12 h-12'}`}>
                 <img src={JSON.parse(skateSpot.imageUrls)[0]} alt="" className="rounded object-cover align-middle" />
               </div>
               <div className="ml-2 text-sm mt-1">
                 <Link to="/" className="text-blue-600 font-bold">
                   {skateSpot.name}
                 </Link>
-                <div className="text-xs flex">
-                  <AverageReviewStars
-                    reviewsCount={skateSpot.reviewsCount}
-                    reviewsDistribution={JSON.parse(skateSpot.reviewsDistribution)}
-                  />
-                </div>
+                {isDesktopOrLaptop && (
+                  <div className="text-xs flex">
+                    <AverageReviewStars
+                      reviewsCount={skateSpot.reviewsCount}
+                      reviewsDistribution={JSON.parse(skateSpot.reviewsDistribution)}
+                    />
+                  </div>
+                )}
               </div>
             </div>
-            <div className="border-red-500 rounded p-2 bg-red-500 text-white font-bold">
+            <div
+              className={`border-blue-400 rounded p-2 bg-blue-400 text-white font-bold border-l border-t border-r-4 border-b-4 hover:bg-blue-200 ${
+                !isDesktopOrLaptop && 'w-24 text-xs text-center'
+              }`}
+            >
               <Link to={{ pathname: '/skatespot-photos/add', state: { name: skateSpot.name, id: skateSpot.id } }}>
                 Add Photos
               </Link>
@@ -158,7 +164,9 @@ export const Photos: React.FC<Props> = ({ location }) => {
             {photos.slice(sliceRange[0], sliceRange[1]).map((photo, idx) => {
               return (
                 <li
-                  className="w-40 max-h-40 cursor-pointer flex justify-center bg-black rounded"
+                  className={`max-h-40 cursor-pointer flex justify-center bg-black rounded ${
+                    isDesktopOrLaptop ? 'w-40' : 'w-12'
+                  }`}
                   id={idx.toString()}
                   key={idx}
                   onClick={(e) => handleImageClick(e)}

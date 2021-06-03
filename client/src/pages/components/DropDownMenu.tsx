@@ -11,8 +11,9 @@ import { useMediaQuery } from 'react-responsive';
 interface Props {}
 
 const DropDownMenu: React.FC<Props> = () => {
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1223px)' });
-  const isMobile = useMediaQuery({ query: '(max-width: 736px)' });
+  // const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1223px)' });
+  const isMobile = useMediaQuery({ query: '(max-width: 702px)' });
+
   const { data } = useGetUserQuery({ fetchPolicy: 'cache-and-network', nextFetchPolicy: 'cache-first' });
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [logout, { client }] = useLogoutUserMutation();
@@ -24,7 +25,7 @@ const DropDownMenu: React.FC<Props> = () => {
 
   return (
     <div className="relative">
-      {isTabletOrMobile ? (
+      {isMobile ? (
         <div
           className="border-2 border-black rounded px-1 bg-white hover:bg-black hover:bg-opacity-10 mx-6"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -81,9 +82,9 @@ const DropDownMenu: React.FC<Props> = () => {
                       <span className="ml-2 my-auto font-semibold">{data?.getUser.username}</span>
                     </div>
                   )}
-                  {/* <span className="ml-2 my-auto font-semibold">{data?.getUser.username}</span> */}
                 </Link>
                 {isMobile && (
+                  // if logged in show Create Skate Spot and Log out link for non-mobile query
                   <div className="flex m-2 font-semibold">
                     <div className="border-t border-l border-r-4 border-b-4 border-black rounded p-1 bg-white">
                       <img src={BoardTap} alt="" className="w-4 h-4" />
@@ -113,6 +114,7 @@ const DropDownMenu: React.FC<Props> = () => {
                 </div>
               </>
             ) : (
+              // if not logged in show Log In and Sign Up link for mobile query
               <div className="m-2">
                 <div className="flex">
                   <div className="px-1 mr-5 border-l border-t border-r-4 border-b-4 border-black rounded">

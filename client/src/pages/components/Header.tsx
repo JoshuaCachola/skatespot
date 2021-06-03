@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
   const { isLoggedIn } = React.useContext(TokenContext);
 
   return (
-    <header className="bg-gray-500 border-b border-gray-400 shadow-lg">
+    <header className="bg-gray-500 border-b-4 border-gray-300 shadow-lg">
       {/* Logo */}
       <div className="flex items-center justify-between">
         <div className="mx-6 font-semibold p-2 hover:border hover:bg-black hover:bg-opacity-10 rounded">
