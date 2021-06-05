@@ -20,7 +20,7 @@ export const Logo: React.FC<Props> = ({ type }) => {
       >
         <span>S</span>
         <span className="font-thin">S</span>
-        <div className="flex rounded-full w-3 h-3 bg-white" />
+        <div className={`flex rounded-full bg-white ${type === HEADER ? 'w-2 h-2' : 'w-3 h-3'}`} />
       </div>
       <div
         className="absolute bottom-0 z-40 w-full left-0 h-full animate-wave1 opacity-10"

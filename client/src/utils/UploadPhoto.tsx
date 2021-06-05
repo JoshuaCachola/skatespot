@@ -30,7 +30,9 @@ export const UploadPhoto = ({ photos, setPhotos, setFieldValue, values }) => {
     <>
       <div
         {...getRootProps({ className: 'dropzone' })}
-        className={`rounded border-2 border-dashed border-gray-500 my-8 py-12 ${isTabletOrMobile && 'w-full mx-auto'}`}
+        className={`rounded border-2 border-dashed border-gray-500 my-8 py-12 bg-white ${
+          isTabletOrMobile && 'w-full mx-auto'
+        }`}
       >
         <div className={`text-black font-bold text-center w-4/5 my-5 mx-auto ${isMobile ? 'text-xl' : 'text-3xl'}`}>
           <h3>Drag and drop your photos here</h3>

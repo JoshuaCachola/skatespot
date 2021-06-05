@@ -7,13 +7,14 @@ import { useMediaQuery } from 'react-responsive';
 import { GetSkateSpotDocument, useGetSkateSpotsQuery } from '../generated/graphql';
 import { Footer } from './components/Footer';
 import { AverageReviewStars } from './components/AverageReviewStars';
+// import { LoadingAnimation } from './components/LoadingAnimation';
 
 export const SkateSpotResults: React.FC = () => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1024px)' });
   const isMobile = useMediaQuery({ query: '(max-width: 415px)' });
-  const { data, loading, client } = useGetSkateSpotsQuery({
-    fetchPolicy: 'cache-first',
-    variables: { limit: 5 },
+  const { data, loading, client, fetchMore } = useGetSkateSpotsQuery({
+    fetchPolicy: 'cache-and-network',
+    variables: { limit: 10 },
   });
 
   const handleSkateSpotClick = (skatespot) => {
@@ -26,10 +27,17 @@ export const SkateSpotResults: React.FC = () => {
     });
   };
 
+  const handleGetMoreSkateSpots = async () => {
+    const results = await fetchMore({
+      variables: { cursor: data?.getSkateSpots[data?.getSkateSpots.length - 1].id, limit: 5 },
+    });
+    console.log(results);
+  };
+
   return (
-    <div>
+    <div className="bg-gray-50">
       <Header />
-      <div className="flex border-t border-gray-100 mb-16 overflow-hidden">
+      <div className="flex border-t border-gray-100 mb-16 items-center">
         <ul
           className={`mt-4 pr-1 h-screen overflow-y-scroll ${
             isDesktopOrLaptop ? 'w-1/2 mx-4' : 'w-11/12 mx-auto my-0'
@@ -65,7 +73,7 @@ export const SkateSpotResults: React.FC = () => {
               return (
                 <li className={`z-0 min-w-200 mx-auto ${isMobile && 'w-full'}`} key={resultIdx}>
                   <Link
-                    className={`flex rounded border-2 mb-7 border-gray-100 hover:shadow-xl hover:bg-gray-50 ${
+                    className={`flex rounded border-2 mb-7 bg-white border-gray-300 hover:shadow-xl hover:bg-gray-100 ${
                       isMobile && 'pl-7'
                     }`}
                     to={{
@@ -167,7 +175,13 @@ export const SkateSpotResults: React.FC = () => {
                 </li>
               );
             })}
+          <div className="float-right mr-5 cursor-pointer">
+            <button onClick={() => handleGetMoreSkateSpots()}>
+              <span className="font-semibold">Load more</span>
+            </button>
+          </div>
         </ul>
+
         {/* map of locations */}
         {isDesktopOrLaptop ? (
           <div className="w-1/2 h-screen border-t">

@@ -10,13 +10,13 @@ import { HEADER } from '../../utils/constants';
 
 export const Header: React.FC = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 768px)' });
-  const isMobile = useMediaQuery({ query: '(max-width: 702px)' });
+  const isMobile = useMediaQuery({ query: '(max-width: 937px)' });
   const { isLoggedIn } = React.useContext(TokenContext);
 
   return (
-    <header className="bg-gray-500 border-b-2 border-gray-400 shadow-lg">
+    <header className="bg-gray-500 border-b-2 border-r-4 border-l border-black shadow-lg">
       {/* Logo */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-around">
         <div className="mx-6 font-semibold p-2 hover:border hover:bg-black hover:bg-opacity-10 rounded">
           <Link to="/">
             <div className="flex items-center">
@@ -36,7 +36,7 @@ export const Header: React.FC = () => {
           </Link>
         </div>
         {/* Search Form */}
-        <div className="ml-10">
+        <div className={`${!isTabletOrMobile && 'ml-10'}`}>
           <SearchForm />
         </div>
         {/* Nav Links*/}

@@ -27,7 +27,6 @@ export const App: React.FC = () => {
         !data.accessToken ? setIsLoggedIn(false) : setIsLoggedIn(true);
 
         setLoading(false);
-        console.log('here');
       } catch (err) {
         console.error(err);
         return;

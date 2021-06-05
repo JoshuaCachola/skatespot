@@ -4,6 +4,10 @@ module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    fontFamily: {
+      primary: ['Montserrat'],
+      secondary: ['Caveat', 'sans-serif'],
+    },
     extend: {
       colors: {
         primaryColor: '',

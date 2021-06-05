@@ -9,7 +9,7 @@ export const Footer: React.FC<Props> = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 415px)' });
 
   return (
-    <div className="table-row align-bottom w-full bg-gray-200 z-20">
+    <div className="table-row align-bottom w-full bg-gray-200 z-20 border-t border-r-4 border-l border-black">
       <div className="flex flex-col items-end w-screen py-2">
         <div
           className={`flex text-black text-middle mr-6 hover:text-blue-400 font-semibold ${

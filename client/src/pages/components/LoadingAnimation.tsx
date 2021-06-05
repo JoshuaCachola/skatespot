@@ -31,9 +31,10 @@ export const LoadingAnimation: React.FC = () => {
       </div>
       {/* <h2 className="text-3xl flex justify-center mt-1 text-white">Loading...</h2> */}
       <div className="animate-pulse flex my-2 justify-center">
-        <div className="h-5 w-5 rounded-full bg-white mx-1" />
-        <div className="h-5 w-5 rounded-full bg-white mx-1" />
-        <div className="h-5 w-5 rounded-full bg-white mx-1" />
+        <div className="h-5 w-5 rounded-full bg-white mx-1 border-r-4 border-b-4 border-l border-t border-black" />
+        <div className="h-5 w-5 rounded-full bg-white mx-1 border-r-4 border-b-4 border-l border-t border-black" />
+        <div className="h-5 w-5 rounded-full bg-white mx-1 border-r-4 border-b-4 border-l border-t border-black" />
+        <div className="h-5 w-5 rounded-full bg-white mx-1 border-r-4 border-b-4 border-l border-t border-black" />
       </div>
     </>
   );

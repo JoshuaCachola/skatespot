@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
-import SkateSpot1 from '../assets/SkateSpot1.jpg';
+// import SkateSpot1 from '../assets/SkateSpot1.jpg';
 import { AverageReviewStars } from './components/AverageReviewStars';
 import { ImageModal } from 'src/utils/ImageModal';
 import { useMediaQuery } from 'react-responsive';
@@ -11,60 +11,60 @@ interface Props {
   location: any;
 }
 
-const photos = [
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-  SkateSpot1,
-];
+// const photos = [
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+//   SkateSpot1,
+// ];
 
 export const Photos: React.FC<Props> = ({ location }) => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 768px)' });
@@ -73,12 +73,18 @@ export const Photos: React.FC<Props> = ({ location }) => {
   const [maxPages, setMaxPages] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [sliceRange, setSliceRange] = useState<Array<number>>([0, 25]);
-
+  const [photos, setPhotos] = useState<Array<string>>([]);
   const skateSpot = location.state.skateSpot;
 
   useEffect(() => {
+    if (skateSpot.imageUrls) {
+      setPhotos(JSON.parse(skateSpot.imageUrls));
+    }
+  }, [skateSpot.imageUrls]);
+
+  useEffect(() => {
     setMaxPages(Math.ceil(photos.length / 25));
-  }, []);
+  }, [photos.length]);
 
   const handleNextPage = () => {
     if (currentPage === maxPages) {
@@ -109,17 +115,21 @@ export const Photos: React.FC<Props> = ({ location }) => {
   };
 
   return (
-    <div>
+    <div className="bg-gray-50">
       <Header />
-      <div className={`my-4 mx-auto h-full ${isDesktopOrLaptop ? 'w-210' : 'w-72'}`}>
+      <div className={`my-4 mx-auto h-screen ${isDesktopOrLaptop ? 'w-210' : 'w-72'}`}>
         <div className="border-b border-gray-400 mb-5">
           <div className="font-bold text-3xl mb-4">
             <h1>{skateSpot.name}</h1>
           </div>
           <div className="flex justify-between items-center">
             <div className="flex my-2 items-center">
-              <div className={`max-h-20 flex justify-center ${isDesktopOrLaptop ? 'w-20' : 'w-12 h-12'}`}>
-                <img src={JSON.parse(skateSpot.imageUrls)[0]} alt="" className="rounded object-cover align-middle" />
+              <div
+                className={`max-h-20 flex justify-center border border-black rounded ${
+                  isDesktopOrLaptop ? 'w-20' : 'w-12 h-12'
+                }`}
+              >
+                <img src={JSON.parse(skateSpot.imageUrls)[0]} alt="" className="object-cover align-middle" />
               </div>
               <div className="ml-2 text-sm mt-1">
                 <Link to="/" className="text-blue-600 font-bold">
@@ -161,20 +171,21 @@ export const Photos: React.FC<Props> = ({ location }) => {
                 </li>
               );
             })} */}
-            {photos.slice(sliceRange[0], sliceRange[1]).map((photo, idx) => {
-              return (
-                <li
-                  className={`max-h-40 cursor-pointer flex justify-center bg-black rounded ${
-                    isDesktopOrLaptop ? 'w-40' : 'w-12'
-                  }`}
-                  id={idx.toString()}
-                  key={idx}
-                  onClick={(e) => handleImageClick(e)}
-                >
-                  <img src={photo} alt="" className="object-cover align-middle rounded" />
-                </li>
-              );
-            })}
+            {photos &&
+              photos.slice(sliceRange[0], sliceRange[1]).map((photo, idx) => {
+                return (
+                  <li
+                    className={`max-h-40 cursor-pointer flex justify-center bg-black rounded ${
+                      isDesktopOrLaptop ? 'w-40' : 'w-12'
+                    }`}
+                    id={idx.toString()}
+                    key={idx}
+                    onClick={(e) => handleImageClick(e)}
+                  >
+                    <img src={photo} alt="" className="object-cover align-middle rounded" />
+                  </li>
+                );
+              })}
           </ul>
         </div>
         {/* Pagination */}
@@ -201,7 +212,9 @@ export const Photos: React.FC<Props> = ({ location }) => {
         </div>
       </div>
       {isOpen && <ImageModal images={photos} idx={idx} setIdx={setIdx} setIsOpen={setIsOpen} />}
-      <Footer />
+      <div className="fixed bottom-0">
+        <Footer />
+      </div>
     </div>
   );
 };

@@ -109,7 +109,15 @@ export class SkateSpotResolver {
     if (cursor) {
       options.where = { id: MoreThan(cursor) };
     }
-    return await SkateSpot.find(options);
+
+    let skateSpot = null;
+
+    try {
+      skateSpot = await SkateSpot.find(options);
+    } catch (err) {
+      console.error(err);
+    }
+    return skateSpot;
   }
 
   @Query(() => SkateSpot)

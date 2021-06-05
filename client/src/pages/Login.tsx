@@ -26,10 +26,10 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
   });
 
   return (
-    <div>
+    <div className="bg-gray-50">
       {/* Logo */}
       <header
-        className={`text-center border-b border-blue-400 bg-blue-400 py-5 m-0 text-white w-full ${
+        className={`text-center border-b border-r-4 border border-black bg-blue-400 py-5 m-0 text-white w-full ${
           isTabletOrMobile ? 'text-2xl' : 'text-3xl'
         }`}
       >
@@ -102,7 +102,7 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
               const { values, touched, errors, isSubmitting, handleChange, handleBlur } = props;
               return (
                 <Form>
-                  <div className="border rounded border-gray-600">
+                  <div className="border rounded border-gray-600 bg-white">
                     <div className="m-5">
                       <Field
                         name="email"

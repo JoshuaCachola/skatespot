@@ -22,9 +22,9 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
   const [register] = useRegisterUserMutation();
 
   return (
-    <div>
+    <div className="bg-gray-50">
       <header
-        className={`text-center w-full border-b border-blue-400 h-full bg-blue-400 py-5 m-0 text-white ${
+        className={`text-center w-full border-b border-r-4 border-black h-full bg-blue-400 py-5 m-0 text-white ${
           isTabletOrMobile ? 'text-2xl' : 'text-3xl'
         }`}
       >
@@ -74,7 +74,7 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
                   <div className="my-2 font-semibold text-xl text-center">
                     <h1>Register for SkateSpot</h1>
                   </div>
-                  <div className="border rounded border-gray-600">
+                  <div className="border rounded border-gray-600 bg-white">
                     <div className="m-5">
                       <Field
                         name="username"
@@ -188,7 +188,9 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
           </div>
         )}
       </div>
-      <Footer />
+      <div className="fixed bottom-0">
+        <Footer />
+      </div>
     </div>
   );
 };

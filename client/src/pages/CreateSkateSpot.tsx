@@ -35,7 +35,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
   };
 
   return (
-    <div>
+    <div className="bg-gray-50">
       {loading && (
         <div className="fixed top-0 left-0 bottom-0 right-0 bg-black bg-opacity-70 z-50">
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-auto">
@@ -74,7 +74,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
             const { values, handleChange, handleBlur, setFieldValue } = props;
             return (
               <Form>
-                <div className={`my-10 mx-auto border border-gray-300 rounded ${isMobile ? 'w-72' : 'w-140'}`}>
+                <div className={`my-10 mx-auto border border-gray-300 rounded bg-white ${isMobile ? 'w-72' : 'w-140'}`}>
                   <div className="m-6">
                     <div className="my-4 flex">
                       <label id="name" className="w-12 font-semibold">
@@ -162,7 +162,11 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
                           <div key={obstacle} className="text-center mx-2">
                             <label>
                               {!isMobile && (
-                                <img src={skatespotObstacleImages[obstacle]} alt={obstacle} className="w-36 h-14" />
+                                <img
+                                  src={skatespotObstacleImages[obstacle]}
+                                  alt={obstacle}
+                                  className="w-36 h-14 bg-gray-50"
+                                />
                               )}
                               <Field type="checkbox" id={obstacle} name="skatespotObstacles" value={obstacle} />
                               <span>&nbsp;{obstacle}</span>
@@ -178,7 +182,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
                   <div className="my-4 font-bold text-xl">
                     <h4>Add Photos</h4>
                   </div>
-                  <section>
+                  <section className="bg-white">
                     <Upload values={values} setFieldValue={setFieldValue} />
                   </section>
                 </div>

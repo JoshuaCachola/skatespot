@@ -32,6 +32,7 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
     },
   });
 
+  console.log(location.state);
   const [photos, setPhotos] = React.useState([]);
 
   React.useEffect(() => {
@@ -54,25 +55,29 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
       {/* Upload */}
       <section className={`h-screen mx-auto my-10 ${isMobile ? 'w-72' : 'w-3/4'}`}>
         <div className="mt-4">
-          <div
-            className={`font-bold text-blue-700 cursor-pointer border-b-2 border-transparent hover:border-blue-700 ${
-              isMobile ? 'text-2xl w-72' : 'text-3xl '
-            }`}
-            onClick={() => history.push(`/skate-spot/${location.state.skatespot.name}`)}
-          >
-            <h2>
+          <div className="flex text-center">
+            <h2
+              className={`font-bold text-blue-700 cursor-pointer border-b-2 border-transparent hover:border-blue-700 ${
+                isMobile ? 'text-2xl w-72' : 'text-3xl '
+              }`}
+              onClick={() => history.push(`/skate-spot/${location.state.skatespot.name}`)}
+            >
               {location.state.skatespot.name}
+            </h2>
+            <div className={`${isMobile ? 'text-2xl w-72' : 'text-3xl '}`}>
               <span className="font-extrabold text-black">
                 <span className="font-semibold text-blue-700">:</span>Add Photos
               </span>
-            </h2>
+            </div>
           </div>
         </div>
         <div>
           <Formik
             initialValues={{ photos: [] }}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
-              await upload({ variables: { imgFiles: values.photos, skateSpotId: location.state.skatespot.id } });
+              await upload({
+                variables: { imgFiles: values.photos, skateSpotId: location.state.skatespot.location.state.id },
+              });
               resetForm();
               setSubmitting(false);
               history.push(`/skate-spot/${location.state.skatespot.name}`);

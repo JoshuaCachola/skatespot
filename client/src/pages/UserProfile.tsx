@@ -44,7 +44,7 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
   }
 
   return (
-    <div>
+    <div className="bg-gray-50">
       <Header />
       {/* User information and photo */}
       <div

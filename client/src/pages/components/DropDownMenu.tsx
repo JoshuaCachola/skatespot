@@ -14,7 +14,7 @@ interface Props {
 }
 
 const DropDownMenu: React.FC<Props> = ({ type }) => {
-  const isMobile = useMediaQuery({ query: '(max-width: 702px)' });
+  const isMobile = useMediaQuery({ query: '(max-width: 937px)' });
 
   const { data } = useGetUserQuery({ fetchPolicy: 'cache-and-network', nextFetchPolicy: 'cache-first' });
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -38,7 +38,7 @@ const DropDownMenu: React.FC<Props> = ({ type }) => {
         <div className="flex">
           <div className="rounded-l-sm rounded-r-none">
             <div
-              className={`text-gray-400 hover:bg-black hover:bg-opacity-10 hover:text-gray-500 flex justify-center align-middle overflow-hidden rounded-r-none bg-black border-l border-t border-b-4 rounded-l ${
+              className={`text-gray-400 hover:bg-black hover:bg-opacity-30 hover:text-gray-500 flex justify-center align-middle overflow-hidden rounded-r-none bg-white border-l border-t border-b-4 rounded-l ${
                 type === HEADER ? 'border-black' : 'border-white'
               }`}
             >
@@ -46,11 +46,7 @@ const DropDownMenu: React.FC<Props> = ({ type }) => {
                 {data?.getUser.profilePicture ? (
                   <img src={data.getUser.profilePicture} alt="profile" className="h-11 w-10" />
                 ) : (
-                  <div
-                    className={`h-10 w-5 my-auto py-2 mx-2 pl-0.5 border-l border-t border-b-4  rounded-l ${
-                      type === HEADER ? 'border-black' : 'border-white'
-                    }`}
-                  >
+                  <div className="h-10 w-5 my-auto py-2 mx-2 pl-0.5">
                     <FontAwesomeIcon icon={['fas', 'user']} />
                   </div>
                 )}
@@ -58,7 +54,7 @@ const DropDownMenu: React.FC<Props> = ({ type }) => {
             </div>
           </div>
           <div
-            className={`rounded rounded-l-none border-r-4 border-t border-b-4 bg-black bg-opacity-10 hover:bg-opacity-30  ${
+            className={`rounded rounded-l-none border-r-4 border-t border-b-4 border-l bg-black bg-opacity-10 hover:bg-opacity-30  ${
               type === HEADER ? 'border-black' : 'border-white'
             }`}
           >

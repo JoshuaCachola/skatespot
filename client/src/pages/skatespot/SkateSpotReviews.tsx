@@ -16,8 +16,6 @@ export const SkateSpotReviews: React.FC<Props> = ({ skateSpotId }) => {
     nextFetchPolicy: 'cache-first',
   });
 
-  console.log(data?.getSkateSpotReviews);
-
   return (
     <div className="mt-5">
       {data?.getSkateSpotReviews &&

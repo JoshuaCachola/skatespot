@@ -68,7 +68,7 @@ export const WriteReview: React.FC<RouteComponentProps & Props> = ({ history, lo
             <span>{location.state.skateSpot.name}</span>
           </div>
         </div>
-        <div className={`border rounded border-gray-300 mx-auto h-110 ${isMobile ? 'w-72' : 'w-140'}`}>
+        <div className={`border rounded border-gray-300 bg-white mx-auto h-110 ${isMobile ? 'w-72' : 'w-140'}`}>
           <form onSubmit={formik.handleSubmit}>
             <ReviewStars rating={formik.values.rating} setFieldValue={formik.setFieldValue} />
             <div className="relative overflow-hidden w-full h-full p-4">
@@ -78,13 +78,15 @@ export const WriteReview: React.FC<RouteComponentProps & Props> = ({ history, lo
                 onChange={formik.handleChange}
                 rows={13}
                 placeholder="Write your review here..."
-                className="resize-none w-full h-full overflow-y-hidden focus:outline-none bg-gray-50"
+                className="resize-none w-full h-full overflow-y-hidden focus:outline-none bg-white"
               ></textarea>
             </div>
             <div className="my-4 font-bold text-xl">
               <h4>Add Photos</h4>
             </div>
-            <Upload values={formik.values} setFieldValue={formik.setFieldValue} />
+            <div className="bg-white">
+              <Upload values={formik.values} setFieldValue={formik.setFieldValue} />
+            </div>
             <div className="mt-6">
               <button
                 type="submit"

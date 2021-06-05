@@ -59,7 +59,7 @@ export const UpdateProfilePicture: React.FC<RouteComponentProps> = ({ history })
   }
 
   return (
-    <div>
+    <div className="bg-gray-50">
       {loading && (
         <div className="fixed top-0 left-0 bottom-0 right-0 bg-black bg-opacity-70 z-50">
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-auto">
@@ -102,9 +102,7 @@ export const UpdateProfilePicture: React.FC<RouteComponentProps> = ({ history })
           </Formik>
         </div>
       </section>
-      <section className="absolute bottom-0">
-        <Footer />
-      </section>
+      <Footer />
     </div>
   );
 };

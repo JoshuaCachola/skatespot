@@ -57,15 +57,15 @@ export const Home: React.FC<Props> = () => {
   };
 
   return (
-    <div ref={headerRef} className="relative z-10 bg-gray-50">
+    <div ref={headerRef} className="relative z-10 bg-gray-50 max-w-screen">
       {isTabletOrMobile ? (
         <>
           <Header />
         </>
       ) : (
         <>
-          <Parallax bgImage={HeroOuter} strength={220} blur={{ min: -2, max: 4 }} className="max-w-max">
-            <div className="w-full max-w-max">
+          <Parallax bgImage={HeroOuter} strength={220} blur={{ min: -2, max: 4 }} className="w-screen">
+            <div className="w-screen">
               <img src={HeroInner} alt="hero-inner" />
             </div>
           </Parallax>
@@ -73,29 +73,29 @@ export const Home: React.FC<Props> = () => {
             <div className="absolute top-10 right-10 max-w-5xl my-0 mx-auto py-0 px-0.5">
               <HomepageHeader />
             </div>
-            <div
-              className={`absolute mx-auto z-20 top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-3/4 ${
-                isTabletOrMobile ? 'pt-44' : 'pt-32'
-              }`}
-            >
+            {/* <div className="relative"> */}
+            <div className={`absolute mx-auto top-1/4 z-20 left-1/2 transform -translate-x-1/2 -translate-y-3/4`}>
               <div
                 className="w-72 h-20 mt-0 mx-auto align-baseline text-white text-5xl flex items-center"
                 style={{ opacity: `${-scroll / (headerHeight / 5) + 1}` }}
               >
                 <Logo type={HOME} />
-                <h1 className="text-center">
+                <h1 className="text-center font-primary">
                   &nbsp;<span className="font-bold">Skate</span>
                   <span className="font-light">Spot</span>
                 </h1>
               </div>
               {/* Search Form */}
-              <SearchForm />
+              <div style={{ opacity: `${-scroll / (headerHeight / 5) + 1}` }}>
+                <SearchForm />
+              </div>
             </div>
+            {/* </div> */}
           </>
         </>
       )}
       {error && <ErrorBanner />}
-      <section className="mt-10 mb-28 h-screen  relative z-10">
+      <section className="mt-10 mb-28 h-screen relative z-10">
         <div className={`max-w-7xl my-10 mx-auto flex ${isTabletOrMobile ? 'justify-center' : 'justify-around'}`}>
           {/* Section Header */}
           <div className="relative">
@@ -108,7 +108,7 @@ export const Home: React.FC<Props> = () => {
                 .map((_, idx) => {
                   return (
                     <div
-                      className={`border border-gray-100 shadow rounded p-4 w-115 h-36 mx-auto my-2 ${
+                      className={`border border-gray-100 shadow rounded p-4 w-115 h-36 mx-auto my-2 bg-white ${
                         isMobile && 'w-80'
                       }`}
                       key={idx}
@@ -138,13 +138,13 @@ export const Home: React.FC<Props> = () => {
                     key={skateSpot.id}
                   >
                     <div
-                      className={`h-36 border border-gray-300 rounded my-5 flex overflow-hidden hover:bg-gray-50 cursor-pointer ${
+                      className={`h-36 border border-gray-300 rounded my-5 flex overflow-hidden hover:shadow-xl hover:bg-gray-100 cursor-pointer ${
                         isMobile ? 'w-72' : 'w-115'
                       }`}
                     >
                       <div className="absolute right-2 rounded px-1 py-1">
                         <button
-                          className="text-lg text-gray-400"
+                          className="text-lg text-gray-700"
                           onClick={(event) => handleRemoveSkateSpot(event, skateSpot.id)}
                         >
                           x
@@ -178,7 +178,7 @@ export const Home: React.FC<Props> = () => {
           </div>
           {!isTabletOrMobile && (
             <div className="relative w-110 h-110 my-32">
-              <img src={HomepageBody} alt="" className="rounded-3xl" />
+              <img src={HomepageBody} alt="" className=" border border-black rounded" />
             </div>
           )}
         </div>
