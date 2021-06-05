@@ -53,7 +53,7 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
       <Header />
       {error && <ErrorBanner message="Error uploading images..." />}
       {/* Upload */}
-      <section className={`h-screen mx-auto my-10 ${isMobile ? 'w-72' : 'w-3/4'}`}>
+      <section className={`h-screen mx-auto my-10 ${isMobile ? 'w-72' : 'w-200'}`}>
         <div className="mt-4">
           <div className="flex text-center">
             <h2

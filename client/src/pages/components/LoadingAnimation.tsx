@@ -9,8 +9,8 @@ export const LoadingAnimation: React.FC = () => {
     <div className="w-3/4 mx-auto">
       <div className="border-r-8 border-t border-l border-b-8 border-black h-full py-5 px-2 rounded-lg bg-blue-400 z-0 relative">
         <div className="relative z-50 text-center text-indigo-50">
-          <span className={`font-bold ${isTabletOrMobile ? 'text-4xl' : 'text-7xl'}`}>Skate</span>
-          <span className={`font-thin ${isTabletOrMobile ? 'text-4xl' : 'text-7xl'}`}>Spot</span>
+          <span className={`font-bold ${isTabletOrMobile ? 'text-2xl' : 'text-7xl'}`}>Skate</span>
+          <span className={`font-thin ${isTabletOrMobile ? 'text-2xl' : 'text-7xl'}`}>Spot</span>
         </div>
         <div
           className="absolute bottom-0 z-40 w-full left-0 h-full animate-wave1 opacity-10"
