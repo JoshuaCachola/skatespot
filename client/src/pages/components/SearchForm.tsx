@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSearchLazyQuery } from 'src/generated/graphql';
-import ClickAwayListener from 'react-click-away-listener';
+// import ClickAwayListener from 'react-click-away-listener';
 import { searchResults } from 'src/graphql/reactive-variables/searchResults';
 // import { useMediaQuery } from 'react-responsive';
+
+// todo
+//   1. once search query is fixed in resolver fix display of searchResults in drop down
+//   2. add more compact search bar for isMobile
 
 const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
   // const isMobile = useMediaQuery({ query: '(max-width: 415px)' });
@@ -22,7 +26,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
     },
   });
 
-  const [search, { loading, data }] = useSearchLazyQuery({ pollInterval: 500 });
+  const [search, { /*loading, */ data }] = useSearchLazyQuery({ pollInterval: 500 });
   const [isFindSearchOpen, setIsFindSearchOpen] = useState<boolean>(false);
 
   React.useEffect(() => {
@@ -59,7 +63,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
                         />
                       </span>
                     </div>
-                    {isFindSearchOpen && (
+                    {/* isFindSearchOpen && (
                       <ClickAwayListener onClickAway={() => setIsFindSearchOpen(!isFindSearchOpen)}>
                         <div className="absolute w-full inline-block rounded-b box-border shadow-lg mt-3 right-px bg-white border-t z-50 border-l border-b-4 border-r-4 border-black">
                           {!loading && data?.search.length !== 0 ? (
@@ -95,7 +99,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
                           )}
                         </div>
                       </ClickAwayListener>
-                    )}
+                          )*/}
                   </label>
                 </div>
               </div>

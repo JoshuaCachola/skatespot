@@ -59,7 +59,7 @@ export const WriteReview: React.FC<RouteComponentProps & Props> = ({ history, lo
         </div>
       )}
       {error && <ErrorBanner message="Error adding user's review..." />}
-      <div className="h-vh10">
+      <div>
         <Header />
       </div>
       <section className={`h-screen mb-8 ${isMobile && 'overflow-y-scroll'}`}>

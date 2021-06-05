@@ -32,7 +32,7 @@ export const UploadPhoto = ({ photos, setPhotos, setFieldValue, values }) => {
       <div
         {...getRootProps({ className: 'dropzone' })}
         className={`rounded border-2 border-dashed border-gray-500 mx-auto my-8 py-12 bg-white ${
-          isTabletOrMobile ? 'w-full' : 'w-220'
+          isTabletOrMobile ? 'w-full' : 'w-200'
         }`}
       >
         <div className={`text-black font-bold text-center w-4/5 my-5 mx-auto ${isMobile ? 'text-xl' : 'text-3xl'}`}>

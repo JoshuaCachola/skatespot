@@ -9,7 +9,6 @@ export const ReviewImages: React.FC<Props> = ({ images }) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const [imagesIdx, setImagesIdx] = useState<number>(0);
 
-  console.log(images);
   const handleImageClick = (idx: number) => {
     if (isOpen) {
       return;

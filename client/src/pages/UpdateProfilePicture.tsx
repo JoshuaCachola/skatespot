@@ -21,7 +21,7 @@ interface ProfilePicture {
 }
 
 export const UpdateProfilePicture: React.FC<RouteComponentProps> = ({ history }) => {
-  const isMobile = useMediaQuery({ query: '(max-width: 415px)' });
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
   const { data } = useGetUserQuery();
   const [photos, setPhotos] = React.useState([]);
   const [updatePhoto, { loading, error }] = useUpdateProfilePictureMutation();
@@ -50,7 +50,7 @@ export const UpdateProfilePicture: React.FC<RouteComponentProps> = ({ history })
         }
       }, 1000);
     }
-  }, [data, photos, updatePhoto, history]);
+  }, [data, photos, updatePhoto, history, error, loading]);
 
   useEffect(() => {
     return () => {
@@ -98,7 +98,7 @@ export const UpdateProfilePicture: React.FC<RouteComponentProps> = ({ history })
             {(props: FormikProps<ProfilePicture>) => {
               const { setFieldValue, values } = props;
               return (
-                <Form>
+                <Form className="3/">
                   <UploadPhoto photos={photos} setPhotos={setPhotos} setFieldValue={setFieldValue} values={values} />
                 </Form>
               );

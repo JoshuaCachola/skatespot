@@ -64,10 +64,10 @@ export const Home: React.FC<Props> = () => {
         </>
       ) : (
         <>
-          <Parallax bgImage={HeroOuter} strength={220} blur={{ min: -2, max: 4 }} className="w-screen">
-            <div className="relative w-screen">
+          <Parallax bgImage={HeroOuter} strength={220} blur={{ min: -2, max: 4 }} className="w-screen h-auto z-0">
+            <div className="w-screen">
               <img src={HeroInner} alt="hero-inner" />
-              <div className={`absolute mx-auto top-3/4 z-20 left-1/2 transform -translate-x-1/2 -translate-y-3/4`}>
+              <div className={`absolute mx-auto top-3/4 left-1/2 transform -translate-x-1/2 -translate-y-3/4 z-10`}>
                 <div
                   className="w-72 h-20 mt-0 mx-auto align-baseline text-white text-5xl flex items-center"
                   style={{ opacity: `${-scroll / (headerHeight / 5) + 1}` }}
@@ -79,14 +79,17 @@ export const Home: React.FC<Props> = () => {
                   </h1>
                 </div>
                 {/* Search Form */}
-                <div style={{ opacity: `${-scroll / (headerHeight / 5) + 1}` }}>
+                <div
+                  className="relative z-50 overflow-visible"
+                  style={{ opacity: `${-scroll / (headerHeight / 5) + 1}` }}
+                >
                   <SearchForm />
                 </div>
               </div>
             </div>
           </Parallax>
           <>
-            <div className="absolute top-10 right-10 max-w-5xl my-0 mx-auto py-0 px-0.5">
+            <div className="absolute top-10 right-10 max-w-5xl my-0 mx-auto py-0 px-0.5 z-0">
               <HomepageHeader />
             </div>
             {/* <div className="relative"> */}
@@ -96,8 +99,10 @@ export const Home: React.FC<Props> = () => {
         </>
       )}
       {error && <ErrorBanner message="Error loading skatespots..." />}
-      <section className="mt-10 mb-28 h-screen overflow-y-scroll relative z-10">
-        <div className={`max-w-7xl my-10 mx-auto flex ${isTabletOrMobile ? 'justify-center' : 'justify-around'}`}>
+      <section className="mt-10 mb-10 h-screen relative">
+        <div
+          className={`max-w-7xl my-10 mx-auto flex ${isTabletOrMobile ? 'justify-center' : 'w-full justify-around'}`}
+        >
           {/* Section Header */}
           <div className="relative">
             <div className="mx-auto my-0 font-bold text-xl border-b-2 pb-2 border-black">
