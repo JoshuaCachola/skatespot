@@ -96,7 +96,7 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
         >
           <div className="relative z-40 min-w-full">
             <div className="flex justify-between items-center">
-              <div className={`mb-2 ${isTabletOrMobile && 'w-44'}`}>
+              <div className={`mb-2 w-1/2`}>
                 {/* name of skate spot */}
                 <div>
                   <h1
