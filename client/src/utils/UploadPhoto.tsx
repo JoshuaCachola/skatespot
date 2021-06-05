@@ -6,6 +6,7 @@ import { Thumbnail } from './Thumbnail';
 export const UploadPhoto = ({ photos, setPhotos, setFieldValue, values }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 415px)' });
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1223px)' });
+
   React.useEffect(() => {
     if (values.photos.length > 0) {
       setPhotos(values.photos);
@@ -30,8 +31,8 @@ export const UploadPhoto = ({ photos, setPhotos, setFieldValue, values }) => {
     <>
       <div
         {...getRootProps({ className: 'dropzone' })}
-        className={`rounded border-2 border-dashed border-gray-500 my-8 py-12 bg-white ${
-          isTabletOrMobile && 'w-full mx-auto'
+        className={`rounded border-2 border-dashed border-gray-500 mx-auto my-8 py-12 bg-white ${
+          isTabletOrMobile ? 'w-full' : 'w-220'
         }`}
       >
         <div className={`text-black font-bold text-center w-4/5 my-5 mx-auto ${isMobile ? 'text-xl' : 'text-3xl'}`}>

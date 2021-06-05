@@ -13,7 +13,7 @@ export const SkateSpotResults: React.FC = () => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1024px)' });
   const isMobile = useMediaQuery({ query: '(max-width: 415px)' });
   const { data, loading, client, fetchMore } = useGetSkateSpotsQuery({
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'network-only',
     variables: { limit: 10 },
   });
 

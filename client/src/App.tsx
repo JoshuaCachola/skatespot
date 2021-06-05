@@ -3,6 +3,7 @@ import { accessToken } from './graphql/reactive-variables/accessToken';
 import { Routes } from './Routes';
 import { TokenContext } from './utils/TokenContext';
 import { useIsLoggedIn } from 'src/utils/useIsLoggedIn';
+import { LoadingAnimation } from './pages/components/LoadingAnimation';
 
 export const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useIsLoggedIn(false);
@@ -42,7 +43,13 @@ export const App: React.FC = () => {
   }, [setIsLoggedIn]);
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    return (
+      <div className="fixed top-0 left-0 bottom-0 right-0 bg-black bg-opacity-70 z-50">
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-auto">
+          <LoadingAnimation />
+        </div>
+      </div>
+    );
   }
 
   return (

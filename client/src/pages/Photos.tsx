@@ -150,9 +150,7 @@ export const Photos: React.FC<Props> = ({ location }) => {
                 !isDesktopOrLaptop && 'w-24 text-xs text-center'
               }`}
             >
-              <Link to={{ pathname: '/skatespot-photos/add', state: { name: skateSpot.name, id: skateSpot.id } }}>
-                Add Photos
-              </Link>
+              <Link to={{ pathname: '/skatespot-photos/add', state: { skateSpot } }}>Add Photos</Link>
             </div>
           </div>
         </div>

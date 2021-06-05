@@ -15,7 +15,6 @@ export const ReviewImages: React.FC<Props> = ({ images }) => {
       return;
     }
 
-    console.log(idx);
     setIsOpen(true);
     setImagesIdx(idx);
   };

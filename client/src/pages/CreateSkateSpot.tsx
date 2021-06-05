@@ -43,7 +43,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
           </div>
         </div>
       )}
-      {error && <ErrorBanner />}
+      {error && <ErrorBanner message="Error adding skate spot..." />}
       <div>
         <Header />
       </div>

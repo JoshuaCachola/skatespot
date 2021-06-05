@@ -58,7 +58,7 @@ export const WriteReview: React.FC<RouteComponentProps & Props> = ({ history, lo
           </div>
         </div>
       )}
-      {error && <ErrorBanner />}
+      {error && <ErrorBanner message="Error adding user's review..." />}
       <div className="h-vh10">
         <Header />
       </div>

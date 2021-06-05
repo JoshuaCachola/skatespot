@@ -44,7 +44,11 @@ export const UpdateProfilePicture: React.FC<RouteComponentProps> = ({ history })
         },
       });
 
-      setTimeout(() => history.push('/user-profile'), 1000);
+      setTimeout(() => {
+        if (!loading && !error) {
+          history.push('/user-profile');
+        }
+      }, 1000);
     }
   }, [data, photos, updatePhoto, history]);
 
@@ -68,7 +72,7 @@ export const UpdateProfilePicture: React.FC<RouteComponentProps> = ({ history })
         </div>
       )}
       <Header />
-      {error && <ErrorBanner />}
+      {error && <ErrorBanner message="Error uploading new profile picture..." />}
       {/* Upload */}
       <section className={`mx-auto my-0 h-screen ${isMobile ? 'w-72' : 'w-220'}`}>
         <div className="flex text-center mt-4">

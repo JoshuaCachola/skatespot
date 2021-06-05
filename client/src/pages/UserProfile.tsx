@@ -8,6 +8,7 @@ import { RouteComponentProps } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ReviewImages } from './components/ReviewImages';
 import { useMediaQuery } from 'react-responsive';
+import { ErrorBanner } from './components/ErrorBanner';
 
 const user = {
   username: 'crookiemonster',
@@ -49,9 +50,13 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
       {/* User information and photo */}
       <div
         className={`bg-gray-100 absolute w-screen z-10 top-28 border-b border-t border-gray-200 ${
-          isMobile ? 'h-28 w-72' : 'h-32'
+          isMobile ? 'h-28 w-72' : 'h-40'
         }`}
       />
+      {error ||
+        (userError && (
+          <ErrorBanner message={userError ? "Error loading user's profile..." : "Error loading user's reviews..."} />
+        ))}
       <div className={`relative h-full max-w-7xl mb-5 mx-auto ${isMobile && 'w-72'}`}>
         <section className={`relative flex my-5 z-20 ${isMobile ? 'w-full mx-2' : 'mx-auto'}`}>
           {/* Account profile picture */}
@@ -66,7 +71,7 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
               </div>
             </div>
             {userData?.getUser.profilePicture ? (
-              <div className={`h-auto ${isMobile ? 'w-36' : 'w-52'}`}>
+              <div className={`h-auto ${isMobile ? 'w-24 h-auto' : 'w-52'}`}>
                 <img
                   alt="profile"
                   src={userData?.getUser.profilePicture}
@@ -87,8 +92,8 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
           </div>
           {/* Account information */}
           <div className={`my-4 leading-normal ${isMobile ? 'w-72' : 'ml-28'}`}>
-            <div>
-              <h1 className={`font-light mb-4 ${isMobile ? 'text-xl' : 'text-3xl'}`}>{userData?.getUser.username}</h1>
+            <div className={`font-light ${isMobile ? 'text-lg' : 'text-3xl'}`}>
+              <h1 className="mb-4">{userData?.getUser.username}</h1>
               <h2 className="font-semibold">
                 <span className="uppercase">{userData?.getUser.firstName[0]}</span>
                 <span>{userData?.getUser.firstName.slice(1)}</span>

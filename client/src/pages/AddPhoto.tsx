@@ -25,15 +25,16 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
       client.writeQuery({
         query: GetSkateSpotDocument,
         data: {
-          getSkateSpot: { ...location.state.skatespot, imageUrls: uploadPhotos.imageUrls },
+          getSkateSpot: { ...location.state.skateSpot.skateSpot.skatespot, imageUrls: uploadPhotos.imageUrls },
         },
-        variables: { name: location.state.skatespot.name },
+        variables: { name: location.state.skateSpot.skatespot.name },
       });
     },
   });
 
   const [photos, setPhotos] = React.useState([]);
 
+  console.log(location.state.skateSpot);
   React.useEffect(() => {
     return () => {
       setPhotos([]);
@@ -50,7 +51,7 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
         </div>
       )}
       <Header />
-      {error && <ErrorBanner />}
+      {error && <ErrorBanner message="Error uploading images..." />}
       {/* Upload */}
       <section className={`h-screen mx-auto my-10 ${isMobile ? 'w-72' : 'w-3/4'}`}>
         <div className="mt-4">
@@ -59,9 +60,9 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
               className={`font-bold text-blue-700 cursor-pointer border-b-2 border-transparent hover:border-blue-700 ${
                 isMobile ? 'text-2xl w-72' : 'text-3xl '
               }`}
-              onClick={() => history.push(`/skate-spot/${location.state.skatespot.name}`)}
+              onClick={() => history.push(`/skate-spot/${location.state.skateSpot.name}`)}
             >
-              {location.state.skatespot.name}
+              {location.state.skateSpot.name}
             </h2>
             <div className={`${isMobile ? 'text-2xl w-72' : 'text-3xl '}`}>
               <span className="font-extrabold text-black">
@@ -75,11 +76,13 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
             initialValues={{ photos: [] }}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
               await upload({
-                variables: { imgFiles: values.photos, skateSpotId: location.state.skatespot.id },
+                variables: { imgFiles: values.photos, skateSpotId: location.state.skateSpot.id },
               });
               resetForm();
               setSubmitting(false);
-              history.push(`/skate-spot/${location.state.skatespot.name}`);
+              if (!error && !loading) {
+                history.push(`/skate-spot/${location.state.skateSpot.name}`);
+              }
             }}
           >
             {(props: FormikProps<SkateSpotPhotos>) => {

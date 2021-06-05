@@ -34,7 +34,7 @@ export const SkateSpotBottom: React.FC<Props> = ({ skatespot }) => {
                   <Link
                     to={{
                       pathname: '/skatespot-photos/add',
-                      state: { skatespot: skatespot },
+                      state: { skatespot },
                     }}
                     className={`text-white rounded border-blue-400 bg-blue-400 border-r-2 border-b-2 border-l border-t mb-6 mr-6 py-2 font-bold hover:bg-blue-200 hover:text-black ${
                       isDesktopOrLaptop ? 'text-base px-6' : 'text-xs px-1'

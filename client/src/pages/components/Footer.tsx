@@ -40,7 +40,7 @@ export const Footer: React.FC<Props> = () => {
           </Link>
         </div>
         <div
-          className={`flex text-black text-middle mr-6 hover:text-blue-400 font-semibold ${
+          className={`flex text-black text-middle mr-5 hover:text-blue-400 font-semibold ${
             isMobile ? 'text-base' : 'text-lg'
           }`}
         >

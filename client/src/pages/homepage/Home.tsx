@@ -65,8 +65,24 @@ export const Home: React.FC<Props> = () => {
       ) : (
         <>
           <Parallax bgImage={HeroOuter} strength={220} blur={{ min: -2, max: 4 }} className="w-screen">
-            <div className="w-screen">
+            <div className="relative w-screen">
               <img src={HeroInner} alt="hero-inner" />
+              <div className={`absolute mx-auto top-3/4 z-20 left-1/2 transform -translate-x-1/2 -translate-y-3/4`}>
+                <div
+                  className="w-72 h-20 mt-0 mx-auto align-baseline text-white text-5xl flex items-center"
+                  style={{ opacity: `${-scroll / (headerHeight / 5) + 1}` }}
+                >
+                  <Logo type={HOME} />
+                  <h1 className="text-center font-primary">
+                    &nbsp;<span className="font-bold">Skate</span>
+                    <span className="font-light">Spot</span>
+                  </h1>
+                </div>
+                {/* Search Form */}
+                <div style={{ opacity: `${-scroll / (headerHeight / 5) + 1}` }}>
+                  <SearchForm />
+                </div>
+              </div>
             </div>
           </Parallax>
           <>
@@ -74,27 +90,12 @@ export const Home: React.FC<Props> = () => {
               <HomepageHeader />
             </div>
             {/* <div className="relative"> */}
-            <div className={`absolute mx-auto top-1/4 z-20 left-1/2 transform -translate-x-1/2 -translate-y-3/4`}>
-              <div
-                className="w-72 h-20 mt-0 mx-auto align-baseline text-white text-5xl flex items-center"
-                style={{ opacity: `${-scroll / (headerHeight / 5) + 1}` }}
-              >
-                <Logo type={HOME} />
-                <h1 className="text-center font-primary">
-                  &nbsp;<span className="font-bold">Skate</span>
-                  <span className="font-light">Spot</span>
-                </h1>
-              </div>
-              {/* Search Form */}
-              <div style={{ opacity: `${-scroll / (headerHeight / 5) + 1}` }}>
-                <SearchForm />
-              </div>
-            </div>
+
             {/* </div> */}
           </>
         </>
       )}
-      {error && <ErrorBanner />}
+      {error && <ErrorBanner message="Error loading skatespots..." />}
       <section className="mt-10 mb-28 h-screen overflow-y-scroll relative z-10">
         <div className={`max-w-7xl my-10 mx-auto flex ${isTabletOrMobile ? 'justify-center' : 'justify-around'}`}>
           {/* Section Header */}
