@@ -95,7 +95,7 @@ export const Home: React.FC<Props> = () => {
         </>
       )}
       {error && <ErrorBanner />}
-      <section className="mt-10 mb-28 h-screen relative z-10">
+      <section className="mt-10 mb-28 h-screen overflow-y-scroll relative z-10">
         <div className={`max-w-7xl my-10 mx-auto flex ${isTabletOrMobile ? 'justify-center' : 'justify-around'}`}>
           {/* Section Header */}
           <div className="relative">

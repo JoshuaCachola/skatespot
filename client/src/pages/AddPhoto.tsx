@@ -32,7 +32,6 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
     },
   });
 
-  console.log(location.state);
   const [photos, setPhotos] = React.useState([]);
 
   React.useEffect(() => {
@@ -76,7 +75,7 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
             initialValues={{ photos: [] }}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
               await upload({
-                variables: { imgFiles: values.photos, skateSpotId: location.state.skatespot.location.state.id },
+                variables: { imgFiles: values.photos, skateSpotId: location.state.skatespot.id },
               });
               resetForm();
               setSubmitting(false);
@@ -92,7 +91,7 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
                     <div className="mt-6 justify-center flex">
                       <button
                         type="submit"
-                        className="rounded text-white py-2 px-8 text-lg font-semibold border-blue-400 bg-blue-400 border-r-2 border-b-2 border-l border-t hover:bg-blue-200 hover:text-black"
+                        className="rounded text-white py-2 px-8 text-lg font-semibold border-blue-400 bg-blue-400 border-r-4 border-b-4 border-l border-t hover:bg-blue-200 hover:text-black focus:outline-none"
                       >
                         Upload Photos
                       </button>

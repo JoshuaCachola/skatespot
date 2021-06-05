@@ -6,8 +6,8 @@ export const LoadingAnimation: React.FC = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1223px)' });
 
   return (
-    <>
-      <div className="relative border-r-8 border-t border-l border-b-8 border-black w-auto h-full py-5 px-2 rounded-lg bg-blue-400 z-0">
+    <div className="w-1/2 mx-auto">
+      <div className="border-r-8 border-t border-l border-b-8 border-black h-full py-5 px-2 rounded-lg bg-blue-400 z-0 relative">
         <div className="relative z-50 text-center text-indigo-50">
           <span className={`font-bold ${isTabletOrMobile ? 'text-4xl' : 'text-7xl'}`}>Skate</span>
           <span className={`font-thin ${isTabletOrMobile ? 'text-4xl' : 'text-7xl'}`}>Spot</span>
@@ -36,6 +36,6 @@ export const LoadingAnimation: React.FC = () => {
         <div className="h-5 w-5 rounded-full bg-white mx-1 border-r-4 border-b-4 border-l border-t border-black" />
         <div className="h-5 w-5 rounded-full bg-white mx-1 border-r-4 border-b-4 border-l border-t border-black" />
       </div>
-    </>
+    </div>
   );
 };

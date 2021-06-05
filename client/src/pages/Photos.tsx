@@ -117,7 +117,7 @@ export const Photos: React.FC<Props> = ({ location }) => {
   return (
     <div className="bg-gray-50">
       <Header />
-      <div className={`my-4 mx-auto h-screen ${isDesktopOrLaptop ? 'w-210' : 'w-72'}`}>
+      <div className={`my-4 mx-auto h-full ${isDesktopOrLaptop ? 'w-210' : 'w-72'}`}>
         <div className="border-b border-gray-400 mb-5">
           <div className="font-bold text-3xl mb-4">
             <h1>{skateSpot.name}</h1>
@@ -212,9 +212,7 @@ export const Photos: React.FC<Props> = ({ location }) => {
         </div>
       </div>
       {isOpen && <ImageModal images={photos} idx={idx} setIdx={setIdx} setIsOpen={setIsOpen} />}
-      <div className="fixed bottom-0">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };

@@ -175,7 +175,7 @@ export const SkateSpotResults: React.FC = () => {
                 </li>
               );
             })}
-          <div className="float-right mr-5 cursor-pointer">
+          <div className="float-right mr-5 cursor-pointer hover:border-black focus:outline-none hover:border-opacity-25 hover:bg-opacity-30 rounded hover:bg-black px-2 py-1">
             <button onClick={() => handleGetMoreSkateSpots()}>
               <span className="font-semibold">Load more</span>
             </button>
