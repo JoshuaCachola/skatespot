@@ -5,6 +5,8 @@ import DropDownMenu from './DropDownMenu';
 import SearchForm from './SearchForm';
 import BoardTap from '../../assets/board-tap.png';
 import { useMediaQuery } from 'react-responsive';
+import { Logo } from './Logo';
+import { HEADER } from '../../utils/constants';
 
 export const Header: React.FC = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 768px)' });
@@ -12,16 +14,18 @@ export const Header: React.FC = () => {
   const { isLoggedIn } = React.useContext(TokenContext);
 
   return (
-    <header className="bg-gray-500 border-b-4 border-gray-300 shadow-lg">
+    <header className="bg-gray-500 border-b-2 border-gray-400 shadow-lg">
       {/* Logo */}
       <div className="flex items-center justify-between">
         <div className="mx-6 font-semibold p-2 hover:border hover:bg-black hover:bg-opacity-10 rounded">
           <Link to="/">
             <div className="flex items-center">
-              <div className="flex border-2 border-black px-1 rounded bg-white">
+              {/* <div className="flex border-2 border-black px-1 rounded bg-white">
                 <span className="font-bold text-lg">S</span>
-                <span className="font-thin text-lg">S</span>
-              </div>
+                <span className="font-thin text-lg">S</span> 
+  </div> */}
+
+              <Logo type={HEADER} />
               {!isTabletOrMobile && (
                 <div className="text-white">
                   <span className="font-bold text-lg">&nbsp;Skate</span>
@@ -32,7 +36,9 @@ export const Header: React.FC = () => {
           </Link>
         </div>
         {/* Search Form */}
-        <SearchForm />
+        <div className="ml-10">
+          <SearchForm />
+        </div>
         {/* Nav Links*/}
         {isLoggedIn ? (
           <div className="mr-4">
@@ -41,23 +47,21 @@ export const Header: React.FC = () => {
                 {!isMobile && (
                   <li className="mr-5">
                     <div className="font-semibold p-2 hover:border hover:bg-black hover:bg-opacity-10 rounded">
-                      <span>
-                        <Link to="/create-skate-spot">
-                          <div className="flex">
-                            <div className="border-2 border-black rounded p-1 bg-white">
-                              <img src={BoardTap} alt="" className="w-4 h-4" />
-                            </div>
-                            <div className="text-white text-lg">
-                              &nbsp;Create <span className="font-light">Skate Spot</span>
-                            </div>
+                      <Link to="/create-skate-spot">
+                        <div className="flex items-center">
+                          <div className="border-r-4 border-b-4 border-t border-l border-black rounded p-2 bg-white">
+                            <img src={BoardTap} alt="" className="w-5 h-5" />
                           </div>
-                        </Link>
-                      </span>
+                          <div className="text-white text-lg">
+                            &nbsp;Create <span className="font-light">Skate Spot</span>
+                          </div>
+                        </div>
+                      </Link>
                     </div>
                   </li>
                 )}
                 <li>
-                  <DropDownMenu />
+                  <DropDownMenu type={HEADER} />
                 </li>
               </ul>
             </nav>
@@ -85,7 +89,7 @@ export const Header: React.FC = () => {
           //     </ul>
           //   </nav>
           // </div>
-          <DropDownMenu />
+          <DropDownMenu type={HEADER} />
         )}
       </div>
     </header>

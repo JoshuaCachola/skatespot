@@ -33,12 +33,12 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
     };
   }, []);
 
-  const handleImageClick = (e) => {
+  const handleImageClick = (idx) => {
     if (isOpen) {
       return;
     }
     setIsOpen(true);
-    setImagesIdx(parseInt(e.target.id));
+    setImagesIdx(idx);
   };
 
   if (loading) {
@@ -56,7 +56,7 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
   }
 
   return (
-    <div>
+    <div className="bg-gray-50">
       <Header />
       {/* image carousel, skate spot information */}
       <div className="relative">
@@ -78,11 +78,10 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
                 return (
                   <div
                     key={idx}
-                    id={idx.toString()}
                     className={`relative flex justify-center max-w-200 bg-black cursor-pointer z-50 ${
                       isTabletOrMobile ? 'h-80' : 'h-110'
                     }`}
-                    onClick={(e) => handleImageClick(e)}
+                    onClick={() => handleImageClick(idx)}
                   >
                     <img src={img} alt={`img-${idx}`} className="object-cover align-middle" />
                   </div>

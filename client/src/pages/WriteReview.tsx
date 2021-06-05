@@ -50,7 +50,7 @@ export const WriteReview: React.FC<RouteComponentProps & Props> = ({ history, lo
   });
 
   return (
-    <div className="overflow-y-hidden">
+    <div className="overflow-y-hidden bg-gray-50">
       {loading && (
         <div className="fixed top-0 left-0 bottom-0 right-0 bg-black bg-opacity-70 z-50">
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-auto">
@@ -78,7 +78,7 @@ export const WriteReview: React.FC<RouteComponentProps & Props> = ({ history, lo
                 onChange={formik.handleChange}
                 rows={13}
                 placeholder="Write your review here..."
-                className="resize-none w-full h-full overflow-y-hidden focus:outline-none"
+                className="resize-none w-full h-full overflow-y-hidden focus:outline-none bg-gray-50"
               ></textarea>
             </div>
             <div className="my-4 font-bold text-xl">

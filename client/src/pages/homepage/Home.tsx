@@ -12,6 +12,8 @@ import { useGetSkateSpotsQuery } from 'src/generated/graphql';
 import { ReviewStar } from 'src/utils/ReviewStar';
 import { Link } from 'react-router-dom';
 import { ErrorBanner } from '../components/ErrorBanner';
+import { Logo } from '../components/Logo';
+import { HOME } from '../../utils/constants';
 
 interface Props {}
 
@@ -55,7 +57,7 @@ export const Home: React.FC<Props> = () => {
   };
 
   return (
-    <div ref={headerRef} className="relative z-10">
+    <div ref={headerRef} className="relative z-10 bg-gray-50">
       {isTabletOrMobile ? (
         <>
           <Header />
@@ -77,11 +79,12 @@ export const Home: React.FC<Props> = () => {
               }`}
             >
               <div
-                className="w-72 h-20 mt-0 mx-auto align-baseline text-white text-6xl"
+                className="w-72 h-20 mt-0 mx-auto align-baseline text-white text-5xl flex items-center"
                 style={{ opacity: `${-scroll / (headerHeight / 5) + 1}` }}
               >
+                <Logo type={HOME} />
                 <h1 className="text-center">
-                  <span className="font-bold">Skate</span>
+                  &nbsp;<span className="font-bold">Skate</span>
                   <span className="font-light">Spot</span>
                 </h1>
               </div>
@@ -92,7 +95,7 @@ export const Home: React.FC<Props> = () => {
         </>
       )}
       {error && <ErrorBanner />}
-      <section className="mt-10 mb-28 h-screen bg-white relative z-10">
+      <section className="mt-10 mb-28 h-screen  relative z-10">
         <div className={`max-w-7xl my-10 mx-auto flex ${isTabletOrMobile ? 'justify-center' : 'justify-around'}`}>
           {/* Section Header */}
           <div className="relative">

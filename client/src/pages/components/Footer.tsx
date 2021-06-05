@@ -11,26 +11,44 @@ export const Footer: React.FC<Props> = () => {
   return (
     <div className="table-row align-bottom w-full bg-gray-200 z-20">
       <div className="flex flex-col items-end w-screen py-2">
-        <div className={`flex text-black text-middle mr-6 ${isMobile ? 'text-base' : 'text-lg'}`}>
+        <div
+          className={`flex text-black text-middle mr-6 hover:text-blue-400 font-semibold ${
+            isMobile ? 'text-base' : 'text-lg'
+          }`}
+        >
           <Link to={{ pathname: 'https://www.linkedin.com/in/joshua-cachola-b6bab9194/' }} target="_blank">
             <h6>
-              <FontAwesomeIcon icon={['fab', 'linkedin']} />
+              <span className="text-2xl text-blue-400">
+                <FontAwesomeIcon icon={['fab', 'linkedin']} />
+              </span>
               <span>&nbsp;LinkedIn</span>
             </h6>
           </Link>
         </div>
-        <div className={`flex text-black text-middle mr-9 ${isMobile ? 'text-base' : 'text-lg'}`}>
+        <div
+          className={`flex text-black text-middle mr-9 hover:text-blue-400 font-semibold ${
+            isMobile ? 'text-base' : 'text-lg'
+          }`}
+        >
           <Link to={{ pathname: 'https://github.com/JoshuaCachola' }} target="_blank">
             <h6>
-              <FontAwesomeIcon icon={['fab', 'github']} />
+              <span className="text-2xl text-blue-400">
+                <FontAwesomeIcon icon={['fab', 'github']} />
+              </span>
               <span>&nbsp;Github</span>
             </h6>
           </Link>
         </div>
-        <div className={`flex text-black text-middle mr-6 ${isMobile ? 'text-base' : 'text-lg'}`}>
+        <div
+          className={`flex text-black text-middle mr-6 hover:text-blue-400 font-semibold ${
+            isMobile ? 'text-base' : 'text-lg'
+          }`}
+        >
           <Link to={{ pathname: 'https://joshuacachola.github.io' }} target="_blank">
             <h6>
-              <FontAwesomeIcon icon={['fas', 'window-maximize']} />
+              <span className="text-2xl text-blue-400">
+                <FontAwesomeIcon icon={['fas', 'window-maximize']} />
+              </span>
               <span>&nbsp;Portfolio</span>
             </h6>
           </Link>

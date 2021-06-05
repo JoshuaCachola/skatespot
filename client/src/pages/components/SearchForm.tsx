@@ -30,7 +30,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
   }, [formik.values, search]);
 
   return (
-    <form onSubmit={formik.handleSubmit} className="align-baseline block relative">
+    <form onSubmit={formik.handleSubmit} className="align-baseline block relative ml-7">
       <div className="flex min-w-full">
         {/* find input */}
         <div className="flex-1 block box-border">
@@ -39,7 +39,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
               <div className="min-w-full box-border align-top block">
                 <div className="shadow-lg mt-4">
                   <label
-                    className={`relative rounded-l rounded-r-none px-3 py-3 text-lg font-bold bg-white block w-full mt-0 mb-5 mx-0 border-l border-white shadow-2xl ${
+                    className={`relative rounded-l rounded-r-none px-3 py-3 text-lg font-bold bg-white block w-full mt-0 mb-5 mx-0 border-l border-t border-b-4 shadow-2xl border-black ${
                       isFindSearchOpen ? 'rounded-bl-none' : 'rounded-br-none'
                     }`}
                   >
@@ -61,7 +61,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
                     </div>
                     {isFindSearchOpen && (
                       <ClickAwayListener onClickAway={() => setIsFindSearchOpen(!isFindSearchOpen)}>
-                        <div className="absolute w-full inline-block rounded-b box-border shadow-lg mt-3 right-px bg-white border-t z-50">
+                        <div className="absolute w-full inline-block rounded-b box-border shadow-lg mt-3 right-px bg-white border-t z-50 border-l border-b-4 border-r-4 border-black">
                           {!loading && data?.search.length !== 0 ? (
                             data?.search.map((result) => {
                               return (
@@ -147,7 +147,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
         <div className="box-border table-cell align-top">
           <button
             type="submit"
-            className="shadow-lg mt-4 rounded-l-none rounded-r bg-blue-400 px-5 py-3.75 leading-normal focus:outline-none text-white hover:bg-blue-200 hover:text-black"
+            className="shadow-lg mt-4 rounded-l-none rounded-r bg-blue-400 px-5 py-3.75 leading-normal focus:outline-none text-white hover:bg-blue-200 hover:text-black border-r-4 border-b-4 border-l border-t border-black"
           >
             <span className="w-6 h-6 text-base">
               <FontAwesomeIcon icon={['fas', 'search']} />

@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import ReactDom from 'react-dom';
 import ClickAwayListener from 'react-click-away-listener';
+import { useMediaQuery } from 'react-responsive';
 
 interface Props {
   images: Array<string>;
@@ -12,6 +13,8 @@ interface Props {
 const modal = document.getElementById('modal') as HTMLElement;
 
 export const ImageModal: React.FC<Props> = ({ images, setIsOpen, idx, setIdx }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 415px)' });
+
   const handleClickAway = useCallback(() => {
     setIsOpen(false);
   }, [setIsOpen]);
@@ -30,12 +33,16 @@ export const ImageModal: React.FC<Props> = ({ images, setIsOpen, idx, setIdx }) 
   return ReactDom.createPortal(
     <div className="fixed top-0 left-0 bottom-0 right-0 bg-black bg-opacity-70 z-50">
       <ClickAwayListener onClickAway={handleClickAway}>
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-black">
+        <div
+          className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-black ${
+            isMobile && 'w-full h-auto'
+          }`}
+        >
           <div className="flex">
             {/* Image */}
-            <div className="w-140 h-200 bg-black">
+            <div className={`bg-black ${isMobile ? 'w-full h-auto' : 'w-140 h-200'}`}>
               <div className="relative top-1/2 transform -translate-y-1/2">
-                <img src={currentImage} alt="img-modal" />
+                <img src={currentImage} alt="img-modal" className="h-auto w-full" />
               </div>
             </div>
             {/* Comments */}

@@ -7,11 +7,13 @@ import { TokenContext } from 'src/utils/TokenContext';
 import { accessToken } from 'src/graphql/reactive-variables/accessToken';
 import BoardTap from '../../assets/board-tap.png';
 import { useMediaQuery } from 'react-responsive';
+import { HEADER } from '../../utils/constants';
 
-interface Props {}
+interface Props {
+  type: string;
+}
 
-const DropDownMenu: React.FC<Props> = () => {
-  // const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1223px)' });
+const DropDownMenu: React.FC<Props> = ({ type }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 702px)' });
 
   const { data } = useGetUserQuery({ fetchPolicy: 'cache-and-network', nextFetchPolicy: 'cache-first' });
@@ -27,7 +29,7 @@ const DropDownMenu: React.FC<Props> = () => {
     <div className="relative">
       {isMobile ? (
         <div
-          className="border-2 border-black rounded px-1 bg-white hover:bg-black hover:bg-opacity-10 mx-6"
+          className="border-black rounded-sm text-center py-2 bg-white hover:bg-black w-14 hover:bg-opacity-10 mx-6 text-2xl border-l border-t border-r-4 border-b-4"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           <FontAwesomeIcon icon={['fas', 'bars']} />
@@ -35,19 +37,31 @@ const DropDownMenu: React.FC<Props> = () => {
       ) : (
         <div className="flex">
           <div className="rounded-l-sm rounded-r-none">
-            <div className=" text-gray-400 hover:bg-black hover:bg-opacity-10 hover:text-gray-500 flex justify-center align-middle overflow-hidden rounded-l-sm rounded-r-none bg-white">
+            <div
+              className={`text-gray-400 hover:bg-black hover:bg-opacity-10 hover:text-gray-500 flex justify-center align-middle overflow-hidden rounded-r-none bg-black border-l border-t border-b-4 rounded-l ${
+                type === HEADER ? 'border-black' : 'border-white'
+              }`}
+            >
               <Link to="/user-profile">
                 {data?.getUser.profilePicture ? (
                   <img src={data.getUser.profilePicture} alt="profile" className="h-11 w-10" />
                 ) : (
-                  <div className="h-10 w-5 my-auto py-2 mx-2 pl-0.5">
+                  <div
+                    className={`h-10 w-5 my-auto py-2 mx-2 pl-0.5 border-l border-t border-b-4  rounded-l ${
+                      type === HEADER ? 'border-black' : 'border-white'
+                    }`}
+                  >
                     <FontAwesomeIcon icon={['fas', 'user']} />
                   </div>
                 )}
               </Link>
             </div>
           </div>
-          <div className="rounded-r-sm roudner-l-none border border-black border-opacity-10 bg-black bg-opacity-20 hover:bg-opacity-30">
+          <div
+            className={`rounded rounded-l-none border-r-4 border-t border-b-4 bg-black bg-opacity-10 hover:bg-opacity-30  ${
+              type === HEADER ? 'border-black' : 'border-white'
+            }`}
+          >
             <div className="h-10 w-5">
               <div
                 className="pt-2 align-middle cursor-pointer text-white text-center"

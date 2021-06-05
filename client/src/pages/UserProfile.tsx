@@ -52,7 +52,7 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
           isMobile ? 'h-28 w-72' : 'h-32'
         }`}
       />
-      <div className={`relative h-screen max-w-4xl ${isMobile && 'w-72'}`}>
+      <div className={`relative h-full max-w-4xl mb-5 ${isMobile && 'w-72'}`}>
         <section className={`relative flex my-5 z-20 ${isMobile ? 'w-full mx-2' : 'mx-auto'}`}>
           {/* Account profile picture */}
           <div className={`rounded mt-5 mb-8 ${isMobile ? 'mx-5' : 'ml-20'}`}>

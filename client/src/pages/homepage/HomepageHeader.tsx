@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { HOME } from 'src/utils/constants';
 import { TokenContext } from 'src/utils/TokenContext';
 import DropDownMenu from '../components/DropDownMenu';
 
@@ -20,7 +21,7 @@ export const HomepageHeader: React.FC = () => {
             </ul>
             <ul className="inline-block float-right">
               <li>
-                <DropDownMenu />
+                <DropDownMenu type={HOME} />
               </li>
             </ul>
           </nav>

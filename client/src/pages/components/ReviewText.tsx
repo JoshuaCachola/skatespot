@@ -6,15 +6,15 @@ interface Props {
 
 export const ReviewText: React.FC<Props> = ({ review }) => {
   return (
-    <>
+    <div className="mb-5">
       {review.split('\n').map((paragraph, idx) => {
         return (
           <div key={idx}>
-            <p className="break-words whitespace-pre-line">{paragraph}</p>
+            <span className="break-words whitespace-pre-line">{paragraph}</span>
             <br />
           </div>
         );
       })}
-    </>
+    </div>
   );
 };

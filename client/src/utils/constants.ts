@@ -1,2 +1,2 @@
-export const PROFILE_PICTURE = 'PROFILE_PICTURE';
-export const SKATESPOT_PICTURE = 'SKATESPOT_PICTURE';
+export const HOME = 'HOME';
+export const HEADER = 'HEADER';
