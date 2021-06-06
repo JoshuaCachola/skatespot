@@ -136,7 +136,6 @@ export class SkateSpotResolver {
     try {
       return await getConnection()
         .createQueryBuilder(SkateSpot, 's')
-        .select()
         .where('document_with_weights @@ plainto_tsquery(:query)', {
           query,
         })

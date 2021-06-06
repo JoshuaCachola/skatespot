@@ -187,7 +187,7 @@ export const Home: React.FC<Props> = () => {
               })}
           </div>
           {!isTabletOrMobile && (
-            <div className="relative w-110 h-110 my-32">
+            <div className="w-110 h-110 my-32">
               <img src={HomepageBody} alt="" className=" border border-black rounded" />
             </div>
           )}

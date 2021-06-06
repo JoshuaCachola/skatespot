@@ -50,14 +50,14 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
       {/* User information and photo */}
       <div
         className={`bg-gray-100 absolute w-screen z-10 top-28 border-b border-t border-gray-200 ${
-          isMobile ? 'h-28 w-72' : 'h-40'
+          isMobile ? 'h-28' : 'h-40'
         }`}
       />
       {error ||
         (userError && (
           <ErrorBanner message={userError ? "Error loading user's profile..." : "Error loading user's reviews..."} />
         ))}
-      <div className={`relative h-full max-w-7xl mb-5 mx-auto ${isMobile && 'w-72'}`}>
+      <div className={`relative h-full max-w-7xl mb-5 mx-auto ${isMobile && 'w-full'}`}>
         <section className={`relative flex my-5 z-20 ${isMobile ? 'w-full mx-2' : 'mx-auto'}`}>
           {/* Account profile picture */}
           <div className={`rounded mt-5 mb-8 ${isMobile ? 'mx-5' : 'ml-20'}`}>
