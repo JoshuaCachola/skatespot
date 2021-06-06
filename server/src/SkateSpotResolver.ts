@@ -132,14 +132,11 @@ export class SkateSpotResolver {
   }
 
   @Query(() => [SkateSpot])
-  async search(
-    @Arg('query') query: string,
-    // @Arg('find') find: string,
-    // @Arg('near') near: string
-  ) {
+  async search(@Arg('query') query: string) {
     try {
       return await getConnection()
-        .createQueryBuilder(SkateSpot, 'skatespots')
+        .createQueryBuilder(SkateSpot, 's')
+        .select()
         .where('document_with_weights @@ plainto_tsquery(:query)', {
           query,
         })

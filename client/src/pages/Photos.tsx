@@ -67,7 +67,7 @@ interface Props {
 // ];
 
 export const Photos: React.FC<Props> = ({ location }) => {
-  const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 768px)' });
+  const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 769px)' });
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [idx, setIdx] = useState<number>(0);
   const [maxPages, setMaxPages] = useState<number>(1);
@@ -117,7 +117,7 @@ export const Photos: React.FC<Props> = ({ location }) => {
   return (
     <div className="bg-gray-50">
       <Header />
-      <div className={`my-4 mx-auto h-full ${isDesktopOrLaptop ? 'w-210' : 'w-72'}`}>
+      <div className={`my-4 mx-auto h-screen ${isDesktopOrLaptop ? 'w-210' : 'w-3/4'}`}>
         <div className="border-b border-gray-400 mb-5">
           <div className="font-bold text-3xl mb-4">
             <h1>{skateSpot.name}</h1>

@@ -11,11 +11,9 @@ export const useLoadingText = () => {
       setDots([]);
     }
   }, 1000);
-  // console.log(dotsArray);
   useEffect(() => {
     return () => {
       clearInterval(dotsInterval);
-      // setDots([]);
     };
   }, [dotsInterval]);
 

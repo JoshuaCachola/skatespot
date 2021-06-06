@@ -7,6 +7,7 @@ import { useMediaQuery } from 'react-responsive';
 import { GetSkateSpotDocument, useGetSkateSpotsQuery } from '../generated/graphql';
 import { Footer } from './components/Footer';
 import { AverageReviewStars } from './components/AverageReviewStars';
+import { searchResults } from 'src/graphql/reactive-variables/searchResults';
 // import { LoadingAnimation } from './components/LoadingAnimation';
 
 export const SkateSpotResults: React.FC = () => {
@@ -34,6 +35,7 @@ export const SkateSpotResults: React.FC = () => {
     console.log(results);
   };
 
+  console.log(searchResults());
   return (
     <div className="bg-gray-50">
       <Header />

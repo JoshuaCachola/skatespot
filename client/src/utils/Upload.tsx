@@ -19,7 +19,6 @@ export const Upload = ({ setFieldValue, values }) => {
     );
   };
 
-  console.log(values);
   return (
     <>
       <div

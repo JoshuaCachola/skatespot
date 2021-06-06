@@ -346,7 +346,7 @@ export type SearchQuery = (
   { __typename?: 'Query' }
   & { search: Array<(
     { __typename?: 'SkateSpot' }
-    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'city' | 'state' | 'street' | 'postalCode' | 'phone' | 'website' | 'temporarilyClosed' | 'permanentlyClosed' | 'imageUrls' | 'location' | 'reviewsCount' | 'reviewsDistribution'>
+    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'city' | 'state' | 'street' | 'postalCode' | 'temporarilyClosed' | 'permanentlyClosed' | 'imageUrls' | 'location' | 'reviewsCount' | 'reviewsDistribution'>
   )> }
 );
 
@@ -852,8 +852,6 @@ export const SearchDocument = gql`
     state
     street
     postalCode
-    phone
-    website
     temporarilyClosed
     permanentlyClosed
     imageUrls

@@ -49,6 +49,12 @@ export const Home: React.FC<Props> = () => {
     };
   }, []);
 
+  useEffect(() => {
+    setHeaderHeight(0);
+    setSkateSpots([]);
+    setScroll(0);
+  }, []);
+
   const handleRemoveSkateSpot = (event, id) => {
     event.preventDefault();
     event.stopPropagation();
@@ -99,7 +105,7 @@ export const Home: React.FC<Props> = () => {
         </>
       )}
       {error && <ErrorBanner message="Error loading skatespots..." />}
-      <section className="mt-10 mb-10 h-screen relative">
+      <section className={`mt-10 ${isMobile ? 'h-full' : 'h-screen'}`}>
         <div
           className={`max-w-7xl my-10 mx-auto flex ${isTabletOrMobile ? 'justify-center' : 'w-full justify-around'}`}
         >

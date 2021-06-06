@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSearchLazyQuery } from 'src/generated/graphql';
-// import ClickAwayListener from 'react-click-away-listener';
+import ClickAwayListener from 'react-click-away-listener';
 import { searchResults } from 'src/graphql/reactive-variables/searchResults';
 // import { useMediaQuery } from 'react-responsive';
 
@@ -26,12 +26,19 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
     },
   });
 
-  const [search, { /*loading, */ data }] = useSearchLazyQuery({ pollInterval: 500 });
+  const [search, { loading, data }] = useSearchLazyQuery({ pollInterval: 500 });
   const [isFindSearchOpen, setIsFindSearchOpen] = useState<boolean>(false);
 
   React.useEffect(() => {
-    search({ variables: formik.values });
-  }, [formik.values, search]);
+    console.log(formik.values.query);
+    search({ variables: { query: formik.values.query } });
+  }, [formik.values.query, search]);
+
+  useEffect(() => {
+    return () => {
+      setIsFindSearchOpen(false);
+    };
+  }, []);
 
   return (
     <form onSubmit={formik.handleSubmit} className="align-baseline block relative ml-7">
@@ -58,13 +65,13 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
                           placeholder="Try California..."
                           maxLength={64}
                           className="cursor-text inline-block w-full focus:outline-none"
-                          onClick={() => setIsFindSearchOpen(!isFindSearchOpen)}
+                          onClick={() => setIsFindSearchOpen(true)}
                           onChange={formik.handleChange}
                         />
                       </span>
                     </div>
-                    {/* isFindSearchOpen && (
-                      <ClickAwayListener onClickAway={() => setIsFindSearchOpen(!isFindSearchOpen)}>
+                    {isFindSearchOpen && (
+                      <ClickAwayListener onClickAway={() => setIsFindSearchOpen(false)}>
                         <div className="absolute w-full inline-block rounded-b box-border shadow-lg mt-3 right-px bg-white border-t z-50 border-l border-b-4 border-r-4 border-black">
                           {!loading && data?.search.length !== 0 ? (
                             data?.search.map((result) => {
@@ -99,7 +106,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
                           )}
                         </div>
                       </ClickAwayListener>
-                          )*/}
+                    )}
                   </label>
                 </div>
               </div>

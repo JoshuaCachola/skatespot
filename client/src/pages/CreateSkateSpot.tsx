@@ -47,7 +47,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
       <div>
         <Header />
       </div>
-      <section className={`h-full mb-6 ${isMobile && 'overflow-y-scroll'}`}>
+      <section className={`h-screen mb-6 ${isMobile && 'overflow-y-scroll'}`}>
         <div className={`text-3xl mx-auto my-10 font-bold ${isMobile ? 'w-72' : 'w-140'}`}>
           <h1>
             <span>Add Skate Spot</span>
@@ -190,7 +190,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
                 <div className={`mx-auto mt-6 ${isMobile ? 'w-72' : 'w-140'}`}>
                   <button
                     type="submit"
-                    className="border-l border-t border-r-2 border-b-2 border-blue-400 px-8 py-2 rounded bg-blue-400 text-white hover:bg-blue-200 hover:text-black "
+                    className="border-l border-t border-r-2 border-b-2 border-blue-400 px-8 py-2 rounded bg-blue-400 text-white hover:bg-blue-200 hover:text-black focus:outline-none"
                   >
                     Submit
                   </button>

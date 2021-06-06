@@ -74,7 +74,7 @@ export const UpdateProfilePicture: React.FC<RouteComponentProps> = ({ history })
       <Header />
       {error && <ErrorBanner message="Error uploading new profile picture..." />}
       {/* Upload */}
-      <section className={`mx-auto my-0 h-screen ${isMobile ? 'w-72' : 'w-220'}`}>
+      <section className={`mx-auto my-0 h-screen ${isMobile ? 'w-3/4' : 'w-200'}`}>
         <div className="flex text-center mt-4">
           <Link to="/user-profile" className="text-blue-700 font-bold">
             <h3>

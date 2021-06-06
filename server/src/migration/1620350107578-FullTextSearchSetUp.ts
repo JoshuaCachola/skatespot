@@ -14,9 +14,9 @@ export class FullTextSearchSetUp1620350107578 implements MigrationInterface {
       CREATE FUNCTION skatespots_tsvector_trigger() RETURNS trigger AS $$
       begin
         new.document_with_weights :=
-        setweight('english', new.name, 'A')
-        || setweight('english', new.city, 'B')
-        || setweight('english', new.state, 'C');
+        setweight(to_tsvector(new.name), 'A')
+        || setweight(to_tsvector(new.city), 'B')
+        || setweight(to_tsvector(new.state), 'C');
         return new;
       end
       $$ LANGUAGE plpgsql;

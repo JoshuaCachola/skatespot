@@ -7,8 +7,6 @@ query Search($query: String!) {
     state
     street
     postalCode
-    phone
-    website
     temporarilyClosed
     permanentlyClosed
     imageUrls

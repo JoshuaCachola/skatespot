@@ -35,7 +35,7 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
           </h1>
         </Link>
       </header>
-      <div
+      <section
         className={`flex align-middle mx-auto h-screen ${
           isTabletOrMobile ? 'w-3/4 justify-center' : 'w-200 justify-between'
         }`}
@@ -187,10 +187,8 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
             <img src={LoginHero} alt="login-hero" />
           </div>
         )}
-      </div>
-      <div className="fixed bottom-0">
-        <Footer />
-      </div>
+      </section>
+      <Footer />
     </div>
   );
 };
