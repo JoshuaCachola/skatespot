@@ -111,7 +111,7 @@ export const UserProfile: React.FC<RouteComponentProps> = ({ history }) => {
             <span>Fetching reviews...</span>
           </div>
         )}
-        <section className={`max-w-4xl mx-auto ${isMobile && 'w-72'}`}>
+        <section className={`max-w-4xl mx-auto h-screen ${isMobile && 'w-72'}`}>
           <div className="text-xl font-bold text-red-500 mt-6 ml-5">
             <h1>Reviews</h1>
           </div>

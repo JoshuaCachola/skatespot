@@ -63,37 +63,35 @@ export const Home: React.FC<Props> = () => {
   };
 
   return (
-    <div ref={headerRef} className="relative z-10 bg-gray-50 max-w-screen">
+    <div ref={headerRef} className="relative bg-gray-50 max-w-screen">
       {isTabletOrMobile ? (
         <>
           <Header />
         </>
       ) : (
         <>
-          <Parallax bgImage={HeroOuter} strength={220} blur={{ min: -2, max: 4 }} className="w-screen h-auto z-0">
+          <div className={`absolute mx-auto left-1/2 transform -translate-x-1/2 z-50`} style={{ top: '18%' }}>
+            <div
+              className="w-72 h-20 mt-0 mx-auto align-baseline text-white text-5xl flex items-center"
+              style={{ opacity: `${-scroll / (headerHeight / 5) + 1}` }}
+            >
+              <Logo type={HOME} />
+              <h1 className="text-center font-primary">
+                &nbsp;<span className="font-bold">Skate</span>
+                <span className="font-light">Spot</span>
+              </h1>
+            </div>
+            {/* Search Form */}
+            <div className="overflow-visible">
+              <SearchForm />
+            </div>
+          </div>
+          <Parallax bgImage={HeroOuter} strength={220} blur={{ min: -2, max: 4 }} className="w-screen h-auto relative">
             <div className="w-screen">
               <img src={HeroInner} alt="hero-inner" />
-              <div className={`absolute mx-auto top-3/4 left-1/2 transform -translate-x-1/2 -translate-y-3/4 z-10`}>
-                <div
-                  className="w-72 h-20 mt-0 mx-auto align-baseline text-white text-5xl flex items-center"
-                  style={{ opacity: `${-scroll / (headerHeight / 5) + 1}` }}
-                >
-                  <Logo type={HOME} />
-                  <h1 className="text-center font-primary">
-                    &nbsp;<span className="font-bold">Skate</span>
-                    <span className="font-light">Spot</span>
-                  </h1>
-                </div>
-                {/* Search Form */}
-                <div
-                  className="relative z-50 overflow-visible"
-                  style={{ opacity: `${-scroll / (headerHeight / 5) + 1}` }}
-                >
-                  <SearchForm />
-                </div>
-              </div>
             </div>
           </Parallax>
+
           <>
             <div className="absolute top-10 right-10 max-w-5xl my-0 mx-auto py-0 px-0.5 z-0">
               <HomepageHeader />
