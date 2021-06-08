@@ -19,7 +19,7 @@ interface RefreshTokenPayload {
   userId: number;
   iat: number;
   exp: number;
-  tokenVersion: number;
+  // tokenVersion: number;
 }
 
 (async () => {
@@ -38,12 +38,12 @@ interface RefreshTokenPayload {
 
   app.post('/refresh_token', async (req, res) => {
     const token = req.cookies.jrt;
-    console.log(req.headers);
+
     if (!token) {
       return res.json({ accessToken: '' });
     }
 
-    let payload = null;
+    let payload;
     try {
       payload = verify(token, process.env.REFRESH_TOKEN_SECRET!) as RefreshTokenPayload;
     } catch (err) {
@@ -51,8 +51,11 @@ interface RefreshTokenPayload {
       return res.json({ accessToken: '' });
     }
 
-    const user = await User.findOne({ id: payload.userId });
-    if (!user || user.tokenVersion !== payload.tokenVersion) {
+    let user;
+    if (payload.userId) {
+      user = await User.findOne({ id: payload.userId });
+    }
+    if (!user /*|| user.tokenVersion !== payload.tokenVersion*/) {
       return res.json({ accessToken: '' });
     }
 
@@ -68,11 +71,17 @@ interface RefreshTokenPayload {
     }),
     context: ({ req, res }) => ({ req, res }),
     uploads: false,
+    playground: true,
+    introspection: true,
   });
 
-  apolloServer.applyMiddleware({ app, cors: false });
+  // apolloServer.listen({ port: 4000 });
+  // apolloServer.applyMiddleware({ app);
+  // await apolloServer.start();
 
-  const port = process.env.PORT || 4000;
+  apolloServer.applyMiddleware({ app, cors: false });
+  const port = process.env.PORT || 6000;
+
   app.listen(port, () => {
     console.log('express server started...');
   });

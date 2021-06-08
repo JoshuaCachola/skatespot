@@ -9,9 +9,6 @@ module.exports = {
       secondary: ['Caveat', 'sans-serif'],
     },
     extend: {
-      colors: {
-        primaryColor: '',
-      },
       height: {
         hero: '35.625rem',
         110: '426px',

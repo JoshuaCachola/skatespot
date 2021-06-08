@@ -1,0 +1,70 @@
+version: "3.8"
+
+services:
+  api:
+    container_name: api
+    build:
+      context: ./server
+      dockerfile: Dockerfile.prod
+    entrypoint: ["/usr/src/app/entrypoint-prod.sh"]
+    volumes:
+      - "./server:/usr/src/app"
+      - "/usr/src/app/node_modules"
+    ports:
+      - 4005:6000
+    environment:
+      - NODE_ENV=production
+      - ACCESS_KEY_ID=${ACCESS_KEY_ID}
+      - SECRET_ACCESS_KEY=${SECRET_ACCESS_KEY}
+      - REGION=${REGION}
+      - AWS_BUCKET=${AWS_BUCKET}
+      - GOOGLE_GEOCODING_API_KEY=${GOOGLE_GEOCODING_API_KEY}
+    depends_on:
+      - api-db
+    networks:
+      - host
+
+  api-db:
+    container_name: api_db
+    build:
+      context: ./server/src/db
+      dockerfile: Dockerfile
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - host
+
+  client:
+    stdin_open: true
+    build:
+      context: ./client
+      dockerfile: Dockerfile.prod
+    volumes:
+      - "./client:/usr/src/app"
+      - "/usr/src/app/node_modules"
+    ports:
+      - 3007:3000
+    environment:
+      - NODE_ENV=production
+      - REACT_APP_API_SERVICE_URL=${REACT_APP_API_SERVICE_URL}
+      - REACT_APP_GOOGLE_MAPS_API_KEY=${REACT_APP_GOOGLE_MAPS_API_KEY}
+    depends_on:
+      - api
+
+  nginx:
+    image: nginx
+    volumes:
+      - ./template:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
+    networks:
+      - host
+    depends_on:
+      - api
+    command: ["nginx", "-g", "daemon off;"]
+
+networks:
+  host:

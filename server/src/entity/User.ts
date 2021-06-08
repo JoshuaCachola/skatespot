@@ -12,36 +12,42 @@ export class User extends BaseEntity {
   id: number;
 
   @Field()
-  @Column({
-    type: 'varchar',
-    length: 255,
+  @Column('text', {
     nullable: false,
   })
   email: string;
 
   @Field()
-  @Column({
-    type: 'varchar',
-    length: 32,
+  @Column('text', {
     nullable: false,
   })
   username: string;
 
   @Field()
-  @Column({
-    type: 'varchar',
-    length: 64,
+  @Column('text', {
     nullable: false,
   })
   firstName: string;
 
   @Field()
-  @Column({
-    type: 'varchar',
-    length: 64,
+  @Column('text', {
     nullable: false,
   })
   lastName: string;
+
+  @Field()
+  @Column('text', {
+    nullable: true,
+    default: '',
+  })
+  city: string;
+
+  @Field()
+  @Column('text', {
+    nullable: true,
+    default: '',
+  })
+  state: string;
 
   @Field()
   @CreateDateColumn()
@@ -54,16 +60,8 @@ export class User extends BaseEntity {
   })
   password: string;
 
-  @Column({
-    type: 'int',
-    default: 0,
-  })
-  tokenVersion: number;
-
   @Field()
-  @Column({
-    type: 'varchar',
-    length: 255,
+  @Column('text', {
     default: '',
   })
   profilePicture: string;

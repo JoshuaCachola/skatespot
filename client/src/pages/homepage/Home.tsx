@@ -18,7 +18,7 @@ import { HOME } from '../../utils/constants';
 interface Props {}
 
 export const Home: React.FC<Props> = () => {
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1226px)' });
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1429px)' });
   const isMobile = useMediaQuery({ query: '(max-width: 415px)' });
 
   const [headerHeight, setHeaderHeight] = useState<any>(0);
@@ -63,14 +63,14 @@ export const Home: React.FC<Props> = () => {
   };
 
   return (
-    <div ref={headerRef} className="relative bg-gray-50 max-w-screen">
+    <div ref={headerRef} className="relative bg-gray-50">
       {isTabletOrMobile ? (
         <>
           <Header />
         </>
       ) : (
         <>
-          <div className={`absolute mx-auto left-1/2 transform -translate-x-1/2 z-50`} style={{ top: '18%' }}>
+          <div className={`absolute left-1/2 transform -translate-x-1/2 z-50`} style={{ top: '340px' }}>
             <div
               className="w-72 h-20 mt-0 mx-auto align-baseline text-white text-5xl flex items-center"
               style={{ opacity: `${-scroll / (headerHeight / 5) + 1}` }}
@@ -86,8 +86,13 @@ export const Home: React.FC<Props> = () => {
               <SearchForm />
             </div>
           </div>
-          <Parallax bgImage={HeroOuter} strength={220} blur={{ min: -2, max: 4 }} className="w-screen h-auto relative">
-            <div className="w-screen">
+          <Parallax
+            bgImage={HeroOuter}
+            strength={220}
+            blur={{ min: -2, max: 4 }}
+            className="w-screen max-w-max h-auto relative"
+          >
+            <div className="w-screen max-w-max">
               <img src={HeroInner} alt="hero-inner" />
             </div>
           </Parallax>

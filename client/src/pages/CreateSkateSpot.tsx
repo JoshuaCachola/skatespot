@@ -47,7 +47,7 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
       <div>
         <Header />
       </div>
-      <section className={`h-screen mb-6 ${isMobile && 'overflow-y-scroll'}`}>
+      <section className={`h-full mb-6 ${isMobile && 'overflow-y-scroll'}`}>
         <div className={`text-3xl mx-auto my-10 font-bold ${isMobile ? 'w-72' : 'w-140'}`}>
           <h1>
             <span>Add Skate Spot</span>

@@ -1,11 +1,11 @@
-import { Arg, Field, Mutation, ObjectType, Query, Resolver, Ctx, UseMiddleware, Int } from 'type-graphql';
+import { Arg, Field, Mutation, ObjectType, Query, Resolver, Ctx, UseMiddleware /*Int*/ } from 'type-graphql';
 import argon2 from 'argon2';
 import { User } from './entity/User';
 import { createToken } from './utils/createToken';
 import { TokenCookieCtx } from './types/TokenCookieCtx';
 import { isAuth } from './utils/isAuth';
 import { sendRefreshTokenInCookie } from './utils/sendRefreshTokenInCookie';
-import { getConnection } from 'typeorm';
+// import { getConnection } from 'typeorm';
 import { verify } from 'jsonwebtoken';
 import { Upload } from './types/Upload';
 import { GraphQLUpload } from 'graphql-upload';
@@ -86,16 +86,16 @@ export class UserResolver {
     }
   }
 
-  @Mutation(() => Boolean)
-  async revokeRefreshTokenForUser(@Arg('userId', () => Int) userId: number): Promise<boolean> {
-    try {
-      await getConnection().getRepository(User).increment({ id: userId }, 'tokenVersion', 1);
-      return true;
-    } catch (err) {
-      console.error(err);
-      return false;
-    }
-  }
+  // @Mutation(() => Boolean)
+  // async revokeRefreshTokenForUser(@Arg('userId', () => Int) userId: number): Promise<boolean> {
+  //   try {
+  //     await getConnection().getRepository(User).increment({ id: userId }, 'tokenVersion', 1);
+  //     return true;
+  //   } catch (err) {
+  //     console.error(err);
+  //     return false;
+  //   }
+  // }
 
   @Mutation(() => Boolean)
   async logout(@Ctx() { res }: TokenCookieCtx) {

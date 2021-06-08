@@ -43,7 +43,6 @@ services:
     ports:
       - 3007:3000
     environment:
-      - NODE_ENV=development
       - REACT_APP_API_SERVICE_URL=${REACT_APP_API_SERVICE_URL}
       - REACT_APP_GOOGLE_MAPS_API_KEY=${REACT_APP_GOOGLE_MAPS_API_KEY}
     depends_on:

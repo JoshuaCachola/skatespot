@@ -18,9 +18,9 @@ export const App: React.FC = () => {
           credentials: 'include',
         });
 
-        if (!response.ok) {
-          throw response;
-        }
+        // if (!response.ok) {
+        //   throw response;
+        // }
 
         const data = await response.json();
         accessToken(data.accessToken);

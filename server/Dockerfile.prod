@@ -1,0 +1,33 @@
+FROM node:15.12.0-buster
+
+RUN mkdir -p /usr/src/app && chown -R node:node /usr/src/app
+
+WORKDIR /usr/src/app
+
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+
+ARG ACCESS_KEY_ID
+ENV ACCESS_KEY_ID $ACCESS_KEY_ID
+ARG SECRET_ACCESS_KEY
+ENV SECRET_ACCESS_KEY $SECRET_ACCESS_KEY
+ARG REGION
+ENV REGION $REGION
+ARG AWS_BUCKET
+ENV AWS_BUCKET $AWS_BUCKET
+ARG GOOGLE_GEOCODING_API_KEY
+ENV GOOGLE_GEOCODING_API_KEY $GOOGLE_GEOCODING_API_KEY
+ENV NODE_ENV=production
+
+RUN apt-get update \
+  && apt-get -y install netcat gcc postgresql \
+  && apt-get clean
+
+COPY package.json .
+COPY yarn.lock .
+RUN yarn
+
+COPY ./entrypoint-prod.sh .
+EXPOSE 4004
+
+COPY . .
+RUN chmod +x /usr/src/app/entrypoint-prod.sh

@@ -110,7 +110,7 @@ export class SkateSpotResolver {
       options.where = { id: MoreThan(cursor) };
     }
 
-    let skateSpot = null;
+    let skateSpot: Array<any> = [];
 
     try {
       skateSpot = await SkateSpot.find(options);

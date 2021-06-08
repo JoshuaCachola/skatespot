@@ -1,13 +1,9 @@
 import apolloTesting from 'apollo-server-testing';
 // import { User } from '../../src/entity/User';
 import { typeormConnection } from '../../src/utils/typeormConnection';
-import { UploadResolver } from '../../src/UploadResolver';
-import { UserResolver } from '../../src/UserResolver';
 import { createReadStream } from 'fs';
-import { buildSchema } from 'type-graphql';
 const path = require('path');
 import { ApolloServer } from 'apollo-server-express';
-
 
 beforeAll(async () => {
   await typeormConnection.create();
@@ -21,23 +17,19 @@ afterAll(async () => {
 //     resolvers: [UploadResolver, UserResolver]
 // });
 const resolvers = {
-  Mutation: {
-    
-  }
+  Mutation: {},
 };
 
 const testServer = new ApolloServer({
-  resolvers
+  resolvers,
 });
 
 const client = apolloTesting.createTestClient(testServer);
 
-it("adds file to aws and returns url for file", async () => {
+it('adds file to aws and returns url for file', async () => {
   const filename = '';
-  const file = createReadStream(
-    path.resolve(__dirname, `../utils/${filename}`)
-  );
-  
+  const file = createReadStream(path.resolve(__dirname, `../utils/${filename}`));
+
   const mutation = `
     mutation ($picture: Upload!) {
       uploadProfilePicture(picture: $picture)
@@ -47,13 +39,15 @@ it("adds file to aws and returns url for file", async () => {
   const res = await client.mutate({
     mutation,
     variables: {
-      picture: new Promise(resolve => resolve({
-        createReadStream: () => file,
-        stream: file,
-        filename,
-      }))
-    }
-  })
+      picture: new Promise((resolve) =>
+        resolve({
+          createReadStream: () => file,
+          stream: file,
+          filename,
+        }),
+      ),
+    },
+  });
 
   if (res.errors) {
     throw res;
