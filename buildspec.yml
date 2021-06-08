@@ -9,6 +9,7 @@ env:
     SECRET_ACCESS_KEY: /CodeBuild/SECRET_ACCESS_KEY
     AWS_BUCKET: /CodeBuild/AWS_BUCKET
     GOOGLE_GEOCODING_API_KEY: /CodeBuild/GOOGLE_GEOCODING_API_KEY
+    AWS_ACCOUNT_ID: /CodeBuild/AWS_ACCOUNT_ID
 
 phases:
   pre_build:
