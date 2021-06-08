@@ -36,7 +36,10 @@ phases:
           --build-arg SECRET_ACCESS_KEY=$SECRET_ACCESS_KEY \
           --build-arg REGION=$AWS_REGION \
           --build-arg AWS_BUCKET=$AWS_BUCKET \
-          --build-arg GOOGLE_GEOCODING_API_KEY=$GOOGLE_GEOCODING_API_KEY
+          --build-arg GOOGLE_GEOCODING_API_KEY=$GOOGLE_GEOCODING_API_KEY \
+          --build-arg DATABASE_USERNAME=$DATABASE_USERNAME \
+          --build-arg DATABASE_PASSWORD=$DATABASE_PASSWORD \
+          --build-arg DATABASE_HOST=$DATABASE_HOST
       - >
         docker build -f ./client/Dockerfile.prod ./client \
           -t $AWS_ACCOUNT_ID.dkr.ecr.us-west-2.amazonaws.com/skatespot-client:prod \
