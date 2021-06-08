@@ -18,9 +18,9 @@ ARG GOOGLE_GEOCODING_API_KEY
 ENV GOOGLE_GEOCODING_API_KEY $GOOGLE_GEOCODING_API_KEY
 ENV NODE_ENV=production
 
-RUN apt-get update \
-  && apt-get -y install netcat gcc postgresql \
-  && apt-get clean
+# RUN apt-get update \
+#   && apt-get -y install netcat gcc postgresql \
+#   && apt-get clean
 
 COPY package.json .
 COPY yarn.lock .
