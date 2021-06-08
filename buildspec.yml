@@ -4,6 +4,13 @@ env:
   variables:
     AWS_REGION: "us-west-2"
     REACT_APP_API_SERVICE_URL: "http://localhost:4005"
+  parameter-store:
+    ACCESS_KEY_ID: /CodeBuild/ACCESS_KEY_ID
+    SECRET_ACCESS_KEY: /CodeBuild/SECRET_ACCESS_KEY
+    REGION: /CodeBuild/REGION
+    AWS_BUCKET: /CodeBuild/AWS_BUCKET
+    GOOGLE_GEOCODING_API_KEY: /CodeBuild/GOOGLE_GEOCODING_API_KEY
+    AWS_ACCOUNT_ID: /CodeBuild/AWS_ACCOUNT_ID
 
 phases:
   pre_build:
