@@ -7,7 +7,6 @@ env:
   parameter-store:
     ACCESS_KEY_ID: /CodeBuild/ACCESS_KEY_ID
     SECRET_ACCESS_KEY: /CodeBuild/SECRET_ACCESS_KEY
-    REGION: /CodeBuild/REGION
     AWS_BUCKET: /CodeBuild/AWS_BUCKET
     GOOGLE_GEOCODING_API_KEY: /CodeBuild/GOOGLE_GEOCODING_API_KEY
     AWS_ACCOUNT_ID: /CodeBuild/AWS_ACCOUNT_ID
@@ -29,7 +28,7 @@ phases:
           --build-arg NODE_ENV=production \
           --build-arg ACCESS_KEY_ID=$ACCESS_KEY_ID \
           --build-arg SECRET_ACCESS_KEY=$SECRET_ACCESS_KEY \
-          --build-arg REGION=$REGION \
+          --build-arg REGION=$AWS_REGION \
           --build-arg AWS_BUCKET=$AWS_BUCKET \
           --build-arg GOOGLE_GEOCODING_API_KEY=$GOOGLE_GEOCODING_API_KEY \
           ./server
