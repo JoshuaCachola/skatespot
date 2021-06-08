@@ -26,19 +26,19 @@ phases:
           -f server/Dockerfile.prod \
           --tag=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/skatespot-server:prod \
           --build-arg NODE_ENV=production \
-          --build-arg ACCESS_KEY_ID=$ACCESS_KEY_ID \
-          --build-arg SECRET_ACCESS_KEY=$SECRET_ACCESS_KEY \
-          --build-arg REGION=$AWS_REGION \
-          --build-arg AWS_BUCKET=$AWS_BUCKET \
-          --build-arg GOOGLE_GEOCODING_API_KEY=$GOOGLE_GEOCODING_API_KEY \
+          --build-arg ACCESS_KEY_ID="{$ACCESS_KEY_ID}" \
+          --build-arg SECRET_ACCESS_KEY="{$SECRET_ACCESS_KEY}" \
+          --build-arg REGION="{$AWS_REGION}" \
+          --build-arg AWS_BUCKET="{$AWS_BUCKET}" \
+          --build-arg GOOGLE_GEOCODING_API_KEY="{$GOOGLE_GEOCODING_API_KEY}" \
           ./server
       - >
         docker build \
           -f client/Dockerfile.prod \
           --tag $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/skatespot-client:prod \
           --build-arg NODE_ENV=production \
-          --build-arg REACT_APP_API_SERVICE_URL=$REACT_APP_API_SERVICE_URL \
-          --build-arg REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY \
+          --build-arg REACT_APP_API_SERVICE_URL="{$REACT_APP_API_SERVICE_URL}" \
+          --build-arg REACT_APP_GOOGLE_MAPS_API_KEY="{$REACT_APP_GOOGLE_MAPS_API_KEY}" \
           ./client
   post_build:
     commands:
