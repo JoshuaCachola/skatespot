@@ -19,10 +19,13 @@ services:
       - REGION=${REGION}
       - AWS_BUCKET=${AWS_BUCKET}
       - GOOGLE_GEOCODING_API_KEY=${GOOGLE_GEOCODING_API_KEY}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_HOST=${DATABASE_HOST}
     depends_on:
       - api-db
     networks:
-      - host
+      - webapp
 
   api-db:
     container_name: api_db
@@ -35,7 +38,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     networks:
-      - host
+      - webapp
 
   client:
     stdin_open: true
@@ -61,10 +64,10 @@ services:
     ports:
       - 80:80
     networks:
-      - host
+      - webapp
     depends_on:
       - api
     command: ["nginx", "-g", "daemon off;"]
 
 networks:
-  host:
+  webapp:

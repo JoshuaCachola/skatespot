@@ -2,11 +2,7 @@
   {
     "name": "production",
     "type": "postgres",
-    "host": "api_db",
     "port": 5432,
-    "username": "postgres",
-    "password": "postgres",
-    "database": "api_prod",
     "synchronize": true,
     "logging": false,
     "entities": ["src/entity/**/*.ts"],
