@@ -24,7 +24,7 @@ phases:
       - >
         docker build \
           -f server/Dockerfile.prod \
-          --tag=138038768400.dkr.ecr.us-west-2.amazonaws.com/skatespot-server:prod \
+          -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/skatespot-server:prod \
           --build-arg NODE_ENV=production \
           --build-arg ACCESS_KEY_ID="{$ACCESS_KEY_ID}" \
           --build-arg SECRET_ACCESS_KEY="{$SECRET_ACCESS_KEY}" \
@@ -34,8 +34,8 @@ phases:
           ./server
       - >
         docker build \
-        -file client/Dockerfile.prod \
-        --tag=$138038768400.dkr.ecr.us-west-2.amazonaws.com/skatespot-client:prod \
+        -f client/Dockerfile.prod \
+        -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/skatespot-client:prod \
         --build-arg NODE_ENV=production \
         --build-arg REACT_APP_API_SERVICE_URL="{$REACT_APP_API_SERVICE_URL}" \
         --build-arg REACT_APP_GOOGLE_MAPS_API_KEY="{$REACT_APP_GOOGLE_MAPS_API_KEY}" \
