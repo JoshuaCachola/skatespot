@@ -23,7 +23,7 @@ phases:
       - echo building images...
       - >
         docker build \
-          -f server/Dockerfile.prod \
+          --file "server/Dockerfile.prod" \
           --tag=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/skatespot-server:prod \
           --build-arg NODE_ENV=production \
           --build-arg ACCESS_KEY_ID="{$ACCESS_KEY_ID}" \
@@ -34,7 +34,7 @@ phases:
           ./server
       - >
         docker build \
-          -f client/Dockerfile.prod \
+          --file "client/Dockerfile.prod" \
           --tag $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/skatespot-client:prod \
           --build-arg NODE_ENV=production \
           --build-arg REACT_APP_API_SERVICE_URL="{$REACT_APP_API_SERVICE_URL}" \
