@@ -23,7 +23,7 @@ phases:
       - echo building images...
       - >
         docker build -f ./server/Dockerfile.prod ./server \
-          -t AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/skatespot-server:prod \
+          -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/skatespot-server:prod \
           --build-arg NODE_ENV=production \
           --build-arg ACCESS_KEY_ID=$ACCESS_KEY_ID \
           --build-arg SECRET_ACCESS_KEY=$SECRET_ACCESS_KEY \
