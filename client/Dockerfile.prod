@@ -41,7 +41,6 @@ ENV DATABASE_PASSWORD $DATABASE_PASSWORD
 # create build
 COPY --chown=node:node . .
 RUN npm run build
-# CMD ["npm", "start"]
 
 
 ########
@@ -61,7 +60,7 @@ COPY --from=builder /usr/src/app/build /usr/share/nginx/html
 EXPOSE 80
 
 # run nginx
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
 
 # EXPOSE 80
 # COPY --from=builder /usr/src/app/build /usr/share/nginx/html
