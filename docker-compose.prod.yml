@@ -48,7 +48,7 @@ services:
       - 3007:80
     environment:
       - NODE_ENV=production
-      - REACT_APP_API_SERVICE_URL=http://localhost:4005
+      - REACT_APP_API_SERVICE_URL=${REACT_APP_API_SERVICE_URL}
       - REACT_APP_GOOGLE_MAPS_API_KEY=${REACT_APP_GOOGLE_MAPS_API_KEY}
     depends_on:
       - api
