@@ -24,16 +24,15 @@ ENV DATABASE_PASSWORD $DATABASE_PASSWORD
 ARG DATABASE_USERNAME
 ENV DATABASE_USERNAME $DATABASE_USERNAME
 
-# RUN apt-get update \
-#   && apt-get -y install netcat gcc postgresql \
-#   && apt-get clean
+RUN apt-get update \
+  && apt-get -y install netcat gcc postgresql \
+  && apt-get clean
 
-COPY package.json .
-COPY yarn.lock .
+COPY --chown=node:node package.json .
+COPY --chown=node:node yarn.lock .
 RUN yarn
 
-COPY ./entrypoint-prod.sh .
-EXPOSE 4004
+COPY --chown=node:node ./entrypoint-prod.sh .
 
-COPY . .
+COPY --chown=node:node . .
 RUN chmod +x /usr/src/app/entrypoint-prod.sh
