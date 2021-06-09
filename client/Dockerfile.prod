@@ -21,7 +21,7 @@ RUN yarn
 RUN yarn add react-scripts@4.0.3 --silent
 
 # set environment variables
-ARG NODE_ENV
+ENV NODE_ENV=production
 ARG REACT_APP_API_SERVICE_URL
 ENV REACT_APP_API_SERVICE_URL $REACT_APP_API_SERVICE_URL
 
