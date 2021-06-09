@@ -38,7 +38,7 @@ RUN yarn
 
 COPY --chown=node:node . .
 
-# EXPOSE 6000
+EXPOSE 6000
 
 RUN npm start
 # RUN chmod +x /usr/src/app/entrypoint-prod.sh
