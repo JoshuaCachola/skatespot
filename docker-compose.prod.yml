@@ -6,7 +6,7 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile.prod
-    entrypoint: ["/usr/src/app/entrypoint-prod.sh"]
+    # entrypoint: ["/usr/src/app/entrypoint-prod.sh"]
     volumes:
       - "./server:/usr/src/app"
       - "/usr/src/app/node_modules"
