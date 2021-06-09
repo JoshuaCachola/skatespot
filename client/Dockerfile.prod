@@ -40,7 +40,7 @@ ENV DATABASE_PASSWORD $DATABASE_PASSWORD
 
 # create build
 COPY --chown=node:node . .
-RUN mkdir node_modules/.cache && chmod -R node:node node_modules/.cache
+RUN mkdir /usr/src/app/node_modules/.cache && chmod -R node:node /usr/src/app/node_modules/.cache
 
 RUN npm run build
 
