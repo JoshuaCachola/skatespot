@@ -59,7 +59,7 @@ COPY ./conf.d/default.conf /etc/nginx/conf.d
 # copy static files
 COPY --from=builder /usr/src/app/build /usr/share/nginx/html
 
-EXPOSE 80
+# EXPOSE 80
 
 # run nginx
 CMD ["nginx", "-g", "daemon off;"]

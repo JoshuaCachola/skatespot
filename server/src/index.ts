@@ -63,7 +63,8 @@ interface RefreshTokenPayload {
     return res.json({ accessToken: createToken.access(user) });
   });
 
-  await typeormConnection.create();
+  const connection = await typeormConnection.create();
+  await connection.synchronize();
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
@@ -74,10 +75,6 @@ interface RefreshTokenPayload {
     playground: true,
     introspection: true,
   });
-
-  // apolloServer.listen({ port: 4000 });
-  // apolloServer.applyMiddleware({ app);
-  // await apolloServer.start();
 
   apolloServer.applyMiddleware({ app, cors: false });
   const port = process.env.PORT || 6000;
