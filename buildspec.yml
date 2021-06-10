@@ -3,7 +3,7 @@ version: 0.2
 env:
   variables:
     AWS_REGION: "us-west-2"
-    REACT_APP_API_SERVICE_URL: "http://SkateSpot-alb-14445569.us-west-2.elb.amazonaws.com"
+    REACT_APP_API_SERVICE_URL: "http://skatespot-alb-1172579719.us-west-2.elb.amazonaws.com"
   parameter-store:
     ACCESS_KEY_ID: /CodeBuild/ACCESS_KEY_ID
     SECRET_ACCESS_KEY: /CodeBuild/SECRET_ACCESS_KEY
