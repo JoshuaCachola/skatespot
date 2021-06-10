@@ -6,7 +6,7 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile.prod
-    # entrypoint: ["/usr/src/app/entrypoint-prod.sh"]
+    entrypoint: ["/usr/src/app/entrypoint-prod.sh"]
     volumes:
       - "./server:/usr/src/app"
       - "/usr/src/app/node_modules"
@@ -24,6 +24,8 @@ services:
       - DATABASE_HOST=${DATABASE_HOST}
     depends_on:
       - api-db
+    networks:
+      - webapp
 
   api-db:
     container_name: api_db
@@ -35,6 +37,8 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    networks:
+      - webapp
 
   client:
     stdin_open: true
@@ -52,6 +56,11 @@ services:
       - REACT_APP_GOOGLE_MAPS_API_KEY=${REACT_APP_GOOGLE_MAPS_API_KEY}
     depends_on:
       - api
+    networks:
+      - webapp
+
+networks:
+  webapp:
 
   # nginx:
   #   image: nginx

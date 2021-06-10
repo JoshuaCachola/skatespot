@@ -63,8 +63,7 @@ interface RefreshTokenPayload {
     return res.json({ accessToken: createToken.access(user) });
   });
 
-  const connection = await typeormConnection.create();
-  await connection.synchronize();
+  await typeormConnection.create();
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
