@@ -13,20 +13,19 @@ WORKDIR /usr/src/app
 # add `/usr/src/app/node_modules/.bin` to $PATH
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
+ENV NODE_ENV=production
+ARG REACT_APP_API_SERVICE_URL
+ENV REACT_APP_API_SERVICE_URL=http://skatespot-alb-1172579719.us-west-2.elb.amazonaws.com
+
+ARG REACT_APP_GOOGLE_MAPS_API_KEY
+ENV REACT_APP_GOOGLE_MAPS_API_KEY $REACT_APP_GOOGLE_MAPS_API_KEY
+
 # install and cache app dependencies
 COPY --chown=node:node ./package.json .
 COPY --chown=node:node ./yarn.lock .
 
 RUN yarn
 RUN yarn add react-scripts@4.0.3 --silent
-
-# set environment variables
-ENV NODE_ENV=production
-ARG REACT_APP_API_SERVICE_URL
-ENV REACT_APP_API_SERVICE_URL $REACT_APP_API_SERVICE_URL
-
-ARG REACT_APP_GOOGLE_MAPS_API_KEY
-ENV REACT_APP_GOOGLE_MAPS_API_KEY $REACT_APP_GOOGLE_MAPS_API_KEY
 
 # create build
 COPY --chown=node:node . .

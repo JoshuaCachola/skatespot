@@ -28,12 +28,13 @@ interface RefreshTokenPayload {
   app.use(
     cors({
       origin: `${process.env.NODE_ENV} === 'production' ? 'http://skatespot-alb-1172579719.us-west-2.elb.amazonaws.com' : 'http://localhost:3007'`,
+      // origin: 'http://localhost:3007',
       credentials: true,
     }),
   );
   app.use(graphqlUploadExpress());
   app.get('/ping', (_, res) => {
-    res.send('pong');
+    res.status(200).send('pong');
   });
 
   app.post('/refresh_token', async (req, res) => {
