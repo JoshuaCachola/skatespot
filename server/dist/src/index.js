@@ -37,15 +37,14 @@ const ReviewResolver_1 = require("./ReviewResolver");
     }));
     app.use(graphql_upload_1.graphqlUploadExpress());
     app.get('/ping', (_, res) => {
-        res.send('pong');
+        res.status(200).send('pong');
     });
     app.post('/refresh_token', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const token = req.cookies.jrt;
-        console.log(req.headers);
         if (!token) {
             return res.json({ accessToken: '' });
         }
-        let payload = null;
+        let payload;
         try {
             payload = jsonwebtoken_1.verify(token, process.env.REFRESH_TOKEN_SECRET);
         }
@@ -53,7 +52,10 @@ const ReviewResolver_1 = require("./ReviewResolver");
             console.error(err);
             return res.json({ accessToken: '' });
         }
-        const user = yield User_1.User.findOne({ id: payload.userId });
+        let user;
+        if (payload.userId) {
+            user = yield User_1.User.findOne({ id: payload.userId });
+        }
         if (!user) {
             return res.json({ accessToken: '' });
         }
@@ -67,9 +69,11 @@ const ReviewResolver_1 = require("./ReviewResolver");
         }),
         context: ({ req, res }) => ({ req, res }),
         uploads: false,
+        playground: true,
+        introspection: true,
     });
     apolloServer.applyMiddleware({ app, cors: false });
-    const port = process.env.PORT || 4000;
+    const port = process.env.PORT || 6000;
     app.listen(port, () => {
         console.log('express server started...');
     });

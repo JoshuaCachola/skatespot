@@ -15,6 +15,15 @@ exports.typeormConnection = {
     create() {
         return __awaiter(this, void 0, void 0, function* () {
             const connectionOptions = yield typeorm_1.getConnectionOptions(process.env.NODE_ENV);
+            console.log(process.env.NODE_ENV);
+            console.log(process.env.DATABASE_HOST);
+            console.log(process.env.DATABASE_PASSWORD);
+            console.log(process.env.DATABASE_USERNAME);
+            if (process.env.NODE_ENV === 'production') {
+                connectionOptions['host'] = process.env.DATABASE_HOST;
+                connectionOptions['password'] = process.env.DATABASE_PASSWORD;
+                connectionOptions['username'] = process.env.DATABASE_USERNAME;
+            }
             return typeorm_1.createConnection(Object.assign(Object.assign({}, connectionOptions), { name: 'default' }));
         });
     },

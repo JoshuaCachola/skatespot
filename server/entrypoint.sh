@@ -8,4 +8,4 @@ done
 
 echo "PostgreSQL started"
 
-npm run start:development
+npm run start
