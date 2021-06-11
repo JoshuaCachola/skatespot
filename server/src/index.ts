@@ -27,8 +27,11 @@ interface RefreshTokenPayload {
   app.use(cookieParser());
   app.use(
     cors({
-      origin: `${process.env.NODE_ENV} === 'production' ? 'http://skatespot-alb-1172579719.us-west-2.elb.amazonaws.com' : 'http://localhost:3007'`,
-      // origin: 'http://localhost:3007',
+      origin: `${
+        process.env.NODE_ENV === 'production'
+          ? 'http://skatespot-alb-1172579719.us-west-2.elb.amazonaws.com'
+          : 'http://localhost:3007'
+      }`,
       credentials: true,
     }),
   );
