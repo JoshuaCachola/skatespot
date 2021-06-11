@@ -28,8 +28,6 @@ RUN apt-get update \
   && apt-get -y install netcat gcc postgresql \
   && apt-get clean
 
-RUN npm install -g ts-node
-
 COPY --chown=node:node package.json .
 COPY --chown=node:node yarn.lock .
 RUN yarn
@@ -37,6 +35,8 @@ RUN yarn
 
 COPY --chown=node:node . .
 
+RUN npm run build
+
 EXPOSE 6000
 
-CMD ["ts-node", "src/index.ts"]
+CMD ["node", "dist/src/index.js"]

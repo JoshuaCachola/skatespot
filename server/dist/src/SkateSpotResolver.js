@@ -115,7 +115,7 @@ let SkateSpotResolver = class SkateSpotResolver {
             if (cursor) {
                 options.where = { id: typeorm_1.MoreThan(cursor) };
             }
-            let skateSpot = null;
+            let skateSpot = [];
             try {
                 skateSpot = yield SkateSpot_1.SkateSpot.find(options);
             }
