@@ -30,6 +30,7 @@ RUN apt-get update \
 
 COPY --chown=node:node package.json .
 COPY --chown=node:node yarn.lock .
+RUN npm install -g typescript
 RUN yarn
 
 
