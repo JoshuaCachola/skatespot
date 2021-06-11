@@ -39,4 +39,4 @@ COPY --chown=node:node . .
 
 EXPOSE 6000
 
-CMD ["npm", "start"]
+CMD ["ts-node", "src/index.ts"]
