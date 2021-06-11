@@ -32,7 +32,7 @@ const ReviewResolver_1 = require("./ReviewResolver");
     const app = express_1.default();
     app.use(cookie_parser_1.default());
     app.use(cors_1.default({
-        origin: 'http://localhost:3007',
+        origin: `${process.env.NODE_ENV} === 'production' ? 'http://skatespot-alb-1172579719.us-west-2.elb.amazonaws.com' : 'http://localhost:3007'`,
         credentials: true,
     }));
     app.use(graphql_upload_1.graphqlUploadExpress());

@@ -10,7 +10,6 @@ export const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const value = React.useMemo(() => ({ isLoggedIn, setIsLoggedIn }), [isLoggedIn, setIsLoggedIn]);
 
-  console.log(`${process.env.REACT_APP_API_SERVICE_URL}`);
   useEffect(() => {
     (async () => {
       try {
@@ -19,9 +18,9 @@ export const App: React.FC = () => {
           credentials: 'include',
         });
 
-        // if (!response.ok) {
-        //   throw response;
-        // }
+        if (!response.ok) {
+          throw response;
+        }
 
         const data = await response.json();
         accessToken(data.accessToken);
