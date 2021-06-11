@@ -37,4 +37,6 @@ RUN yarn
 
 COPY --chown=node:node . .
 
+EXPOSE 6000
+
 CMD ["npm", "start"]
