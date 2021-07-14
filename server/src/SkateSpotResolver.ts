@@ -6,7 +6,7 @@ import { getGeocoding } from './utils/geocoding';
 import { Upload } from './types/Upload';
 import { FindManyOptions, getConnection, MoreThan } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
-import { s3MultipleUpload } from './utils/s3Upload';
+import { s3Upload } from './utils/s3Upload';
 
 const s3 = require('./config/s3');
 
@@ -147,6 +147,39 @@ export class SkateSpotResolver {
     }
   }
 
+  // @Mutation(() => SkateSpot)
+  // async uploadPhotos(
+  //   @Arg('skateSpotId', () => Int) skateSpotId: number,
+  //   @Arg('imgFiles', () => [GraphQLUpload]) imgFiles: [Upload],
+  // ): Promise<SkateSpot | null> {
+  //   const skateSpot = await SkateSpot.findOne({ where: { id: skateSpotId } });
+
+  //   if (!skateSpot) {
+  //     return null;
+  //   }
+
+  //   let imgLinks: Array<string> = [];
+
+  //   await s3MultipleUpload(imgFiles, imgLinks);
+
+  //   setTimeout(async () => {
+  //     try {
+  //       const imageUrls = JSON.parse(skateSpot.imageUrls);
+  //       skateSpot.imageUrls = JSON.stringify([...imageUrls, ...imgLinks]);
+  //       await skateSpot.save();
+  //       return;
+  //     } catch (err) {
+  //       console.error(err);
+  //       return;
+  //     }
+  //   }, 1000);
+
+  //   console.log('here');
+  //   return await new Promise((res) => {
+  //     setTimeout(() => res(skateSpot), 2000);
+  //   });
+  // }
+
   @Mutation(() => SkateSpot)
   async uploadPhotos(
     @Arg('skateSpotId', () => Int) skateSpotId: number,
@@ -158,24 +191,29 @@ export class SkateSpotResolver {
       return null;
     }
 
-    let imgLinks: Array<string> = [];
+    const images = await Promise.all(imgFiles);
 
-    await s3MultipleUpload(imgFiles, imgLinks);
+    new Promise((res) => {
+      let imgLocations: Array<string> = [];
 
-    setTimeout(async () => {
+      images.forEach(async (img) => {
+        const location = await s3Upload(img);
+        console.log(location);
+        imgLocations.push(location as string);
+      });
+
+      setTimeout(() => res(imgLocations), 1000 * imgFiles.length);
+    }).then(async (imgLocations) => {
+      console.log(imgLocations);
       try {
         const imageUrls = JSON.parse(skateSpot.imageUrls);
-        skateSpot.imageUrls = JSON.stringify([...imageUrls, ...imgLinks]);
+        skateSpot.imageUrls = JSON.stringify([...imageUrls, ...(imgLocations as Array<string>)]);
         await skateSpot.save();
-        return;
       } catch (err) {
         console.error(err);
-        return;
       }
-    }, 1000);
-
-    return await new Promise((res) => {
-      setTimeout(() => res(skateSpot), 2000);
     });
+
+    return await new Promise((res) => res(skateSpot));
   }
 }

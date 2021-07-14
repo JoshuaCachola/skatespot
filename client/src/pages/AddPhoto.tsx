@@ -25,16 +25,15 @@ export const AddPhoto: React.FC<RouteComponentProps & Props> = ({ history, locat
       client.writeQuery({
         query: GetSkateSpotDocument,
         data: {
-          getSkateSpot: { ...location.state.skateSpot.skateSpot.skatespot, imageUrls: uploadPhotos.imageUrls },
+          getSkateSpot: { ...location.state.skateSpot.skatespot, imageUrls: uploadPhotos.imageUrls },
         },
-        variables: { name: location.state.skateSpot.skatespot.name },
+        variables: { name: location.state.skateSpot.name },
       });
     },
   });
 
   const [photos, setPhotos] = React.useState([]);
 
-  console.log(location.state.skateSpot);
   React.useEffect(() => {
     return () => {
       setPhotos([]);

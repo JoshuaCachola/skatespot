@@ -43,11 +43,11 @@ export const CreateSkateSpot: React.FC<RouteComponentProps> = ({ history }) => {
           </div>
         </div>
       )}
-      {error && <ErrorBanner message="Error adding skate spot..." />}
       <div>
         <Header />
       </div>
       <section className={`h-full mb-6 ${isMobile && 'overflow-y-scroll'}`}>
+        {error && <ErrorBanner message="Error adding skate spot..." />}
         <div className={`text-3xl mx-auto my-10 font-bold ${isMobile ? 'w-72' : 'w-140'}`}>
           <h1>
             <span>Add Skate Spot</span>

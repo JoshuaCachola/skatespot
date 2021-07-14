@@ -19,7 +19,6 @@ interface RefreshTokenPayload {
   userId: number;
   iat: number;
   exp: number;
-  // tokenVersion: number;
 }
 
 (async () => {
@@ -59,7 +58,7 @@ interface RefreshTokenPayload {
     if (payload.userId) {
       user = await User.findOne({ id: payload.userId });
     }
-    if (!user /*|| user.tokenVersion !== payload.tokenVersion*/) {
+    if (!user) {
       return res.json({ accessToken: '' });
     }
 
@@ -80,7 +79,7 @@ interface RefreshTokenPayload {
   });
 
   apolloServer.applyMiddleware({ app, cors: false });
-  const port = process.env.PORT || 6000;
+  const port = process.env.PORT || 4000;
 
   app.listen(port, () => {
     console.log('express server started...');

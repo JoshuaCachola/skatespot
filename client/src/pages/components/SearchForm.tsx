@@ -5,14 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSearchLazyQuery } from 'src/generated/graphql';
 import ClickAwayListener from 'react-click-away-listener';
 import { searchResults } from 'src/graphql/reactive-variables/searchResults';
-// import { useMediaQuery } from 'react-responsive';
-
-// todo
-//   1. once search query is fixed in resolver fix display of searchResults in drop down
-//   2. add more compact search bar for isMobile
 
 const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
-  // const isMobile = useMediaQuery({ query: '(max-width: 415px)' });
   const formik = useFormik({
     initialValues: {
       query: '',
@@ -30,7 +24,6 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
   const [isFindSearchOpen, setIsFindSearchOpen] = useState<boolean>(false);
 
   React.useEffect(() => {
-    console.log(formik.values.query);
     search({ variables: { query: formik.values.query } });
   }, [formik.values.query, search]);
 

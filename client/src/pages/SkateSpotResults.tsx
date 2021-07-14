@@ -8,7 +8,6 @@ import { GetSkateSpotDocument, useGetSkateSpotsQuery } from '../generated/graphq
 import { Footer } from './components/Footer';
 import { AverageReviewStars } from './components/AverageReviewStars';
 import { searchResults } from 'src/graphql/reactive-variables/searchResults';
-// import { LoadingAnimation } from './components/LoadingAnimation';
 
 export const SkateSpotResults: React.FC = () => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1024px)' });
