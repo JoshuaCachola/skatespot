@@ -147,39 +147,6 @@ export class SkateSpotResolver {
     }
   }
 
-  // @Mutation(() => SkateSpot)
-  // async uploadPhotos(
-  //   @Arg('skateSpotId', () => Int) skateSpotId: number,
-  //   @Arg('imgFiles', () => [GraphQLUpload]) imgFiles: [Upload],
-  // ): Promise<SkateSpot | null> {
-  //   const skateSpot = await SkateSpot.findOne({ where: { id: skateSpotId } });
-
-  //   if (!skateSpot) {
-  //     return null;
-  //   }
-
-  //   let imgLinks: Array<string> = [];
-
-  //   await s3MultipleUpload(imgFiles, imgLinks);
-
-  //   setTimeout(async () => {
-  //     try {
-  //       const imageUrls = JSON.parse(skateSpot.imageUrls);
-  //       skateSpot.imageUrls = JSON.stringify([...imageUrls, ...imgLinks]);
-  //       await skateSpot.save();
-  //       return;
-  //     } catch (err) {
-  //       console.error(err);
-  //       return;
-  //     }
-  //   }, 1000);
-
-  //   console.log('here');
-  //   return await new Promise((res) => {
-  //     setTimeout(() => res(skateSpot), 2000);
-  //   });
-  // }
-
   @Mutation(() => SkateSpot)
   async uploadPhotos(
     @Arg('skateSpotId', () => Int) skateSpotId: number,
@@ -202,9 +169,8 @@ export class SkateSpotResolver {
         imgLocations.push(location as string);
       });
 
-      setTimeout(() => res(imgLocations), 1000 * imgFiles.length);
+      setTimeout(() => res(imgLocations), 1500 * imgFiles.length);
     }).then(async (imgLocations) => {
-      console.log(imgLocations);
       try {
         const imageUrls = JSON.parse(skateSpot.imageUrls);
         skateSpot.imageUrls = JSON.stringify([...imageUrls, ...(imgLocations as Array<string>)]);

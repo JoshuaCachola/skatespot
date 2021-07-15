@@ -19,7 +19,6 @@ export const s3MultipleUpload = async (imgFiles: Array<Upload>, imgLinks: Array<
           setTimeout(res, 1000);
         }
       });
-      // imgLinks.push(await Location);
     });
 
     return imgLinks;

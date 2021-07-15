@@ -7,14 +7,14 @@ import { useMediaQuery } from 'react-responsive';
 import { GetSkateSpotDocument, useGetSkateSpotsQuery } from '../generated/graphql';
 import { Footer } from './components/Footer';
 import { AverageReviewStars } from './components/AverageReviewStars';
-import { searchResults } from 'src/graphql/reactive-variables/searchResults';
 
 export const SkateSpotResults: React.FC = () => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1024px)' });
   const isMobile = useMediaQuery({ query: '(max-width: 415px)' });
+
   const { data, loading, client, fetchMore } = useGetSkateSpotsQuery({
     fetchPolicy: 'network-only',
-    variables: { limit: 10 },
+    variables: { limit: 6 },
   });
 
   const handleSkateSpotClick = (skatespot) => {
@@ -28,13 +28,11 @@ export const SkateSpotResults: React.FC = () => {
   };
 
   const handleGetMoreSkateSpots = async () => {
-    const results = await fetchMore({
+    await fetchMore({
       variables: { cursor: data?.getSkateSpots[data?.getSkateSpots.length - 1].id, limit: 5 },
     });
-    console.log(results);
   };
 
-  console.log(searchResults());
   return (
     <div className="bg-gray-50">
       <Header />
@@ -94,7 +92,6 @@ export const SkateSpotResults: React.FC = () => {
                         <Carousel
                           showThumbs={false}
                           infiniteLoop={true}
-                          // dynamicHeight={true}
                           emulateTouch={true}
                           showIndicators={false}
                           showStatus={false}

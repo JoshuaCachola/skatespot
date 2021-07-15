@@ -27,8 +27,7 @@ export const Home: React.FC<Props> = () => {
   const [skateSpots, setSkateSpots] = useState<Array<any>>([]);
 
   const { data, loading, error } = useGetSkateSpotsQuery({
-    fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: 'cache-first',
+    fetchPolicy: 'network-only',
   });
 
   useEffect(() => {
