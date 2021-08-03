@@ -26,11 +26,7 @@ interface RefreshTokenPayload {
   app.use(cookieParser());
   app.use(
     cors({
-      origin: `${
-        process.env.NODE_ENV === 'production'
-          ? 'http://skatespot-alb-1172579719.us-west-2.elb.amazonaws.com'
-          : 'http://localhost:3007'
-      }`,
+      origin: `${process.env.NODE_ENV === 'production' ? 'http://skatespot.net' : 'http://localhost:3007'}`,
       credentials: true,
     }),
   );
@@ -79,7 +75,7 @@ interface RefreshTokenPayload {
   });
 
   apolloServer.applyMiddleware({ app, cors: false });
-  const port = process.env.PORT || 6000;
+  const port = process.env.PORT || 4000;
 
   app.listen(port, () => {
     console.log('express server started...');
