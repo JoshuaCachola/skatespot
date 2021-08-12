@@ -54,7 +54,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
                           name="query"
                           type="text"
                           autoComplete="off"
-                          placeholder="Try California..."
+                          placeholder="Try searching skate..."
                           maxLength={64}
                           className="cursor-text inline-block w-full focus:outline-none"
                           onClick={() => setIsFindSearchOpen(true)}
@@ -80,8 +80,10 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
                                         <div className="flex justify-center align-middle overflow-hidden mr-2">
                                           <img src={JSON.parse(result.imageUrls)[0]} alt="" className="h-12 w-12" />
                                         </div>
-                                        <div className="text-sm font-normal">
-                                          <p>{result.name.length > 50 ? result.name.slice(0, 40) : result.name}</p>
+                                        <div className="text-sm font-light">
+                                          <p className="font-bold">
+                                            {result.name.length > 50 ? result.name.slice(0, 40) : result.name}
+                                          </p>
                                           <p>{result.categoryName}</p>
                                         </div>
                                       </div>
@@ -91,9 +93,8 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
                               );
                             })
                           ) : (
-                            <ul className="m-4 relative z-50">
-                              <li>skaters</li>
-                              <li>skatespots</li>
+                            <ul className="m-4 relative z-50 font-light">
+                              <li>skate spots</li>
                             </ul>
                           )}
                         </div>
@@ -105,47 +106,6 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
             </div>
           </div>
         </div>
-        {/* near input */}
-        {/* <div className="flex-1 block box-border">
-          <div className="table min-w-full table-auto">
-            <div className="table-cell box-border align-top">
-              <div className="block min-w-full box-border align-top">
-                <div className="shadow-lg mt-4">
-                  <label
-                    className={`rounded-l-none relative rounded-r-none px-3 py-3 text-lg font-bold bg-white box-border block w-full mt-0 mb-5 mx-0 ${
-                      isNearSearchOpen ? 'rounded-b-none' : 'rounded-b-none'
-                    }`}
-                  >
-                    <div className="flex">
-                      <span className="mr-3 text-gray-600">Near</span>
-                      <span className="block flex-grow">
-                        <input
-                          name="near"
-                          id="near"
-                          type="text"
-                          autoComplete="off"
-                          placeholder="San Jose, CA"
-                          maxLength={64}
-                          className="cursor-text inline-block w-full box-border focus:outline-none"
-                          onClick={() => {
-                            setIsNearSearchOpen(!isNearSearchOpen);
-                          }}
-                          onChange={formik.handleChange}
-                        />
-                      </span>
-                    </div>
-                    {isNearSearchOpen && (
-                      <div className="absolute rounded-b rounded-t-none w-full left-px bg-white mt-3 shadow-lg border-t z-50">
-                        <ul className="m-4">
-                          <li>Current Location</li>
-                          <li>San Jose</li>
-                        </ul>
-                      </div>
-                    )}
-                  </label>
-                </div>
-              </div>
-            </div> */}
         {/* search button */}
         <div className="box-border table-cell align-top">
           <button

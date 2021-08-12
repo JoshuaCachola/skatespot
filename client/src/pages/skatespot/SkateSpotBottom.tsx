@@ -72,8 +72,6 @@ export const SkateSpotBottom: React.FC<Props> = ({ skatespot }) => {
                       </p>
                     </div>
                   </div>
-                  {/* Popular times histogram
-                  <div></div> */}
                 </div>
               </div>
               {/* Skatespot Obstacles */}
@@ -88,10 +86,6 @@ export const SkateSpotBottom: React.FC<Props> = ({ skatespot }) => {
                       </div>
                     );
                   })}
-                {/* <div className="border-gray-100 rounded mx-2 bg-white border-2 shadow-2xl" key={obstacle}>
-                  <img src={skatespotObstacleImages[obstacle]} alt="" className="py-4 max-w-44 max-h-20" />
-                  <h3 className="text-center italic font-semibold">{obstacle}</h3>
-                </div> */}
               </div>
               {/* Reviews */}
               <div className="border-t border-black border-dashed">
