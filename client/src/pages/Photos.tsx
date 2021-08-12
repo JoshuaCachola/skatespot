@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
-// import SkateSpot1 from '../assets/SkateSpot1.jpg';
 import { AverageReviewStars } from './components/AverageReviewStars';
 import { ImageModal } from 'src/utils/ImageModal';
 import { useMediaQuery } from 'react-responsive';
@@ -10,61 +9,6 @@ import { useMediaQuery } from 'react-responsive';
 interface Props {
   location: any;
 }
-
-// const photos = [
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-//   SkateSpot1,
-// ];
 
 export const Photos: React.FC<Props> = ({ location }) => {
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 769px)' });
@@ -157,18 +101,6 @@ export const Photos: React.FC<Props> = ({ location }) => {
         {/* Photos grid */}
         <div className="flex">
           <ul className="grid grid-flow-row grid-cols-5 grid-rows-5 gap-4">
-            {/* {JSON.parse(skateSpot.imageUrls).map((photo, idx) => {
-              return (
-                <li
-                  className="w-40 max-h-40 cursor-pointer flex justify-center bg-black rounded"
-                  id={idx.toString()}
-                  key={idx}
-                  onClick={(e) => handleImageClick(e)}
-                >
-                  <img src={photo} alt="" className="object-cover align-middle rounded" />
-                </li>
-              );
-            })} */}
             {photos &&
               photos.slice(sliceRange[0], sliceRange[1]).map((photo, idx) => {
                 return (

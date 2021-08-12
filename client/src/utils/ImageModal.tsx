@@ -45,28 +45,12 @@ export const ImageModal: React.FC<Props> = ({ images, setIsOpen, idx, setIdx }) 
                 <img src={currentImage} alt="img-modal" className="h-auto w-full" />
               </div>
             </div>
-            {/* Comments */}
-            {/* <div className="w-96 h-200 bg-gray-50">
-              <div>
-                <p>Images from </p>
-              </div>
-            </div> */}
           </div>
           <div className="absolute text-white font-bold top-1/2 left-1.5 border rounded border-white p-1">
-            <button
-              onClick={() => handleChangeImage('LEFT')}
-              // disabled={}
-            >
-              Left
-            </button>
+            <button onClick={() => handleChangeImage('PREV')}>Left</button>
           </div>
           <div className="absolute text-white font-bold top-1/2 right-1.5 border rounded border-white p-1">
-            <button
-              onClick={() => handleChangeImage('RIGHT')}
-              // disabled={}
-            >
-              Right
-            </button>
+            <button onClick={() => handleChangeImage('NEXT')}>Right</button>
           </div>
           <div className="absolute text-white right-1">
             <h4>

@@ -4,7 +4,6 @@ import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSearchLazyQuery } from 'src/generated/graphql';
 import ClickAwayListener from 'react-click-away-listener';
-import { searchResults } from 'src/graphql/reactive-variables/searchResults';
 
 const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
   const formik = useFormik({
@@ -12,11 +11,11 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
       query: '',
     },
     onSubmit: () => {
-      searchResults(data?.search);
-      if (data?.search.length === 1) {
-        history.push(`/skate-spot/${data.search[0].name}`);
-      }
-      history.push({ pathname: '/search', search: `query=${formik.values.query}` });
+      history.push({
+        pathname: '/search',
+        search: `query=${formik.values.query}`,
+        state: { skatespots: data?.search },
+      });
     },
   });
 

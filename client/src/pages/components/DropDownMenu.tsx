@@ -139,7 +139,7 @@ const DropDownMenu: React.FC<Props> = ({ type }) => {
                   <div className="px-1 mr-5 border-l border-t border-r-4 border-b-4 border-black rounded">
                     <FontAwesomeIcon icon={['fas', 'user-plus']} />
                   </div>
-                  <Link to="/sign-up" className="font-semibold">
+                  <Link to="/register" className="font-semibold">
                     Sign Up
                   </Link>
                 </div>

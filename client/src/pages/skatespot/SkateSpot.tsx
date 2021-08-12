@@ -32,7 +32,7 @@ export const SkateSpot: React.FC<LocationProps> = ({ location }) => {
       setImagesIdx(0);
     };
   }, []);
-
+  console.log(data);
   const handleImageClick = (idx) => {
     if (isOpen) {
       return;

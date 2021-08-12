@@ -14,7 +14,7 @@ export const SkateSpotResults: React.FC = () => {
 
   const { data, loading, client, fetchMore } = useGetSkateSpotsQuery({
     fetchPolicy: 'network-only',
-    variables: { limit: 6 },
+    variables: { limit: 5 },
   });
 
   const handleSkateSpotClick = (skatespot) => {
