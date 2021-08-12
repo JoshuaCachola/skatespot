@@ -66,7 +66,7 @@ export class SkateSpot extends BaseEntity {
   reviewsCount: number;
 
   @Field()
-  @Column('text', { default: [], nullable: true })
+  @Column('text', { default: [] })
   skatespotObstacles: string;
 
   @Field()

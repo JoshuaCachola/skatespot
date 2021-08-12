@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SkateSpotReviews } from './SkateSpotReviews';
-// import { skatespotObstacleImages } from '../../utils/skatespotObstacles';
+import { skatespotObstacleImages } from '../../utils/skatespotObstacles';
 import { useMediaQuery } from 'react-responsive';
 
 interface Props {
@@ -79,7 +79,7 @@ export const SkateSpotBottom: React.FC<Props> = ({ skatespot }) => {
               {/* Skatespot Obstacles */}
               <h2 className="font-semibold text-lg">Skatespot Obstacles</h2>
               <div className="flex mt-5 mb-10 justify-between border border-gray-100 py-8 px-4 bg-gray-100 rounded w-full shadow-xl">
-                {/* {skatespot.skatespotObstacles &&
+                {skatespot.skatespotObstacles &&
                   JSON.parse(skatespot.skatespotObstacles).map((obstacle) => {
                     return (
                       <div className="border-gray-100 rounded mx-2 bg-white border-2 shadow-2xl" key={obstacle}>
@@ -87,7 +87,7 @@ export const SkateSpotBottom: React.FC<Props> = ({ skatespot }) => {
                         <h3 className="text-center italic font-semibold">{obstacle}</h3>
                       </div>
                     );
-                  })} */}
+                  })}
                 {/* <div className="border-gray-100 rounded mx-2 bg-white border-2 shadow-2xl" key={obstacle}>
                   <img src={skatespotObstacleImages[obstacle]} alt="" className="py-4 max-w-44 max-h-20" />
                   <h3 className="text-center italic font-semibold">{obstacle}</h3>

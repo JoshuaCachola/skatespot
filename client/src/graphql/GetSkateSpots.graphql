@@ -13,5 +13,6 @@ query GetSkateSpots($cursor: Int, $limit: Int) {
     location
     reviewsCount
     reviewsDistribution
+    skatespotObstacles
   }
 }

@@ -29,7 +29,6 @@ export type Mutation = {
   __typename?: 'Mutation';
   register: Scalars['Boolean'];
   login: LoginResponse;
-  revokeRefreshTokenForUser: Scalars['Boolean'];
   logout: Scalars['Boolean'];
   updateProfilePicture: User;
   createSkateSpot: Scalars['Boolean'];
@@ -52,11 +51,6 @@ export type MutationRegisterArgs = {
 export type MutationLoginArgs = {
   password: Scalars['String'];
   email: Scalars['String'];
-};
-
-
-export type MutationRevokeRefreshTokenForUserArgs = {
-  userId: Scalars['Int'];
 };
 
 
@@ -180,6 +174,8 @@ export type User = {
   username: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
+  city: Scalars['String'];
+  state: Scalars['String'];
   createdAt: Scalars['DateTime'];
   profilePicture: Scalars['String'];
 };
@@ -223,7 +219,7 @@ export type GetSkateSpotQuery = (
   { __typename?: 'Query' }
   & { getSkateSpot: (
     { __typename?: 'SkateSpot' }
-    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'city' | 'state' | 'street' | 'postalCode' | 'temporarilyClosed' | 'permanentlyClosed' | 'imageUrls' | 'location' | 'reviewsCount' | 'reviewsDistribution'>
+    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'city' | 'state' | 'street' | 'postalCode' | 'temporarilyClosed' | 'permanentlyClosed' | 'imageUrls' | 'location' | 'reviewsCount' | 'reviewsDistribution' | 'skatespotObstacles'>
   ) }
 );
 
@@ -254,7 +250,7 @@ export type GetSkateSpotsQuery = (
   { __typename?: 'Query' }
   & { getSkateSpots: Array<(
     { __typename?: 'SkateSpot' }
-    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'city' | 'state' | 'street' | 'postalCode' | 'temporarilyClosed' | 'permanentlyClosed' | 'imageUrls' | 'location' | 'reviewsCount' | 'reviewsDistribution'>
+    & Pick<SkateSpot, 'id' | 'name' | 'categoryName' | 'city' | 'state' | 'street' | 'postalCode' | 'temporarilyClosed' | 'permanentlyClosed' | 'imageUrls' | 'location' | 'reviewsCount' | 'reviewsDistribution' | 'skatespotObstacles'>
   )> }
 );
 
@@ -488,6 +484,7 @@ export const GetSkateSpotDocument = gql`
     location
     reviewsCount
     reviewsDistribution
+    skatespotObstacles
   }
 }
     `;
@@ -581,6 +578,7 @@ export const GetSkateSpotsDocument = gql`
     location
     reviewsCount
     reviewsDistribution
+    skatespotObstacles
   }
 }
     `;
